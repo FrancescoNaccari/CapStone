@@ -1,0 +1,97 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import "node_modules/bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+// $primary: #ffcc00; // Colore primario
+// $secondary: #ffffff; // Colore secondario
+// $body-bg: #0e1014; // Colore di sfondo per il tema dark
+// $text-color: #ffffff; // Colore del testo per il tema dark
+
+
+$body-bg: #12192B;  // Sfondo generale
+$navbar-bg: #0B1426;  // Sfondo della navbar
+$chart-bg: #122036;  // Sfondo del grafico
+$card-bg: #122F4D;  // Sfondo delle card
+$btn-primary-bg: #2EA5FB;  // Sfondo dei bottoni
+$title-color: #1199FA;  // Colore dei titoli e icone
+$text-light: #FFFFFF;  // Colore dei titoli h1-h2
+
+
+$increase-color: #00A68C;  // Colore per aumenti
+$decrease-color: #FF0000;  // Colore per diminuzioni
+$utilities: (
+    "width": (
+      property: width,
+      class: w,
+      responsive: true,
+      values: (
+        25: 25%,
+        50: 50%,
+        75: 75%,
+        100: 100%,
+        auto: auto
+      )
+    ),
+    "font-size": (
+      property: font-size,
+      class: fs,
+      responsive: true,
+      values: (
+        1: 0.875rem, // Dimensione 1
+        2: 1rem,     // Dimensione 2 (default)
+        3: 1.25rem,  // Dimensione 3
+        4: 1.5rem    // Dimensione 4
+      )
+  )
+);
+// Importa Bootstrap
+@import 'bootstrap/scss/bootstrap';
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+body {
+    background-color: $body-bg;
+    color: $text-light;
+  }
+  
+  .navbar {
+    background-color: $navbar-bg;
+  }
+  
+  .card {
+    background-color: $card-bg;
+    color: $text-light;
+  }
+  
+  .btn-primary {
+    background-color: $btn-primary-bg;
+    border-color: $btn-primary-bg;
+  }
+  
+  h1, h2 {
+    color: $text-light;
+  }
+
+  h5{
+    color: $title-color;
+
+  }
+
+  .title-icon ,h5 {
+    color: $title-color;
+  }
+  
+  .increase {
+    color: $increase-color;
+  }
+  
+  .decrease {
+    color: $decrease-color;
+  }
+  
+ 
+  .chart {
+    background-color: $chart-bg;
+    color: $text-light;
+  }
+

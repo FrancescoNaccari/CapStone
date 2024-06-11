@@ -1,0 +1,17 @@
+<table>
+    <thead>
+      <tr>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stock of stocks">
+        <td><a [routerLink]="['/stocks', stock.symbol]">{{ stock.symbol }}</a></td>
+        <td>{{ stock.price }}</td>
+        <td>{{ stock.timestamp }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
