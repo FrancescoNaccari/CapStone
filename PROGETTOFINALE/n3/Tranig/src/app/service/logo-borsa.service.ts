@@ -39,45 +39,98 @@ export class LogoBorsaService {
 // 		'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
 // 	}
 // };
+// // }
+// private apiUrl = `${environment.apiURL}logo`;
+
+// constructor(private http: HttpClient, private apiKeyService: ApiKeyService) {}
+
+// private fetchLogoWithKey(symbol: string, apiKey: string): Observable<LogoBorsa> {
+//   const url = `${this.apiUrl}?symbol=${symbol}`;
+//   const httpOptions = {
+//     headers: new HttpHeaders({
+//       'x-rapidapi-key': apiKey,
+//       'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
+//     })
+//   };
+
+//   return this.http.get<LogoBorsa>(url, httpOptions).pipe(
+//     catchError(error => {
+//       console.error('Errore durante la chiamata API con la chiave:', apiKey, error);
+//       return throwError(() => new Error('Chiamata API fallita'));
+//     })
+//   );
+// }
+
+// getLogo(symbol: string): Observable<LogoBorsa> {
+//   return new Observable<LogoBorsa>(observer => {
+//     const attemptFetch = () => {
+//       const apiKey = this.apiKeyService.getNextKey();
+//       this.fetchLogoWithKey(symbol, apiKey).subscribe({
+//         next: data => {
+//           observer.next(data);
+//           observer.complete();
+//         },
+//         error: () => {
+//           console.warn('Tentativo con chiave fallito, provo con la chiave successiva');
+//           attemptFetch(); // Prova con la chiave successiva
+//         }
+//       });
+//     };
+
+//     attemptFetch(); // Chiamata iniziale
+//   });
+// }
 // }
 private apiUrl = `${environment.apiURL}logo`;
 
-constructor(private http: HttpClient, private apiKeyService: ApiKeyService) {}
+  constructor(private http: HttpClient, private apiKeyService: ApiKeyService) {}
 
-private fetchLogoWithKey(symbol: string, apiKey: string): Observable<LogoBorsa> {
-  const url = `${this.apiUrl}?symbol=${symbol}`;
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'x-rapidapi-key': apiKey,
-      'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
-    })
-  };
-
-  return this.http.get<LogoBorsa>(url, httpOptions).pipe(
-    catchError(error => {
-      console.error('Errore durante la chiamata API con la chiave:', apiKey, error);
-      return throwError(() => new Error('Chiamata API fallita'));
-    })
-  );
-}
-
-getLogo(symbol: string): Observable<LogoBorsa> {
-  return new Observable<LogoBorsa>(observer => {
-    const attemptFetch = () => {
-      const apiKey = this.apiKeyService.getNextKey();
-      this.fetchLogoWithKey(symbol, apiKey).subscribe({
-        next: data => {
-          observer.next(data);
-          observer.complete();
-        },
-        error: () => {
-          console.warn('Tentativo con chiave fallito, provo con la chiave successiva');
-          attemptFetch(); // Prova con la chiave successiva
-        }
-      });
+  private fetchLogoWithKey(symbol: string, apiKey: string): Observable<LogoBorsa> {
+    const url = `${this.apiUrl}?symbol=${symbol}`;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
+      })
     };
 
-    attemptFetch(); // Chiamata iniziale
-  });
-}
+    return this.http.get<LogoBorsa>(url, httpOptions).pipe(
+      catchError(error => {
+        if (error.status === 429) {
+          console.error('Errore 429: Crediti API esauriti.');
+        } else {
+          console.error('Errore durante la chiamata API con la chiave:', apiKey, error);
+        }
+        return throwError(() => new Error('Chiamata API fallita'));
+      })
+    );
+  }
+
+  getLogo(symbol: string): Observable<LogoBorsa> {
+    return new Observable<LogoBorsa>(observer => {
+      const attemptFetch = () => {
+        const apiKey = this.apiKeyService.getNextKey();
+        this.fetchLogoWithKey(symbol, apiKey).subscribe({
+          next: (data: any) => {
+            if (data.code === 429) {
+              return attemptFetch();
+            }
+            console.log('Risposta API del logo:', data);
+            observer.next(data);
+            observer.complete();
+          },
+          error: (err) => {
+            if (err.message.includes('Chiamata API fallita')) {
+              observer.error('Crediti API esauriti. Riprova domani.');
+            } else {
+              console.warn('Tentativo con chiave fallito, provo con la chiave successiva');
+              attemptFetch(); // Prova con la chiave successiva
+            }
+          }
+        });
+      };
+
+      attemptFetch(); // Chiamata iniziale
+    });
+  }
 }

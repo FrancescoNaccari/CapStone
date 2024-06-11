@@ -48,8 +48,8 @@ export class BorsaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getStocks();
     this.getTimeSeries(this.interval);
+    this.getStocks();
     this.initChart();
     this.getLogo();
 

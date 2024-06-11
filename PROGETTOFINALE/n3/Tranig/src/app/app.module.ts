@@ -14,6 +14,7 @@ import { WebsocketComponent } from './components/websocket/websocket.component';
 import { GraficoFinanziarioComponent } from './components/grafico-finanziario/grafico-finanziario.component';
 import { FinanziarioComponent } from './components/finanziario/finanziario.component';
 import { BorsaComponent } from './components/borsa/borsa.component';
+import { StockCardComponent } from './components/stock-card/stock-card.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { BorsaComponent } from './components/borsa/borsa.component';
     FooterComponent,
     GraficoFinanziarioComponent,
     FinanziarioComponent,
-    BorsaComponent
+    BorsaComponent,
+    StockCardComponent
   ],
   imports: [
     BrowserModule,

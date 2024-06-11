@@ -76,8 +76,13 @@ getTimeSeries(symbol: string, interval: string): Observable<TimeSeries> {
       const apiKey = this.apiKeyService.getNextKey();
       this.fetchTimeSeriesWithKey(symbol, interval, apiKey).subscribe({
         next: data => {
-          observer.next(data);
-          observer.complete();
+          if (data && data.values) {
+            observer.next(data);
+            observer.complete();
+          } else {
+            console.error('Dati delle serie temporali non disponibili');
+            observer.error(new Error('Dati delle serie temporali non disponibili'));
+          }
         },
         error: () => {
           console.warn('Tentativo con chiave fallito, provo con la chiave successiva');
@@ -90,4 +95,3 @@ getTimeSeries(symbol: string, interval: string): Observable<TimeSeries> {
   });
 }
 }
-

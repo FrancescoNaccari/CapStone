@@ -5,7 +5,7 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { RealTimePriceResponse } from 'src/app/interface/real-time-price-response.interface';
 import { StockList } from 'src/app/interface/stock-list.interface';
 import { TimeSeries } from 'src/app/interface/time-series-data.interface';
-import { FinanziarioService } from 'src/app/service/finanziario.service';
+
 import { TwelveDataService } from 'src/app/service/twelve-data.service';
 
 @Component({

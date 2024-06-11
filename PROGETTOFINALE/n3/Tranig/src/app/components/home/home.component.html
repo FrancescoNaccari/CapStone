@@ -1,8 +1,16 @@
-<div>
-<p>home works!sdds</p>
-<h2>sdfsdfsdsdffsd</h2>
-<!-- <app-grafic-charts></app-grafic-charts> -->
+<div class="container m-0">
+    <div class="row m-2">
+      <div class="col-12 col-md-4">
+        <app-stock-card [stock]="stock"></app-stock-card>
+      </div>
+      <div class="col-12 col-md-8">
+        <app-borsa></app-borsa>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+      {{ errorMessage }}
+    </div>
+  </div>
+
 <!-- <app-grafico-finanziario></app-grafico-finanziario>
 <app-finanziario></app-finanziario> -->
-<app-borsa></app-borsa>
-</div>
