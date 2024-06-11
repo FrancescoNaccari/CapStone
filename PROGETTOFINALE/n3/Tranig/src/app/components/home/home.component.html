@@ -1,7 +1,7 @@
 <div class="container m-0">
     <div class="row m-2">
       <div class="col-12 col-md-4">
-        <app-stock-card [stock]="stock"></app-stock-card>
+        <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock"></app-stock-card>
       </div>
       <div class="col-12 col-md-8">
         <app-borsa></app-borsa>

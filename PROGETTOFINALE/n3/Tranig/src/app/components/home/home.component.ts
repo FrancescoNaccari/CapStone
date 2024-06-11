@@ -99,18 +99,76 @@ export class HomeComponent implements OnInit {
 //       }
 //     );
 //   }
+// // }
+// stock: any = {};
+// symbol: string = 'AMZN';
+// errorMessage: string | null = null;
+
+// allStocks: any[] = [];
+// displayedStocks: any[] = [];
+
+// constructor(
+//   private realTimePriceService: RealTimePriceService,
+//   private logoBorsaService: LogoBorsaService,
+//   private stockListService: StockListService
+// ) { }
+
+// ngOnInit(): void {
+//   this.getStockData();
+// }
+
+// getStockData(): void {
+//   this.getRealTimePrice();
+//   this.getLogo();
+// }
+
+// getLogo(): void {
+//   this.logoBorsaService.getLogo(this.symbol).subscribe(
+//     (response: LogoBorsa) => {
+//       console.log('Logo URL:', response.url);
+//       if (response && response.url) {
+//         this.stock.logo = response.url;
+//       } else {
+//         console.error('Logo URL non trovato nella risposta:', response);
+//       }
+//     },
+//     (error) => {
+//       this.errorMessage = error;
+//       console.error('Errore durante il recupero del logo', error);
+//     }
+//   );
+// }
+
+// getRealTimePrice(): void {
+//   this.realTimePriceService.getRealTimePrice(this.symbol).subscribe(
+//     (response: RealTimePriceResponse) => {
+//       console.log('Risposta del prezzo in tempo reale:', response);
+//       this.stock.name = this.symbol;
+//       this.stock.price = response.price;
+//       this.stock.increased = true; // Aggiusta la logica se necessario
+//     },
+//     (error) => {
+//       console.error('Errore durante il recupero del prezzo in tempo reale', error);
+//     }
+//   );
+// }
 // }
 stock: any = {};
 symbol: string = 'AMZN';
 errorMessage: string | null = null;
 
+allStocks: any[] = [];
+displayedStocks: any[] = [];
+
 constructor(
   private realTimePriceService: RealTimePriceService,
-  private logoBorsaService: LogoBorsaService
+  private logoBorsaService: LogoBorsaService,
+  private stockListService: StockListService
 ) { }
 
 ngOnInit(): void {
   this.getStockData();
+  this.getStocks();
 }
 
 getStockData(): void {
@@ -147,5 +205,22 @@ getRealTimePrice(): void {
       console.error('Errore durante il recupero del prezzo in tempo reale', error);
     }
   );
+}
+
+getStocks(): void {
+  this.stockListService.getStockList().subscribe(
+    (stocks: any[]) => {
+      this.allStocks = stocks;
+      this.displayRandomStocks();
+    },
+    (error) => {
+      console.error('Errore durante il recupero delle azioni', error);
+    }
+  );
+}
+
+displayRandomStocks(): void {
+  const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
+  this.displayedStocks = shuffled.slice(0, 5);
 }
 }
