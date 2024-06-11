@@ -933,3 +933,16 @@ select::-ms-expand {
    
    filter: drop-shadow(1px 2px 7px #1199FA);
 }
+
+.star {
+   cursor: pointer;
+   margin-left: 10px;
+ }
+ 
+ .fa-star {
+   color: gold;
+ }
+ 
+ .fa-star-o {
+   color: gray;
+ }

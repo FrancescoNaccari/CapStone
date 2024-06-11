@@ -396,5 +396,11 @@ export class BorsaComponent implements OnInit {
     // Impostazione del colore di sfondo del canvas
     this.myChartRef.style.backgroundColor = '#122036';
   }
+
+  toggleFavorite(stock: any): void {
+    stock.favorite = !stock.favorite;
+    console.log(`${stock.name} è stato ${stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
+    // Qui puoi aggiungere la logica per salvare lo stato dei preferiti, ad esempio, aggiornando un servizio o memorizzandolo in localStorage.
+  }
 }
 

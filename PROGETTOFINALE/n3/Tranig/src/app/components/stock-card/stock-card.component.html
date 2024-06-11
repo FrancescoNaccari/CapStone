@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row ">
         <div class=" card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2 "
             *ngIf="stock?.name">
@@ -9,6 +9,115 @@
                 ${{ stock.price | number:'1.0-2' }}
                 <div *ngIf="stock.increased" class="arrow up">▲</div>
                 <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="container">
+    <div class="row">
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+            </div>
+        </div>
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+            </div>
+        </div>
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+            </div>
+        </div>
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+            </div>
+        </div>
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+            </div>
+        </div>
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+            </div>
+        </div>
+        <div class="card-color d-flex align-items-center justify-content-between border border-1 rounded-2 m-2" *ngIf="stock?.name">
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="w-25" [src]="stock.logo" alt="Logo Stock" />
+                <h4 class="m-0">{{ stock.name }}&nbsp;</h4>
+            </div>
+            <div class="d-flex fs-3 fw-bold" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+                ${{ stock.price | number:'1.0-2' }}
+                <div *ngIf="stock.increased" class="arrow up">▲</div>
+                <div *ngIf="!stock.increased" class="arrow down">▼</div>
+            </div>
+            <!-- Icona della stella per salvare nei preferiti -->
+            <div class="star" (click)="toggleFavorite(stock)">
+                <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
             </div>
         </div>
     </div>

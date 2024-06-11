@@ -1,16 +1,15 @@
+.star {
+  cursor: pointer;
+  margin-left: 10px;
+}
 
-  
+.fa-star {
+  color: gold;
+}
 
-  
-  .arrow.up {
-    color: green;
-  }
-  
-  .arrow.down {
-    color: red;
-  }
-  
-  
+.fa-star-o {
+  color: gray;
+}
   .text-green {
     color: green; // Colore verde se il prezzo aumenta
   }
