@@ -57,7 +57,7 @@ export class BorsaComponent implements OnInit {
     // Aggiorna il prezzo ogni 10 secondi
     setInterval(() => {
       this.getRealTimePrice();
-    }, 30000);
+    }, 60000);//da cambiare
   }
   ngAfterViewInit(): void {
     this.initChart();
@@ -289,13 +289,13 @@ export class BorsaComponent implements OnInit {
   getFontSize(): number {
     const width = window.innerWidth;
     if (width < 576) {
-      return 8;
+      return 7;
     } else if (width < 768) {
-      return 10;
+      return 7;
     } else if (width < 992) {
-      return 12;
+      return 9;
     } else {
-      return 14;
+      return 11;
     }
   }
 

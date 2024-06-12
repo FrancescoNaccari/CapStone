@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 @import "node_modules/bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
 // $primary: #ffcc00; // Colore primario
@@ -8,97 +7,106 @@
 // $body-bg: #0e1014; // Colore di sfondo per il tema dark
 // $text-color: #ffffff; // Colore del testo per il tema dark
 
+$body-bg: #12192b; // Sfondo generale
+$navbar-bg: #0b1426; // Sfondo della navbar
+$chart-bg: #122036; // Sfondo del grafico
+$card-bg: #122f4d; // Sfondo delle card
+$btn-primary-bg: #2ea5fb; // Sfondo dei bottoni
+$title-color: #1199fa; // Colore dei titoli e icone
+$text-light: #ffffff; // Colore dei titoli h1-h2
 
-$body-bg: #12192B;  // Sfondo generale
-$navbar-bg: #0B1426;  // Sfondo della navbar
-$chart-bg: #122036;  // Sfondo del grafico
-$card-bg: #122F4D;  // Sfondo delle card
-$btn-primary-bg: #2EA5FB;  // Sfondo dei bottoni
-$title-color: #1199FA;  // Colore dei titoli e icone
-$text-light: #FFFFFF;  // Colore dei titoli h1-h2
-
-
-$increase-color: #00A68C;  // Colore per aumenti
-$decrease-color: #FF0000;  // Colore per diminuzioni
+$increase-color: #00a68c; // Colore per aumenti
+$decrease-color: #ff0000; // Colore per diminuzioni
 $utilities: (
     "width": (
-      property: width,
-      class: w,
-      responsive: true,
-      values: (
-        25: 25%,
-        35: 35%,
-        50: 50%,
-        60: 60%,
-        75: 75%,
-        100: 100%,
-        auto: auto
-      )
+        property: width,
+        class: w,
+        responsive: true,
+        values: (
+            25: 25%,
+            35: 35%,
+            50: 50%,
+            60: 60%,
+            75: 75%,
+            100: 100%,
+            auto: auto,
+        ),
     ),
     "font-size": (
-      property: font-size,
-      class: fs,
-      responsive: true,
-      values: (
-        1: 0.76rem, // Dimensione 1
-        2: 1rem,     // Dimensione 2 (default)
-        3: 1.25rem,  // Dimensione 3
-        4: 1.5rem    // Dimensione 4
-      )
-  )
+        property: font-size,
+        class: fs,
+        responsive: true,
+        values: (
+            1: 0.76rem,
+            // Dimensione 1
+            2: 1rem,
+            // Dimensione 2 (default)
+            3: 1.25rem,
+            // Dimensione 3
+            4: 1.5rem,
+            // Dimensione 4
+            5: 0.6rem //Dimensione micrio,
+        ),
+    ),
 );
 // Importa Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 body {
     background-color: $body-bg;
     color: $text-light;
-  }
-  
-  .navbar {
+    // font-family:Helvetica ;
+    // font-family: Helvetica, Arial, sans-serif !important;
+}
+// body,html{
+//   font-family: Helvetica, Arial, sans-serif !important;
+// }
+
+
+.navbar {
     background-color: $navbar-bg;
-  }
-  
-  .card {
+}
+
+.card {
     background-color: $card-bg;
     color: $text-light;
-  }
-  
-  .btn-primary {
+}
+
+.btn-primary {
     background-color: $btn-primary-bg;
     border-color: $btn-primary-bg;
-  }
-  
-  h1, h2 {
+}
+
+h1,
+h2 {
     color: $text-light;
-  }
+}
 
-  h5{
+h5 {
     color: $title-color;
+}
 
-  }
-
-  .title-icon ,h5 {
+.title-icon,
+h5 {
     color: $title-color;
-  }
-  
-  .increase {
+}
+
+.increase {
     color: $increase-color;
-  }
-  
-  .decrease {
+}
+
+.decrease {
     color: $decrease-color;
-  }
-  
- 
-  .chart {
+}
+
+.chart {
     background-color: $chart-bg;
     color: $text-light;
-  }
+}
 
-  .card-color {
+.card-color {
     background-color: #122036;
     color: white;
     padding: 10px;
- }
+}

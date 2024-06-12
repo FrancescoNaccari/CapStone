@@ -97,7 +97,7 @@ private apiUrl = `${environment.apiURL}logo`;
     return this.http.get<LogoBorsa>(url, httpOptions).pipe(
       catchError(error => {
         if (error.status === 429) {
-          console.error('Errore 429: Crediti API esauriti.');
+          console.error('Errore 429: Crediti API gratuiti esauriti.');
         } else {
           console.error('Errore durante la chiamata API con la chiave:', apiKey, error);
         }
@@ -121,7 +121,7 @@ private apiUrl = `${environment.apiURL}logo`;
           },
           error: (err) => {
             if (err.message.includes('Chiamata API fallita')) {
-              observer.error('Crediti API esauriti. Riprova domani.');
+              observer.error('Crediti API gratuiti esauriti. Riprova domani.');
             } else {
               console.warn('Tentativo con chiave fallito, provo con la chiave successiva');
               attemptFetch(); // Prova con la chiave successiva

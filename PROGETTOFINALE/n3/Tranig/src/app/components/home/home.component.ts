@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit {
 // }
 // }
 stock: any = {};
-symbol: string = 'AMZN';
+symbol: string = '';
 errorMessage: string | null = null;
 
 allStocks: any[] = [];
@@ -177,10 +177,12 @@ getStockData(): void {
 }
 
 getLogo(): void {
-  this.logoBorsaService.getLogo(this.symbol).subscribe(
+  console.log(this.stock)
+  this.logoBorsaService.getLogo(this.stock.symbol).subscribe(
     (response: LogoBorsa) => {
       console.log('Logo URL:', response.url);
       if (response && response.url) {
+     
         this.stock.logo = response.url;
       } else {
         console.error('Logo URL non trovato nella risposta:', response);
@@ -220,7 +222,7 @@ getStocks(): void {
 }
 
 displayRandomStocks(): void {
-  const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
-  this.displayedStocks = shuffled.slice(0, 5);
+  const shuffled = this.allStocks.sort(() => 0.1 - Math.random());
+  this.displayedStocks = shuffled.slice(0, 1);
 }
 }

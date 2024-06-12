@@ -17,3 +17,14 @@
   .text-red {
     color: red; // Colore rosso se il prezzo diminuisce
   }
+
+  .logo-lg {
+    width: 100%; /* Default behavior */
+}
+
+@media (min-width: 992px) {
+    .logo-lg {
+        max-width: 40px;
+        max-height: 40px;
+    }
+}
