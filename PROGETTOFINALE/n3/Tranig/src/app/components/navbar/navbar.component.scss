@@ -1,6 +1,9 @@
 
-  .dropdown-item {
+  .dropdown-item,
+  .dropdown-menu {
     color: white; /* Colore del testo */
+    background-color:#0b1426;
+    // #0b1426;#122036
  }
  
  .dropdown-item:hover {
@@ -10,7 +13,8 @@
  }
  
  .dropdown-menu {
+  top: 55px;
   left: 0 !important;
   right: auto !important;
-  transform: translateX(-23%);
+  transform: translateX(-11%);
 }
