@@ -1,7 +1,8 @@
 package nextDevs.CapstonebackEnd.dto;
 
-import it.nextdevs.EpicEnergyServices.enums.TipoUtente;
+
 import lombok.Data;
+import nextDevs.CapstonebackEnd.enums.TipoUtente;
 
 @Data
 public class UserDataDto {

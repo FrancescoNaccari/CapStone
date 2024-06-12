@@ -1,12 +1,12 @@
 package nextDevs.CapstonebackEnd.controller;
 
 
-import it.nextdevs.EpicEnergyServices.dto.AuthDataDto;
-import it.nextdevs.EpicEnergyServices.dto.UserDto;
-import it.nextdevs.EpicEnergyServices.dto.UserLoginDto;
-import it.nextdevs.EpicEnergyServices.exception.BadRequestException;
-import it.nextdevs.EpicEnergyServices.service.AuthService;
-import it.nextdevs.EpicEnergyServices.service.UserService;
+import nextDevs.CapstonebackEnd.dto.AuthDataDto;
+import nextDevs.CapstonebackEnd.dto.UserDto;
+import nextDevs.CapstonebackEnd.dto.UserLoginDto;
+import nextDevs.CapstonebackEnd.exception.BadRequestException;
+import nextDevs.CapstonebackEnd.service.AuthService;
+import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;

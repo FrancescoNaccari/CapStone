@@ -2,8 +2,9 @@ package nextDevs.CapstonebackEnd.security;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import it.nextdevs.EpicEnergyServices.exception.UnauthorizedException;
-import it.nextdevs.EpicEnergyServices.model.User;
+
+import nextDevs.CapstonebackEnd.exception.UnauthorizedException;
+import nextDevs.CapstonebackEnd.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

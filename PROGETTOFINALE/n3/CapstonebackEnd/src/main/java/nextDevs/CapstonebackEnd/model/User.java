@@ -1,8 +1,9 @@
-package it.nextdevs.EpicEnergyServices.model;
+package nextDevs.CapstonebackEnd.model;
 
-import it.nextdevs.EpicEnergyServices.enums.TipoUtente;
+
 import jakarta.persistence.*;
 import lombok.Data;
+import nextDevs.CapstonebackEnd.enums.TipoUtente;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

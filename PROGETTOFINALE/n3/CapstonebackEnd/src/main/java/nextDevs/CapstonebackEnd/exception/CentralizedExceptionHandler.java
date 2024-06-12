@@ -1,5 +1,6 @@
 package nextDevs.CapstonebackEnd.exception;
 
+import nextDevs.CapstonebackEnd.model.Error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,7 +12,7 @@ public class CentralizedExceptionHandler extends ResponseEntityExceptionHandler 
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<Object> NonTrovatoHandler(NotFoundException e) {
-        Error error = new Error();
+       Error error = new Error();
         error.setMessaggio(e.getMessage());
         error.setDataErrore(LocalDateTime.now());
         error.setStatoErrore(HttpStatus.NOT_FOUND);

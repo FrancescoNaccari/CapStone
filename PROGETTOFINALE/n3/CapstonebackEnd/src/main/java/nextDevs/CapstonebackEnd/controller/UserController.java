@@ -1,12 +1,14 @@
 package nextDevs.CapstonebackEnd.controller;
 
-import it.nextdevs.EpicEnergyServices.dto.UserDataDto;
-import it.nextdevs.EpicEnergyServices.dto.UserDto;
-import it.nextdevs.EpicEnergyServices.exception.BadRequestException;
-import it.nextdevs.EpicEnergyServices.exception.NotFoundException;
-import it.nextdevs.EpicEnergyServices.model.User;
-import it.nextdevs.EpicEnergyServices.service.UserService;
+
+import nextDevs.CapstonebackEnd.dto.UserDataDto;
+import nextDevs.CapstonebackEnd.dto.UserDto;
+import nextDevs.CapstonebackEnd.exception.BadRequestException;
+import nextDevs.CapstonebackEnd.exception.NotFoundException;
+import nextDevs.CapstonebackEnd.model.User;
+import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -30,8 +32,8 @@ public class UserController {
     @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public Page<User> getAllUser(@RequestParam(defaultValue = "0") int page,
-                                   @RequestParam (defaultValue = "15") int size,
-                                   @RequestParam (defaultValue = "id") String sortBy) {
+                                 @RequestParam (defaultValue = "15") int size,
+                                 @RequestParam (defaultValue = "id") String sortBy) {
         return userService.getAllUsers(page, size, sortBy);
     }
 

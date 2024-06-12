@@ -1,13 +1,14 @@
 package nextDevs.CapstonebackEnd.security;
 
-import it.nextdevs.EpicEnergyServices.exception.NotFoundException;
-import it.nextdevs.EpicEnergyServices.exception.UnauthorizedException;
-import it.nextdevs.EpicEnergyServices.model.User;
-import it.nextdevs.EpicEnergyServices.service.UserService;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import nextDevs.CapstonebackEnd.exception.NotFoundException;
+import nextDevs.CapstonebackEnd.exception.UnauthorizedException;
+import nextDevs.CapstonebackEnd.model.User;
+import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

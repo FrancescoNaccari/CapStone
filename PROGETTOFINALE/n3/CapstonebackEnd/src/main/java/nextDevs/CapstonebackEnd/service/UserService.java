@@ -1,13 +1,14 @@
 package nextDevs.CapstonebackEnd.service;
 
 import com.cloudinary.Cloudinary;
-import it.nextdevs.EpicEnergyServices.dto.UserDataDto;
-import it.nextdevs.EpicEnergyServices.dto.UserDto;
-import it.nextdevs.EpicEnergyServices.enums.TipoUtente;
-import it.nextdevs.EpicEnergyServices.exception.BadRequestException;
-import it.nextdevs.EpicEnergyServices.exception.NotFoundException;
-import it.nextdevs.EpicEnergyServices.model.User;
-import it.nextdevs.EpicEnergyServices.repository.UserRepository;
+
+import nextDevs.CapstonebackEnd.dto.UserDataDto;
+import nextDevs.CapstonebackEnd.dto.UserDto;
+import nextDevs.CapstonebackEnd.enums.TipoUtente;
+import nextDevs.CapstonebackEnd.exception.BadRequestException;
+import nextDevs.CapstonebackEnd.exception.NotFoundException;
+import nextDevs.CapstonebackEnd.model.User;
+import nextDevs.CapstonebackEnd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

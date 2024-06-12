@@ -1,12 +1,13 @@
 package nextDevs.CapstonebackEnd.service;
 
 
-import it.nextdevs.EpicEnergyServices.dto.AuthDataDto;
-import it.nextdevs.EpicEnergyServices.dto.UserDataDto;
-import it.nextdevs.EpicEnergyServices.dto.UserLoginDto;
-import it.nextdevs.EpicEnergyServices.exception.UnauthorizedException;
-import it.nextdevs.EpicEnergyServices.model.User;
-import it.nextdevs.EpicEnergyServices.security.JwtTool;
+
+import nextDevs.CapstonebackEnd.dto.AuthDataDto;
+import nextDevs.CapstonebackEnd.dto.UserDataDto;
+import nextDevs.CapstonebackEnd.dto.UserLoginDto;
+import nextDevs.CapstonebackEnd.exception.UnauthorizedException;
+import nextDevs.CapstonebackEnd.model.User;
+import nextDevs.CapstonebackEnd.security.JwtTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
