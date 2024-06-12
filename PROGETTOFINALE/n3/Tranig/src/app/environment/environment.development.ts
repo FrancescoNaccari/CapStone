@@ -1,6 +1,8 @@
 export const environment = {
     production: false,
     apiURL: 'https://twelve-data1.p.rapidapi.com/',
+    apiBack: 'http://localhost:8080/',
+
     apikey1:'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',
     apikey2: 'cd3894b0d7mshbc73272a7368134p190ff5jsn2c7fc6bd8552',
     apikey3: 'c2fb0b1b22mshea2d2089ad7b9bfp135f67jsnecd8d1d4ae6e',

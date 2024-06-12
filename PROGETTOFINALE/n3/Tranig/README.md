@@ -31,6 +31,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 # Istallazione 
 npm install chart.js 
 npm i bootstrap@5.3.3
+npm install @auth0/angular-jwt
+
 
 
 ## palette COLORI

@@ -1,0 +1,147 @@
+<!-- <div class="container">
+  <div class="my-5 fw-semibold">
+    <h1>Profilo</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-6">
+      <div class="border border-1 border-black rounded-4 w-100 p-3 mb-4">
+        <div class="row">
+          <div class="col-3 d-flex justify-content-center clicca" (click)="avatarChange.click()">
+              <input type="file" id="avatarChange" #avatarChange (change)="onFileSelected($event)" class="d-none" />
+              <div style="width: max-content;" class="position-relative">
+                <img [src]="previewUrl" height="100" style="border-radius: 50%;" width="100" alt="Immagine Profilo">
+                <div class="border bg-light border-black position-absolute bottom-0 end-0" style="border-radius: 50%;width: 30px; height: 30px;">
+                  <i class="bi-pencil-fill position-absolute start-50 translate-middle top-50" style="font-size: 0.9em;"></i>
+                </div>
+              </div>
+          </div>
+          <div class="col-9">
+              <p class="m-1"><span class="verdescuro fw-semibold">{{profilo?.nome}} {{profilo?.cognome}}</span></p>
+              <p class="m-1">{{profilo?.email}}</p>
+              <p class="m-1">{{profilo?.username}}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="border border-1 border-black rounded-4 w-100 px-5 py-3 ">
+        <div class="d-flex align-items-center">
+          <div class="col-10">
+            <h5>Password Attuale</h5>
+          </div>
+          <div class="col-2">
+            <p class="p-0 m-0">**********</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="col-10">
+            <div class="form-floating my-3 me-3">
+              <input class="form-control" type="password" id="cambioPassword" />
+              <label for="cambioPassword">Modifica Password</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-success">Cambia</button>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="col-10">
+            <h5>Username Attuale</h5>
+          </div>
+          <div class="col-2">
+            <p class="p-0 m-0">{{profilo?.username}}</p>
+          </div>
+        </div>
+        <div class="d-flex align-items-center">
+          <div class="col-10">
+            <div class="form-floating my-3 me-3">
+              <input class="form-control" type="text" id="cambioUsername" />
+              <label for="cambioUsername">Modifica Username</label>
+            </div>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-success">Cambia</button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div> -->
+<div class="container">
+    <div class="my-5 fw-semibold">
+      <h1>Profilo</h1>
+    </div>
+  
+    <div class="row">
+      <div class="col-6">
+        <div class="border border-1 border-black rounded-4 w-100 p-3 mb-4">
+          <div class="row">
+            <!-- Avatar Section -->
+            <div class="col-3 d-flex justify-content-center clicca" (click)="avatarChange.click()">
+              <input type="file" id="avatarChange" #avatarChange (change)="onFileSelected($event)" class="d-none" />
+              <div style="width: max-content;" class="position-relative">
+                <img [src]="previewUrl" height="100" style="border-radius: 50%;" width="100" alt="Immagine Profilo">
+                <div class="border bg-light border-black position-absolute bottom-0 end-0" style="border-radius: 50%;width: 30px; height: 30px;">
+                  <i class="bi-pencil-fill position-absolute start-50 translate-middle top-50" style="font-size: 0.9em;"></i>
+                </div>
+              </div>
+          </div>
+            <!-- Profile Info Section -->
+            <div class="col-9">
+              <p class="m-1"><span class="verdescuro fw-semibold">{{profilo?.nome}} {{profilo?.cognome}}</span></p>
+              <p class="m-1">{{profilo?.email}}</p>
+              <p class="m-1">{{profilo?.username}}</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Change Password Section -->
+        <div class="border border-1 border-black rounded-4 w-100 px-5 py-3">
+          <div class="d-flex align-items-center">
+            <div class="col-10">
+              <h5>Password Attuale</h5>
+            </div>
+            <div class="col-2">
+              <p class="p-0 m-0">**********</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="col-10">
+              <div class="form-floating my-3 me-3">
+                <input class="form-control" type="password" id="newPassword" name="newPassword" ngModel required>
+                <label for="newPassword">Nuova Password</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn btn-success" (click)="updatePassword()">Cambia</button>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Change Username Section -->
+        <div class="border border-1 border-black rounded-4 w-100 px-5 py-3">
+          <div class="d-flex align-items-center">
+            <div class="col-10">
+              <h5>Username Attuale</h5>
+            </div>
+            <div class="col-2">
+              <p class="p-0 m-0">{{ profilo?.username }}</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-center">
+            <div class="col-10">
+              <div class="form-floating my-3 me-3">
+                <input class="form-control" type="text" id="newUsername" name="newUsername" ngModel required>
+                <label for="newUsername">Nuovo Username</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn btn-success" (click)="updateUsername()">Cambia</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
