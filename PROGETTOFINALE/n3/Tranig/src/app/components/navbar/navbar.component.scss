@@ -1,6 +1,15 @@
-.navbar {
-    background-color: #343a40;
-  }
-  .navbar .navbar-brand, .navbar .nav-link {
-    color: #f8f9fa;
-  }
+
+  .dropdown-item {
+    color: white; /* Colore del testo */
+ }
+ 
+ .dropdown-item:hover {
+    background-color: white; /* Colore di sfondo quando si passa sopra un elemento */
+    color:#1199FA; /* Colore del testo quando si passa sopra un elemento */
+    font-weight: bold;
+ }
+ 
+ .dropdown-menu {
+  left: 0 !important;
+  right: auto !important;
+}
