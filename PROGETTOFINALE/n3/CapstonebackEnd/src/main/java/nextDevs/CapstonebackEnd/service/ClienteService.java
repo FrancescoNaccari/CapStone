@@ -1,11 +1,9 @@
-package it.nextdevs.EpicEnergyServices.service;
+package nextDevs.CapstonebackEnd.service;
 
 import com.cloudinary.Cloudinary;
 import it.nextdevs.EpicEnergyServices.dto.ClienteDto;
-import it.nextdevs.EpicEnergyServices.dto.UserDataDto;
-import it.nextdevs.EpicEnergyServices.model.Cliente;
 import it.nextdevs.EpicEnergyServices.exception.NotFoundException;
-import it.nextdevs.EpicEnergyServices.model.User;
+import it.nextdevs.EpicEnergyServices.model.Cliente;
 import it.nextdevs.EpicEnergyServices.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;

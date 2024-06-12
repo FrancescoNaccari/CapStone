@@ -1,5 +1,4 @@
-package it.nextdevs.EpicEnergyServices.controller;
-
+package nextDevs.CapstonebackEnd.controller;
 
 
 import it.nextdevs.EpicEnergyServices.dto.AuthDataDto;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

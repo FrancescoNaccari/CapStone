@@ -1,4 +1,4 @@
-package it.nextdevs.EpicEnergyServices.repository;
+package nextDevs.CapstonebackEnd.repository;
 
 import it.nextdevs.EpicEnergyServices.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

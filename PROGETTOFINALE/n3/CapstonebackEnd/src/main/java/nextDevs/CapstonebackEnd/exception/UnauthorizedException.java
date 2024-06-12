@@ -1,4 +1,4 @@
-package it.nextdevs.EpicEnergyServices.exception;
+package nextDevs.CapstonebackEnd.exception;
 
 public class UnauthorizedException extends RuntimeException{
 

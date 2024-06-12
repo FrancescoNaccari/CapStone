@@ -1,4 +1,4 @@
-package it.nextdevs.EpicEnergyServices.enums;
+package nextDevs.CapstonebackEnd.enums;
 
 public enum TipoUtente {
     ADMIN,USER,CLIENTE

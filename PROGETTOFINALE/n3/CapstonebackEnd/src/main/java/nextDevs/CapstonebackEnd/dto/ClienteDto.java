@@ -1,10 +1,8 @@
-package it.nextdevs.EpicEnergyServices.dto;
+package nextDevs.CapstonebackEnd.dto;
 
 import it.nextdevs.EpicEnergyServices.enums.TipoSocieta;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.time.LocalDate;
 
 @Data
 public class ClienteDto {

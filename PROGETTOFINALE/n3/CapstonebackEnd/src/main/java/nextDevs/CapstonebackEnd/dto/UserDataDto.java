@@ -1,8 +1,6 @@
-package it.nextdevs.EpicEnergyServices.dto;
+package nextDevs.CapstonebackEnd.dto;
 
 import it.nextdevs.EpicEnergyServices.enums.TipoUtente;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 @Data
