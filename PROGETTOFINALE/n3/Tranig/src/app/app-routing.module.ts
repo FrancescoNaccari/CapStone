@@ -7,10 +7,13 @@ import { AuthGuard } from './guard/auth.guard';
 import { ProfiloComponent } from './components/profilo/profilo.component';
 import { LeadingComment } from '@angular/compiler';
 import { LoginComponent } from './components/login/login.component';
+import { BorsaComponent } from './components/borsa/borsa.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
+  // { path: "borse", component: BorsaComponent, canActivate: [AuthGuard]},
+ 
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: "error404", component: Error404Component },
   { path: "**", redirectTo: "error404" }

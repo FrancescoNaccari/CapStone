@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthData } from 'src/app/interface/auth-data.interface';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
 import { RealTimePriceResponse } from 'src/app/interface/real-time-price-response.interface';
+import { AuthService } from 'src/app/service/auth.service';
 
 import { LogoBorsaService } from 'src/app/service/logo-borsa.service';
 import { RealTimePriceService } from 'src/app/service/real-time-price.service';
@@ -153,22 +155,27 @@ export class HomeComponent implements OnInit {
 //   );
 // }
 // }
+
 stock: any = {};
 symbol: string = '';
 errorMessage: string | null = null;
-
+user!: AuthData | null
 allStocks: any[] = [];
 displayedStocks: any[] = [];
 
 constructor(
   private realTimePriceService: RealTimePriceService,
   private logoBorsaService: LogoBorsaService,
-  private stockListService: StockListService
+  private stockListService: StockListService,
+  private authSrv: AuthService
 ) { }
 
 ngOnInit(): void {
   this.getStockData();
   this.getStocks();
+  this.authSrv.user$.subscribe((data) => {
+    this.user = data
+  })
 }
 
 getStockData(): void {

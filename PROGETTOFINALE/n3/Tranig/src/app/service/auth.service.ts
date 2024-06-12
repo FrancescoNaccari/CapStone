@@ -64,7 +64,7 @@ export class AuthService {
     }
     const user:AuthData = JSON.parse(userJson);
     this.authSub.next(user);
-    this.router.navigate(['/dashboard'])
+    this.router.navigate(['/home'])
     this.autoLogout(user);
   }
 

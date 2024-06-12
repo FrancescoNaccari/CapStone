@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     onSubmit(form:NgForm) {
       try {
         this.authSrv.login(form.value).subscribe((data) => {
-          this.router.navigate(['/borsa'])
+          this.router.navigate(['/home'])
         });
       } catch (error) {
         console.log(error)
