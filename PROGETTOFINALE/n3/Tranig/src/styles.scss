@@ -52,17 +52,14 @@ $utilities: (
 // Importa Bootstrap
 @import "bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/bootstrap";
+body,html{ font-family: Helvetica, Arial, sans-serif !important;}
 
 body {
     background-color: $body-bg;
     color: $text-light;
-    // font-family:Helvetica ;
-    // font-family: Helvetica, Arial, sans-serif !important;
+  
+    
 }
-// body,html{
-//   font-family: Helvetica, Arial, sans-serif !important;
-// }
-
 
 .navbar {
     background-color: $navbar-bg;

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg fs-5">
+<nav class="navbar navbar-expand-lg fs-5 fs-lg-2">
   <div class="container-fluid p-0">
     <a class="navbar-brand overb ms-3" [routerLink]="['/']">
       <img src="./assets/triangle.png" width="10" alt="logo" />
@@ -32,13 +32,13 @@
       <div class="dropdown d-flex align-items-center">
         <div class="d-flex flex-column text-center">
           <p class="text-danger m-0">Benvenuto</p>
-          <!-- <p class="m-0 fw-bold fs-5">{{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}</p> -->
-          <p class="m-0 fw-bold fs-5"> cazzimie</p>
+          <!-- <p class="m-0 fw-bold fs-5 fs-lg-2">{{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}</p> -->
+          <p class="m-0 fw-bold fs-5 fs-lg-2"> cazzimie</p>
         </div>
-        <button class="btn dropdown-toggle rounded-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn dropdown-toggle rounded-0 mx-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img width="10" src="./assets/down.png" alt="">
         </button>
-        <ul class="dropdown-menu dropdown-menu-end fs-5 text-center">
+        <ul class="dropdown-menu dropdown-menu-end fs-5 fs-lg-2 text-center">
           <li>
             <a class="dropdown-item" href="#">
               <!-- <img width="20" src="{{ checkTypeOfAuthData(user) ? user.user.thumbnailUrl : checkTypeOfSocialUser(user) ? user.photoUrl : '' }}" alt="avatar" />
@@ -52,7 +52,7 @@
           </li>
           <li><a class="dropdown-item" href="#">Centro Assistenza</a></li>
           <li class="p-1">
-            <button (click)="logout()" type="button" class="btn btn-danger fs-5 ">Logout</button>
+            <button (click)="logout()" type="button" class="btn btn-danger fs-5 fs-lg-2 ">Logout</button>
           </li>
         </ul>
       </div>

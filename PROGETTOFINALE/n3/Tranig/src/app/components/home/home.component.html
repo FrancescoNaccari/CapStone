@@ -1,9 +1,9 @@
-<div class="container m-0">
-    <div class="row m-2">
+<div class="container-fluid  m-0">
+    <div class="row justify-content-between m-2">
       <div class="col-12 col-md-4 p-0 p-lg-2">
         <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock"></app-stock-card>
       </div>
-      <div class="col-12 col-md-8 p-0 p-lg-2">
+      <div class="col-12 col-md-8 p-0  p-lg-2">
         <app-borsa></app-borsa>
       </div>
     </div>
@@ -12,5 +12,3 @@
     </div>
   </div>
 
-<!-- <app-grafico-finanziario></app-grafico-finanziario>
-<app-finanziario></app-finanziario> -->
