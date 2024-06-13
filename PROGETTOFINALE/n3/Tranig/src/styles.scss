@@ -104,6 +104,9 @@ h5 {
 
 .card-color {
     background-color: #122036;
-    color: white;
-    padding: 10px;
+     padding: 10px;
+
+    background: linear-gradient(to right, rgb(255, 255, 255) -280%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
+    // background: linear-gradient(to right, rgb(255, 255, 255) -1000%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
+
 }

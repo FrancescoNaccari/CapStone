@@ -27,6 +27,9 @@ export class BorsaComponent implements OnInit {
   symbol: string = "AMZN";// Impostazione di default
   stocks: StockList[] = []; //lista per popolare la lista del form sui nomi dey symbol 
   // exchange: string ="NASDAQ";
+  searchTerm: string = ''; // Variabile per memorizzare il termine di ricerca
+  filteredStocks: StockList[] = []; // Lista di azioni filtrate
+  
   price: number | undefined;//prezzo singolo tempo reale
   quote: QuoteBorse | undefined;
   timeSeries: TimeSeries | undefined;
@@ -63,12 +66,20 @@ export class BorsaComponent implements OnInit {
     this.initChart();
   }
 
+  onSearchChange(event: any): void {
+    this.searchTerm = event.target.value;
+    if (this.searchTerm.length > 0) {
+      this.filteredStocks = this.stocks.filter(stock => stock.symbol.toLowerCase().includes(this.searchTerm.toLowerCase()));
+    } else {
+      this.filteredStocks = [];
+    }
+  }
   selectStock(selectedSymbol: string): void {
     this.symbol = selectedSymbol;
-    console.log(`Symbol selected: ${this.symbol}`);
+    this.searchTerm = '';
+    this.filteredStocks = [];
     this.onSymbolChange(this.symbol); // Chiamata alla funzione per gestire il cambio di simbolo
   }
-
 
   getLogo(): void {
     console.log('Chiamato getLogo()');
@@ -200,7 +211,7 @@ export class BorsaComponent implements OnInit {
   onIntervalChange(newInterval: string): void {
     this.interval = newInterval;
     this.selectedInterval = newInterval; // Imposta l'intervallo selezionato
-    this.interval = newInterval;
+  
     // Qui puoi fare ciò che desideri con il nuovo valore dell'intervallo, ad esempio aggiornare i dati
     console.log('Nuovo intervallo selezionato:', newInterval);
     // Chiamare le funzioni necessarie per aggiornare i dati

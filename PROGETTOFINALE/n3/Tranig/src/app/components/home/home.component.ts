@@ -229,7 +229,7 @@ getStocks(): void {
 }
 
 displayRandomStocks(): void {
-  const shuffled = this.allStocks.sort(() => 0.1 - Math.random());
-  this.displayedStocks = shuffled.slice(0, 1);
+  const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
+  this.displayedStocks = shuffled.slice(0, 5);
 }
 }
