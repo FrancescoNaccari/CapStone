@@ -1,2 +1,9 @@
-package nextDevs.CapstonebackEnd.dto;public class LogoDto {
+package nextDevs.CapstonebackEnd.dto;
+
+import lombok.Data;
+
+@Data
+public class LogoDto {
+    private String symbol;
+    private String url;
 }

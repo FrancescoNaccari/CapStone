@@ -66,6 +66,8 @@ export class BorsaComponent implements OnInit {
     this.initChart();
   }
 
+
+
   onSearchChange(event: any): void {
     this.searchTerm = event.target.value;
     if (this.searchTerm.length > 0) {
@@ -122,6 +124,11 @@ export class BorsaComponent implements OnInit {
       // Se il simbolo è presente, chiama il servizio per ottenere il prezzo in tempo reale
       this.realTimePriceService.getRealTimePrice(this.symbol).subscribe(
         (response: RealTimePriceResponse) => {
+          this.stocks.forEach((stock) => {
+          if(stock.symbol === this.symbol){
+            this.stock.name=stock.name
+          }
+          });
           this.price = response.price; // Salva il prezzo attuale
           this.stock.price = response.price; // Aggiorna il prezzo dell'azione
           this.stock.increased = response.price >= (Number(this.quote?.previous_close) || 0); // Verifica se il prezzo è aumentato rispetto alla chiusura precedente

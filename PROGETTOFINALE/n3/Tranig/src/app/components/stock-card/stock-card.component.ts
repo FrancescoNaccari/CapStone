@@ -13,40 +13,17 @@ import { StockListService } from 'src/app/service/stock-list.service';
 export class StockCardComponent implements OnInit {
   @Input() stock: any;
 
-  constructor(  private realTimePriceService: RealTimePriceService,
-    private logoBorsaService: LogoBorsaService,
-    private stockListService: StockListService) { }
+  constructor(private realTimePriceService: RealTimePriceService) { }
 
   ngOnInit(): void {
-    this.getLogo();
-    this.getRealTimePrice()
+    this.getRealTimePrice();
     console.log('Dati stock in stock-card:', this.stock); // Verifica che i dati vengano ricevuti
-  }
-
-  getLogo(): void {
-    console.log(this.stock)
-    this.logoBorsaService.getLogo(this.stock.symbol).subscribe(
-      (response: LogoBorsa) => {
-        console.log('Logo URL:', response.url);
-        if (response && response.url) {
-         
-          this.stock.logo = response.url;
-        } else {
-          console.error('Logo URL non trovato nella risposta:', response);
-        }
-      },
-      (error) => {
-
-        console.error('Errore durante il recupero del logo', error);
-      }
-    );
   }
 
   getRealTimePrice(): void {
     this.realTimePriceService.getRealTimePrice(this.stock.symbol).subscribe(
       (response: RealTimePriceResponse) => {
         console.log('Risposta del prezzo in tempo reale:', response);
-        this.stock.name = this.stock.symbol;
         this.stock.price = response.price;
         this.stock.increased = true; // Aggiusta la logica se necessario
       },
@@ -55,7 +32,7 @@ export class StockCardComponent implements OnInit {
       }
     );
   }
-  
+
   toggleFavorite(): void {
     this.stock.favorite = !this.stock.favorite;
     console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
