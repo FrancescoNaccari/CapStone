@@ -25,4 +25,5 @@ public class LogoController {
     public Integer saveLogo(@RequestBody LogoDto logoDto) {
         return logoService.saveLogo(logoDto);
     }
+
 }
