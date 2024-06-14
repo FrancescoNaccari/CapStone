@@ -32,7 +32,7 @@ export class BorsaComponent implements OnInit {
   // exchange: string ="NASDAQ";
   searchTerm: string = ''; // Variabile per memorizzare il termine di ricerca
   filteredStocks: StockList[] = []; // Lista di azioni filtrate
-  
+
   price: number | undefined;//prezzo singolo tempo reale
   quote: QuoteBorse | undefined;
   timeSeries: TimeSeries | undefined;
@@ -70,7 +70,7 @@ export class BorsaComponent implements OnInit {
   ngAfterViewInit(): void {
     this.initChart();
   }
-//---------------------METODO PER SALVARE I LOGHI NEL DATABASE-----------------------------//
+  //---------------------METODO PER SALVARE I LOGHI NEL DATABASE-----------------------------//
   // loadAllSymbols(): void {
   //   this.stockListService.getStockList().subscribe({
   //     next: (stocks: StockList[]) => {
@@ -124,7 +124,7 @@ export class BorsaComponent implements OnInit {
     this.filteredStocks = [];
     this.onSymbolChange(this.symbol); // Chiamata alla funzione per gestire il cambio di simbolo
   }
-//------------------------- CHIAMATA ALL'API ------------------------------//
+  //------------------------- CHIAMATA ALL'API ------------------------------//
   // getLogo(): void {
   //   console.log('Chiamato getLogo()');
   //   if (this.symbol) {
@@ -198,15 +198,26 @@ export class BorsaComponent implements OnInit {
   getStocks(): void {
     this.logoBorsaService.getAllLogos().subscribe(
       (response: LogoDto[]) => {
-        let filteredStocks= response.filter(logo => logo.url !== null && logo.url !== '');
-      this.stockListService.getStockList().subscribe((response: StockList[]) => {
-        this.stocks=response.filter(stock =>{
-          return filteredStocks.map(logo => logo.symbol).includes(stock.symbol);
+        let filteredStocks = response.filter(logo => logo.url !== null && logo.url !== '');
+        let filter2: LogoDto[] = [];
+        filteredStocks.forEach(logo => {
+          let image = new Image();
+          image.src = logo.url;
+          image.onload = async function () {
+            filter2.push(logo)
+          }
+          image.onerror = function () {
+          }
         })
-        console.log(this.stocks)
-      })
+        setTimeout(() => {
+          this.stockListService.getStockList().subscribe((response: StockList[]) => {
+            this.stocks = response.filter(stock => {
+              return filter2.map(logo => logo.symbol).includes(stock.symbol);
+            })
+            console.log(this.stocks)
+          })
 
-      },
+        }, 2000)},
       (error) => {
         console.error('Errore durante il recupero della lista delle azioni', error);
         this.stocks = [];
@@ -221,9 +232,9 @@ export class BorsaComponent implements OnInit {
       this.realTimePriceService.getRealTimePrice(this.symbol).subscribe(
         (response: RealTimePriceResponse) => {
           this.stocks.forEach((stock) => {
-          if(stock.symbol === this.symbol){
-            this.stock.name=stock.name
-          }
+            if (stock.symbol === this.symbol) {
+              this.stock.name = stock.name
+            }
           });
           this.price = response.price; // Salva il prezzo attuale
           this.stock.price = response.price; // Aggiorna il prezzo dell'azione
@@ -314,7 +325,7 @@ export class BorsaComponent implements OnInit {
   onIntervalChange(newInterval: string): void {
     this.interval = newInterval;
     this.selectedInterval = newInterval; // Imposta l'intervallo selezionato
-  
+
     // Qui puoi fare ciò che desideri con il nuovo valore dell'intervallo, ad esempio aggiornare i dati
     console.log('Nuovo intervallo selezionato:', newInterval);
     // Chiamare le funzioni necessarie per aggiornare i dati
