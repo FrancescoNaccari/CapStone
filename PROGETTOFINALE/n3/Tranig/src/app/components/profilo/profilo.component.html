@@ -185,7 +185,7 @@
 
   <div class="row">
     <div class="col-6">
-      <div class="border border-1 border-black rounded-4 w-100 p-3 mb-4">
+      <div class="rounded-4 w-100 p-3 mb-4 custom-color">
         <div class="row">
           <!-- Avatar Section -->
           <div class="col-3 d-flex justify-content-center clicca" (click)="avatarChange.click()">
@@ -209,7 +209,7 @@
       </div>
 
       <!-- Change Password Section -->
-      <div class="border border-1 border-black rounded-4 w-100 px-5 py-3">
+      <div class="rounded-4 w-100 px-5 shadow py-3 custom-color">
         <div class="d-flex align-items-center">
           <div class="col-10">
             <h5>Password Attuale</h5>
@@ -231,24 +231,22 @@
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input #newPasswordField class="form-control" type="password" id="newPassword" name="newPassword"
-                [(ngModel)]="newPassword" required 	ngbPopover="a password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
+                [(ngModel)]="newPassword" required 	ngbPopover="La password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
                 numero e un carattere speciale (!, @, #, $, %, ^, &, *)."
                 placement="bottom"   popoverClass="fs-5"
                 container="body">
               <label for="newPassword" class="label-custom">Nuova Password</label>
             </div>
-            <!-- <small class="text-muted">
-              L
-            </small> -->
+          
           </div>
         </div>
         <div class="d-flex align-items-center">
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
-                [(ngModel)]="confirmPassword" required ngbPopover="a password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
+                [(ngModel)]="confirmPassword" required ngbPopover="La password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
                 numero e un carattere speciale (!, @, #, $, %, ^, &, *)."
-                placement="bottom"   popoverClass="fs-5"
+                placement="bottom"   popoverClass="fs-5 custom-popover" 
                 container="body">
               <label for="confirmPassword" class="label-custom">Conferma Nuova Password</label>
             </div>
@@ -266,7 +264,7 @@
       </div>
 
       <!-- Change Username Section -->
-      <div class="border border-1 border-black rounded-4 w-100 px-5 py-3">
+      <div class=" rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
         <div class="d-flex align-items-center">
           <div class="col-10">
             <h5>Username Attuale</h5>
