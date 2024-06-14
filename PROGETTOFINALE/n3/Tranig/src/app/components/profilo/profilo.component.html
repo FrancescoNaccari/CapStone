@@ -178,7 +178,7 @@
   </div>
 </div> -->
 
-<div class="container">
+<div class="container text-white">
   <div class="my-5 fw-semibold">
     <h1>Profilo</h1>
   </div>
@@ -231,12 +231,14 @@
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input #newPasswordField class="form-control" type="password" id="newPassword" name="newPassword"
-                [(ngModel)]="newPassword" required>
+                [(ngModel)]="newPassword" required 	ngbPopover="a password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
+                numero e un carattere speciale (!, @, #, $, %, ^, &, *)."
+                placement="bottom"   popoverClass="fs-5"
+                container="body">
               <label for="newPassword" class="label-custom">Nuova Password</label>
             </div>
             <!-- <small class="text-muted">
-              La password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
-              numero e un carattere speciale (!, @, #, $, %, ^, &, *).
+              L
             </small> -->
           </div>
         </div>
@@ -244,7 +246,10 @@
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input class="form-control" type="password" id="confirmPassword" name="confirmPassword"
-                [(ngModel)]="confirmPassword" required>
+                [(ngModel)]="confirmPassword" required ngbPopover="a password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un
+                numero e un carattere speciale (!, @, #, $, %, ^, &, *)."
+                placement="bottom"   popoverClass="fs-5"
+                container="body">
               <label for="confirmPassword" class="label-custom">Conferma Nuova Password</label>
             </div>
             <div *ngIf="passwordError" class="text-danger">
@@ -255,7 +260,7 @@
             </div>
           </div>
           <div class="col-2">
-            <button type="button" class="btn btn-success" (click)="updatePassword()">Cambia</button>
+            <button type="button" class="btn btn-primary rounded-5" (click)="updatePassword()">Cambia</button>
           </div>
         </div>
       </div>
@@ -274,11 +279,11 @@
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input class="form-control" type="text" id="newUsername" name="newUsername" ngModel required>
-              <label for="newUsername">Nuovo Username</label>
+              <label for="newUsername" class="label-custom">Nuovo Username</label>
             </div>
           </div>
           <div class="col-2">
-            <button type="button" class="btn btn-success" (click)="updateUsername()">Cambia</button>
+            <button type="button" class="btn btn-primary rounded-5" (click)="updateUsername()">Cambia</button>
           </div>
         </div>
       </div>

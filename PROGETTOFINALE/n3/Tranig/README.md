@@ -32,7 +32,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 npm install chart.js 
 npm i bootstrap@5.3.3
 npm install @auth0/angular-jwt
-
+ng add @ng-bootstrap/ng-bootstrap
 
 
 ## palette COLORI

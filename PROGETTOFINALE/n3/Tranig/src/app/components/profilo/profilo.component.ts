@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 
-import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-profilo',
@@ -409,14 +409,8 @@ validatePassword(password: string): string | null {
 showErrorPopover(message: string): void {
   this.passwordError = message;
   const newPasswordField = this.newPasswordField.nativeElement;
-  const popover = new bootstrap.Popover(newPasswordField, {
-    content: message,
-    trigger: 'manual',
-    placement: 'right'
-  });
-  popover.show();
   setTimeout(() => {
-    popover.hide();
+  
     this.passwordError = null;
   }, 3000);
 }
