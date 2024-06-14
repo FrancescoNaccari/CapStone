@@ -2,6 +2,7 @@ package nextDevs.CapstonebackEnd.service;
 
 import com.cloudinary.Cloudinary;
 
+import nextDevs.CapstonebackEnd.dto.UpdatePasswordDto;
 import nextDevs.CapstonebackEnd.dto.UserDataDto;
 import nextDevs.CapstonebackEnd.dto.UserDto;
 import nextDevs.CapstonebackEnd.enums.TipoUtente;
@@ -18,6 +19,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -165,4 +167,19 @@ public class UserService {
 
         javaMailSender.send(message);
     }
+
+    public void updatePassword(int id, UpdatePasswordDto updatePasswordDto) {
+        Optional<User> userOptional = getUserById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (!passwordEncoder.matches(updatePasswordDto.getCurrentPassword(), user.getPassword())) {
+                throw new BadRequestException("La password attuale non è corretta");
+            }
+            user.setPassword(passwordEncoder.encode(updatePasswordDto.getNewPassword()));
+            userRepository.save(user);
+        } else {
+            throw new NotFoundException("User con id: " + id + " non trovato");
+        }
+    }
+
 }

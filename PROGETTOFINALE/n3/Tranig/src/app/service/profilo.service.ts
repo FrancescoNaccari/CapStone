@@ -9,16 +9,33 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class ProfiloService {
-  private apiBack=environment.apiBack;
+//   private apiBack=environment.apiBack;
 
-  constructor(private http: HttpClient,private authService: AuthService) { }
+//   constructor(private http: HttpClient,private authService: AuthService) { }
 
-  updateUser(id: number, user: Partial<User>): Observable<User> {
-    return this.http.patch<User>(`${this.apiBack}users/${id}`, user);
-  }
+//   updateUser(id: number, user: Partial<User>): Observable<User> {
+//     return this.http.patch<User>(`${this.apiBack}users/${id}`, user);
+//   }
 
-  updateAvatar(id: number, formData: FormData) : Observable<User> {
-    return this.http.patch<User>(`${this.apiBack}users/${id}/avatar`, formData)
-  }
+//   updateAvatar(id: number, formData: FormData) : Observable<User> {
+//     return this.http.patch<User>(`${this.apiBack}users/${id}/avatar`, formData)
+//   }
+
+// }
+private apiBack = environment.apiBack;
+
+constructor(private http: HttpClient, private authService: AuthService) { }
+
+updateUser(id: number, user: Partial<User>): Observable<User> {
+  return this.http.patch<User>(`${this.apiBack}users/${id}`, user);
+}
+
+updateAvatar(id: number, formData: FormData): Observable<User> {
+  return this.http.patch<User>(`${this.apiBack}users/${id}/avatar`, formData);
+}
+
+updatePassword(id: number, currentPassword: string, newPassword: string): Observable<void> {
+  return this.http.patch<void>(`${this.apiBack}users/${id}/password`, { currentPassword, newPassword });
+}
 
 }

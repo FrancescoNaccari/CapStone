@@ -1,6 +1,7 @@
 package nextDevs.CapstonebackEnd.controller;
 
 
+import nextDevs.CapstonebackEnd.dto.UpdatePasswordDto;
 import nextDevs.CapstonebackEnd.dto.UserDataDto;
 import nextDevs.CapstonebackEnd.dto.UserDto;
 import nextDevs.CapstonebackEnd.exception.BadRequestException;
@@ -80,5 +81,15 @@ public class UserController {
 //        return userService.patchAvatarUser(id, avatar);
 //
 //    }
+
+    @PatchMapping("/users/{id}/password")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    public void updatePassword(@PathVariable int id, @RequestBody @Validated UpdatePasswordDto updatePasswordDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new BadRequestException(bindingResult.getAllErrors().stream()
+                    .map(e -> e.getDefaultMessage()).reduce("", ((s1, s2) -> s1 + s2)));
+        }
+        userService.updatePassword(id, updatePasswordDto);
+    }
 
 }
