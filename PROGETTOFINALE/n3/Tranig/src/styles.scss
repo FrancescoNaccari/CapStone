@@ -18,12 +18,10 @@ $text-light: #ffffff; // Colore dei titoli h1-h2
 $increase-color: #00a68c; // Colore per aumenti
 $decrease-color: #ff0000; // Colore per diminuzioni
 $utilities: (
-    "width": (
-        property: width,
+    "width": (property: width,
         class: w,
         responsive: true,
-        values: (
-            25: 25%,
+        values: (25: 25%,
             35: 35%,
             50: 50%,
             60: 60%,
@@ -32,12 +30,10 @@ $utilities: (
             auto: auto,
         ),
     ),
-    "font-size": (
-        property: font-size,
+    "font-size": (property: font-size,
         class: fs,
         responsive: true,
-        values: (
-            1: 0.76rem,
+        values: (1: 0.76rem,
             // Dimensione 1
             2: 1rem,
             // Dimensione 2 (default)
@@ -52,13 +48,17 @@ $utilities: (
 // Importa Bootstrap
 @import "bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/bootstrap";
-body,html{ font-family: Helvetica, Arial, sans-serif !important;}
+
+body,
+html {
+    font-family: Helvetica, Arial, sans-serif !important;
+}
 
 body {
     background-color: $body-bg;
     color: $text-light;
-  
-    
+
+
 }
 
 .navbar {
@@ -104,9 +104,11 @@ h5 {
 
 .card-color {
     background-color: #122036;
-     padding: 10px;
+    padding: 10px;
 
     // background: linear-gradient(to right, rgb(255, 255, 255) -280%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
- background: linear-gradient(to right, rgb(255, 255, 255) -1000%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
+    //  background: linear-gradient(to right, rgb(255, 255, 255) -500%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
+    //  background: linear-gradient(to right, rgb(255, 255, 255) -640%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
+    background: linear-gradient(to right, rgb(255, 255, 255) -640%, rgb(18, 32, 54) 70%);
 
 }

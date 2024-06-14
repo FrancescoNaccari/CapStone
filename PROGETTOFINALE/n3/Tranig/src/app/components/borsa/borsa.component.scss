@@ -1093,3 +1093,11 @@ select::-ms-expand {
 .fa-star-o {
    color: gray;
 }
+
+input{
+background-color: #122036!important;
+}
+input::placeholder {
+   color: white; /* Sostituisci con il colore desiderato */
+   opacity: 0.5; /* Rendi il colore completamente opaco */
+}

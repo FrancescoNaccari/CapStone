@@ -31,22 +31,25 @@
 
       <div class="dropdown d-flex align-items-center">
         <div class="d-flex flex-column text-center">
-          <p class="text-danger m-0">Benvenuto</p>
+          <!-- <p class="text-danger m-0">Benvenuto</p> -->
           <!-- <p class="m-0 fw-bold fs-5 fs-lg-2">{{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}</p> -->
-          <p class="m-0 fw-bold fs-5 fs-lg-2"> cazzimie</p>
+          <p class="m-0 fw-bold fs-5 fs-lg-2 text-p"> {{user.user.username}}</p>
         </div>
         <button class="btn dropdown-toggle rounded-0 mx-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img width="10" src="./assets/down.png" alt="">
+          <img width="50" src="{{user.user.avatar}}" alt="">
         </button>
         <ul class="dropdown-menu dropdown-menu-end fs-5 fs-lg-2 text-center">
-          <li>
+          <!-- <li>
             <a class="dropdown-item" href="#">
-              <!-- <img width="20" src="{{ checkTypeOfAuthData(user) ? user.user.thumbnailUrl : checkTypeOfSocialUser(user) ? user.photoUrl : '' }}" alt="avatar" />
+              <img width="20" src="{{ checkTypeOfAuthData(user) ? user.user.thumbnailUrl : checkTypeOfSocialUser(user) ? user.photoUrl : '' }}" alt="avatar" />
             {{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}
-            -->
-              <img src="" alt="">
+           
+              <img width="50" src="{{user.user.avatar}}" alt="">
             </a>
           </li>
+          <li>
+            <p class="m-0 fw-bold fs-5 fs-lg-2"> {{user.user.username}}</p>
+          </li> -->
           <li>
             <a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
           </li>
