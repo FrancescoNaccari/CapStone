@@ -144,17 +144,65 @@ export class StockCardComponent implements OnInit {
   //   console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
   //   // Qui puoi aggiungere la logica per salvare lo stato dei preferiti, ad esempio, aggiornando un servizio o memorizzandolo in localStorage.
   // }
-  @Input() stock: any;
+//   @Input() stock: any;
 
-  constructor(private realTimePriceService: RealTimePriceService, private cdr: ChangeDetectorRef) { }
+//   constructor(private realTimePriceService: RealTimePriceService, private cdr: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
-    console.log('Dati stock in stock-card:', this.stock); // Verifica che i dati vengano ricevuti
-  }
+//   ngOnInit(): void {
+//     console.log('Dati stock in stock-card:', this.stock); // Verifica che i dati vengano ricevuti
+//   }
 
-  toggleFavorite(): void {
-    this.stock.favorite = !this.stock.favorite;
-    console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
-    // Qui puoi aggiungere la logica per salvare lo stato dei preferiti, ad esempio, aggiornando un servizio o memorizzandolo in localStorage.
-  }
+//   toggleFavorite(): void {
+//     this.stock.favorite = !this.stock.favorite;
+//     console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
+//     // Qui puoi aggiungere la logica per salvare lo stato dei preferiti, ad esempio, aggiornando un servizio o memorizzandolo in localStorage.
+//   }
+// }
+
+@Input() stock: any;
+
+constructor(
+  private realTimePriceService: RealTimePriceService,
+  private logoBorsaService: LogoBorsaService
+) { }
+
+ngOnInit(): void {
+  this.getRealTimePrice();
+  this.getLogo();
+  console.log('Dati stock in stock-card:', this.stock); // Verifica che i dati vengano ricevuti
+}
+
+getRealTimePrice(): void {
+  this.realTimePriceService.getRealTimePrice(this.stock.symbol).subscribe(
+    (response: RealTimePriceResponse) => {
+      console.log('Risposta del prezzo in tempo reale:', response);
+      this.stock.price = response.price;
+      this.stock.increased = response.price >= (Number(this.stock.previousClose) || 0);
+    },
+    (error) => {
+      console.error('Errore durante il recupero del prezzo in tempo reale', error);
+    }
+  );
+}
+
+getLogo(): void {
+  this.logoBorsaService.getLogo(this.stock.symbol).subscribe(
+    (response: LogoBorsa) => {
+      if (response && response.url) {
+        this.stock.logoUrl = response.url;
+      } else {
+        console.error('Logo URL non trovato nella risposta:', response);
+      }
+    },
+    (error) => {
+      console.error('Errore durante il recupero del logo', error);
+    }
+  );
+}
+
+toggleFavorite(): void {
+  this.stock.favorite = !this.stock.favorite;
+  console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
+  // Qui puoi aggiungere la logica per salvare lo stato dei preferiti, ad esempio, aggiornando un servizio o memorizzandolo in localStorage.
+}
 }

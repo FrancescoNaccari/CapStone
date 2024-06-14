@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthData } from 'src/app/interface/auth-data.interface';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
+import { LogoDto } from 'src/app/interface/logo-dto.interface';
 import { RealTimePriceResponse } from 'src/app/interface/real-time-price-response.interface';
+import { StockList } from 'src/app/interface/stock-list.interface';
 import { AuthService } from 'src/app/service/auth.service';
 
 import { LogoBorsaService } from 'src/app/service/logo-borsa.service';
@@ -156,40 +158,151 @@ export class HomeComponent implements OnInit {
 // }
 // }
 
+// stock: any = {};
+// symbol: string = '';
+// errorMessage: string | null = null;
+// user!: AuthData | null
+// allStocks: any[] = [];
+// displayedStocks: any[] = [];
+
+// constructor(
+//   private realTimePriceService: RealTimePriceService,
+//   private logoBorsaService: LogoBorsaService,
+//   private stockListService: StockListService,
+//   private authSrv: AuthService
+// ) { }
+
+// ngOnInit(): void {
+//   this.getStockData();
+//   this.getStocks();
+//   this.authSrv.user$.subscribe((data) => {
+//     this.user = data
+//   })
+// }
+
+// getStockData(): void {
+//   this.getRealTimePrice();
+//   this.getLogo();
+// }
+
+// getLogo(): void {
+//   console.log(this.stock)
+//   this.logoBorsaService.getLogo(this.stock.symbol).subscribe(
+//     (response: LogoBorsa) => {
+//       console.log('Logo URL:', response.url);
+//       if (response && response.url) {
+     
+//         this.stock.logo = response.url;
+//       } else {
+//         console.error('Logo URL non trovato nella risposta:', response);
+//       }
+//     },
+//     (error) => {
+//       this.errorMessage = error;
+//       console.error('Errore durante il recupero del logo', error);
+//     }
+//   );
+// }
+
+// getRealTimePrice(): void {
+//   this.realTimePriceService.getRealTimePrice(this.symbol).subscribe(
+//     (response: RealTimePriceResponse) => {
+//       console.log('Risposta del prezzo in tempo reale:', response);
+//       this.stock.name = this.symbol;
+//       this.stock.price = response.price;
+//       this.stock.increased = true; // Aggiusta la logica se necessario
+//     },
+//     (error) => {
+//       console.error('Errore durante il recupero del prezzo in tempo reale', error);
+//     }
+//   );
+// }
+
+// getStocks(): void {
+//   this.stockListService.getStockList().subscribe(
+//     (stocks: any[]) => {
+//       this.allStocks = stocks;
+//       this.displayRandomStocks();
+//     },
+//     (error) => {
+//       console.error('Errore durante il recupero delle azioni', error);
+//     }
+//   );
+// }
+
+// displayRandomStocks(): void {
+//   const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
+//   this.displayedStocks = shuffled.slice(0, 5);
+// }
+// }
+
+
 stock: any = {};
 symbol: string = '';
 errorMessage: string | null = null;
-user!: AuthData | null
-allStocks: any[] = [];
-displayedStocks: any[] = [];
+user!: AuthData | null;
+allStocks: StockList[] = [];
+displayedStocks: StockList[] = [];
 
 constructor(
   private realTimePriceService: RealTimePriceService,
   private logoBorsaService: LogoBorsaService,
   private stockListService: StockListService,
   private authSrv: AuthService
-) { }
+) {}
 
 ngOnInit(): void {
-  this.getStockData();
   this.getStocks();
   this.authSrv.user$.subscribe((data) => {
-    this.user = data
-  })
+    this.user = data;
+  });
 }
 
-getStockData(): void {
+getStocks(): void {
+  this.logoBorsaService.getAllLogos().subscribe(
+    (response: LogoDto[]) => {
+      let filteredStocks = response.filter(logo => logo.url !== null && logo.url !== '');
+      let filter2: LogoDto[] = [];
+      filteredStocks.forEach(logo => {
+        let image = new Image();
+        image.src = logo.url;
+        image.onload = () => {
+          filter2.push(logo);
+        };
+      });
+
+      setTimeout(() => {
+        this.stockListService.getStockList().subscribe((response: StockList[]) => {
+          this.allStocks = response.filter(stock => {
+            return filter2.map(logo => logo.symbol).includes(stock.symbol);
+          });
+          this.displayRandomStocks();
+        });
+      }, 2000);
+    },
+    (error) => {
+      console.error('Errore durante il recupero della lista delle azioni', error);
+      this.allStocks = [];
+    }
+  );
+}
+
+displayRandomStocks(): void {
+  const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
+  this.displayedStocks = shuffled.slice(0, 5);
+}
+
+getStockData(stock: any): void {
+  this.symbol = stock.symbol;
   this.getRealTimePrice();
   this.getLogo();
 }
 
 getLogo(): void {
-  console.log(this.stock)
-  this.logoBorsaService.getLogo(this.stock.symbol).subscribe(
+  this.logoBorsaService.getLogo(this.symbol).subscribe(
     (response: LogoBorsa) => {
       console.log('Logo URL:', response.url);
       if (response && response.url) {
-     
         this.stock.logo = response.url;
       } else {
         console.error('Logo URL non trovato nella risposta:', response);
@@ -208,28 +321,11 @@ getRealTimePrice(): void {
       console.log('Risposta del prezzo in tempo reale:', response);
       this.stock.name = this.symbol;
       this.stock.price = response.price;
-      this.stock.increased = true; // Aggiusta la logica se necessario
+      this.stock.increased = true; // Adjust logic as necessary
     },
     (error) => {
       console.error('Errore durante il recupero del prezzo in tempo reale', error);
     }
   );
-}
-
-getStocks(): void {
-  this.stockListService.getStockList().subscribe(
-    (stocks: any[]) => {
-      this.allStocks = stocks;
-      this.displayRandomStocks();
-    },
-    (error) => {
-      console.error('Errore durante il recupero delle azioni', error);
-    }
-  );
-}
-
-displayRandomStocks(): void {
-  const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
-  this.displayedStocks = shuffled.slice(0, 5);
 }
 }

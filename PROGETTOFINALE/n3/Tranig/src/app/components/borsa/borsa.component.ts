@@ -203,7 +203,7 @@ export class BorsaComponent implements OnInit {
         filteredStocks.forEach(logo => {
           let image = new Image();
           image.src = logo.url;
-          image.onload = async function () {
+          image.onload = function () {
             filter2.push(logo)
           }
           image.onerror = function () {
