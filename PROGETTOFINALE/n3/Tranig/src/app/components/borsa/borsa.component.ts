@@ -60,7 +60,7 @@ export class BorsaComponent implements OnInit {
     this.initChart();
     this.getLogo();
 
-    this.loadAllSymbols();
+    // this.loadAllSymbols();
 
     // Aggiorna il prezzo ogni 10 secondi
     setInterval(() => {
@@ -70,42 +70,42 @@ export class BorsaComponent implements OnInit {
   ngAfterViewInit(): void {
     this.initChart();
   }
+//---------------------METODO PER SALVARE I LOGHI NEL DATABASE-----------------------------//
+  // loadAllSymbols(): void {
+  //   this.stockListService.getStockList().subscribe({
+  //     next: (stocks: StockList[]) => {
+  //       this.stocks = stocks;
+  //       const symbols = this.stocks.map(stock => stock.symbol);
+  //       this.loadAllLogos(symbols);
+  //     },
+  //     error: err => {
+  //       console.error('Errore durante il recupero dei simboli', err);
+  //     }
+  //   });
+  // }
 
-  loadAllSymbols(): void {
-    this.stockListService.getStockList().subscribe({
-      next: (stocks: StockList[]) => {
-        this.stocks = stocks;
-        const symbols = this.stocks.map(stock => stock.symbol);
-        this.loadAllLogos(symbols);
-      },
-      error: err => {
-        console.error('Errore durante il recupero dei simboli', err);
-      }
-    });
-  }
+  // loadAllLogos(symbols: string[]): void {
+  //   this.logoBorsaService.getAllLogos(symbols).subscribe({
+  //     next: logos => {
+  //       this.sendLogosToBackend(logos);
+  //     },
+  //     error: err => {
+  //       console.error('Errore durante il recupero dei loghi', err);
+  //     }
+  //   });
+  // }
 
-  loadAllLogos(symbols: string[]): void {
-    this.logoBorsaService.getAllLogos(symbols).subscribe({
-      next: logos => {
-        this.sendLogosToBackend(logos);
-      },
-      error: err => {
-        console.error('Errore durante il recupero dei loghi', err);
-      }
-    });
-  }
-
-  sendLogosToBackend(logos: LogoDto[]): void {
-    const url = `${environment.apiBack}logos`; // URL del tuo backend
-    this.http.post(url, logos).subscribe({
-      next: response => {
-        console.log('Loghi inviati al backend con successo', response);
-      },
-      error: err => {
-        console.error('Errore durante l\'invio dei loghi al backend', err);
-      }
-    });
-  }
+  // sendLogosToBackend(logos: LogoDto[]): void {
+  //   const url = `${environment.apiBack}logos`; // URL del tuo backend
+  //   this.http.post(url, logos).subscribe({
+  //     next: response => {
+  //       console.log('Loghi inviati al backend con successo', response);
+  //     },
+  //     error: err => {
+  //       console.error('Errore durante l\'invio dei loghi al backend', err);
+  //     }
+  //   });
+  // }
 
 
 
@@ -124,13 +124,48 @@ export class BorsaComponent implements OnInit {
     this.filteredStocks = [];
     this.onSymbolChange(this.symbol); // Chiamata alla funzione per gestire il cambio di simbolo
   }
+//------------------------- CHIAMATA ALL'API ------------------------------//
+  // getLogo(): void {
+  //   console.log('Chiamato getLogo()');
+  //   if (this.symbol) {
+  //     this.logoBorsaService.getLogo(this.symbol).subscribe(
+  //       (response: LogoBorsa) => {
+  //         this.logoUrl = response.url;
+  //         console.log('URL del logo:', response.url);
+  //       },
+  //       (error) => {
+  //         console.error('Errore durante il recupero del logo', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Simbolo non inserito');
+  //   }
+  // }
+
+
+  // getLogo(): void {
+  //   console.log('Chiamato getLogo()');
+  //   if (this.symbol) {
+  //     this.logoBorsaService.getLogo(this.symbol).subscribe(
+  //       (response: LogoDto) => {
+  //         this.logoUrl = response.url ? response.url : undefined;
+  //         console.log('URL del logo:', response.url);
+  //       },
+  //       (error) => {
+  //         console.error('Errore durante il recupero del logo', error);
+  //       }
+  //     );
+  //   } else {
+  //     console.error('Simbolo non inserito');
+  //   }
+  // }
 
   getLogo(): void {
     console.log('Chiamato getLogo()');
     if (this.symbol) {
       this.logoBorsaService.getLogo(this.symbol).subscribe(
         (response: LogoBorsa) => {
-          this.logoUrl = response.url;
+          this.logoUrl = response.url ? response.url : undefined;
           console.log('URL del logo:', response.url);
         },
         (error) => {
@@ -146,11 +181,31 @@ export class BorsaComponent implements OnInit {
 
 
   // Funzione per ottenere la lista delle azioni(lista dei symbol)
+  // getStocks(): void {
+  //   this.stockListService.getStockList().subscribe(
+  //     (response: StockList[]) => {
+  //       this.stocks = response;
+  //       console.log(this.stocks); // Stampa la lista delle azioni nella console
+  //     },
+  //     (error) => {
+  //       console.error('Errore durante il recupero della lista delle azioni', error);
+  //       this.stocks = [];
+  //     }
+  //   );
+  // }
+
+
   getStocks(): void {
-    this.stockListService.getStockList().subscribe(
-      (response: StockList[]) => {
-        this.stocks = response;
-        console.log(this.stocks); // Stampa la lista delle azioni nella console
+    this.logoBorsaService.getAllLogos().subscribe(
+      (response: LogoDto[]) => {
+        let filteredStocks= response.filter(logo => logo.url !== null && logo.url !== '');
+      this.stockListService.getStockList().subscribe((response: StockList[]) => {
+        this.stocks=response.filter(stock =>{
+          return filteredStocks.map(logo => logo.symbol).includes(stock.symbol);
+        })
+        console.log(this.stocks)
+      })
+
       },
       (error) => {
         console.error('Errore durante il recupero della lista delle azioni', error);
@@ -158,7 +213,6 @@ export class BorsaComponent implements OnInit {
       }
     );
   }
-
 
   // Funzione per ottenere il prezzo in tempo reale di un'azione(da utilizare come singolo dato in tempo reale)
   getRealTimePrice(): void {

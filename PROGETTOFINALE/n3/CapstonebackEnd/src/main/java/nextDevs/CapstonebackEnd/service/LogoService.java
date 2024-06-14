@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +28,10 @@ public class LogoService {
     public List<Logo> getAllLogos() {
         return logoRepository.findAll();
     }
+    public Optional<Logo> findBySymbol(String symbol) {
+        return logoRepository.findBySymbol(symbol);
+    }
+
 
     public void saveLogos(List<LogoDto> logoDtos) {
         List<Logo> logos = logoDtos.stream()
