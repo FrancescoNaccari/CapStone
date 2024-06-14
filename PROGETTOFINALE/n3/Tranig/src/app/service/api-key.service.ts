@@ -43,20 +43,68 @@ export class ApiKeyService {
     environment.apikey35,
     environment.apikey36,
     environment.apikey37,
-    // environment.apikey38,
-    // environment.apikey39,
-    // environment.apikey40,
+    environment.apikey38,
+    environment.apikey39,
+    environment.apikey40,
+    environment.apikey41,
+    environment.apikey42,
+    environment.apikey43,
+    environment.apikey44,
+    environment.apikey45,
+    environment.apikey46,
+    environment.apikey47,
+    environment.apikey48,
+    environment.apikey49,
+    environment.apikey50,
+    environment.apikey51,
+    environment.apikey52,
+    environment.apikey53,
+    environment.apikey54,
+    environment.apikey55,
+    environment.apikey56,
+    environment.apikey57,
+    environment.apikey58,
+    environment.apikey59,
+    environment.apikey60,
+    environment.apikey61,
+    environment.apikey62,
+    environment.apikey63,
+    environment.apikey64,
+    environment.apikey65,
+    environment.apikey66,
+    // environment.apikey67,
+    // environment.apikey68,
+    // environment.apikey69,
+    // environment.apikey70,
 
     // aggiungere qui altre chiavi
   ];
+ 
+  private keyUsage: { [key: string]: number } = {};
   private currentKeyIndex = 0;
+  private limitPerKey = 8;
+  private resetInterval = 60000; // 60 seconds
 
-  constructor() {}
+  constructor() {
+    this.apiKeys.forEach(key => this.keyUsage[key] = 0);
+    setInterval(() => this.resetUsage(), this.resetInterval);
+  }
 
   // Funzione per ottenere la prossima chiave API
   getNextKey(): string {
     const key = this.apiKeys[this.currentKeyIndex];
-    this.currentKeyIndex = (this.currentKeyIndex + 1) % this.apiKeys.length;
+    this.keyUsage[key]++;
+
+    // Se il limite di chiamate per chiave è raggiunto, passa alla chiave successiva
+    if (this.keyUsage[key] >= this.limitPerKey) {
+      this.currentKeyIndex = (this.currentKeyIndex + 1) % this.apiKeys.length;
+    }
+
     return key;
+  }
+
+  // Funzione per resettare il conteggio delle chiamate
+  private resetUsage(): void {
+    this.apiKeys.forEach(key => this.keyUsage[key] = 0);
   }
 }

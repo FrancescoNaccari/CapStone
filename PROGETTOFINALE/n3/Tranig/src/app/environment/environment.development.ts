@@ -40,12 +40,40 @@ export const environment = {
     apikey35: '5b15c35394msh5e529079f70d57cp160a8fjsna07d2bf8712e',
     apikey36: '9b9cbf9d91mshe5e6cb89164b606p155237jsn2d7cdedb6f5a',
     apikey37: '6a4d0fc232msh68699ba4c8ca157p171f2ajsn07cf20a5b4bc',
-    // apikey38: '',
-    // apikey39: '',
-    // apikey40: '',
-    // apikey41: '',
-    
+    apikey38: 'fc8004b08fmsh783f79f308c8572p157e86jsna59195c79a10',
+    apikey39: 'e148d31d73msh917abf904ec2414p13efa5jsn71ea964fa4d0',
+    apikey40: '73eedb579dmsh984bb3dab1574d3p13199cjsncdc88b445cd1',
+    apikey41: '5052f86509mshe6be8c8aff8f555p18af66jsn5d5833a27b75',
+    apikey42: '010500566amsh17c16b06535e319p1115dcjsncb5c9fa6bf97',
+    apikey43: '0204871e42msh5ea69d43290eec4p1715e4jsnc14838d50a08',
+    apikey44: '5f44740451msh85835b0684a41adp1e25d5jsn693755d23043',
+    apikey45: '6f42132cf4mshea7988342f123dap1b05d0jsna0ce0a859477',
+    apikey46: '394eacdc18msha6a659386465afdp1761fajsn46b8f408e483',
+    apikey47: 'a4052ca024msh41bfcf3339d0f67p10356ejsn3410c82d0595',
+    apikey48: '30a6f13dacmsh82786d4cf91a80bp12568ajsnb9ef3a379e0a',
+    apikey49: '5af8513cf4msh1c2c396b82feb2cp1aa2d2jsn99b79e5c64a6',
+    apikey50: 'b725d60ed0msh303db48c8a870b6p127080jsn98dc8306b1d0',
+    apikey51: 'ee0440f7d4msh495c4cad5e789b6p1521b2jsneef8002f3bea',
+    apikey52: '2d6c682fcdmshe8be7af45a4818ep10d7f4jsnbda0e08d2b81',
+    apikey53: '93e6564983mshb4164c768116a39p1c531cjsn074f181ce88e',
+    apikey54: '20b3a42f35msha403b5df55d0447p1d2dfcjsn71d6acd04e92',
+    apikey55: '11974b0cbfmsh5a8d5ccfdeb606ep16f104jsn0b3bf95caffc',
+    apikey56: 'cb9ae806famsh3d5c48a7877bc42p1210cfjsn69ebda00409f',
+    apikey57: '1e5f5b9c85mshcf3be8c530216a5p1ec2b1jsn8ead8842e078',
+    apikey58: '84189fffe1msh82bbb73d2736154p1897aajsn15cdf09e01e5',
+    apikey59: '6551816cd2msh516be3c8314c05dp14c285jsncdf893b554df',
+    apikey60: 'd6f239b904msh8ca44c490b834c2p187cdejsn2a0dff8b0282',
+    apikey61: '397e3d956amsh7da25b90bd9ef7bp158c6bjsn2fba603fa1eb',
+    apikey62: '0e7e163f38msh601de7257396f0fp111ee0jsn2771d6d1868e',
+    apikey63: '012dd18018mshed509dfcef407cap1491d4jsn24ce0e56cc9b',
+    apikey64: 'cf467c18f7msh2a42517008d3baep136cfdjsn1bffafb2f6e8',
+    apikey65: 'a990d26344msh053ce9ff3f2ae53p16c04cjsn63103cebb45b',
+    apikey66: 'b469400b25mshc59b6de436e5455p154107jsn6ef8f1ed76b5',
 
+    
+    
+    
+    
     
 
 };

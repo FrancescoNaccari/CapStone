@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { LogoBorsa } from '../interface/logo-borsa.interface';
 import { ApiKeyService } from './api-key.service';
+import { LogoDto } from '../interface/logo-dto.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -93,7 +94,8 @@ private apiUrl = `${environment.apiURL}logo`;
         'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
       })
     };
-
+    // Aggiungi un log per vedere l'URL e le opzioni della richiesta
+    console.log(`Fetching logo for symbol: ${symbol} with URL: ${url}`);
     return this.http.get<LogoBorsa>(url, httpOptions).pipe(
       catchError(error => {
         if (error.status === 429) {
@@ -113,7 +115,8 @@ private apiUrl = `${environment.apiURL}logo`;
         this.fetchLogoWithKey(symbol, apiKey).subscribe({
           next: (data: any) => {
             if (data.code === 429) {
-              return attemptFetch();
+              setTimeout(attemptFetch, 500);
+             
             }
             console.log('Risposta API del logo:', data);
             observer.next(data);
@@ -131,6 +134,69 @@ private apiUrl = `${environment.apiURL}logo`;
       };
 
       attemptFetch(); // Chiamata iniziale
+    });
+  }
+  
+  // getAllLogos(symbols: string[]): Observable<LogoDto[]> {
+  //   return new Observable<LogoDto[]>(observer => {
+  //     const logos: LogoDto[] = [];
+  //     let completedRequests = 0;
+
+  //     symbols.forEach(symbol => {
+  //       this.getLogo(symbol).subscribe({
+  //         next: logo => {
+  //           logos.push({ symbol, url: logo.url });
+  //           completedRequests++;
+  //           if (completedRequests === symbols.length) {
+  //             observer.next(logos);
+  //             observer.complete();
+  //           }
+  //         },
+  //         error: () => {
+  //           completedRequests++;
+  //           if (completedRequests === symbols.length) {
+  //             observer.next(logos);
+  //             observer.complete();
+  //           }
+  //         }
+  //       });
+  //     });
+  //   });
+  // }
+  getAllLogos(symbols: string[]): Observable<LogoDto[]> {
+    return new Observable<LogoDto[]>(observer => {
+      const logos: LogoDto[] = [];
+      let completedRequests = 0;
+
+      console.log('Symbols:', symbols);
+
+      const processSymbol = (index: number) => {
+        if (index >= symbols.length) {
+          console.log('All requests completed. Logos:', logos);
+          observer.next(logos);
+          observer.complete();
+          return;
+        }
+
+        const symbol = symbols[index];
+        console.log(`Requesting logo for symbol: ${symbol}`);
+
+        this.getLogo(symbol).subscribe({
+          next: logo => {
+            console.log(`Received logo for symbol: ${symbol}`, logo);
+            logos.push({ symbol, url: logo.url });
+            completedRequests++;
+            setTimeout(() => processSymbol(index + 1), 500); // Attende 1 secondo prima di processare il prossimo simbolo
+          },
+          error: (error) => {
+            console.error(`Error fetching logo for symbol: ${symbol}`, error);
+            completedRequests++;
+            setTimeout(() => processSymbol(index + 1), 500); // Attende 1 secondo prima di processare il prossimo simbolo
+          }
+        });
+      };
+
+      processSymbol(0); // Start processing symbols from index 0
     });
   }
 }

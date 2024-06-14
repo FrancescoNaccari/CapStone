@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,7 @@ import { BorsaComponent } from './components/borsa/borsa.component';
 import { StockCardComponent } from './components/stock-card/stock-card.component';
 import { LoginComponent } from './components/login/login.component';
 import { ProfiloComponent } from './components/profilo/profilo.component';
+import { TokenInterceptor } from './interceptor/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,11 @@ import { ProfiloComponent } from './components/profilo/profilo.component';
     FormsModule 
 
   ],
-  providers: [],
+  providers: [    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

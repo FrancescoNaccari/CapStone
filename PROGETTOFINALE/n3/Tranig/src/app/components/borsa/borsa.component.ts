@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Chart, ScriptableContext, ScriptableLineSegmentContext, ChartData, registerables } from 'chart.js';
+import { environment } from 'src/app/environment/environment.development';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
+import { LogoDto } from 'src/app/interface/logo-dto.interface';
 import { QuoteBorse } from 'src/app/interface/quote-borse.interface';
 import { RealTimePriceResponse } from 'src/app/interface/real-time-price-response.interface';
 import { StockList } from 'src/app/interface/stock-list.interface';
@@ -45,7 +48,8 @@ export class BorsaComponent implements OnInit {
     private stockListService: StockListService,
     private realTimePriceService: RealTimePriceService,
     // private quoteService: QuoteBorseService,
-    private timeSeriesBorseService: TimeSeriesBorseService
+    private timeSeriesBorseService: TimeSeriesBorseService,
+    private http: HttpClient
   ) { // Registra la scala 'linear' durante l'inizializzazione del componente
     Chart.register(...registerables);
   }
@@ -56,6 +60,7 @@ export class BorsaComponent implements OnInit {
     this.initChart();
     this.getLogo();
 
+    this.loadAllSymbols();
 
     // Aggiorna il prezzo ogni 10 secondi
     setInterval(() => {
@@ -65,6 +70,43 @@ export class BorsaComponent implements OnInit {
   ngAfterViewInit(): void {
     this.initChart();
   }
+
+  loadAllSymbols(): void {
+    this.stockListService.getStockList().subscribe({
+      next: (stocks: StockList[]) => {
+        this.stocks = stocks;
+        const symbols = this.stocks.map(stock => stock.symbol);
+        this.loadAllLogos(symbols);
+      },
+      error: err => {
+        console.error('Errore durante il recupero dei simboli', err);
+      }
+    });
+  }
+
+  loadAllLogos(symbols: string[]): void {
+    this.logoBorsaService.getAllLogos(symbols).subscribe({
+      next: logos => {
+        this.sendLogosToBackend(logos);
+      },
+      error: err => {
+        console.error('Errore durante il recupero dei loghi', err);
+      }
+    });
+  }
+
+  sendLogosToBackend(logos: LogoDto[]): void {
+    const url = `${environment.apiBack}logos`; // URL del tuo backend
+    this.http.post(url, logos).subscribe({
+      next: response => {
+        console.log('Loghi inviati al backend con successo', response);
+      },
+      error: err => {
+        console.error('Errore durante l\'invio dei loghi al backend', err);
+      }
+    });
+  }
+
 
 
 
