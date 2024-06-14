@@ -3,10 +3,11 @@
     <a class="navbar-brand overb ms-3" [routerLink]="['/home']">
       <img src="./assets/triangle.png" width="10" alt="logo" />
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  
     <div  *ngIf="user" class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -25,20 +26,27 @@
         <li *ngIf="!user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/register']" routerLinkActive="active">Registrati</a>
         </li>
+        <li>
+          <a class="nav-link text-white d-lg-none" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
+        </li>
+        <li><a class="nav-link text-white d-lg-none"  >Centro Assistenza</a></li>
+        <li class="p-1 d-lg-none">
+          <button (click)="logout()" type="button" class="btn btn-danger fs-5 fs-lg-1 ">Logout</button>
+        </li>
       </ul>
 
 
 
-      <div class="dropdown d-flex align-items-center">
+      <div class="dropdown d-flex align-items-center d-none d-lg-flex">
         <div class="d-flex flex-column text-center">
           <!-- <p class="text-danger m-0">Benvenuto</p> -->
           <!-- <p class="m-0 fw-bold fs-5 fs-lg-2">{{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}</p> -->
           <p class="m-0 fw-bold fs-5 fs-lg-2 text-p"> {{user.user.username}}</p>
         </div>
-        <button class="btn dropdown-toggle rounded-0 mx-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn dropdown-toggle rounded-0 mx-1  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img width="50" src="{{user.user.avatar}}" alt="">
         </button>
-        <ul class="dropdown-menu dropdown-menu-end fs-5 fs-lg-2 text-center">
+        <ul class="dropdown-menu dropdown-menu-end  fs-5 fs-lg-2 text-center">
           <!-- <li>
             <a class="dropdown-item" href="#">
               <img width="20" src="{{ checkTypeOfAuthData(user) ? user.user.thumbnailUrl : checkTypeOfSocialUser(user) ? user.photoUrl : '' }}" alt="avatar" />
@@ -51,11 +59,13 @@
             <p class="m-0 fw-bold fs-5 fs-lg-2"> {{user.user.username}}</p>
           </li> -->
           <li>
-            <a class="dropdown-item" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
+            <a class="dropdown-item fs-1" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
           </li>
-          <li><a class="dropdown-item" href="#">Centro Assistenza</a></li>
-          <li class="p-1">
-            <button (click)="logout()" type="button" class="btn btn-danger fs-5 fs-lg-2 ">Logout</button>
+          <li>
+            <a class="dropdown-item fs-1">Centro Assistenza</a>
+          </li>
+          <li class="">
+            <button (click)="logout()" type="button" class="btn btn-danger fs-5 fs-lg-1 m-2">Logout</button>
           </li>
         </ul>
       </div>

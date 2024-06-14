@@ -23,3 +23,24 @@
 .text-p {
   color: #1199fa;
 }
+
+
+/* Cambia il colore dell'icona del menu hamburger e rimuovi il bordo nero */
+.custom-toggler {
+  border-color: white; /* Cambia il colore del bordo a bianco */
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Rimuove il bordo nero quando il pulsante è cliccato o messo a fuoco */
+.custom-toggler:focus,
+.custom-toggler:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-toggler .navbar-toggler-icon:hover {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(17, 153, 250, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
