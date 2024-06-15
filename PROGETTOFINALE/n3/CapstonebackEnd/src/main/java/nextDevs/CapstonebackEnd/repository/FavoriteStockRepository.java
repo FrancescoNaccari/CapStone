@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface FavoriteStockRepository extends JpaRepository<FavoriteStock,Integer> {
-    List<FavoriteStock> findByUserId(String userId);
+    List<FavoriteStock> findByUser_IdUtente(Integer userId);
 }

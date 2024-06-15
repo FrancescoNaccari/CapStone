@@ -1,3 +1,5 @@
+import { FavoriteStock } from "./favorite-stock.interface";
+
 export interface User {
     idUtente?: number,
     nome: string,
@@ -7,4 +9,5 @@ export interface User {
     tipoUtente: string,
     username: string,
     avatar?: string
+    listaFavoriti:FavoriteStock[];
 }

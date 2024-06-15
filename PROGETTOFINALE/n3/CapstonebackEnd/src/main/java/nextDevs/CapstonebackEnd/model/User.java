@@ -26,6 +26,9 @@ public class User implements UserDetails {
     private TipoUtente tipoUtente;
     private String avatar;
 
+    @OneToMany(mappedBy = "user")
+    private List<FavoriteStock> listaFavoriti;
+
 
     @Override
     public String getUsername() {

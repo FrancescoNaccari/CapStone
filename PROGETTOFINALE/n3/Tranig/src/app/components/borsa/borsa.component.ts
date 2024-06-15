@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Chart, ScriptableContext, ScriptableLineSegmentContext, ChartData, registerables } from 'chart.js';
 import { environment } from 'src/app/environment/environment.development';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
@@ -22,7 +22,7 @@ import { TimeSeriesBorseService } from 'src/app/service/time-series-borse.servic
   styleUrls: ['./borsa.component.scss']
 })
 export class BorsaComponent implements OnInit {
-
+  @Output() favoriteToggled = new EventEmitter<any>();
 
   selectedInterval: string = '1day'; // Intervallo selezionato
   interval: string = '1day'; // Impostazione di default
@@ -166,6 +166,7 @@ export class BorsaComponent implements OnInit {
       this.logoBorsaService.getLogo(this.symbol).subscribe(
         (response: LogoBorsa) => {
           this.logoUrl = response.url ? response.url : undefined;
+          this.stock.logoUrl=response.url? response.url : undefined;
           console.log('URL del logo:', response.url);
         },
         (error) => {
@@ -240,6 +241,7 @@ export class BorsaComponent implements OnInit {
           this.stock.price = response.price; // Aggiorna il prezzo dell'azione
           this.stock.increased = response.price >= (Number(this.quote?.previous_close) || 0); // Verifica se il prezzo è aumentato rispetto alla chiusura precedente
           console.log(this.price); // Stampa il prezzo nella console
+          this.stock.symbol = this.symbol
         },
         (error) => {
           console.error('Errore durante il recupero del prezzo in tempo reale', error); // Stampa un messaggio di errore in caso di fallimento
@@ -523,8 +525,9 @@ export class BorsaComponent implements OnInit {
   }
 
   toggleFavorite(stock: any): void {
-    stock.favorite = !stock.favorite;
-    console.log(`${stock.name} è stato ${stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
+    this.stock.favorite = !this.stock.favorite;
+    this.favoriteToggled.emit(stock);
+    console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
     // Qui puoi aggiungere la logica per salvare lo stato dei preferiti, ad esempio, aggiornando un servizio o memorizzandolo in localStorage.
   }
 }

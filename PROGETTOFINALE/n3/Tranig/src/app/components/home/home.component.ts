@@ -669,7 +669,7 @@ loadFavorites(userId: string): void {
 }
 onFavoriteToggled(stock: FavoriteStock): void {
   if (this.user) {
-    const userId = this.user.user.idUtente?.toString();
+    const userId = this.user.user.idUtente
     if (userId) {
       if (stock.favorite) {
         const favorite: FavoriteStock = { ...stock, userId };

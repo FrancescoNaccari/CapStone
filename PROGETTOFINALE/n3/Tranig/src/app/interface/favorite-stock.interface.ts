@@ -1,6 +1,6 @@
 export interface FavoriteStock {
     id?: number; // Questo campo è opzionale, utile solo quando si recuperano i dati dal backend
-    userId: string;
+    userId: number;
     symbol: string;
     name: string;
     price: number;

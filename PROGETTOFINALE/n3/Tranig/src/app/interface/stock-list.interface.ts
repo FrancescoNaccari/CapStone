@@ -6,4 +6,6 @@ export interface StockList {
     mic_code:string;
     country:string;
     type:string;
+
+    
 }

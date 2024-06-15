@@ -18,7 +18,7 @@
       <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock" (favoriteToggled)="onFavoriteToggled($event)"></app-stock-card>
     </div>
     <div class="col-12 col-md-8 p-0  p-lg-2">
-      <app-borsa></app-borsa>
+      <app-borsa (favoriteToggled)="onFavoriteToggled($event)"></app-borsa>
     </div>
   </div>
   <div *ngIf="errorMessage" class="alert alert-danger mt-3">

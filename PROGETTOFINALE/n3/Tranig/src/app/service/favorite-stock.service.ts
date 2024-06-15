@@ -14,13 +14,13 @@ import { environment } from '../environment/environment.development';
   
     constructor(private http: HttpClient) {}
     getFavorites(userId: number): Observable<FavoriteStock[]> {
-      return this.http.get<FavoriteStock[]>(`${environment.apiBack}/favorites/${userId}`);
+      return this.http.get<FavoriteStock[]>(`${environment.apiBack}favorites/${userId}`);
     }
   
     addFavorite(favorite: FavoriteStock): Observable<FavoriteStock> {
-      return this.http.post<FavoriteStock>(`${environment.apiBack}/favorites`, favorite);
+      return this.http.post<FavoriteStock>(`${environment.apiBack}favorites`, favorite);
     }
   
     removeFavorite(favoriteId: number): Observable<void> {
-      return this.http.delete<void>(`${environment.apiBack}/favorites/${favoriteId}`);
+      return this.http.delete<void>(`${environment.apiBack}favorites/${favoriteId}`);
     }}

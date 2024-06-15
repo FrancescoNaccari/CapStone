@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class FavoriteStockDto {
-    private String userId;
+    private Integer userId;
     private String symbol;
     private String name;
     private Double price;

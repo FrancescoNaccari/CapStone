@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/favorites")
+@RequestMapping("/favorites")
 public class FavoriteStockController {
     @Autowired
     private FavoriteStockService favoriteStockService;
 
     @PostMapping
-    public ResponseEntity<FavoriteStock> addFavorite(@RequestBody FavoriteStock favoriteStock) {
-        FavoriteStock savedFavorite = favoriteStockService.addFavorite(favoriteStock);
+    public ResponseEntity<FavoriteStock> addFavorite(@RequestBody FavoriteStockDto favoriteStockDto) {
+        FavoriteStock savedFavorite = favoriteStockService.addFavorite(favoriteStockDto);
         return ResponseEntity.ok(savedFavorite);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<FavoriteStock>> getFavorites(@PathVariable String userId) {
+    public ResponseEntity<List<FavoriteStock>> getFavorites(@PathVariable Integer userId) {
         List<FavoriteStock> favorites = favoriteStockService.getFavoritesByUserId(userId);
         return ResponseEntity.ok(favorites);
     }
