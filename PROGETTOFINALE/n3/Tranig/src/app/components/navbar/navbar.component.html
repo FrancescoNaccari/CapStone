@@ -15,7 +15,7 @@
             [routerLinkActiveOptions]="{ exact: true }">Home</a>
         </li>
         <li *ngIf="user" class="nav-item">
-          <a class="nav-link text-white" [routerLink]="['/preferiti']" routerLinkActive="active">Preferiti</a>
+          <a class="nav-link text-white" [routerLink]="['/favorites']" routerLinkActive="active">Preferiti</a>
         </li>
         <li *ngIf="user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/profilo']" routerLinkActive="active">Profilo</a>
@@ -44,7 +44,7 @@
           <p class="m-0 fw-bold fs-5 fs-lg-2 text-p"> {{user.user.username}}</p>
         </div>
         <button class="btn dropdown-toggle rounded-0 mx-1  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img width="50" class="rounded-circle" src="{{user.user.avatar}}" alt="">
+          <img width="30" class="rounded-circle" src="{{user.user.avatar}}" alt="">
         </button>
         <ul class="dropdown-menu dropdown-menu-end  fs-5 fs-lg-2 text-center">
           <!-- <li>

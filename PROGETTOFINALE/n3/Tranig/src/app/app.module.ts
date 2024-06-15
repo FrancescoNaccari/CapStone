@@ -17,6 +17,7 @@ import { StockCardComponent } from './components/stock-card/stock-card.component
 import { LoginComponent } from './components/login/login.component';
 import { ProfiloComponent } from './components/profilo/profilo.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-stocks.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     BorsaComponent,
     StockCardComponent,
     LoginComponent,
-    ProfiloComponent
+    ProfiloComponent,
+    FavoriteStocksComponent
   ],
   imports: [
     BrowserModule,

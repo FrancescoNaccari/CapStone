@@ -13,7 +13,7 @@ import java.io.Serial;
 public class Logo {
     @Id
     @GeneratedValue
-    private Long id;
+    private Integer id;
     private String symbol;
     private String url;
 }

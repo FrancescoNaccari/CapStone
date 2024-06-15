@@ -1,0 +1,12 @@
+<div class="container-fluid m-0">
+  <h2>I miei preferiti</h2>
+  <div class="row justify-content-between m-2">
+    <div *ngFor="let stock of favoriteStocks" class="col-12 col-md-4 p-0 p-lg-2">
+      <app-stock-card [stock]="stock"></app-stock-card>
+      <button (click)="removeFavorite(stock)">Rimuovi dai preferiti</button>
+    </div>
+  </div>
+  <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+    {{ errorMessage }}
+  </div>
+</div>
