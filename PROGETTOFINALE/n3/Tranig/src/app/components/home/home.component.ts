@@ -138,4 +138,6 @@ onFavoriteToggled(stock: FavoriteStock): void {
       }
     }
   }
-}}
+}
+
+}
