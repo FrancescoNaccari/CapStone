@@ -9,11 +9,17 @@ import { LeadingComment } from '@angular/compiler';
 import { LoginComponent } from './components/login/login.component';
 import { BorsaComponent } from './components/borsa/borsa.component';
 import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-stocks.component';
+import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
+import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
+import { ContattaciComponent } from './components/footer/contattaci/contattaci.component';
 
 const routes: Routes = [
   { path: "", component: LoginComponent },
   { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
   // { path: "borse", component: BorsaComponent, canActivate: [AuthGuard]},
+  { path: 'termini-di-servizio', component: TerminiDiServizioComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'contattaci', component: ContattaciComponent },
   { path: 'favorites', component: FavoriteStocksComponent },
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: "error404", component: Error404Component },

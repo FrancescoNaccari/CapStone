@@ -18,6 +18,9 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfiloComponent } from './components/profilo/profilo.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
 import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-stocks.component';
+import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
+import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
+import { ContattaciComponent } from './components/footer/contattaci/contattaci.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-s
     StockCardComponent,
     LoginComponent,
     ProfiloComponent,
-    FavoriteStocksComponent
+    FavoriteStocksComponent,
+    TerminiDiServizioComponent,
+    PrivacyPolicyComponent,
+    ContattaciComponent
   ],
   imports: [
     BrowserModule,

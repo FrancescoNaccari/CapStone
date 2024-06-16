@@ -94,9 +94,9 @@ updateDisplayedStocks(): void {
     numberOfCards = 10;
   }
 
-  // const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
-  // this.displayedStocks = shuffled.slice(0, numberOfCards);
-  this.displayedStocks = this.allStocks.slice(0, numberOfCards);
+   const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
+  this.displayedStocks = shuffled.slice(0, numberOfCards);
+  // this.displayedStocks = this.allStocks.slice(0, numberOfCards);
 }
 
 loadFavorites(userId: string): void {

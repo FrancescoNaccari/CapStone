@@ -9,7 +9,7 @@
     </div>
     <div class="d-flex justify-content-between col-12 col-lg-3 m-0">
       <div class="dropdown search-dropdown">
-        <input type="text" class="form-control text-white fs-1 fs-xxl-2" placeholder="Seleziona un simbolo" 
+        <input type="text" class="form-control text-white fs-1 fs-xxl-2" placeholder="Cerca per azione" 
                (input)="onSearchChange($event)" [(ngModel)]="searchTerm">
         <ul *ngIf="filteredStocks.length > 0" class="dropdown-menu custom-dropdown-menu show">
           <li *ngFor="let stock of filteredStocks">
