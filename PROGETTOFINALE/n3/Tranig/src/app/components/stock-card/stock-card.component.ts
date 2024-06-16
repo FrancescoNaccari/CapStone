@@ -13,6 +13,7 @@ import { StockListService } from 'src/app/service/stock-list.service';
 export class StockCardComponent implements OnInit {
  
 @Input() stock: any;
+@Input() favorites: any[] = [];
 @Output() favoriteToggled = new EventEmitter<any>();
 
 constructor(
@@ -25,6 +26,11 @@ ngOnInit(): void {
   this.getRealTimePrice();
   this.getLogo();
   console.log('Dati stock in stock-card:', this.stock); // Verifica che i dati vengano ricevuti
+  this.favorites.forEach(favorite=>{
+    if(favorite.symbol === this.stock.symbol){
+      this.stock.favorite = true;
+    }
+  })
 }
 
 getRealTimePrice(): void {

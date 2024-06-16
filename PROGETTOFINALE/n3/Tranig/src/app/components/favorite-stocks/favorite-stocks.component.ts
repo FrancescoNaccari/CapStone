@@ -21,11 +21,15 @@ export class FavoriteStocksComponent implements OnInit {
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
+      console.log(data);
       this.user = data;
       if (this.user && this.user.user.idUtente) {
         this.loadFavorites(this.user.user.idUtente.toString());
+
       }
     });
+
+
   }
 
   loadFavorites(userId: string): void {

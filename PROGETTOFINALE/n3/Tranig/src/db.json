@@ -1,0 +1,961 @@
+<div class="container card-color">
+  <div class="row ">
+
+
+    <div class="d-flex col-12 col-md-3">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Seleziona un simbolo:
+        </button>
+        <ul class="dropdown-menu custom-dropdown-menu">
+          <li *ngFor="let stock of stocks">
+            <button class="dropdown-item" (click)="selectStock(stock.symbol)">{{ stock.symbol }}</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+    <div class="d-flex justify-content-md-end justify-content-between col-12 col-md-9" role="group"
+      aria-label="Interval Selection">
+
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('1min')">1Min</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('5min')">5Min</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('15min')">15Min</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('30min')">30Min</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('1h')">1H</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('4h')">4H</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('1day')">1D</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('1week')">1W</p>
+      <p class=" m-1 m-lg-2" (click)="onIntervalChange('1month')">1M</p>
+    </div>
+
+  </div>
+  
+  <div class="col-12 mt-2">
+    <canvas id="myChart" width="100"></canvas>
+  </div>
+
+  <div class="col-12 border-top p-0">
+    <div class="card card-color mx-md-3 border-0 my-3 p-md-2">
+      <div class="row g-0 text-white">
+        <div class="col-12 col-md-3 align-content-around text-center p-0">
+          <img class="w-25 w-md-75 w-lg-25" [src]="logoUrl" alt="Stock Icon" />
+        </div>
+        <div class="col-12 col-md-9 d-flex mt-2 mt-md-0">
+          <div class="col-4 align-content-center justify-content-center text-center p-0">
+            <h5 class="fw-bold fs-1 fs-md-3 fs-lg-4" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
+              Tempo reale</h5>
+            <div class="fw-bolder m-0 fs-1 text-center fs-md-3 fs-lg-4 d-flex justify-content-center">
+              <p class="fw-bolder m-0 fs-1 fs-md-3 fs-lg-4"
+                [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">$ {{price}}</p>
+              <span class="me-0" *ngIf="stock?.increased" style="color: #00A68C; margin: 0 10px; float: right;">▲</span>
+              <span class="me-0" *ngIf="!stock?.increased"
+                style="color: #D9475A; margin: 0 10px; float: right;">▼</span>
+            </div>
+          </div>
+          <div class="col-4 align-content-center text-center">
+            <h5 class="fs-1 fs-md-3 fs-lg-4">Prezzo medio</h5>
+            <p class="fw-bolder fs-1 m-0 fs-md-3 fs-lg-4">$ {{averagePrice}}</p>
+          </div>
+          <div class="col-4 align-content-center text-center">
+            <h5 class="fs-1 fs-md-3 fs-lg-4">Miglior Prezzo</h5>
+            <p class="fw-bolder m-0 fs-1 fs-md-3 fs-lg-4">$ {{bestPrice}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// package nextDevs.CapstonebackEnd.configuration;
+// @Configuration
+// public class AppConfig {
+
+// @Bean
+// public ObjectMapper objectMapper() {
+//     return JsonMapper.builder().addModule(new JavaTimeModule()).build();
+// }
+
+// }
+// package nextDevs.CapstonebackEnd.configuration;
+// @Configuration
+// public class DataLoaderConfig implements ApplicationRunner {
+
+//     @Value("${data.load.enabled}")
+//     private boolean loadEnabled;
+
+//     @Value("${data.load.folder}")
+//     private String dataFolder;
+
+//     private final ResourceLoader resourceLoader;
+//     private final ObjectMapper objectMapper;
+//     private final LogoBorsaService logoBorsaService;
+//     private final StockListService stockListService;
+//     private final TimeSeriesDataService timeSeriesDataService;
+//     private final TimeSeriesValueService timeSeriesValueService;
+
+//     public DataLoaderConfig(ResourceLoader resourceLoader,
+//                             ObjectMapper objectMapper,
+//                             LogoBorsaService logoBorsaService,
+//                             StockListService stockListService,
+//                             TimeSeriesDataService timeSeriesDataService,
+//                             TimeSeriesValueService timeSeriesValueService) {
+//         this.resourceLoader = resourceLoader;
+//         this.objectMapper = objectMapper;
+//         this.logoBorsaService = logoBorsaService;
+//         this.stockListService = stockListService;
+//         this.timeSeriesDataService = timeSeriesDataService;
+//         this.timeSeriesValueService = timeSeriesValueService;
+//     }
+
+//     @Override
+//     public void run(ApplicationArguments args) throws Exception {
+//         if (loadEnabled) {
+//             loadJsonData("logo_borsa.json", LogoBorsaDTO[].class, logoBorsaService);
+//             loadJsonData("stock_list.json", StockListDTO[].class, stockListService);
+//             loadJsonData("time_series_data.json", TimeSeriesDataDTO[].class, timeSeriesDataService);
+//             loadJsonData("time_series_value.json", TimeSeriesValueDTO[].class, timeSeriesValueService);
+//         }
+//     }
+
+//     private <T> void loadJsonData(String fileName, Class<T[]> clazz, Object service) throws IOException {
+//         Resource resource = resourceLoader.getResource(dataFolder + fileName);
+//         try (InputStream inputStream = resource.getInputStream()) {
+//             T[] objects = objectMapper.readValue(inputStream, clazz);
+//             for (T object : objects) {
+//                 if (service instanceof LogoBorsaService) {
+//                     ((LogoBorsaService) service).save((LogoBorsaDTO) object);
+//                 } else if (service instanceof StockListService) {
+//                     ((StockListService) service).save((StockListDTO) object);
+//                 } else if (service instanceof TimeSeriesDataService) {
+//                     ((TimeSeriesDataService) service).save((TimeSeriesDataDTO) object);
+//                 } else if (service instanceof TimeSeriesValueService) {
+//                     ((TimeSeriesValueService) service).save((TimeSeriesValueDTO) object);
+//                 }
+//             }
+//         }
+//     }}
+//     package nextDevs.CapstonebackEnd.controller;
+//     @RestController
+//     @RequestMapping("/api/populate")
+//     public class DatabasePopulatorController {
+    
+//         @Autowired
+//         private DatabasePopulatorService databasePopulatorService;
+//         @Autowired
+//         private TimeSeriesDataRepository timeSeriesDataRepository;
+    
+//         @Autowired
+//         private ObjectMapper objectMapper;
+    
+//         @PostMapping("/logoborsa")
+//         public void populateLogoBorsa() throws IOException {
+//             String json = readFileToString("data/logoBorsa.json");
+//             databasePopulatorService.populateLogoBorsa(json);
+//         }
+    
+//         @PostMapping("/stocklist")
+//         public void populateStockList() throws IOException {
+//             String json = readFileToString("data/stockList.json");
+//             databasePopulatorService.populateStockList(json);
+//         }
+    
+//         @PostMapping("/timeseriesdata")
+//         public void populateTimeSeriesData() throws IOException {
+//             String json = readFileToString("data/timeSeriesData.json");
+//             databasePopulatorService.populateTimeSeriesData(json);
+//         }
+    
+//         @PostMapping("/timeseriesvalue")
+//         public void populateTimeSeriesValue() throws IOException {
+//             String json = readFileToString("data/timeSeriesValue.json");
+//             databasePopulatorService.populateTimeSeriesValue(json);
+//         }
+    
+//         private String readFileToString(String path) throws IOException {
+//             ClassPathResource resource = new ClassPathResource(path);
+//             byte[] binaryData = FileCopyUtils.copyToByteArray(resource.getInputStream());
+//             return new String(binaryData, StandardCharsets.UTF_8);
+//         }
+    
+//     }
+//     package nextDevs.CapstonebackEnd.controller;
+// @RestController
+// @RequestMapping("/api/logoborsa")
+// public class LogoBorsaController {
+
+//     @Autowired
+//     private LogoBorsaService logoBorsaService;
+
+//     @GetMapping("/{id}")
+//     public LogoBorsaDTO getLogoBorsaById(@PathVariable Long id) {
+//         return logoBorsaService.findById(id);
+//     }
+
+//     @PostMapping
+//     public LogoBorsaDTO createLogoBorsa(@RequestBody LogoBorsaDTO logoBorsaDTO) {
+//         return logoBorsaService.save(logoBorsaDTO);
+//     }
+
+//     @PutMapping("/{id}")
+//     public LogoBorsaDTO updateLogoBorsa(@PathVariable Long id, @RequestBody LogoBorsaDTO logoBorsaDTO) {
+//         logoBorsaDTO.setId(id);
+//         return logoBorsaService.save(logoBorsaDTO);
+//     }
+
+//     @DeleteMapping("/{id}")
+//     public void deleteLogoBorsa(@PathVariable Long id) {
+//         logoBorsaService.deleteById(id);
+//     }
+// }
+// package nextDevs.CapstonebackEnd.controller;
+// @RestController
+// @RequestMapping("/api/stocks")
+// public class StockListController {
+
+//     @Autowired
+//     private StockListService stockListService;
+
+//     @GetMapping
+//     public List<StockListDTO> getAllStocks() {
+//         return stockListService.findAll();
+//     }
+
+//     @GetMapping("/{symbol}")
+//     public StockListDTO getStockById(@PathVariable String symbol) {
+//         return stockListService.findById(symbol);
+//     }
+
+//     @PostMapping
+//     public StockListDTO createStock(@RequestBody StockListDTO stockListDTO) {
+//         return stockListService.save(stockListDTO);
+//     }
+
+//     @PutMapping("/{symbol}")
+//     public StockListDTO updateStock(@PathVariable String symbol, @RequestBody StockListDTO stockListDTO) {
+//         stockListDTO.setSymbol(symbol);
+//         return stockListService.save(stockListDTO);
+//     }
+
+//     @DeleteMapping("/{symbol}")
+//     public void deleteStock(@PathVariable String symbol) {
+//         stockListService.deleteById(symbol);
+//     }
+// }
+// package nextDevs.CapstonebackEnd.controller;
+
+// @RestController
+// @RequestMapping("/api/timeseriesdata")
+// public class TimeSeriesDataController {
+
+//     @Autowired
+//     private TimeSeriesDataService timeSeriesDataService;
+
+//     @GetMapping
+//     public List<TimeSeriesDataDTO> getAllTimeSeriesData() {
+//         return timeSeriesDataService.findAll();
+//     }
+
+//     @GetMapping("/{id}")
+//     public TimeSeriesDataDTO getTimeSeriesDataById(@PathVariable Long id) {
+//         return timeSeriesDataService.findById(id);
+//     }
+
+//     @PostMapping
+//     public ResponseEntity<TimeSeriesDataDTO> createTimeSeriesData(@RequestBody TimeSeriesDataDTO timeSeriesDataDTO) {
+//         TimeSeriesDataDTO savedTimeSeriesData = timeSeriesDataService.save(timeSeriesDataDTO);
+//         return new ResponseEntity<>(savedTimeSeriesData, HttpStatus.CREATED);
+//     }
+
+//     @PutMapping("/{id}")
+//     public TimeSeriesDataDTO updateTimeSeriesData(@PathVariable Long id, @RequestBody TimeSeriesDataDTO timeSeriesDataDTO) {
+//         timeSeriesDataDTO.setId(id);
+//         return timeSeriesDataService.save(timeSeriesDataDTO);
+//     }
+
+//     @DeleteMapping("/{id}")
+//     public void deleteTimeSeriesData(@PathVariable Long id) {
+//         timeSeriesDataService.deleteById(id);
+//     }
+// }
+// package nextDevs.CapstonebackEnd.controller;
+
+// @RestController
+// @RequestMapping("/api/timeseriesvalues")
+// public class TimeSeriesValueController {
+
+//     @Autowired
+//     private TimeSeriesValueService timeSeriesValueService;
+
+//     @GetMapping
+//     public List<TimeSeriesValueDTO> getAllTimeSeriesValues() {
+//         return timeSeriesValueService.findAll();
+//     }
+
+//     @GetMapping("/{id}")
+//     public TimeSeriesValueDTO getTimeSeriesValueById(@PathVariable Long id) {
+//         return timeSeriesValueService.findById(id);
+//     }
+
+//     @PostMapping
+//     public TimeSeriesValueDTO createTimeSeriesValue(@RequestBody TimeSeriesValueDTO timeSeriesValueDTO) {
+//         return timeSeriesValueService.save(timeSeriesValueDTO);
+//     }
+
+//     @PutMapping("/{id}")
+//     public TimeSeriesValueDTO updateTimeSeriesValue(@PathVariable Long id, @RequestBody TimeSeriesValueDTO timeSeriesValueDTO) {
+//         timeSeriesValueDTO.setId(id);
+//         return timeSeriesValueService.save(timeSeriesValueDTO);
+//     }
+
+//     @DeleteMapping("/{id}")
+//     public void deleteTimeSeriesValue(@PathVariable Long id) {
+//         timeSeriesValueService.deleteById(id);
+//     }
+// }
+// package nextDevs.CapstonebackEnd.dto;
+
+// import lombok.Data;
+
+// @Data
+// public class LogoBorsaDTO {
+//     private Long id;
+//     private String url;
+//     private String stockSymbol;
+
+// }
+// package nextDevs.CapstonebackEnd.dto;
+
+// @Data
+// public class StockListDTO {
+//     private String symbol;
+//     private String name;
+//     private String currency;
+//     private String exchange;
+//     private String mic_code;
+//     private String country;
+//     private String type;
+//     private List<LogoBorsaDTO> logos;
+//     private List<TimeSeriesDataDTO> timeSeriesData;
+
+// }
+// package nextDevs.CapstonebackEnd.dto;
+
+// @Data
+// public class TimeSeriesDataDTO {
+//     private Long id;
+//     private String symbol;
+//     private String interval;
+//     private String currency;
+//     private String exchange_timezone;
+//     private String exchange;
+//     private String mic_code;
+//     private String type;
+
+
+//     private List<TimeSeriesValueDTO> timeSeriesValues;
+
+// }
+// package nextDevs.CapstonebackEnd.dto;
+
+// @Data
+// @JsonIgnoreProperties(ignoreUnknown = true)
+// public class TimeSeriesValueDTO {
+//     private Long id;
+
+//     @JsonDeserialize(using = CustomLocalDateTimeDeserializer.class)
+//     private LocalDateTime datetime;
+//     private double open;
+//     private double high;
+//     private double low;
+//     private double close;
+//     private double volume;
+
+//     private TimeSeriesDataDTO timeSeriesData;
+
+// }
+// @Entity
+// @Data
+// public class StockList {
+//     @Id
+//     private String symbol;
+//     private String name;
+//     private String currency;
+//     private String exchange;
+//     private String mic_code;
+//     private String country;
+//     private String type;
+
+//     @OneToMany(mappedBy = "stockList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//     private List<TimeSeriesData> timeSeriesData;
+
+//     @OneToOne(mappedBy = "stockList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//     private LogoBorsa logoBorsa;
+// }
+// package nextDevs.CapstonebackEnd.model;
+
+// @Entity
+// @Data
+// public class TimeSeriesData {
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
+//     private String symbol;
+//     private String interval;
+//     private String currency;
+//     private String exchange_timezone;
+//     private String exchange;
+//     private String mic_code;
+//     private String type;
+
+//     @ManyToOne
+//     @JoinColumn(name = "stock_symbol", referencedColumnName = "symbol")
+//     private StockList stockList;
+
+//     @OneToMany(mappedBy = "timeSeriesData", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//     private List<TimeSeriesValue> timeSeriesValues;
+//     public void addTimeSeriesValue(TimeSeriesValue value) {
+//         value.setTimeSeriesData(this);
+//         this.timeSeriesValues.add(value);
+//     }
+
+// }
+// package nextDevs.CapstonebackEnd.model;
+
+// @Entity
+// @Data
+// public class TimeSeriesValue {
+
+//     @Id
+//     @GeneratedValue(strategy = GenerationType.IDENTITY)
+//     private Long id;
+//     private LocalDateTime datetime;
+//     private double open;
+//     private double high;
+//     private double low;
+//     private double close;
+//     private double volume;
+
+//     @ManyToOne
+//     @JoinColumn(name = "time_series_data_id", referencedColumnName = "id")
+//     private TimeSeriesData timeSeriesData;
+
+// }
+// package nextDevs.CapstonebackEnd.repository;
+
+// public interface LogoBorsaRepository extends JpaRepository<LogoBorsa, Long> {
+// }
+// package nextDevs.CapstonebackEnd.repository;
+
+// public interface StockListRepository extends JpaRepository<StockList, String>  {
+// }
+// package nextDevs.CapstonebackEnd.repository;
+
+// public interface TimeSeriesDataRepository extends JpaRepository<TimeSeriesData, Long> {
+//     Optional<TimeSeriesData> findBySymbolAndInterval(String symbol, String interval);
+
+// }
+// package nextDevs.CapstonebackEnd.repository;
+// public interface TimeSeriesValueRepository extends JpaRepository<TimeSeriesValue, Long> {
+// }
+// package nextDevs.CapstonebackEnd.service;
+
+// @Service
+// public class DatabasePopulatorService {
+
+//     @Autowired
+//     private LogoBorsaRepository logoBorsaRepository;
+
+//     @Autowired
+//     private StockListRepository stockListRepository;
+
+//     @Autowired
+//     private TimeSeriesDataRepository timeSeriesDataRepository;
+
+//     @Autowired
+//     private TimeSeriesValueRepository timeSeriesValueRepository;
+
+//     @Autowired
+//     private ObjectMapper objectMapper;
+
+//     public void populateLogoBorsa(String json) throws JsonProcessingException {
+//         LogoBorsaDTO logoBorsaDTO = objectMapper.readValue(json, LogoBorsaDTO.class);
+//         LogoBorsa logoBorsa = toEntity(logoBorsaDTO);
+//         logoBorsaRepository.save(logoBorsa);
+//     }
+
+//     public void populateStockList(String json) throws JsonProcessingException {
+//         StockListDTO stockListDTO = objectMapper.readValue(json, StockListDTO.class);
+//         StockList stockList = toEntity(stockListDTO);
+//         stockListRepository.save(stockList);
+//     }
+
+
+//     public void populateTimeSeriesData(String json) throws JsonProcessingException {
+//         TimeSeriesDataDTO timeSeriesDataDTO = objectMapper.readValue(json, TimeSeriesDataDTO.class);
+//         TimeSeriesData timeSeriesData = toEntity(timeSeriesDataDTO);
+//         timeSeriesDataRepository.save(timeSeriesData);
+//     }
+
+//     public void populateTimeSeriesValue(String json) throws JsonProcessingException {
+//         TimeSeriesValueDTO timeSeriesValueDTO = objectMapper.readValue(json, TimeSeriesValueDTO.class);
+//         TimeSeriesValue timeSeriesValue = toEntity(timeSeriesValueDTO);
+//         timeSeriesValueRepository.save(timeSeriesValue);
+//     }
+
+//     private LogoBorsa toEntity(LogoBorsaDTO dto) {
+//         LogoBorsa logoBorsa = new LogoBorsa();
+//         logoBorsa.setId(dto.getId());
+//         logoBorsa.setUrl(dto.getUrl());
+//         return logoBorsa;
+//     }
+
+//     private StockList toEntity(StockListDTO dto) {
+//         StockList stockList = new StockList();
+//         stockList.setSymbol(dto.getSymbol());
+//         stockList.setName(dto.getName());
+//         stockList.setCurrency(dto.getCurrency());
+//         stockList.setExchange(dto.getExchange());
+//         stockList.setMic_code(dto.getMic_code());
+//         stockList.setCountry(dto.getCountry());
+//         stockList.setType(dto.getType());
+
+//         if (dto.getTimeSeriesData() != null) {
+//             stockList.setTimeSeriesData(dto.getTimeSeriesData().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList()));
+//         }
+//         return stockList;
+//     }
+
+//     private TimeSeriesData toEntity(TimeSeriesDataDTO dto) {
+//         TimeSeriesData timeSeriesData = new TimeSeriesData();
+//         timeSeriesData.setId(dto.getId());
+//         timeSeriesData.setSymbol(dto.getSymbol());
+//         timeSeriesData.setInterval(dto.getInterval());
+//         timeSeriesData.setCurrency(dto.getCurrency());
+//         timeSeriesData.setExchange_timezone(dto.getExchange_timezone());
+//         timeSeriesData.setExchange(dto.getExchange());
+//         timeSeriesData.setMic_code(dto.getMic_code());
+//         timeSeriesData.setType(dto.getType());
+//         if (dto.getTimeSeriesValues() != null) {
+//             timeSeriesData.setTimeSeriesValues(dto.getTimeSeriesValues().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList()));
+//         }
+//         return timeSeriesData;
+//     }
+
+//     private TimeSeriesValue toEntity(TimeSeriesValueDTO dto) {
+//         TimeSeriesValue timeSeriesValue = new TimeSeriesValue();
+//         timeSeriesValue.setId(dto.getId());
+//         timeSeriesValue.setDatetime(dto.getDatetime());
+//         timeSeriesValue.setOpen(dto.getOpen());
+//         timeSeriesValue.setHigh(dto.getHigh());
+//         timeSeriesValue.setLow(dto.getLow());
+//         timeSeriesValue.setClose(dto.getClose());
+//         timeSeriesValue.setVolume(dto.getVolume());
+//         return timeSeriesValue;
+//     }
+// }
+
+// @Service
+
+// public class StockListService {
+
+//     @Autowired
+//     private StockListRepository stockListRepository;
+
+//     public List<StockListDTO> findAll() {
+//         return stockListRepository.findAll().stream()
+//                 .map(this::toDTO)
+//                 .collect(Collectors.toList());
+//     }
+
+//     public StockListDTO findById(String symbol) {
+//         return stockListRepository.findById(symbol)
+//                 .map(this::toDTO)
+//                 .orElse(null);
+//     }
+
+//     public StockListDTO save(StockListDTO stockListDTO) {
+//         StockList stockList = toEntity(stockListDTO);
+//         return toDTO(stockListRepository.save(stockList));
+//     }
+
+//     public void deleteById(String symbol) {
+//         stockListRepository.deleteById(symbol);
+//     }
+
+//     private StockListDTO toDTO(StockList stockList) {
+//         StockListDTO dto = new StockListDTO();
+//         dto.setSymbol(stockList.getSymbol());
+//         dto.setName(stockList.getName());
+//         dto.setCurrency(stockList.getCurrency());
+//         dto.setExchange(stockList.getExchange());
+//         dto.setMic_code(stockList.getMic_code());
+//         dto.setCountry(stockList.getCountry());
+//         dto.setType(stockList.getType());
+
+//         if (stockList.getTimeSeriesData() != null) {
+//             dto.setTimeSeriesData(stockList.getTimeSeriesData().stream()
+//                     .map(this::toDTO)
+//                     .collect(Collectors.toList()));
+//         }
+//         return dto;
+//     }
+
+//     private StockList toEntity(StockListDTO dto) {
+//         StockList stockList = new StockList();
+//         stockList.setSymbol(dto.getSymbol());
+//         stockList.setName(dto.getName());
+//         stockList.setCurrency(dto.getCurrency());
+//         stockList.setExchange(dto.getExchange());
+//         stockList.setMic_code(dto.getMic_code());
+//         stockList.setCountry(dto.getCountry());
+//         stockList.setType(dto.getType());
+
+//         if (dto.getTimeSeriesData() != null) {
+//             stockList.setTimeSeriesData(dto.getTimeSeriesData().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList()));
+//         }
+//         return stockList;
+//     }
+
+//     private LogoBorsaDTO toDTO(LogoBorsa logoBorsa) {
+//         LogoBorsaDTO dto = new LogoBorsaDTO();
+//         dto.setId(logoBorsa.getId());
+//         dto.setUrl(logoBorsa.getUrl());
+//         return dto;
+//     }
+
+//     private LogoBorsa toEntity(LogoBorsaDTO dto) {
+//         LogoBorsa logoBorsa = new LogoBorsa();
+//         logoBorsa.setId(dto.getId());
+//         logoBorsa.setUrl(dto.getUrl());
+//         return logoBorsa;
+//     }
+
+//     private TimeSeriesDataDTO toDTO(TimeSeriesData timeSeriesData) {
+//         TimeSeriesDataDTO dto = new TimeSeriesDataDTO();
+//         dto.setId(timeSeriesData.getId());
+//         dto.setSymbol(timeSeriesData.getSymbol());
+//         dto.setInterval(timeSeriesData.getInterval());
+//         dto.setCurrency(timeSeriesData.getCurrency());
+//         dto.setExchange_timezone(timeSeriesData.getExchange_timezone());
+//         dto.setExchange(timeSeriesData.getExchange());
+//         dto.setMic_code(timeSeriesData.getMic_code());
+//         dto.setType(timeSeriesData.getType());
+//         if (timeSeriesData.getTimeSeriesValues() != null) {
+//             dto.setTimeSeriesValues(timeSeriesData.getTimeSeriesValues().stream()
+//                     .map(this::toDTO)
+//                     .collect(Collectors.toList()));
+//         }
+//         return dto;
+//     }
+
+//     private TimeSeriesData toEntity(TimeSeriesDataDTO dto) {
+//         TimeSeriesData timeSeriesData = new TimeSeriesData();
+//         timeSeriesData.setId(dto.getId());
+//         timeSeriesData.setSymbol(dto.getSymbol());
+//         timeSeriesData.setInterval(dto.getInterval());
+//         timeSeriesData.setCurrency(dto.getCurrency());
+//         timeSeriesData.setExchange_timezone(dto.getExchange_timezone());
+//         timeSeriesData.setExchange(dto.getExchange());
+//         timeSeriesData.setMic_code(dto.getMic_code());
+//         timeSeriesData.setType(dto.getType());
+//         if (dto.getTimeSeriesValues() != null) {
+//             timeSeriesData.setTimeSeriesValues(dto.getTimeSeriesValues().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList()));
+//         }
+//         return timeSeriesData;
+//     }
+
+//     private TimeSeriesValueDTO toDTO(TimeSeriesValue timeSeriesValue) {
+//         TimeSeriesValueDTO dto = new TimeSeriesValueDTO();
+//         dto.setId(timeSeriesValue.getId());
+//         dto.setDatetime(timeSeriesValue.getDatetime());
+//         dto.setOpen(timeSeriesValue.getOpen());
+//         dto.setHigh(timeSeriesValue.getHigh());
+//         dto.setLow(timeSeriesValue.getLow());
+//         dto.setClose(timeSeriesValue.getClose());
+//         dto.setVolume(timeSeriesValue.getVolume());
+//         return dto;
+//     }
+
+//     private TimeSeriesValue toEntity(TimeSeriesValueDTO dto) {
+//         TimeSeriesValue timeSeriesValue = new TimeSeriesValue();
+//         timeSeriesValue.setId(dto.getId());
+//         timeSeriesValue.setDatetime(dto.getDatetime());
+//         timeSeriesValue.setOpen(dto.getOpen());
+//         timeSeriesValue.setHigh(dto.getHigh());
+//         timeSeriesValue.setLow(dto.getLow());
+//         timeSeriesValue.setClose(dto.getClose());
+//         timeSeriesValue.setVolume(dto.getVolume());
+//         return timeSeriesValue;
+//     }
+// }
+// package nextDevs.CapstonebackEnd.service;
+
+// @Service
+// public class TimeSeriesDataService {
+//     @Autowired
+//     private TimeSeriesDataRepository timeSeriesDataRepository;
+
+//     @Autowired
+//     private StockListRepository stockListRepository;  // Aggiungi questo
+
+//     public List<TimeSeriesDataDTO> findAll() {
+//         return timeSeriesDataRepository.findAll().stream()
+//                 .map(this::toDTO)
+//                 .collect(Collectors.toList());
+//     }
+
+//     public TimeSeriesDataDTO findById(Long id) {
+//         return timeSeriesDataRepository.findById(id)
+//                 .map(this::toDTO)
+//                 .orElse(null);
+//     }
+
+//     public void deleteById(Long id) {
+//         timeSeriesDataRepository.deleteById(id);
+//     }
+
+// public TimeSeriesDataDTO save(TimeSeriesDataDTO timeSeriesDataDTO) {
+//     TimeSeriesData existingTimeSeriesData = timeSeriesDataRepository
+//             .findBySymbolAndInterval(timeSeriesDataDTO.getSymbol(), timeSeriesDataDTO.getInterval())
+//             .orElse(null);
+
+//     if (existingTimeSeriesData != null) {
+
+//         existingTimeSeriesData.setCurrency(timeSeriesDataDTO.getCurrency());
+//         existingTimeSeriesData.setExchange(timeSeriesDataDTO.getExchange());
+//         existingTimeSeriesData.setExchange_timezone(timeSeriesDataDTO.getExchange_timezone());
+//         existingTimeSeriesData.setMic_code(timeSeriesDataDTO.getMic_code());
+//         existingTimeSeriesData.setType(timeSeriesDataDTO.getType());
+
+//         if (timeSeriesDataDTO.getTimeSeriesValues() != null) {
+//             List<TimeSeriesValue> timeSeriesValues = timeSeriesDataDTO.getTimeSeriesValues().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList());
+//             for (TimeSeriesValue value : timeSeriesValues) {
+//                 value.setTimeSeriesData(existingTimeSeriesData);
+//             }
+//             existingTimeSeriesData.setTimeSeriesValues(timeSeriesValues);
+//         }
+
+//         return toDTO(timeSeriesDataRepository.save(existingTimeSeriesData));
+//     } else {
+     
+//         TimeSeriesData timeSeriesData = toEntity(timeSeriesDataDTO);
+
+//         if (timeSeriesDataDTO.getSymbol() != null) {
+//             StockList stockList = stockListRepository.findById(timeSeriesDataDTO.getSymbol()).orElse(null);
+//             if (stockList != null) {
+//                 timeSeriesData.setStockList(stockList);
+//             }
+//         }
+
+//         if (timeSeriesDataDTO.getTimeSeriesValues() != null) {
+//             List<TimeSeriesValue> timeSeriesValues = timeSeriesDataDTO.getTimeSeriesValues().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList());
+//             for (TimeSeriesValue value : timeSeriesValues) {
+//                 value.setTimeSeriesData(timeSeriesData);
+//             }
+//             timeSeriesData.setTimeSeriesValues(timeSeriesValues);
+//         }
+
+//         return toDTO(timeSeriesDataRepository.save(timeSeriesData));
+//     }
+// }
+
+//     private TimeSeriesDataDTO toDTO(TimeSeriesData timeSeriesData) {
+//         TimeSeriesDataDTO dto = new TimeSeriesDataDTO();
+//         dto.setId(timeSeriesData.getId());
+//         dto.setSymbol(timeSeriesData.getSymbol());
+//         dto.setInterval(timeSeriesData.getInterval());
+//         dto.setCurrency(timeSeriesData.getCurrency());
+//         dto.setExchange_timezone(timeSeriesData.getExchange_timezone());
+//         dto.setExchange(timeSeriesData.getExchange());
+//         dto.setMic_code(timeSeriesData.getMic_code());
+//         dto.setType(timeSeriesData.getType());
+//         if (timeSeriesData.getTimeSeriesValues() != null) {
+//             dto.setTimeSeriesValues(timeSeriesData.getTimeSeriesValues().stream()
+//                     .map(this::toDTO)
+//                     .collect(Collectors.toList()));
+//         }
+//         return dto;
+//     }
+
+//     private TimeSeriesData toEntity(TimeSeriesDataDTO dto) {
+//         TimeSeriesData timeSeriesData = new TimeSeriesData();
+//         timeSeriesData.setId(dto.getId());
+//         timeSeriesData.setSymbol(dto.getSymbol());
+//         timeSeriesData.setInterval(dto.getInterval());
+//         timeSeriesData.setCurrency(dto.getCurrency());
+//         timeSeriesData.setExchange_timezone(dto.getExchange_timezone());
+//         timeSeriesData.setExchange(dto.getExchange());
+//         timeSeriesData.setMic_code(dto.getMic_code());
+//         timeSeriesData.setType(dto.getType());
+//         if (dto.getTimeSeriesValues() != null) {
+//             List<TimeSeriesValue> timeSeriesValues = dto.getTimeSeriesValues().stream()
+//                     .map(this::toEntity)
+//                     .collect(Collectors.toList());
+//             timeSeriesData.setTimeSeriesValues(timeSeriesValues);
+//         }
+//         return timeSeriesData;
+//     }
+
+//     private TimeSeriesValueDTO toDTO(TimeSeriesValue timeSeriesValue) {
+//         TimeSeriesValueDTO dto = new TimeSeriesValueDTO();
+//         dto.setId(timeSeriesValue.getId());
+//         dto.setDatetime(timeSeriesValue.getDatetime());
+//         dto.setOpen(timeSeriesValue.getOpen());
+//         dto.setHigh(timeSeriesValue.getHigh());
+//         dto.setLow(timeSeriesValue.getLow());
+//         dto.setClose(timeSeriesValue.getClose());
+//         dto.setVolume(timeSeriesValue.getVolume());
+//         return dto;
+//     }
+
+//     private TimeSeriesValue toEntity(TimeSeriesValueDTO dto) {
+//         TimeSeriesValue timeSeriesValue = new TimeSeriesValue();
+//         timeSeriesValue.setId(dto.getId());
+//         timeSeriesValue.setDatetime(dto.getDatetime());
+//         timeSeriesValue.setOpen(dto.getOpen());
+//         timeSeriesValue.setHigh(dto.getHigh());
+//         timeSeriesValue.setLow(dto.getLow());
+//         timeSeriesValue.setClose(dto.getClose());
+//         timeSeriesValue.setVolume(dto.getVolume());
+//         return timeSeriesValue;
+//     }
+// }
+// package nextDevs.CapstonebackEnd.service;
+
+// @Service
+// public class TimeSeriesValueService {
+//     @Autowired
+//     private TimeSeriesValueRepository timeSeriesValueRepository;
+
+//     public List<TimeSeriesValueDTO> findAll() {
+//         return timeSeriesValueRepository.findAll().stream()
+//                 .map(this::toDTO)
+//                 .collect(Collectors.toList());
+//     }
+
+//     public TimeSeriesValueDTO findById(Long id) {
+//         return timeSeriesValueRepository.findById(id)
+//                 .map(this::toDTO)
+//                 .orElse(null);
+//     }
+
+//     public TimeSeriesValueDTO save(TimeSeriesValueDTO timeSeriesValueDTO) {
+//         TimeSeriesValue timeSeriesValue = toEntity(timeSeriesValueDTO);
+
+//         if (timeSeriesValueDTO.getTimeSeriesData() != null) {
+//             TimeSeriesData timeSeriesData = new TimeSeriesData();
+//             timeSeriesData.setId(timeSeriesValueDTO.getTimeSeriesData().getId());
+//             timeSeriesValue.setTimeSeriesData(timeSeriesData);
+//         }
+
+//         return toDTO(timeSeriesValueRepository.save(timeSeriesValue));
+//     }
+
+//     public void deleteById(Long id) {
+//         timeSeriesValueRepository.deleteById(id);
+//     }
+
+//     private TimeSeriesValueDTO toDTO(TimeSeriesValue timeSeriesValue) {
+//         TimeSeriesValueDTO dto = new TimeSeriesValueDTO();
+//         dto.setId(timeSeriesValue.getId());
+//         dto.setDatetime(timeSeriesValue.getDatetime());
+//         dto.setOpen(timeSeriesValue.getOpen());
+//         dto.setHigh(timeSeriesValue.getHigh());
+//         dto.setLow(timeSeriesValue.getLow());
+//         dto.setClose(timeSeriesValue.getClose());
+//         dto.setVolume(timeSeriesValue.getVolume());
+    
+//         if (timeSeriesValue.getTimeSeriesData() != null) {
+//             dto.setTimeSeriesData(toDTO(timeSeriesValue.getTimeSeriesData()));
+//         }
+//         return dto;
+//     }
+
+//     private TimeSeriesValue toEntity(TimeSeriesValueDTO dto) {
+//         TimeSeriesValue timeSeriesValue = new TimeSeriesValue();
+//         timeSeriesValue.setId(dto.getId());
+//         timeSeriesValue.setDatetime(dto.getDatetime());
+//         timeSeriesValue.setOpen(dto.getOpen());
+//         timeSeriesValue.setHigh(dto.getHigh());
+//         timeSeriesValue.setLow(dto.getLow());
+//         timeSeriesValue.setClose(dto.getClose());
+//         timeSeriesValue.setVolume(dto.getVolume());
+    
+//         if (dto.getTimeSeriesData() != null) {
+//             TimeSeriesData timeSeriesData = new TimeSeriesData();
+//             timeSeriesData.setId(dto.getTimeSeriesData().getId());
+//             timeSeriesValue.setTimeSeriesData(timeSeriesData);
+//         }
+//         return timeSeriesValue;
+//     }
+
+//     private TimeSeriesDataDTO toDTO(TimeSeriesData timeSeriesData) {
+//         TimeSeriesDataDTO dto = new TimeSeriesDataDTO();
+//         dto.setId(timeSeriesData.getId());
+//         dto.setSymbol(timeSeriesData.getSymbol());
+//         dto.setInterval(timeSeriesData.getInterval());
+//         dto.setCurrency(timeSeriesData.getCurrency());
+//         dto.setExchange_timezone(timeSeriesData.getExchange_timezone());
+//         dto.setExchange(timeSeriesData.getExchange());
+//         dto.setMic_code(timeSeriesData.getMic_code());
+//         dto.setType(timeSeriesData.getType());
+//         return dto;
+//     }
+
+//     private TimeSeriesData toEntity(TimeSeriesDataDTO dto) {
+//         TimeSeriesData timeSeriesData = new TimeSeriesData();
+//         timeSeriesData.setId(dto.getId());
+//         timeSeriesData.setSymbol(dto.getSymbol());
+//         timeSeriesData.setInterval(dto.getInterval());
+//         timeSeriesData.setCurrency(dto.getCurrency());
+//         timeSeriesData.setExchange_timezone(dto.getExchange_timezone());
+//         timeSeriesData.setExchange(dto.getExchange());
+//         timeSeriesData.setMic_code(dto.getMic_code());
+//         timeSeriesData.setType(dto.getType());
+//         return timeSeriesData;
+//     }
+// }
+// package nextDevs.CapstonebackEnd;
+
+// public class CustomLocalDateTimeDeserializer extends JsonDeserializer<LocalDateTime> {
+
+//     @Override
+//     public LocalDateTime deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+//         String date = p.getText();
+//         try {
+//             return LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+//         } catch (DateTimeParseException e) {
+//             return LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE).atStartOfDay();
+//         }
+//     }
+// }

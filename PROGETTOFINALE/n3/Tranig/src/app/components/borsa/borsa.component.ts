@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Chart, ScriptableContext, ScriptableLineSegmentContext, ChartData, registerables } from 'chart.js';
 import { environment } from 'src/app/environment/environment.development';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
@@ -23,7 +23,7 @@ import { TimeSeriesBorseService } from 'src/app/service/time-series-borse.servic
 })
 export class BorsaComponent implements OnInit {
   @Output() favoriteToggled = new EventEmitter<any>();
-
+  @Input() favorites: any[] = [];
   selectedInterval: string = '1day'; // Intervallo selezionato
   interval: string = '1day'; // Impostazione di default
   logoUrl: string | undefined;
@@ -59,7 +59,11 @@ export class BorsaComponent implements OnInit {
     this.getStocks();
     this.initChart();
     this.getLogo();
-
+    this.favorites.forEach(favorite=>{
+      if(favorite.symbol === this.stock.symbol){
+        this.stock.favorite = true;
+      }
+    })
     // this.loadAllSymbols();
 
     // Aggiorna il prezzo ogni 10 secondi
@@ -344,6 +348,11 @@ export class BorsaComponent implements OnInit {
     this.getTimeSeries(this.interval);
     // Aggiornare il grafico
     this.updateChart();
+    this.favorites.forEach(favorite=>{
+      if(favorite.symbol === this.stock.symbol){
+        this.stock.favorite = true;
+      }
+    })
   }
 
 

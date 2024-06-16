@@ -7,5 +7,7 @@ export interface StockList {
     country:string;
     type:string;
 
+  
+
     
 }
