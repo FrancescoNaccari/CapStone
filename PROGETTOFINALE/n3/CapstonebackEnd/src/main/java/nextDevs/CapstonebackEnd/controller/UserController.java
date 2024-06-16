@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -90,6 +92,13 @@ public class UserController {
                     .map(e -> e.getDefaultMessage()).reduce("", ((s1, s2) -> s1 + s2)));
         }
         userService.updatePassword(id, updatePasswordDto);
+    }
+
+
+    @PutMapping("/users/{id}/newsletter")
+    public ResponseEntity<User> updateNewsletter(@PathVariable Integer id, @RequestBody Map<String, Boolean> newsletter) {
+        User updatedUser = userService.updateNewsletterPreference(id, newsletter.get("newsletter"));
+        return ResponseEntity.ok(updatedUser);
     }
 
 }

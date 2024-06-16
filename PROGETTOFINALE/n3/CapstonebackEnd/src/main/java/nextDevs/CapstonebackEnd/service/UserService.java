@@ -8,6 +8,7 @@ import nextDevs.CapstonebackEnd.dto.UserDto;
 import nextDevs.CapstonebackEnd.enums.TipoUtente;
 import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.exception.NotFoundException;
+import nextDevs.CapstonebackEnd.exception.UserNotFoundException;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,4 +185,10 @@ public class UserService {
         }
     }
 
+
+    public User updateNewsletterPreference(Integer id, Boolean newsletter) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        user.setNewsletter(newsletter);
+        return userRepository.save(user);
+    }
 }

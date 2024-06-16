@@ -37,5 +37,8 @@ updateAvatar(id: number, formData: FormData): Observable<User> {
 updatePassword(id: number, currentPassword: string, newPassword: string): Observable<void> {
   return this.http.patch<void>(`${this.apiBack}users/${id}/password`, { currentPassword, newPassword });
 }
+updateNewsletter(id: number, newsletter: boolean): Observable<User> {
+  return this.http.put<User>(`${this.apiBack}users/${id}/newsletter`, { newsletter });
+}
 
 }
