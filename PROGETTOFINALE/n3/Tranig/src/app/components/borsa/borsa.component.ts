@@ -180,7 +180,7 @@ export class BorsaComponent implements OnInit {
 
 
 
-
+//------------------------- CHIAMATA ALL'API ------------------------------//
   // Funzione per ottenere la lista delle azioni(lista dei symbol)
   // getStocks(): void {
   //   this.stockListService.getStockList().subscribe(
