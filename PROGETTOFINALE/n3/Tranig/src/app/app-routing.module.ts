@@ -9,9 +9,10 @@ import { LeadingComment } from '@angular/compiler';
 import { LoginComponent } from './components/login/login.component';
 import { BorsaComponent } from './components/borsa/borsa.component';
 import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-stocks.component';
-import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
-import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
 import { ContattaciComponent } from './components/footer/contattaci/contattaci.component';
+import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
+import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
+
 
 const routes: Routes = [
   { path: "", component: LoginComponent },

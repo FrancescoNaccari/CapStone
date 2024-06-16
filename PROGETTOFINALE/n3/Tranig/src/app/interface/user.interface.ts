@@ -10,4 +10,5 @@ export interface User {
     username: string,
     avatar?: string
     listaFavoriti:FavoriteStock[];
+    newsletter: boolean
 }

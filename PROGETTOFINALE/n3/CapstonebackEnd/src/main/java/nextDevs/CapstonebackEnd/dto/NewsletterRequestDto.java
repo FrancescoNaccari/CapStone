@@ -1,2 +1,9 @@
-package nextDevs.CapstonebackEnd.dto;public class NewsletterRequestDto {
+package nextDevs.CapstonebackEnd.dto;
+
+import lombok.Data;
+
+@Data
+public class NewsletterRequestDto {
+    private String titolo;
+    private String testo;
 }

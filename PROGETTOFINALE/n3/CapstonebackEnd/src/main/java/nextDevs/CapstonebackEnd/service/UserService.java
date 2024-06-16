@@ -49,6 +49,7 @@ public class UserService {
             user.setUsername(userDto.getUsername());
             user.setEmail(userDto.getEmail());
             user.setTipoUtente(TipoUtente.USER);
+            user.setNewsletter(false);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
             userRepository.save(user);
@@ -128,6 +129,7 @@ public class UserService {
             userDataDto.setCognome(user.getCognome());
             userDataDto.setAvatar(user.getAvatar());
             userDataDto.setEmail(user.getEmail());
+            userDataDto.setNewsletter(user.isNewsletter());
             userDataDto.setUsername(user.getUsername());
             userDataDto.setIdUtente(user.getIdUtente());
             userDataDto.setTipoUtente(user.getTipoUtente());

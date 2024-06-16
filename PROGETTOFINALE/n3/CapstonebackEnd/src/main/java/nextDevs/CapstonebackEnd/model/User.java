@@ -26,6 +26,8 @@ public class User implements UserDetails {
     private TipoUtente tipoUtente;
     private String avatar;
 
+    private boolean newsletter;
+
     @OneToMany(mappedBy = "user")
     private List<FavoriteStock> listaFavoriti;
 
