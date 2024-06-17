@@ -1,0 +1,28 @@
+<div *ngIf="isAdmin()" class="container text-white">
+    <div class="my-5 fw-semibold">
+      <h1>Invio Newsletter</h1>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="rounded-4 w-100 p-3 mb-4 ">
+          <div class="form-group mb-3">
+            <label for="titolo" class="form-label">Titolo</label>
+            <input type="text" id="titolo" class="form-control text-white" [(ngModel)]="titolo">
+          </div>
+          <div class="form-group mb-3">
+            <label for="testo" class="form-label">Testo</label>
+            <textarea id="testo" class="form-control text-white" rows="5" [(ngModel)]="testo"></textarea>
+          </div>
+          <button class="btn btn-primary" (click)="inviaNewsletter()">Invia</button>
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  

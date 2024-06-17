@@ -589,29 +589,29 @@ updateUsername() {
   }
 }
 
-updateNewsletter() {
-  try {
-    if (this.profilo?.idUtente) {
-      this.profiloSrv.updateNewsletter(this.profilo.idUtente, this.profilo.newsletter).subscribe(
-        (updatedUser) => {
-          this.authSrv.updateUser(updatedUser);
-          window.alert('Preferenza newsletter aggiornata con successo');
-        },
-        (error) => {
-          console.error('Errore durante l\'aggiornamento della preferenza newsletter', error);
-        }
-      );
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
+// updateNewsletter() {
+//   try {
+//     if (this.profilo?.idUtente) {
+//       this.profiloSrv.updateNewsletter(this.profilo.idUtente, this.profilo.newsletter).subscribe(
+//         (updatedUser) => {
+//           this.authSrv.updateUser(updatedUser);
+//           window.alert('Preferenza newsletter aggiornata con successo');
+//         },
+//         (error) => {
+//           console.error('Errore durante l\'aggiornamento della preferenza newsletter', error);
+//         }
+//       );
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
 
-onNewsletterChange(event: Event) {
-  const input = event.target as HTMLInputElement;
-  if (this.profilo) {
-    this.profilo.newsletter = input.checked;
-    this.updateNewsletter();
-  }
-}
+// onNewsletterChange(event: Event) {
+//   const input = event.target as HTMLInputElement;
+//   if (this.profilo) {
+//     this.profilo.newsletter = input.checked;
+//     this.updateNewsletter();
+//   }
+// }
 }

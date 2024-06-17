@@ -16,6 +16,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue
+
     private int idUtente;
     private String email;
     private String password;

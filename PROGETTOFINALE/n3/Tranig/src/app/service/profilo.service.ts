@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../environment/environment.development';
 import { User } from '../interface/user.interface';
 import { AuthService } from './auth.service';
+import { Newsletter } from '../interface/newsletter.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,4 +42,7 @@ updateNewsletter(id: number, newsletter: boolean): Observable<User> {
   return this.http.put<User>(`${this.apiBack}users/${id}/newsletter`, { newsletter });
 }
 
+inviaNewsletter(newsletter: Newsletter): Observable<void> {
+  return this.http.post<void>(`${this.apiBack}newsletter/send`, newsletter);
+}
 }

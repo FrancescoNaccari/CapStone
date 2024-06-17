@@ -12,6 +12,8 @@ import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-s
 import { ContattaciComponent } from './components/footer/contattaci/contattaci.component';
 import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
 import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
+import { NewsletterComponent } from './components/newsletter/newsletter.component';
+import { InvioNewsletterComponent } from './components/newsletter/invio-newsletter/invio-newsletter.component';
 
 
 const routes: Routes = [
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'contattaci', component: ContattaciComponent },
   { path: 'favorites', component: FavoriteStocksComponent },
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
+  { path: 'newsletter', component: NewsletterComponent },
+  { path: 'invio-newsletter', component: InvioNewsletterComponent },
   { path: "error404", component: Error404Component },
   { path: "**", redirectTo: "error404" }
 ];

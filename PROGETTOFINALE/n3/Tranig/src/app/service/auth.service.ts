@@ -31,6 +31,7 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(user));
         this.autoLogout(user);
       })
+      
     )
   }
 
@@ -47,6 +48,7 @@ export class AuthService {
     this.authSub.next(null);
     localStorage.removeItem('user');
     this.router.navigate(['/'])
+
   }
 
   private autoLogout(data: AuthData) {

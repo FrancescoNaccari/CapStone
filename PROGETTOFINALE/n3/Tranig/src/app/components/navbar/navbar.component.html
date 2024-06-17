@@ -20,15 +20,19 @@
         <li *ngIf="user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/profilo']" routerLinkActive="active">Profilo</a>
         </li>
-        <li *ngIf="!user" class="nav-item">
+        <li>
+          <a class="nav-link text-white " [routerLink]="['/newsletter']" routerLinkActive="active">Newsletter</a>
+        </li>
+        <!-- <li *ngIf="!user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/login']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Login</a>
         </li>
         <li *ngIf="!user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/register']" routerLinkActive="active">Registrati</a>
-        </li>
+        </li> -->
         <li>
           <a class="nav-link text-white d-lg-none" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
         </li>
+        
         <li><a class="nav-link text-white d-lg-none"  >Centro Assistenza</a></li>
         <li class="p-1 d-lg-none">
           <button (click)="logout()" type="button" class="btn btn-primary rounded-5 fs-5 fs-lg-1 ">Logout</button>

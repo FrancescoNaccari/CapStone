@@ -21,15 +21,16 @@ private UserService userService;
     @Autowired
     private JavaMailSender mailSender;
 
-    public void nuovaNewsletter(NewsletterRequestDto newsletterRequestDto){
+    public Integer nuovaNewsletter(NewsletterRequestDto newsletterRequestDto){
         NewsletterSubscription newsletterSubscription = new NewsletterSubscription();
         newsletterSubscription.setTitolo(newsletterRequestDto.getTitolo());
         newsletterSubscription.setTesto(newsletterRequestDto.getTesto());
         repository.save(newsletterSubscription);
-        List<User> users = userService.getAllUsers(0,1000,"id").getContent();
+        List<User> users = userService.getAllUsers(0,1000,"idUtente").getContent();
 
         users.stream().filter(user -> user.isNewsletter()).toList().forEach(user -> sendSimpleMessage(user.getEmail(),
                 newsletterRequestDto.getTitolo(),newsletterRequestDto.getTesto()));
+        return newsletterSubscription.getId();
     }
 
     private void sendSimpleMessage(String to, String subject, String text) {

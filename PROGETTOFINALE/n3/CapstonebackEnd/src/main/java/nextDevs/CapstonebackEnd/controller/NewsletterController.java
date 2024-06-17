@@ -19,10 +19,10 @@ public class NewsletterController {
 
 
     @PostMapping("/send")
-    public ResponseEntity<String> sendNewsletter(@RequestBody NewsletterRequestDto newsletterRequestDto) {
+    public ResponseEntity<Integer> sendNewsletter(@RequestBody NewsletterRequestDto newsletterRequestDto) {
         // Chiamata al servizio per inviare la newsletter
-        newsletterService.nuovaNewsletter(newsletterRequestDto);
-        return ResponseEntity.ok("Newsletter inviata con successo");
+
+        return ResponseEntity.ok(newsletterService.nuovaNewsletter(newsletterRequestDto));
     }
 
     }

@@ -21,6 +21,8 @@ import { FavoriteStocksComponent } from './components/favorite-stocks/favorite-s
 import { ContattaciComponent } from './components/footer/contattaci/contattaci.component';
 import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
 import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
+import { NewsletterComponent } from './components/newsletter/newsletter.component';
+import { InvioNewsletterComponent } from './components/newsletter/invio-newsletter/invio-newsletter.component';
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { TerminiDiServizioComponent } from './components/footer/termini-di-servi
     FavoriteStocksComponent,
     TerminiDiServizioComponent,
     PrivacyPolicyComponent,
-    ContattaciComponent
+    ContattaciComponent,
+    NewsletterComponent,
+    InvioNewsletterComponent
   ],
   imports: [
     BrowserModule,
