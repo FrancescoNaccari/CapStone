@@ -1,9 +1,7 @@
 package nextDevs.CapstonebackEnd.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -15,6 +13,8 @@ public class NewsletterSubscription {
     private Integer id;
 
     private String titolo;
+    @Lob
+    @Column(name = "testo", columnDefinition = "TEXT")
     private String testo;
 
 

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { QuillModule } from 'ngx-quill';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,7 +36,7 @@ import { InvioNewsletterComponent } from './components/newsletter/invio-newslett
     HomeComponent,
     WebsocketComponent,
     FooterComponent,
-
+    
     BorsaComponent,
     StockCardComponent,
     LoginComponent,
@@ -50,8 +52,9 @@ import { InvioNewsletterComponent } from './components/newsletter/invio-newslett
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,
-    NgbPopoverModule 
+    NgbPopoverModule,
+    QuillModule,
+     FormsModule, 
 
   ],
   providers: [    {

@@ -28,12 +28,18 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 
 
-# Istallazione 
+# Istallazione GENERALE
 npm install chart.js 
 npm i bootstrap@5.3.3
 npm install @auth0/angular-jwt
 ng add @ng-bootstrap/ng-bootstrap
 
+
+ ### installazione solo QUILL
+ npm i quill@1.3.7   
+ npm i ngx-quill@23.0.2  
+ npm i --save-dev @types/quill
+npm i -D @types/quill@1.3
 
 ## palette COLORI
 <!-- Aquamarine Tint (#09eab4)

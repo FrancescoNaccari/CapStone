@@ -42,7 +42,7 @@ updateNewsletter(id: number, newsletter: boolean): Observable<User> {
   return this.http.put<User>(`${this.apiBack}users/${id}/newsletter`, { newsletter });
 }
 
-inviaNewsletter(newsletter: Newsletter): Observable<void> {
-  return this.http.post<void>(`${this.apiBack}newsletter/send`, newsletter);
+inviaNewsletter(formData: FormData): Observable<void> {
+  return this.http.post<void>(`${this.apiBack}newsletter/send`, formData);
 }
 }
