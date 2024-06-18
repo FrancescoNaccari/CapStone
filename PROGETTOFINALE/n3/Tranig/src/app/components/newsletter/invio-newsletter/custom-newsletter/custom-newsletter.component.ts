@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { Editor, Toolbar, Validators } from 'ngx-editor';
 import { NgxEditorModule } from 'ngx-editor';
+import { ProfiloService } from 'src/app/service/profilo.service';
 
 @Component({
   selector: 'app-custom-newsletter',
@@ -21,19 +22,32 @@ export class CustomNewsletterComponent implements OnInit, OnDestroy {
     ['align_left', 'align_center', 'align_right', 'align_justify'],
   ];
 
-  form = new FormGroup({
-    editorContent: new FormControl('', Validators.required()),
-  });
-
-  constructor() {
+  
+  constructor(private profiloService: ProfiloService) {
     this.editor = new Editor();
   }
-  ngOnInit(): void {
-  
-  }
+
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  onSubmit(form:NgForm) {
+    if (form.valid) {
+      const newsletter = {
+        titolo: form.value.title,
+        testo: form.value.editorContent
+      };
+      this.profiloService.inviaNewsletter(newsletter).subscribe(
+        () => {
+          console.log('Newsletter inviata con successo');
+        },
+        (error) => {
+          console.error('Errore durante l\'invio della newsletter', error);
+        }
+      );
+    }
   }
 
 }

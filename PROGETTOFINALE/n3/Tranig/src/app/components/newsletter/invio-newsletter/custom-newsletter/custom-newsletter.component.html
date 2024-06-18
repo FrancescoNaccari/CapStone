@@ -1,12 +1,14 @@
-
 <div class="container">
-
-<form [formGroup]="form">
-    <div class="NgxEditor__Wrapper text-black">
-      <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"> </ngx-editor-menu>
-      <ngx-editor [editor]="editor" formControlName="editorContent"> </ngx-editor>
-    </div>
-</form>
-
-</div>
-
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div>
+        <label for="title">Titolo:</label>
+        <input id="title" name="title" type="text" class="form-control" ngModel />
+      </div>
+      <div class="NgxEditor__Wrapper text-black">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor [editor]="editor" name="editorContent" ngModel></ngx-editor>
+      </div>
+      <button type="submit" [disabled]="form.invalid">Invia Newsletter</button>
+    </form>
+  </div>
+  

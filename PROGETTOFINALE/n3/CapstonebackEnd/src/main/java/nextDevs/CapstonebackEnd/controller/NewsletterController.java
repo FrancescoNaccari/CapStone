@@ -21,8 +21,8 @@ public class NewsletterController {
     @PostMapping("/send")
     public ResponseEntity<Integer> sendNewsletter(@RequestBody NewsletterRequestDto newsletterRequestDto) {
         // Chiamata al servizio per inviare la newsletter
-
-        return ResponseEntity.ok(newsletterService.nuovaNewsletter(newsletterRequestDto));
+        newsletterService.nuovaNewsletter(newsletterRequestDto);
+        return ResponseEntity.ok().build();
     }
 
 //    @PostMapping("/send")
