@@ -172,7 +172,11 @@
     </div>
   </div> -->
 
-  <div class="container mt-5">
+
+
+<!-- -----------------------------------FATTO CON QUILL------------------------------------------- -->
+
+  <!-- <div class="container mt-5">
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
@@ -184,12 +188,9 @@
           <div class="form-group">
             <label>Descrizione</label>
             <quill-editor [(ngModel)]="testo" name="testo" id="txtContent"
-            [modules]="mudulesQuill" (onEditorChanged)="onChangedEditor($event)"></quill-editor>
+            [modules]="quillModules" (onEditorChanged)="onChangedEditor($event)"></quill-editor>
           </div>
-          <div class="form-group">
-            <label>Carica Immagini</label>
-            <input type="file" class="form-control" (change)="onFilesSelected($event)" multiple>
-          </div>
+         
           <button type="submit" class="btn btn-primary">Invia</button>
         </form>
         <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
@@ -197,5 +198,9 @@
       </div>
       <div class="col-2"></div>
     </div>
-  </div>
+  </div> -->
   
+<!-- ----------------------------------- FATTO CON NGXEDITOR ------------------------------------------- -->
+
+
+

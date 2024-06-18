@@ -1,5 +1,7 @@
 package nextDevs.CapstonebackEnd.controller;
 
+
+import nextDevs.CapstonebackEnd.dto.NewsletterRequestDto;
 import nextDevs.CapstonebackEnd.service.NewsletterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,11 +16,21 @@ public class NewsletterController {
     @Autowired
     private NewsletterService newsletterService;
 
+
+
     @PostMapping("/send")
-    public ResponseEntity<Integer> sendNewsletter(
-            @RequestParam("titolo") String titolo,
-            @RequestParam("testo") String testo,
-            @RequestParam("file") List<MultipartFile> files) {
-        return ResponseEntity.ok(newsletterService.nuovaNewsletter(titolo, testo, files));
+    public ResponseEntity<Integer> sendNewsletter(@RequestBody NewsletterRequestDto newsletterRequestDto) {
+        // Chiamata al servizio per inviare la newsletter
+
+        return ResponseEntity.ok(newsletterService.nuovaNewsletter(newsletterRequestDto));
     }
-}
+
+//    @PostMapping("/send")
+//    public ResponseEntity<Integer> sendNewsletter(
+//            @RequestParam("titolo") String titolo,
+//            @RequestParam("testo") String testo,
+//            @RequestParam("file") List<MultipartFile> files) {
+//        return ResponseEntity.ok(newsletterService.nuovaNewsletter(titolo, testo, files));
+//    }
+    }
+

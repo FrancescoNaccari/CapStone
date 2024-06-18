@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { QuillModule } from 'ngx-quill';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -46,14 +45,14 @@ import { InvioNewsletterComponent } from './components/newsletter/invio-newslett
     PrivacyPolicyComponent,
     ContattaciComponent,
     NewsletterComponent,
-    InvioNewsletterComponent
+    InvioNewsletterComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbPopoverModule,
-    QuillModule,
      FormsModule, 
 
   ],
