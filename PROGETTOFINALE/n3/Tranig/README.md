@@ -34,6 +34,8 @@ npm i bootstrap@5.3.3
 npm install @auth0/angular-jwt
 ng add @ng-bootstrap/ng-bootstrap
 
+### installazione solo ngx-editor
+npm i ngx-editor@16.0.1
 
  ### installazione solo QUILL
  npm i quill@1.3.7   
