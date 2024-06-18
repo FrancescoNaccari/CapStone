@@ -9,36 +9,18 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit  {
-  // [x: string]: any;
+  [x: string]: any;
   
-  // user!: AuthData | null
-  //   constructor(private authSrv: AuthService) {}
-  //   ngOnInit(): void {
-  //     this.authSrv.user$.subscribe((data) => {
-  //       this.user = data
-  //     })
-  //   }
+  user!: AuthData | null
+    constructor(private authSrv: AuthService) {}
+    ngOnInit(): void {
+      this.authSrv.user$.subscribe((data) => {
+        this.user = data
+      })
+    }
   
-  //   logout() {
-  //     this.authSrv.logout();
-  //   }}
-
-  user: AuthData | SocialUser | null = null;
-
-  constructor(private authSrv: AuthService) {}
-
-  ngOnInit(): void {
-    this.authSrv.user$.subscribe((data) => {
-      this.user = data;
-      console.log('User:', this.user); // Debug
-    });
+    logout() {
+      this.authSrv.logout();
+    }
+  
   }
-
-  logout() {
-    this.authSrv.logout();
-  }
-
-  isAuthData(user: any): user is AuthData {
-    return user && 'accessToken' in user && 'user' in user;
-  }
-}

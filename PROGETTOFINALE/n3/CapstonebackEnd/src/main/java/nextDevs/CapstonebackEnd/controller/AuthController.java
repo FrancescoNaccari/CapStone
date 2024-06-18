@@ -8,12 +8,12 @@ import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.service.AuthService;
 import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //@CrossOrigin(origins = "*")
@@ -46,16 +46,8 @@ public class AuthController {
         return authService.authenticateUserAndCreateToken(userLoginDto);
     }
 
-    @GetMapping("/login")
-    public String getLoginPage() {
-        return "login"; // Assicurati di avere una pagina di login personalizzata
-    }
 
-    @RequestMapping("/home")
-    public String home(@AuthenticationPrincipal OidcUser principal) {
-        // Puoi ottenere le informazioni dell'utente autenticato da principal
-        return "home";
-    }
+
 
 
 }

@@ -106,79 +106,44 @@ export class AuthService {
 //       return throwError(error)
 //   }
 // }
-
 private jwtHelper = new JwtHelperService();
-private authSub = new BehaviorSubject<AuthData | null | SocialUser>(null);
+
+private authSub = new BehaviorSubject<AuthData | null>(null);
 user$ = this.authSub.asObservable();
-private timeout!: any;
+private timeout!:any;
 
-constructor(
-  private http: HttpClient,
-  private router: Router,
-  private socialAuthService: SocialAuthService
-) {
-  this.socialAuthService.authState.subscribe((user) => {
-    if (user) {
-      this.authSub.next(user);
-      localStorage.setItem('user', JSON.stringify(user));
-      this.loginWithGoogle(user.idToken);
-    }
-  });
+constructor(private http: HttpClient, private router:Router) { }
+
+register(data: {username: string, password: string, email: string, nome: string, cognome: string}) {
+  return this.http.post(`${environment.apiBack}auth/register`, data).pipe(catchError(this.errors))
 }
 
-register(data: {
-  username: string;
-  password: string;
-  email: string;
-  nome: string;
-  cognome: string;
-}) {
-  return this.http
-    .post(`${environment.apiBack}auth/register`, data)
-    .pipe(catchError(this.errors));
-}
-
-login(data: { email: string; password: string }) {
-  console.log(data);
+login(data: {email: string, password: string}) {
+  console.log(data)
   return this.http.post<AuthData>(`${environment.apiBack}auth/login`, data).pipe(
-    tap((data) => {
-      console.log('Auth:', data);
-    }),
-    tap((user) => {
+    tap(async (user) => {
       this.authSub.next(user);
       localStorage.setItem('user', JSON.stringify(user));
       this.autoLogout(user);
-    }),
-    catchError(this.errors)
-  );
-}
-
-private loginWithGoogle(idToken: string) {
-  this.http.post<AuthData>(`${environment.apiBack}auth/google`, { token: idToken }).subscribe(
-    (data) => {
-      this.authSub.next(data);
-      localStorage.setItem('user', JSON.stringify(data));
-      this.router.navigate(['/']);
-    },
-    (error) => {
-      console.error('Google login error:', error);
-    }
-  );
+    })
+    
+  )
 }
 
 updateUser(data: User) {
   const datas = this.authSub.getValue();
-  if (datas && 'user' in datas) {
+  if (datas) {
     datas.user = data;
   }
   this.authSub.next(datas);
-  localStorage.setItem('user', JSON.stringify(datas));
+  localStorage.setItem('user', JSON.stringify(datas))
 }
 
 logout() {
   this.authSub.next(null);
   localStorage.removeItem('user');
-  this.router.navigate(['/']);
+  this.router.navigate(['/'])
+
 }
 
 private autoLogout(data: AuthData) {
@@ -186,44 +151,43 @@ private autoLogout(data: AuthData) {
   const msExp = dataExp.getTime() - new Date().getTime();
   this.timeout = setTimeout(() => {
     this.logout();
-  }, msExp);
+  }, msExp)
 }
 
 async restore() {
   const userJson = localStorage.getItem('user');
   if (!userJson) {
-    return;
+    return
   }
-  const user = JSON.parse(userJson);
+  const user:AuthData = JSON.parse(userJson);
   this.authSub.next(user);
+  // this.router.navigate(['/home'])
   this.autoLogout(user);
 }
 
-private errors(err: any) {
-  console.log(err);
-  let error = '';
-  switch (err.error) {
-    case 'Email already exists':
-      error = 'Utente già presente';
-      break;
-    case 'Incorrect password':
-      error = 'Password errata';
-      break;
-    case 'Cannot find user':
-      error = 'Utente non trovato';
-      break;
-    case 'Password is too short':
-      error = 'La password è troppo corta';
-      break;
-    default:
-      error = 'Errore nella chiamata';
-      break;
-  }
-  return throwError(error);
-}
 
-// Metodo per avviare il processo di login con Google
-signInWithGoogle(): void {
-  this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+private errors(err: any) {
+  console.log(err)
+    let error = "";
+    switch (err.error) {
+        case 'Email already exists':
+            error = "Utente già presente"
+            break;
+
+        case 'Incorrect password':
+            error = 'Password errata';
+            break;
+
+        case 'Cannot find user':
+            error = 'Utente non trovato';
+            break;
+        case 'Password is too short':
+          error = 'La password è troppo corta';
+          break
+        default:
+            error = 'Errore nella chiamata';
+            break;
+    }
+    return throwError(error)
 }
 }

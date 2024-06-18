@@ -23,87 +23,49 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableMethodSecurity //Permette di attivare la sicurezza sui metodi del controller con il PreAuthorized
 //public class Config implements WebMvcConfigurer {
 public class Config implements WebMvcConfigurer {
-//
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-//        httpSecurity.formLogin(AbstractHttpConfigurer::disable);
-//        httpSecurity.csrf(AbstractHttpConfigurer::disable);
-//        httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-//        httpSecurity.cors(Customizer.withDefaults());
-//
-////        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers(HttpMethod.GET,"/api/users").permitAll());
-////      httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").denyAll());
-//
-//        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/api/**").permitAll());
-//
-//        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
-//
-//        return httpSecurity.build();
-//
-//    }
-//
-////    @Override
-////    public void addCorsMappings(CorsRegistry registry) {
-////        registry.addMapping("/**")
-////                .allowedOrigins("http://localhost:4200")
-////                .allowedMethods("GET", "POST");
-////    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-////    @Bean
-////    public CorsConfigurationSource corsConfigurationSource() {
-////        CorsConfiguration corsConfiguration = new CorsConfiguration();
-////        corsConfiguration.setAllowedOrigins(List.of("*"));
-////        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-////        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-////
-////        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-////        source.registerCorsConfiguration("/**", corsConfiguration);
-////
-////        return source;
-////    }
-//
-//    @Bean
-//    public CorsFilter corsFilter() {
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        CorsConfiguration config = new CorsConfiguration();
-//        config.addAllowedOrigin("*");
-//        config.addAllowedHeader("*");
-//        config.addAllowedMethod("*");
-//        source.registerCorsConfiguration("/**", config);
-//        return new CorsFilter(source);
-//    }
-//}
-
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.formLogin(AbstractHttpConfigurer::disable);
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.cors(Customizer.withDefaults());
 
-        httpSecurity
-                .authorizeHttpRequests(http -> http
-                        .requestMatchers("/", "/home", "/login", "/oauth2/**").permitAll()
-                        .requestMatchers("/api/**").authenticated()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/home")
-                );
+//        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers(HttpMethod.GET,"/api/users").permitAll());
+//      httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").denyAll());
+
+        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/api/**").permitAll());
+
+        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
 
         return httpSecurity.build();
+
     }
+
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/**")
+//                .allowedOrigins("http://localhost:4200")
+//                .allowedMethods("GET", "POST");
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+//    @Bean
+//    public CorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration corsConfiguration = new CorsConfiguration();
+//        corsConfiguration.setAllowedOrigins(List.of("*"));
+//        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", corsConfiguration);
+//
+//        return source;
+//    }
 
     @Bean
     public CorsFilter corsFilter() {

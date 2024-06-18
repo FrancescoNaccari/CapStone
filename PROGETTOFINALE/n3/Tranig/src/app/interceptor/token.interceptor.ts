@@ -12,51 +12,26 @@ import { AuthData } from '../interface/auth-data.interface';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-//   constructor(private authSrv: AuthService) {}
+  constructor(private authSrv: AuthService) {}
 
-//   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-//     return this.authSrv.user$.pipe(
-//       take(1),
-//       switchMap(user => {
-//         if (user) {
-//           const newRequest = request.clone({
-//             headers: request.headers.append('Authorization', `Bearer ${user.accessToken}`)
-//           })
-//           console.log(newRequest)
-//           return next.handle(newRequest);
-//         } else {
-//           request.headers.append('Access-Control-Allow-Origin', '*')
-//           return next.handle(request);
-//         }
-//       })
-//     );
-//   }
-// }
-
-
-
-constructor(private authSrv: AuthService) {}
-
-intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-  return this.authSrv.user$.pipe(
-    take(1),
-    switchMap(user => {
-      if (user && isAuthData(user)) {
-        const newRequest = request.clone({
-          headers: request.headers.append('Authorization', `Bearer ${user.accessToken}`)
-        });
-        console.log(newRequest);
-        return next.handle(newRequest);
-      } else {
-        request.headers.append('Access-Control-Allow-Origin', '*');
-        return next.handle(request);
-      }
-    })
-  );
-}
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return this.authSrv.user$.pipe(
+      take(1),
+      switchMap(user => {
+        if (user) {
+          const newRequest = request.clone({
+            headers: request.headers.append('Authorization', `Bearer ${user.accessToken}`)
+          })
+          console.log(newRequest)
+          return next.handle(newRequest);
+        } else {
+          request.headers.append('Access-Control-Allow-Origin', '*')
+          return next.handle(request);
+        }
+      })
+    );
+  }
 }
 
-// Type guard function
-function isAuthData(user: any): user is AuthData {
-return user && 'accessToken' in user;
-}
+
+

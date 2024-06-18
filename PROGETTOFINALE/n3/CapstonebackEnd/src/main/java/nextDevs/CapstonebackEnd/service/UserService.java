@@ -191,7 +191,4 @@ public class UserService {
         user.setNewsletter(newsletter);
         return userRepository.save(user);
     }
-
-
-
 }
