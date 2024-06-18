@@ -26,7 +26,7 @@ import { PrivacyPolicyComponent } from './components/footer/privacy-policy/priva
 import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
 import { InvioNewsletterComponent } from './components/newsletter/invio-newsletter/invio-newsletter.component';
-import { CustomNewsletterComponent } from './components/newsletter/invio-newsletter/custom-newsletter/custom-newsletter.component';
+import { CustomNewsletterComponent } from './components/newsletter/custom-newsletter/custom-newsletter.component';
 
 @NgModule({
   declarations: [
