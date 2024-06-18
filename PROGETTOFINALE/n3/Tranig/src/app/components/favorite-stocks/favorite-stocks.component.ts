@@ -10,51 +10,106 @@ import { FavoriteStockService } from 'src/app/service/favorite-stock.service';
   styleUrls: ['./favorite-stocks.component.scss']
 })
 export class FavoriteStocksComponent implements OnInit {
-  favoriteStocks: FavoriteStock[] = [];
-  user: AuthData | null = null;
-  errorMessage: string | null = null;
+//   favoriteStocks: FavoriteStock[] = [];
+//   user: AuthData | null = null;
+//   errorMessage: string | null = null;
 
-  constructor(
-    private favoriteStockService: FavoriteStockService,
-    private authSrv: AuthService
-  ) {}
+//   constructor(
+//     private favoriteStockService: FavoriteStockService,
+//     private authSrv: AuthService
+//   ) {}
 
-  ngOnInit(): void {
-    this.authSrv.user$.subscribe((data) => {
-      console.log(data);
+//   ngOnInit(): void {
+//     this.authSrv.user$.subscribe((data) => {
+//       console.log(data);
+//       this.user = data;
+//       if (this.user && this.user.user.idUtente) {
+//         this.loadFavorites(this.user.user.idUtente.toString());
+
+//       }
+//     });
+
+
+//   }
+
+//   loadFavorites(userId: string): void {
+//     this.favoriteStockService.getFavorites(parseInt(userId)).subscribe(
+//       (favorites: FavoriteStock[]) => {
+//         this.favoriteStocks = favorites;
+//       },
+//       (error) => {
+//         console.error('Errore durante il recupero dei preferiti', error);
+//         this.errorMessage = 'Errore durante il recupero dei preferiti';
+//       }
+//     );
+//   }
+
+//   removeFavorite(stock: FavoriteStock): void {
+//     if (stock.id) {
+//       this.favoriteStockService.removeFavorite(stock.id).subscribe(
+//         () => {
+//           this.favoriteStocks = this.favoriteStocks.filter(s => s.id !== stock.id);
+//         },
+//         (error) => {
+//           console.error('Errore durante la rimozione del preferito', error);
+//           this.errorMessage = 'Errore durante la rimozione del preferito';
+//         }
+//       );
+//     }
+//   }
+// }
+
+
+
+favoriteStocks: FavoriteStock[] = [];
+user: AuthData | null = null;
+errorMessage: string | null = null;
+
+constructor(
+  private favoriteStockService: FavoriteStockService,
+  private authSrv: AuthService
+) {}
+
+ngOnInit(): void {
+  this.authSrv.user$.subscribe((data) => {
+    console.log(data);
+    if (isAuthData(data)) {
       this.user = data;
-      if (this.user && this.user.user.idUtente) {
+      if (this.user.user.idUtente) {
         this.loadFavorites(this.user.user.idUtente.toString());
-
       }
-    });
+    }
+  });
+}
 
+loadFavorites(userId: string): void {
+  this.favoriteStockService.getFavorites(parseInt(userId)).subscribe(
+    (favorites: FavoriteStock[]) => {
+      this.favoriteStocks = favorites;
+    },
+    (error) => {
+      console.error('Errore durante il recupero dei preferiti', error);
+      this.errorMessage = 'Errore durante il recupero dei preferiti';
+    }
+  );
+}
 
-  }
-
-  loadFavorites(userId: string): void {
-    this.favoriteStockService.getFavorites(parseInt(userId)).subscribe(
-      (favorites: FavoriteStock[]) => {
-        this.favoriteStocks = favorites;
+removeFavorite(stock: FavoriteStock): void {
+  if (stock.id) {
+    this.favoriteStockService.removeFavorite(stock.id).subscribe(
+      () => {
+        this.favoriteStocks = this.favoriteStocks.filter(s => s.id !== stock.id);
       },
       (error) => {
-        console.error('Errore durante il recupero dei preferiti', error);
-        this.errorMessage = 'Errore durante il recupero dei preferiti';
+        console.error('Errore durante la rimozione del preferito', error);
+        this.errorMessage = 'Errore durante la rimozione del preferito';
       }
     );
   }
+}
+}
 
-  removeFavorite(stock: FavoriteStock): void {
-    if (stock.id) {
-      this.favoriteStockService.removeFavorite(stock.id).subscribe(
-        () => {
-          this.favoriteStocks = this.favoriteStocks.filter(s => s.id !== stock.id);
-        },
-        (error) => {
-          console.error('Errore durante la rimozione del preferito', error);
-          this.errorMessage = 'Errore durante la rimozione del preferito';
-        }
-      );
-    }
-  }
+// Type guard function
+function isAuthData(user: any): user is AuthData {
+return user && 'accessToken' in user && 'user' in user;
 }

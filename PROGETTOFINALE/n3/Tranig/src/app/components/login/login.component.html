@@ -1,4 +1,4 @@
-
+<!-- 
 <div class="container gigi" #container>
     <div class="form-container sign-up-container">
       <form   #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
@@ -30,6 +30,50 @@
         <button type="submit " class="overEd mt-4" [disabled]="loginForm.invalid" >Accedi</button>
       </form>
     </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Bentornato!</h1>
+          <p>Effettua il Login con i tuoi dati</p>
+          <button class="ghost overEd" (click)="signIn()">Accedi</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Benvenuto!</h1>
+          <p>Inserisci i tuoi dati e inizia un viaggio con noi!</p>
+          <button class="ghost overEd mt-2" (click)="signUp()">Registrati</button>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->
+   <div class="container gigi" #container>
+    <div class="form-container sign-up-container">
+      <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
+        <h1>Crea Account</h1>
+        <div class="social-container mb-3">
+          <asl-google-signin-button></asl-google-signin-button>
+        </div>
+        <input type="text" placeholder="Nome" id="nomeRegister" name="nomeRegister" required class="form-control" ngModel />
+        <input type="text" placeholder="Cognome" id="cognomeRegister" name="cognomeRegister" required class="form-control" ngModel />
+        <input type="text" placeholder="Username" id="usernameRegister" name="usernameRegister" required class="form-control" ngModel />
+        <input type="email" placeholder="Email" id="emailRegister" name="emailRegister" required class="form-control" ngModel />
+        <input type="password" placeholder="Password" id="passwordRegister" name="passwordRegister" required class="form-control" ngModel />
+        <button class="mt-2 overEd" type="submit" [disabled]="registerForm.invalid">Registrati</button>
+      </form>
+    </div>
+  
+    <div class="form-container sign-in-container">
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+        <h1>Accedi</h1>
+        <div class="social-container">
+          <asl-google-signin-button></asl-google-signin-button>
+        </div>
+        <input type="email" placeholder="Email" name="email" id="email" required class="form-control" ngModel />
+        <input type="password" placeholder="Password" name="password" id="password" required class="form-control" ngModel />
+        <button type="submit" class="overEd mt-4" [disabled]="loginForm.invalid">Accedi</button>
+      </form>
+    </div>
+  
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">

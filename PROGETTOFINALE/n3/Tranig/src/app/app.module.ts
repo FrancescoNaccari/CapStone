@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxEditorModule } from 'ngx-editor';
-
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from '@abacritt/angularx-social-login';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -25,8 +29,9 @@ import { ContattaciComponent } from './components/footer/contattaci/contattaci.c
 import { PrivacyPolicyComponent } from './components/footer/privacy-policy/privacy-policy.component';
 import { TerminiDiServizioComponent } from './components/footer/termini-di-servizio/termini-di-servizio.component';
 import { NewsletterComponent } from './components/newsletter/newsletter.component';
-import { InvioNewsletterComponent } from './components/newsletter/invio-newsletter/invio-newsletter.component';
+
 import { CustomNewsletterComponent } from './components/newsletter/custom-newsletter/custom-newsletter.component';
+import { GoogleLoginComponent } from './components/login/google-login/google-login.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,8 @@ import { CustomNewsletterComponent } from './components/newsletter/custom-newsle
     PrivacyPolicyComponent,
     ContattaciComponent,
     NewsletterComponent,
-    InvioNewsletterComponent,
+
+    GoogleLoginComponent,
     
   ],
   imports: [
@@ -56,6 +62,7 @@ import { CustomNewsletterComponent } from './components/newsletter/custom-newsle
     HttpClientModule,
     NgbPopoverModule,
      FormsModule, 
+     SocialLoginModule,
      ReactiveFormsModule,
   NgxEditorModule.forRoot({
     locals: {
@@ -98,7 +105,31 @@ import { CustomNewsletterComponent } from './components/newsletter/custom-newsle
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
+  },
+  {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            '800518808424-6uhijj53k3b0qq0butjpjc0m3mcver38.apps.googleusercontent.com', {
+              scopes: 'openid profile email',
+            }
+          )
+        },
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('clientId')
+        }
+      ],
+      onError: (err) => {
+        console.error(err);
+      }
+    } as SocialAuthServiceConfig,
   }],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

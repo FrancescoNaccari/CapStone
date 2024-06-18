@@ -34,6 +34,9 @@ npm i bootstrap@5.3.3
 npm install @auth0/angular-jwt
 ng add @ng-bootstrap/ng-bootstrap
 
+### installazione solo login google
+npm i @abacritt/angularx-social-login@2.1.0  
+
 ### installazione solo ngx-editor
 npm i ngx-editor@16.0.1
 
