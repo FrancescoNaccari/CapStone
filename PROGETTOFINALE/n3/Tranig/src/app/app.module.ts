@@ -18,7 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { WebsocketComponent } from './components/websocket/websocket.component';
-import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbPopoverModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BorsaComponent } from './components/borsa/borsa.component';
 import { StockCardComponent } from './components/stock-card/stock-card.component';
 import { LoginComponent } from './components/login/login.component';
@@ -100,6 +100,7 @@ import { GoogleLoginComponent } from './components/login/google-login/google-log
       enterValidUrl: 'Please enter a valid URL',
     },
   }),
+  NgbModule,
   ],
   providers: [    {
     provide: HTTP_INTERCEPTORS,
