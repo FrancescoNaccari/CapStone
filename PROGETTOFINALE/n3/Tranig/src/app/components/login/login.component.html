@@ -3,7 +3,7 @@
     <form   #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
       <h1>Crea Account</h1>
       <div class="social-container mb-3">
- 
+        <!-- <app-google-login></app-google-login> -->
       
       </div>
      
@@ -18,9 +18,9 @@
   <div class="form-container sign-in-container">
     <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
       <h1>Accedi</h1>
-      <div class="social-container">
+      <div class="social-container mb-3">
 
- 
+        <app-google-login></app-google-login>
   
       </div>
       <input type="email" placeholder="Email" name="email" id="email" required class="form-control" ngModel/>
@@ -46,4 +46,3 @@
 </div>
 
 
-<app-google-login></app-google-login>

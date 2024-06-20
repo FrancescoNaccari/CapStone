@@ -1,6 +1,6 @@
 
-
-<div class="container-fluid  m-0">
+<!-- *ngIf="user" -->
+<div   class="container-fluid  m-0">
   <div class="row justify-content-between m-2">
     <div class="col-12 col-md-4 p-0 p-lg-2">
       <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock" [favorites]="favoriteStocks" (favoriteToggled)="onFavoriteToggled($event)"></app-stock-card>

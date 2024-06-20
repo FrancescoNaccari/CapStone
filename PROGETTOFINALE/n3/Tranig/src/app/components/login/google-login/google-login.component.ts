@@ -90,9 +90,6 @@ handleCredentialResponse(response: any) {
 }
 
 sendTokenToBackend(token: string): void {
-  this.authSrv.loginGoole({token}).subscribe();
+  this.authSrv.loginGoogle({token}).subscribe();
 }
 }
-//`${environment.apiBack}auth/login/oauth2/code/google`
-//800518808424-75801i1han5olaiiut1j985mg4pjcfs0.apps.googleusercontent.com
-//800518808424-75801i1han5olaiiut1j985mg4pjcfs0.apps.googleusercontent.com

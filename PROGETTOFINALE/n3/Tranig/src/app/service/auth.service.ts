@@ -120,7 +120,7 @@ register(data: {username: string, password: string, email: string, nome: string,
 }
 
 
-loginGoole(token:any){
+loginGoogle(token:any){
 
   return this.http.post<AuthData>(`${environment.apiBack}auth/login/oauth2/code/google`,token).pipe(
     tap(async (user) => {
@@ -155,9 +155,14 @@ logout() {
   this.authSub.next(null);
   localStorage.removeItem('user');
   this.router.navigate(['/'])
-
+  this.initializeGoogleLogin();
 }
-
+private initializeGoogleLogin() {
+  // Assicurati che il componente GoogleLoginComponent venga reinizializzato
+  // ad esempio, ricaricando la pagina o richiamando la funzione di inizializzazione del componente
+ 
+  window.location.reload(); // Questo è un modo semplice ma potrebbe non essere il più elegante
+}
 private autoLogout(data: AuthData) {
   const dataExp = this.jwtHelper.getTokenExpirationDate(data.accessToken) as Date;
   const msExp = dataExp.getTime() - new Date().getTime();

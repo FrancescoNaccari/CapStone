@@ -37,7 +37,7 @@ ng add @ng-bootstrap/ng-bootstrap
 ### installazione solo login google
 npm i @abacritt/angularx-social-login@2.1.0  
 
-### installazione solo ngx-editor
+### installazione solo ngx-editor  (per le newsletters)
 npm i ngx-editor@16.0.1
 
  ### installazione solo QUILL
