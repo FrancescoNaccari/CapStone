@@ -5,6 +5,7 @@ import io.jsonwebtoken.security.Keys;
 
 import nextDevs.CapstonebackEnd.exception.UnauthorizedException;
 import nextDevs.CapstonebackEnd.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

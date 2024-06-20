@@ -112,12 +112,24 @@ private authSub = new BehaviorSubject<AuthData | null>(null);
 user$ = this.authSub.asObservable();
 private timeout!:any;
 
+
 constructor(private http: HttpClient, private router:Router) { }
 
 register(data: {username: string, password: string, email: string, nome: string, cognome: string}) {
   return this.http.post(`${environment.apiBack}auth/register`, data).pipe(catchError(this.errors))
 }
 
+
+loginGoole(token:any){
+
+  return this.http.post<AuthData>(`${environment.apiBack}auth/login/oauth2/code/google`,token).pipe(
+    tap(async (user) => {
+      this.authSub.next(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      this.autoLogout(user);
+    })
+  )
+}
 login(data: {email: string, password: string}) {
   console.log(data)
   return this.http.post<AuthData>(`${environment.apiBack}auth/login`, data).pipe(
