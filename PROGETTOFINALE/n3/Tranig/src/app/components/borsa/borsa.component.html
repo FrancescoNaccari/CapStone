@@ -1,4 +1,4 @@
-
+<!-- 
 
 <div class="container card-color rounded-3 shadow ">
   <div class="row ">
@@ -74,5 +74,89 @@
     </div>
   </div>
 </div>
+
+ -->
+
+
+ <div class="container card-color rounded-3 shadow">
+  <div class="row">
+    <div class="d-none col-12 d-lg-flex align-items-center justify-content-end">
+      <div class="star" (click)="toggleFavorite(stock)">
+        <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between col-12  col-lg-6  pe-lg-0 m-0">
+      <div class="dropdown search-dropdown">
+        <input type="text" class="form-control text-white fs-1 fs-xxl-2" placeholder="Cerca per azione" 
+               (input)="onSearchChange($event)" [(ngModel)]="searchTerm">
+        <ul *ngIf="filteredStocks.length > 0" class="dropdown-menu custom-dropdown-menu show">
+          <li *ngFor="let stock of filteredStocks">
+            <button class="dropdown-item" (click)="selectStock(stock.symbol)">{{ stock.symbol }}</button>
+          </li>
+        </ul>
+      </div>
+      <!-- Calendar Form -->
+       <app-calendario class="my-1 mx-2 "></app-calendario>
+    
+      <div class="d-lg-none d-flex align-items-center justify-content-start m-2 me-0 me-sm-2">
+        <div class="star m-0 ms-1" (click)="toggleFavorite(stock)">
+          <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+        </div>
+      </div>
+    </div>
+    
+    <div class="d-flex justify-content-lg-end justify-content-between col-12 ps-lg-0 col-lg-6 btn-group" role="group" aria-label="Interval Selection">
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1min'" (click)="onIntervalChange('1min')">1Min</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '5min'" (click)="onIntervalChange('5min')">5Min</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '15min'" (click)="onIntervalChange('15min')">15Min</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '30min'" (click)="onIntervalChange('30min')">30Min</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1h'" (click)="onIntervalChange('1h')">1H</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '4h'" (click)="onIntervalChange('4h')">4H</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1day'" (click)="onIntervalChange('1day')">1D</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1week'" (click)="onIntervalChange('1week')">1W</p>
+      <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1month'" (click)="onIntervalChange('1month')">1M</p>
+    </div>
+  </div>
+
+  <div class="col-12 mt-2">
+    <canvas id="myChart" width="100"></canvas>
+  </div>
+
+  <div class="col-12 border-top p-0">
+    <div class="card-color mx-md-3 border-0 my-3 p-0">
+      <div class="row g-0 text-white justify-content-around">
+        <div class="col-2 align-content-around text-center p-0 logo">
+          <img class="border-white rounded-circle w-75 w-md-50 w-lg-35" [src]="logoUrl" alt="Stock Icon" />
+        </div>
+        
+        <div class="col-3 align-content-center justify-content-center text-center p-0">
+          <h5 class="fw-bold fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
+            Tempo reale
+          </h5>
+          <div class="fw-bolder m-0 fs-sm-1 fs-5 text-center fs-lg-2 d-flex justify-content-center">
+            <p class="fw-bolder m-0 fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
+              $ {{price | number:'1.0-2'}}
+            </p>
+            <span class="me-0" *ngIf="stock?.increased" style="color: #00A68C; margin: 0 10px; float: right;">▲</span>
+            <span class="me-0" *ngIf="!stock?.increased" style="color: #D9475A; margin: 0 10px; float: right;">▼</span>
+          </div>
+        </div>
+        
+        <div class="col-3 align-content-center text-center">
+          <h5 class="fs-sm-1 fs-5 fs-lg-2">Prezzo medio</h5>
+          <p class="fw-bolder fs-sm-1 fs-5 m-0 fs-lg-2">$ {{averagePrice | number:'1.0-2'}}</p>
+        </div>
+        
+        <div class="col-3 align-content-center text-center">
+          <h5 class="fs-sm-1 fs-5 fs-lg-2">Miglior Prezzo</h5>
+          <p class="fw-bolder m-0 fs-sm-1 fs-5 fs-lg-2">$ {{bestPrice | number:'1.0-2'}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 

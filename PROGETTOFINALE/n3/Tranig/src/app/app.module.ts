@@ -8,6 +8,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,7 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
 
 import { CustomNewsletterComponent } from './components/newsletter/custom-newsletter/custom-newsletter.component';
 import { GoogleLoginComponent } from './components/login/google-login/google-login.component';
+import { CalendarioComponent } from './components/borsa/calendario/calendario.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { GoogleLoginComponent } from './components/login/google-login/google-log
     NewsletterComponent,
 
     GoogleLoginComponent,
+     CalendarioComponent,
     
   ],
   imports: [
@@ -61,6 +64,7 @@ import { GoogleLoginComponent } from './components/login/google-login/google-log
     AppRoutingModule,
     HttpClientModule,
     NgbPopoverModule,
+    NgbDatepickerModule,
      FormsModule, 
      SocialLoginModule,
      ReactiveFormsModule,
