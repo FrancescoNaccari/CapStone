@@ -95,7 +95,7 @@ private apiUrl = `${environment.apiURL}price`;
   constructor(private http: HttpClient, private apiKeyService: ApiKeyService) {}
 
   private fetchRealTimePriceWithKey(symbol: string, apiKey: string): Observable<RealTimePriceResponse> {
-    const url = `${this.apiUrl}?format=json&outputsize=30&symbol=${symbol}`;
+    const url = `${this.apiUrl}?format=json&outputsize=50&symbol=${symbol}`;
     const httpOptions = {
       headers: new HttpHeaders({
         'x-rapidapi-key': apiKey,
