@@ -15,6 +15,7 @@ import { RealTimePriceService } from 'src/app/service/real-time-price.service';
 import { StockListService } from 'src/app/service/stock-list.service';
 import { TimeSeriesBorseService } from 'src/app/service/time-series-borse.service';
 import zoomPlugin from 'chartjs-plugin-zoom';
+import { QuoteBorseService } from 'src/app/service/quote-borse.service';
 
 
 
@@ -949,7 +950,7 @@ stock: any = {};
 averagePrice: number = 0;
 bestPrice: number = 0;
 fromDate: string | null = '2024-06-17';
-toDate: string | null = '2024-06-21';
+toDate: string | null = '2024-06-22';
 myChartRef!: HTMLCanvasElement | null;
 private chart!: Chart;
 
@@ -958,6 +959,7 @@ constructor(
   private stockListService: StockListService,
   private realTimePriceService: RealTimePriceService,
   private timeSeriesBorseService: TimeSeriesBorseService,
+  private quoteBorseService: QuoteBorseService,
   private http: HttpClient
 ) {
   Chart.register(...registerables);
@@ -1055,8 +1057,7 @@ getRealTimePrice(): void {
         });
         this.price = response.price;
         this.stock.price = response.price;
-        this.stock.increased = response.price >= (Number(this.quote?.previous_close) || 0);
-        this.stock.symbol = this.symbol;
+        this.getPreviousClosePrice(response.price);
       },
       (error) => {
         console.error('Errore durante il recupero del prezzo in tempo reale', error);
@@ -1067,6 +1068,17 @@ getRealTimePrice(): void {
   }
 }
 
+getPreviousClosePrice(currentPrice: number): void {
+  this.quoteBorseService.getQuote(this.symbol).subscribe(
+    (response: QuoteBorse) => {
+      const previousClose = Number(response.previous_close);
+      this.stock.increased = currentPrice >= previousClose;
+    },
+    (error) => {
+      console.error('Errore durante il recupero del prezzo di chiusura precedente', error);
+    }
+  );
+}
 updateTimeSeries(interval: string): void {
   this.getTimeSeries(interval);
 }
