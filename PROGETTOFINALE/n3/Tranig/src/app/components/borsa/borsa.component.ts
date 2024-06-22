@@ -1074,33 +1074,41 @@ updateTimeSeries(interval: string): void {
 onDateRangeSelected(event: { fromDate: string, toDate: string }): void {
   this.fromDate = event.fromDate;
   this.toDate = event.toDate;
+  console.log(`Intervallo di date selezionato: da ${this.fromDate} a ${this.toDate}`);
   this.getTimeSeries(this.interval);
 }
 
 getTimeSeries(interval: string): void {
   if (this.symbol && this.fromDate && this.toDate) {
+    console.log(`Fetching time series for symbol: ${this.symbol}, interval: ${interval}, from: ${this.fromDate}, to: ${this.toDate}`);
     this.timeSeriesBorseService.getTimeSeries(this.symbol, interval, this.fromDate, this.toDate).subscribe(
       (response: any) => {
-        response.values.forEach((value: any) => {
-          value.low = Number(value.low);
-          value.high = Number(value.high);
-        });
+        if (response.values && response.values.length > 0) {
+          response.values.forEach((value: any) => {
+            value.low = Number(value.low);
+            value.high = Number(value.high);
+          });
 
-        response.values.sort((a: any, b: any) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+          response.values.sort((a: any, b: any) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
 
-        this.timeSeries = response;
-        this.updateChart();
-        this.calcolaPrezzoMedio();
-        this.calcolaMigliorPrezzo();
+          this.timeSeries = response; // Salva le serie temporali
+          console.log(this.timeSeries); // Stampa le serie temporali nella console
+          this.updateChart(); // Aggiorna il grafico con i nuovi dati
+          this.calcolaPrezzoMedio();  // Calcola il prezzo medio
+          this.calcolaMigliorPrezzo(); // Calcola il miglior prezzo dopo aver ottenuto la serie temporale
+        } else {
+          console.error('Dati delle serie temporali non disponibili');
+        }
       },
       (error) => {
-        console.error('Errore durante il recupero delle serie temporali', error);
+        console.error('Errore durante il recupero delle serie temporali', error); // Stampa un messaggio di errore in caso di fallimento
       }
     );
   } else {
-    console.error('Symbol or date range not set');
+    console.error('Simbolo o intervallo di date non impostati');
   }
 }
+
 
 onSubmit(): void {
   this.getTimeSeries(this.interval);
