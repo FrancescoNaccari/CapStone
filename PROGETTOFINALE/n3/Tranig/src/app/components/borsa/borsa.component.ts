@@ -1286,7 +1286,7 @@ initChart(): void {
             },
             mode: 'xy'
           }
-        } as any
+        } 
       }
     }
   });
@@ -1310,4 +1310,5 @@ toggleFavorite(stock: any): void {
   this.stock.favorite = !this.stock.favorite;
   this.favoriteToggled.emit(stock);
 }
+
 }
