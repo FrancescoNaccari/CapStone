@@ -164,6 +164,10 @@
 
  <div class="container card-color rounded-3 shadow">
   <div class="row">
+    <div class="row my-2">
+     
+    </div>
+  
     <div class="d-none col-12 d-lg-flex align-items-center justify-content-end">
       <div class="star" (click)="toggleFavorite(stock)">
         <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
@@ -189,7 +193,8 @@
       </div>
     </div>
     
-    <div class="d-flex justify-content-lg-end justify-content-between col-12 ps-lg-0 col-lg-6 btn-group" role="group" aria-label="Interval Selection">
+    <div class="d-flex  justify-content-lg-end justify-content-between col-12 ps-lg-0 col-lg-6 btn-group" role="group" aria-label="Interval Selection">
+      
       <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1min'" (click)="onIntervalChange('1min')">1Min</p>
       <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '5min'" (click)="onIntervalChange('5min')">5Min</p>
       <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '15min'" (click)="onIntervalChange('15min')">15Min</p>
@@ -199,6 +204,11 @@
       <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1day'" (click)="onIntervalChange('1day')">1D</p>
       <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1week'" (click)="onIntervalChange('1week')">1W</p>
       <p class="m-1 m-xl-2 p-0 fs-1" [class.selected]="selectedInterval === '1month'" (click)="onIntervalChange('1month')">1M</p>
+      <div class=" d-flex justify-content-center d-none">
+        <i class="bi bi-zoom-in"(click)="zoomIn()"></i>
+        <i class="bi bi-zoom-out mx-1 "(click)="zoomOut()"></i>
+        <button class="btn btn-secondary rounded-circle p-1 mx-1 fs-7" (click)="resetZoom()">Reset</button>
+      </div>
     </div>
   </div>
 

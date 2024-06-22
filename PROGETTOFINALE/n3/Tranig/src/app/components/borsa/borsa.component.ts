@@ -14,6 +14,7 @@ import { LogoBorsaService } from 'src/app/service/logo-borsa.service';
 import { RealTimePriceService } from 'src/app/service/real-time-price.service';
 import { StockListService } from 'src/app/service/stock-list.service';
 import { TimeSeriesBorseService } from 'src/app/service/time-series-borse.service';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 
 
@@ -543,29 +544,414 @@ export class BorsaComponent implements OnInit {
 // }
 
 
+// @Output() favoriteToggled = new EventEmitter<any>();
+// @Input() favorites: any[] = [];
+// selectedInterval: string = '1day'; // Intervallo selezionato
+// interval: string = '1day'; // Impostazione di default
+// logoUrl: string | undefined;
+// symbol: string = "AMZN"; // Impostazione di default
+// stocks: StockList[] = []; // lista per popolare la lista del form sui nomi dei symbol 
+// searchTerm: string = ''; // Variabile per memorizzare il termine di ricerca
+// filteredStocks: StockList[] = []; // Lista di azioni filtrate
+
+// price: number | undefined; // prezzo singolo tempo reale
+// quote: QuoteBorse | undefined;
+// timeSeries: TimeSeries | undefined;
+// stock: any = {}; // Adjust according to your actual stock data structure
+// averagePrice: number = 0;
+// bestPrice: number = 0;
+
+
+// fromDate: string | null = '2024-06-17'; // Example initial date
+// toDate: string | null ='2024-06-21';   // Example initial date
+
+// myChartRef!: HTMLCanvasElement | null; // Riferimento al canvas del grafico
+// private chart!: Chart; // Istanza del grafico
+
+// constructor(
+//   private logoBorsaService: LogoBorsaService,
+//   private stockListService: StockListService,
+//   private realTimePriceService: RealTimePriceService,
+//   private timeSeriesBorseService: TimeSeriesBorseService,
+//   private http: HttpClient
+// ) { // Registra la scala 'linear' durante l'inizializzazione del componente
+//   Chart.register(...registerables);
+// }
+
+// ngOnInit(): void {
+  
+//   this.getTimeSeries(this.interval);
+//   this.getStocks();
+//   this.initChart();
+//   this.getLogo();
+//   this.favorites.forEach(favorite => {
+//     if (favorite.symbol === this.stock.symbol) {
+//       this.stock.favorite = true;
+//     }
+//   });
+//   // Aggiorna il prezzo ogni 10 secondi
+//   setInterval(() => {
+//     this.getRealTimePrice();
+//   }, 60000); // da cambiare
+// }
+
+// ngAfterViewInit(): void {
+//   this.initChart();
+// }
+
+// onSearchChange(event: any): void {
+//   this.searchTerm = event.target.value;
+//   if (this.searchTerm.length > 0) {
+//     this.filteredStocks = this.stocks.filter(stock => stock.symbol.toLowerCase().includes(this.searchTerm.toLowerCase()));
+//   } else {
+//     this.filteredStocks = [];
+//   }
+// }
+
+// selectStock(selectedSymbol: string): void {
+//   this.symbol = selectedSymbol;
+//   this.searchTerm = '';
+//   this.filteredStocks = [];
+//   this.onSymbolChange(this.symbol); // Chiamata alla funzione per gestire il cambio di simbolo
+// }
+
+// getLogo(): void {
+//   console.log('Chiamato getLogo()');
+//   if (this.symbol) {
+//     this.logoBorsaService.getLogo(this.symbol).subscribe(
+//       (response: LogoBorsa) => {
+//         this.logoUrl = response.url ? response.url : undefined;
+//         this.stock.logoUrl = response.url ? response.url : undefined;
+//         console.log('URL del logo:', response.url);
+//       },
+//       (error) => {
+//         console.error('Errore durante il recupero del logo', error);
+//       }
+//     );
+//   } else {
+//     console.error('Simbolo non inserito');
+//   }
+// }
+
+// getStocks(): void {
+//   this.logoBorsaService.getAllLogos().subscribe(
+//     (response: LogoDto[]) => {
+//       let filteredStocks = response.filter(logo => logo.url !== null && logo.url !== '');
+//       let filter2: LogoDto[] = [];
+//       filteredStocks.forEach(logo => {
+//         let image = new Image();
+//         image.src = logo.url;
+//         image.onload = function () {
+//           filter2.push(logo);
+//         }
+//         image.onerror = function () {
+//         }
+//       })
+//       setTimeout(() => {
+//         this.stockListService.getStockList().subscribe((response: StockList[]) => {
+//           this.stocks = response.filter(stock => {
+//             return filter2.map(logo => logo.symbol).includes(stock.symbol);
+//           });
+//           console.log(this.stocks);
+//         });
+//       }, 2000);
+//     },
+//     (error) => {
+//       console.error('Errore durante il recupero della lista delle azioni', error);
+//       this.stocks = [];
+//     }
+//   );
+// }
+
+// getRealTimePrice(): void {
+//   if (this.symbol) {
+//     this.realTimePriceService.getRealTimePrice(this.symbol).subscribe(
+//       (response: RealTimePriceResponse) => {
+//         this.stocks.forEach((stock) => {
+//           if (stock.symbol === this.symbol) {
+//             this.stock.name = stock.name;
+//           }
+//         });
+//         this.price = response.price; // Salva il prezzo attuale
+//         this.stock.price = response.price; // Aggiorna il prezzo dell'azione
+//         this.stock.increased = response.price >= (Number(this.quote?.previous_close) || 0); // Verifica se il prezzo è aumentato rispetto alla chiusura precedente
+//         console.log(this.price); // Stampa il prezzo nella console
+//         this.stock.symbol = this.symbol;
+//       },
+//       (error) => {
+//         console.error('Errore durante il recupero del prezzo in tempo reale', error); // Stampa un messaggio di errore in caso di fallimento
+//       }
+//     );
+//   } else {
+//     console.error('Simbolo non inserito'); // Stampa un messaggio di errore se il simbolo non è presente
+//   }
+// }
+
+// updateTimeSeries(interval: string): void {
+//   this.getTimeSeries(interval); // Chiama la funzione per ottenere le serie temporali con il nuovo intervallo
+// }
+
+
+
+// onDateRangeSelected(event: { fromDate: string, toDate: string }): void {
+//   this.fromDate = event.fromDate;
+//   this.toDate = event.toDate;
+//   console.log(`Date range selected: from ${this.fromDate} to ${this.toDate}`);
+//   this.getTimeSeries(this.interval); // Fetch data based on the new date range and interval
+// }
+
+// getTimeSeries(interval: string): void {
+//   if (this.symbol && this.fromDate && this.toDate) {
+//     console.log(`Fetching time series for symbol: ${this.symbol}, interval: ${interval}, from: ${this.fromDate}, to: ${this.toDate}`);
+//     this.timeSeriesBorseService.getTimeSeries(this.symbol, interval, this.fromDate, this.toDate).subscribe(
+//       (response: any) => {
+//         response.values.forEach((value: any) => {
+//           value.low = Number(value.low);
+//           value.high = Number(value.high);
+//         });
+// // Sort the data by datetime in ascending order
+// response.values.sort((a: any, b: any) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+
+//         this.timeSeries = response; // Save the time series
+//         console.log(this.timeSeries); // Log the time series to console
+//         this.updateChart(); // Update the chart with new data
+//         this.calcolaPrezzoMedio();  // Calculate the average price
+//         this.calcolaMigliorPrezzo(); // Calculate the best price after obtaining the time series
+//       },
+//       (error) => {
+//         console.error('Errore durante il recupero delle serie temporali', error); // Print an error message if the time series data retrieval fails
+//       }
+//     );
+//   } else {
+//     console.error('Symbol or date range not set');
+//     console.log(`Symbol: ${this.symbol}`);
+//     console.log(`From Date: ${this.fromDate}`);
+//     console.log(`To Date: ${this.toDate}`);
+//   }
+// }
+// onSubmit(): void {
+//   this.getTimeSeries(this.interval);
+//   console.log('Simbolo selezionato:', this.symbol);
+//   console.log('Intervallo selezionato:', this.interval);
+// }
+
+// // onIntervalChange(newInterval: string): void {
+// //   this.interval = newInterval;
+// //   this.selectedInterval = newInterval; // Imposta l'intervallo selezionato
+
+// //   console.log('Nuovo intervallo selezionato:', newInterval);
+// //   this.getTimeSeries(this.interval);
+// //   this.updateChart();
+// // }
+// onIntervalChange(newInterval: string): void {
+//   this.interval = newInterval;
+//   this.selectedInterval = newInterval; // Set the selected interval
+//   console.log(`Nuovo intervallo selezionato: ${newInterval}`);
+//   this.getTimeSeries(this.interval); // Fetch data based on the new interval
+// }
+
+
+// onSymbolChange(newSymbol: string): void {
+//   console.log('Nuovo simbolo selezionato:', newSymbol);
+//   this.getRealTimePrice();
+//   this.getTimeSeries(this.interval);
+//   this.updateChart();
+//   this.favorites.forEach(favorite => {
+//     if (favorite.symbol === this.stock.symbol) {
+//       this.stock.favorite = true;
+//     }
+//   });
+// }
+
+// isMobile(): boolean {
+//   return window.innerWidth < 768;
+// }
+
+// updateChart(): void {
+//   if (!this.chart || !this.timeSeries || !this.timeSeries.values) return;
+
+//   const labels = this.timeSeries.values.map(val => {
+//     const dateTime = new Date(val.datetime);
+//     if (['1day', '1week', '1month'].includes(this.interval)) {
+//       return dateTime.toLocaleDateString();
+//     } else if (this.isMobile()) {
+//       if (this.interval.includes('min') || this.interval.includes('hour')) {
+//         return dateTime.toLocaleTimeString();
+//       } else {
+//         return dateTime.toLocaleDateString();
+//       }
+//     } else {
+//       return `${dateTime.toLocaleDateString()} ${dateTime.toLocaleTimeString()}`;
+//     }
+//   });
+
+//   const data = this.timeSeries.values.map(val => val.close);
+//   this.chart.data.labels = labels;
+//   this.chart.data.datasets[0].data = data;
+//   this.chart.update();
+
+//   this.getLogo();
+//   this.getRealTimePrice();
+
+//   this.calcolaPrezzoMedio();
+//   this.calcolaMigliorPrezzo();
+// }
+
+
+// calcolaPrezzoMedio(): void {
+//   if (this.timeSeries && this.timeSeries.values.length > 0) {
+//     const totalLow = this.timeSeries.values.reduce((sum, value) => sum + Number(value.low), 0);
+//     const totalHigh = this.timeSeries.values.reduce((sum, value) => sum + Number(value.high), 0);
+//     this.averagePrice = (totalLow + totalHigh) / (2 * this.timeSeries.values.length);
+//     console.log('Prezzo Medio:', this.averagePrice);
+//   } else {
+//     console.error('Nessun dato disponibile per calcolare il prezzo medio.');
+//   }
+// }
+
+// calcolaMigliorPrezzo(): void {
+//   if (this.timeSeries && this.timeSeries.values.length > 0) {
+//     const bestPrice = Math.max(...this.timeSeries.values.map(value => Number(value.high)));
+//     this.bestPrice = bestPrice;
+//     console.log('Miglior Prezzo:', bestPrice);
+//   } else {
+//     console.log('Nessuna serie temporale disponibile.');
+//   }
+// }
+
+// getFontSize(): number {
+//   const width = window.innerWidth;
+//   if (width < 576) {
+//     return 7;
+//   } else if (width < 768) {
+//     return 7;
+//   } else if (width < 992) {
+//     return 9;
+//   } else {
+//     return 11;
+//   }
+// }
+
+// initChart(): void {
+//   if (this.chart) {
+//     this.chart.destroy(); // Distruggi il grafico esistente se presente
+//   }
+//   this.myChartRef = document.getElementById('myChart') as HTMLCanvasElement;
+//   if (!this.myChartRef) return;
+//   const ctx = this.myChartRef.getContext('2d');
+//   if (!ctx) return;
+
+//   const skipped = (ctx: ScriptableLineSegmentContext) => ctx.p0.skip || ctx.p1.skip ? 'rgba(0,0,0,0.2)' : undefined;
+//   const down = (ctx: ScriptableLineSegmentContext) => ctx.p0.parsed.y > ctx.p1.parsed.y ? 'rgb(192,75,75)' : undefined;
+
+//   const getPointBackgroundColor = (ctx: ScriptableContext<'line'>) => {
+//     const index = ctx.dataIndex;
+//     const data = ctx.dataset.data as number[];
+//     if (index === 0) {
+//       return 'rgb(75, 192, 192)';
+//     }
+//     return data[index] > data[index - 1] ? 'rgb(75, 192, 75)' : 'red';
+//   };
+
+//   const getPointBorderColor = (ctx: ScriptableContext<'line'>) => {
+//     const index = ctx.dataIndex;
+//     const data = ctx.dataset.data as number[];
+//     if (index === 0) {
+//       return 'rgb(75, 192, 192)';
+//     }
+//     return data[index] > data[index - 1] ? 'rgb(75, 192, 75)' : 'red';
+//   };
+
+//   this.chart = new Chart(ctx, {
+//     type: 'line',
+//     data: {
+//       labels: [],
+//       datasets: [{
+//         label: 'Stock Price',
+//         data: [],
+//         borderColor: 'rgb(75, 192, 192)',
+//         segment: {
+//           borderColor: ctx => skipped(ctx) || down(ctx),
+//           borderDash: ctx => skipped(ctx) ? [6, 6] : undefined
+//         },
+//         borderWidth: 1,
+//         pointBackgroundColor: getPointBackgroundColor,
+//         pointBorderColor: getPointBorderColor
+//       }]
+//     },
+//     options: {
+//       responsive: true,
+//       maintainAspectRatio: true,
+//       animation: {
+//         duration: 1100,
+//         easing: 'linear'
+//       },
+//       scales: {
+//         y: {
+//           type: 'linear',
+//           beginAtZero: true,
+//           ticks: {
+//             color: 'white'
+//           },
+//           grid: {
+//             color: 'rgba(255, 255, 255, 0.2)'
+//           }
+//         },
+//         x: {
+//           ticks: {
+//             color: 'white',
+//             font: {
+//               size: this.getFontSize()
+//             },
+//             maxRotation: 50,
+//             minRotation: 0
+//           },
+//           grid: {
+//             color: 'rgba(255, 255, 255, 0.2)'
+//           }
+//         }
+//       },
+//       plugins: {
+//         legend: {
+//           display: false
+//         }
+//       }
+//     }
+//   });
+
+//   this.myChartRef.style.backgroundColor = '#122036';
+// }
+
+// toggleFavorite(stock: any): void {
+//   this.stock.favorite = !this.stock.favorite;
+//   this.favoriteToggled.emit(stock);
+//   console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
+// }
+// }
+
+
+
+
+
 @Output() favoriteToggled = new EventEmitter<any>();
 @Input() favorites: any[] = [];
-selectedInterval: string = '1day'; // Intervallo selezionato
-interval: string = '1day'; // Impostazione di default
+selectedInterval: string = '1day';
+interval: string = '1day';
 logoUrl: string | undefined;
-symbol: string = "AMZN"; // Impostazione di default
-stocks: StockList[] = []; // lista per popolare la lista del form sui nomi dei symbol 
-searchTerm: string = ''; // Variabile per memorizzare il termine di ricerca
-filteredStocks: StockList[] = []; // Lista di azioni filtrate
-
-price: number | undefined; // prezzo singolo tempo reale
+symbol: string = "AMZN";
+stocks: StockList[] = [];
+searchTerm: string = '';
+filteredStocks: StockList[] = [];
+price: number | undefined;
 quote: QuoteBorse | undefined;
 timeSeries: TimeSeries | undefined;
-stock: any = {}; // Adjust according to your actual stock data structure
+stock: any = {};
 averagePrice: number = 0;
 bestPrice: number = 0;
-
-
-fromDate: string | null = '2024-06-17'; // Example initial date
-toDate: string | null ='2024-06-21';   // Example initial date
-
-myChartRef!: HTMLCanvasElement | null; // Riferimento al canvas del grafico
-private chart!: Chart; // Istanza del grafico
+fromDate: string | null = '2024-06-17';
+toDate: string | null = '2024-06-21';
+myChartRef!: HTMLCanvasElement | null;
+private chart!: Chart;
 
 constructor(
   private logoBorsaService: LogoBorsaService,
@@ -573,12 +959,12 @@ constructor(
   private realTimePriceService: RealTimePriceService,
   private timeSeriesBorseService: TimeSeriesBorseService,
   private http: HttpClient
-) { // Registra la scala 'linear' durante l'inizializzazione del componente
+) {
   Chart.register(...registerables);
+  Chart.register(zoomPlugin); // Registra il plugin zoom
 }
 
 ngOnInit(): void {
-  
   this.getTimeSeries(this.interval);
   this.getStocks();
   this.initChart();
@@ -588,10 +974,9 @@ ngOnInit(): void {
       this.stock.favorite = true;
     }
   });
-  // Aggiorna il prezzo ogni 10 secondi
   setInterval(() => {
     this.getRealTimePrice();
-  }, 60000); // da cambiare
+  }, 60000);
 }
 
 ngAfterViewInit(): void {
@@ -611,17 +996,15 @@ selectStock(selectedSymbol: string): void {
   this.symbol = selectedSymbol;
   this.searchTerm = '';
   this.filteredStocks = [];
-  this.onSymbolChange(this.symbol); // Chiamata alla funzione per gestire il cambio di simbolo
+  this.onSymbolChange(this.symbol);
 }
 
 getLogo(): void {
-  console.log('Chiamato getLogo()');
   if (this.symbol) {
     this.logoBorsaService.getLogo(this.symbol).subscribe(
       (response: LogoBorsa) => {
         this.logoUrl = response.url ? response.url : undefined;
         this.stock.logoUrl = response.url ? response.url : undefined;
-        console.log('URL del logo:', response.url);
       },
       (error) => {
         console.error('Errore durante il recupero del logo', error);
@@ -645,13 +1028,12 @@ getStocks(): void {
         }
         image.onerror = function () {
         }
-      })
+      });
       setTimeout(() => {
         this.stockListService.getStockList().subscribe((response: StockList[]) => {
           this.stocks = response.filter(stock => {
             return filter2.map(logo => logo.symbol).includes(stock.symbol);
           });
-          console.log(this.stocks);
         });
       }, 2000);
     },
@@ -671,87 +1053,66 @@ getRealTimePrice(): void {
             this.stock.name = stock.name;
           }
         });
-        this.price = response.price; // Salva il prezzo attuale
-        this.stock.price = response.price; // Aggiorna il prezzo dell'azione
-        this.stock.increased = response.price >= (Number(this.quote?.previous_close) || 0); // Verifica se il prezzo è aumentato rispetto alla chiusura precedente
-        console.log(this.price); // Stampa il prezzo nella console
+        this.price = response.price;
+        this.stock.price = response.price;
+        this.stock.increased = response.price >= (Number(this.quote?.previous_close) || 0);
         this.stock.symbol = this.symbol;
       },
       (error) => {
-        console.error('Errore durante il recupero del prezzo in tempo reale', error); // Stampa un messaggio di errore in caso di fallimento
+        console.error('Errore durante il recupero del prezzo in tempo reale', error);
       }
     );
   } else {
-    console.error('Simbolo non inserito'); // Stampa un messaggio di errore se il simbolo non è presente
+    console.error('Simbolo non inserito');
   }
 }
 
 updateTimeSeries(interval: string): void {
-  this.getTimeSeries(interval); // Chiama la funzione per ottenere le serie temporali con il nuovo intervallo
+  this.getTimeSeries(interval);
 }
-
-
 
 onDateRangeSelected(event: { fromDate: string, toDate: string }): void {
   this.fromDate = event.fromDate;
   this.toDate = event.toDate;
-  console.log(`Date range selected: from ${this.fromDate} to ${this.toDate}`);
-  this.getTimeSeries(this.interval); // Fetch data based on the new date range and interval
+  this.getTimeSeries(this.interval);
 }
 
 getTimeSeries(interval: string): void {
   if (this.symbol && this.fromDate && this.toDate) {
-    console.log(`Fetching time series for symbol: ${this.symbol}, interval: ${interval}, from: ${this.fromDate}, to: ${this.toDate}`);
     this.timeSeriesBorseService.getTimeSeries(this.symbol, interval, this.fromDate, this.toDate).subscribe(
       (response: any) => {
         response.values.forEach((value: any) => {
           value.low = Number(value.low);
           value.high = Number(value.high);
         });
-// Sort the data by datetime in ascending order
-response.values.sort((a: any, b: any) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
 
-        this.timeSeries = response; // Save the time series
-        console.log(this.timeSeries); // Log the time series to console
-        this.updateChart(); // Update the chart with new data
-        this.calcolaPrezzoMedio();  // Calculate the average price
-        this.calcolaMigliorPrezzo(); // Calculate the best price after obtaining the time series
+        response.values.sort((a: any, b: any) => new Date(a.datetime).getTime() - new Date(b.datetime).getTime());
+
+        this.timeSeries = response;
+        this.updateChart();
+        this.calcolaPrezzoMedio();
+        this.calcolaMigliorPrezzo();
       },
       (error) => {
-        console.error('Errore durante il recupero delle serie temporali', error); // Print an error message if the time series data retrieval fails
+        console.error('Errore durante il recupero delle serie temporali', error);
       }
     );
   } else {
     console.error('Symbol or date range not set');
-    console.log(`Symbol: ${this.symbol}`);
-    console.log(`From Date: ${this.fromDate}`);
-    console.log(`To Date: ${this.toDate}`);
   }
 }
+
 onSubmit(): void {
   this.getTimeSeries(this.interval);
-  console.log('Simbolo selezionato:', this.symbol);
-  console.log('Intervallo selezionato:', this.interval);
 }
 
-// onIntervalChange(newInterval: string): void {
-//   this.interval = newInterval;
-//   this.selectedInterval = newInterval; // Imposta l'intervallo selezionato
-
-//   console.log('Nuovo intervallo selezionato:', newInterval);
-//   this.getTimeSeries(this.interval);
-//   this.updateChart();
-// }
 onIntervalChange(newInterval: string): void {
   this.interval = newInterval;
-  this.selectedInterval = newInterval; // Set the selected interval
-  console.log(`Nuovo intervallo selezionato: ${newInterval}`);
-  this.getTimeSeries(this.interval); // Fetch data based on the new interval
+  this.selectedInterval = newInterval;
+  this.getTimeSeries(this.interval);
 }
 
-
 onSymbolChange(newSymbol: string): void {
-  console.log('Nuovo simbolo selezionato:', newSymbol);
   this.getRealTimePrice();
   this.getTimeSeries(this.interval);
   this.updateChart();
@@ -796,13 +1157,11 @@ updateChart(): void {
   this.calcolaMigliorPrezzo();
 }
 
-
 calcolaPrezzoMedio(): void {
   if (this.timeSeries && this.timeSeries.values.length > 0) {
     const totalLow = this.timeSeries.values.reduce((sum, value) => sum + Number(value.low), 0);
     const totalHigh = this.timeSeries.values.reduce((sum, value) => sum + Number(value.high), 0);
     this.averagePrice = (totalLow + totalHigh) / (2 * this.timeSeries.values.length);
-    console.log('Prezzo Medio:', this.averagePrice);
   } else {
     console.error('Nessun dato disponibile per calcolare il prezzo medio.');
   }
@@ -812,7 +1171,6 @@ calcolaMigliorPrezzo(): void {
   if (this.timeSeries && this.timeSeries.values.length > 0) {
     const bestPrice = Math.max(...this.timeSeries.values.map(value => Number(value.high)));
     this.bestPrice = bestPrice;
-    console.log('Miglior Prezzo:', bestPrice);
   } else {
     console.log('Nessuna serie temporale disponibile.');
   }
@@ -833,7 +1191,7 @@ getFontSize(): number {
 
 initChart(): void {
   if (this.chart) {
-    this.chart.destroy(); // Distruggi il grafico esistente se presente
+    this.chart.destroy();
   }
   this.myChartRef = document.getElementById('myChart') as HTMLCanvasElement;
   if (!this.myChartRef) return;
@@ -913,7 +1271,22 @@ initChart(): void {
       plugins: {
         legend: {
           display: false
-        }
+        },
+        zoom: {
+          pan: {
+            enabled: true,
+            mode: 'xy'
+          },
+          zoom: {
+            wheel: {
+              enabled: true, // Abilita lo zoom con la rotella del mouse
+            },
+            pinch: {
+              enabled: true // Abilita lo zoom con il pinch su dispositivi touch
+            },
+            mode: 'xy'
+          }
+        } as any
       }
     }
   });
@@ -921,9 +1294,20 @@ initChart(): void {
   this.myChartRef.style.backgroundColor = '#122036';
 }
 
+zoomIn(): void {
+  this.chart.zoom(1.1); // Zoom in by a factor of 1.1
+}
+
+zoomOut(): void {
+  this.chart.zoom(0.9); // Zoom out by a factor of 0.9
+}
+
+resetZoom(): void {
+  this.chart.resetZoom(); // Reset zoom to initial state
+}
+
 toggleFavorite(stock: any): void {
   this.stock.favorite = !this.stock.favorite;
   this.favoriteToggled.emit(stock);
-  console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
 }
 }

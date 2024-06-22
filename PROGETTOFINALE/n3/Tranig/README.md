@@ -30,6 +30,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # Istallazione GENERALE
 npm install chart.js 
+npm install chartjs-plugin-zoom
 npm i bootstrap@5.3.3
 npm install @auth0/angular-jwt
 ng add @ng-bootstrap/ng-bootstrap
