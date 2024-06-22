@@ -2,7 +2,7 @@
  
 
  .custom-altezza{
-    height: 250px!important; // Imposta qui l'altezza minima desiderata
+    min-height: 250px!important; // Imposta qui l'altezza minima desiderata
  
     background-color: white;
 }
