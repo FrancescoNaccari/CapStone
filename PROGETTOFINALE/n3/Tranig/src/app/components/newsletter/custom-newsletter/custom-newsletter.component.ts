@@ -118,10 +118,10 @@ export class CustomNewsletterComponent implements OnInit, OnDestroy {
     this.editor.setContent(''); // Metodo corretto per svuotare il contenuto dell'editor
   }
 
-  reset() {
-    this.alerts = [];
-    this.resetForm();
-  }
+  // reset() {
+  //   this.alerts = [];
+  //   this.resetForm();
+  // }
 
   trackByIndex(index: number): number {
     return index;

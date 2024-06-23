@@ -967,15 +967,20 @@ constructor(
 }
 
 ngOnInit(): void {
+  
   this.getTimeSeries(this.interval);
   this.getStocks();
   this.initChart();
   this.getLogo();
-  this.favorites.forEach(favorite => {
-    if (favorite.symbol === this.stock.symbol) {
-      this.stock.favorite = true;
-    }
-  });
+  // this.favorites.forEach(favorite => {
+  //   if (favorite.symbol === this.stock.symbol) {
+  //     this.stock.favorite = true;
+  //   }
+  // });
+  setTimeout(() => {
+    this.onSymbolChange(this.symbol);
+
+  }, 100)
   setInterval(() => {
     this.getRealTimePrice();
   }, 60000);
@@ -984,6 +989,7 @@ ngOnInit(): void {
 ngAfterViewInit(): void {
   this.initChart();
 }
+
 
 onSearchChange(event: any): void {
   this.searchTerm = event.target.value;
@@ -1053,6 +1059,7 @@ getRealTimePrice(): void {
         this.stocks.forEach((stock) => {
           if (stock.symbol === this.symbol) {
             this.stock.name = stock.name;
+            console.log(this.stock.name)
           }
         });
         this.price = response.price;
@@ -1133,9 +1140,12 @@ onIntervalChange(newInterval: string): void {
 }
 
 onSymbolChange(newSymbol: string): void {
+  this.symbol = newSymbol;
+  this.stock.symbol = newSymbol;
   this.getRealTimePrice();
   this.getTimeSeries(this.interval);
   this.updateChart();
+  console.log(this.stock)
   this.favorites.forEach(favorite => {
     if (favorite.symbol === this.stock.symbol) {
       this.stock.favorite = true;
@@ -1329,6 +1339,8 @@ resetZoom(): void {
 toggleFavorite(stock: any): void {
   this.stock.favorite = !this.stock.favorite;
   this.favoriteToggled.emit(stock);
+  console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`)
+  console.log(this.stock)
 }
 
 }

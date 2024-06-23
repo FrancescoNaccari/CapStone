@@ -22,7 +22,7 @@ export class TokenInterceptor implements HttpInterceptor {
           const newRequest = request.clone({
             headers: request.headers.append('Authorization', `Bearer ${user.accessToken}`)
           })
-          console.log(newRequest)
+          // console.log(newRequest)
           return next.handle(newRequest);
         } else {
           request.headers.append('Access-Control-Allow-Origin', '*')
