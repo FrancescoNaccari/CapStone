@@ -1178,6 +1178,8 @@ updateChart(): void {
   const data = this.timeSeries.values.map(val => val.close);
   this.chart.data.labels = labels;
   this.chart.data.datasets[0].data = data;
+  this.resetZoom();
+
   this.chart.update();
 
   this.getLogo();
