@@ -154,7 +154,7 @@ updateUser(data: User) {
 logout() {
   this.authSub.next(null);
   localStorage.removeItem('user');
-  this.router.navigate(['/'])
+  this.router.navigate(['/home'])
   this.initializeGoogleLogin();
 }
 private initializeGoogleLogin() {
