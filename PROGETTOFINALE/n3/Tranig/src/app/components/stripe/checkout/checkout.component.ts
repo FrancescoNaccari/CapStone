@@ -15,8 +15,10 @@ export class CheckoutComponent {
   @Output() paymentSuccess = new EventEmitter<void>();
 
   stripePromise = loadStripe(environment.stripe);
-  constructor(private http: HttpClient, private authSrv:AuthService) {}
 user:User|undefined;
+
+  constructor(private http: HttpClient, private authSrv:AuthService) {}
+
   ngOnInit(): void {
     this.authSrv.user$.subscribe(user => {
        this.user=user?.user;
@@ -83,7 +85,8 @@ user:User|undefined;
       console.log(result);
       if (result.error) {
         console.error('Errore durante il redirect a Stripe:', result.error.message);
-      }
+      }else {
+        this.paymentSuccess.emit();}
     });
   });
 }

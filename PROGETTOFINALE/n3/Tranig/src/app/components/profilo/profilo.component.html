@@ -400,6 +400,7 @@
     </div>
   </div>
 </div> -->
+
 <div class="container text-white" *ngIf="profilo">
   <div class="my-5 fw-semibold">
     <h1>Profilo</h1>
@@ -494,18 +495,25 @@
       </div>
     </div>
 
-    <div class="col-6">
-      <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
-        <h5>Ricarica il tuo conto</h5>
-        <div class="form-floating my-3 me-3">
-          <input class="form-control" type="number" id="rechargeAmount" name="rechargeAmount" [(ngModel)]="rechargeAmount" required>
-          <label for="rechargeAmount" class="label-custom">Importo</label>
-        </div>
-        <button type="button" class="btn btn-primary rounded-5" (click)="initiateRecharge()">Ricarica</button>
+    <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
+      <h5>Ricarica il tuo conto</h5>
+      <div class="form-floating my-3 me-3">
+        <input class="form-control" type="number" id="rechargeAmount" name="rechargeAmount" [(ngModel)]="rechargeAmount" required>
+        <label for="rechargeAmount" class="label-custom">Importo</label>
       </div>
-      <div class="mt-4">
-        <h5>Saldo attuale: {{ balance | currency:'USD' }}</h5>
+      <button type="button" class="btn btn-primary rounded-5" (click)="initiateRecharge()">Ricarica</button>
+    </div>
+    <div class="mt-4">
+      <h5>Saldo attuale: {{ balance | currency:'USD' }}</h5>
+    </div>
+
+    <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
+      <h5>Preleva dal tuo conto</h5>
+      <div class="form-floating my-3 me-3">
+        <input class="form-control" type="number" id="withdrawAmount" name="withdrawAmount" [(ngModel)]="withdrawAmount" required>
+        <label for="withdrawAmount" class="label-custom">Importo</label>
       </div>
+      <button type="button" class="btn btn-primary rounded-5" (click)="initiateWithdraw()">Preleva</button>
     </div>
   </div>
 </div>

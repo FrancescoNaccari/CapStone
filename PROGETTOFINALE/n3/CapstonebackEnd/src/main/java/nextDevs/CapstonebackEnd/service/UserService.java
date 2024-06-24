@@ -53,7 +53,7 @@ public class UserService {
             user.setEmail(userDto.getEmail());
             user.setTipoUtente(TipoUtente.USER);
             user.setNewsletter(false);
-//            user.setBalance(0.0);
+            user.setBalance(BigDecimal.ZERO);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
             userRepository.save(user);
@@ -137,6 +137,7 @@ public class UserService {
             userDataDto.setUsername(user.getUsername());
             userDataDto.setIdUtente(user.getIdUtente());
             userDataDto.setTipoUtente(user.getTipoUtente());
+            userDataDto.setBalance(user.getBalance());
             return userDataDto;
         } else {
             throw new NotFoundException("Utente con id "+id+" non trovato");
@@ -159,6 +160,7 @@ public class UserService {
             userDataDto.setUsername(user.getUsername());
             userDataDto.setIdUtente(user.getIdUtente());
             userDataDto.setTipoUtente(user.getTipoUtente());
+            userDataDto.setBalance(user.getBalance());
             return userDataDto;
         } else {
             throw new NotFoundException("Utente con id "+id+" non trovato");
@@ -195,17 +197,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateBalance(Integer userId, Long  amount) {
+    public User updateBalance(Integer userId, BigDecimal amount) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
-            BigDecimal updatedBalance = currentBalance.add(BigDecimal.valueOf(amount));
-            user.setBalance(updatedBalance);
-            return userRepository.save(user);
+            BigDecimal newBalance = currentBalance.add(amount);
+            user.setBalance(newBalance);
+            userRepository.save(user);
+            System.out.println("Updated balance for user " + userId + ": " + newBalance);
+            return user;
         } else {
             throw new RuntimeException("User not found");
-        }
-    }
-
+        }}
 }

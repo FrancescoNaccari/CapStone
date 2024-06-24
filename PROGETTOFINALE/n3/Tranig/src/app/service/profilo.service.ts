@@ -48,6 +48,6 @@ inviaNewsletter(newsletter: Newsletter): Observable<void> {
 }
 
 updateBalance(userId: number, amount: number): Observable<User> {
-  return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount: amount });
+  return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount });
 }
 }

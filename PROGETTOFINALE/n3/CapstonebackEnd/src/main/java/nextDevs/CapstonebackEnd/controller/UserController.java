@@ -30,14 +30,11 @@ public class UserController {
     private UserService userService;
 
 
-
-
-
     @GetMapping("/users")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public Page<User> getAllUser(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam (defaultValue = "15") int size,
-                                 @RequestParam (defaultValue = "id") String sortBy) {
+                                 @RequestParam(defaultValue = "15") int size,
+                                 @RequestParam(defaultValue = "id") String sortBy) {
         return userService.getAllUsers(page, size, sortBy);
     }
 
@@ -48,16 +45,16 @@ public class UserController {
         if (userOptional.isPresent()) {
             return userOptional.get();
         } else {
-            throw new NotFoundException("User con id: "+id+" non trovata");
+            throw new NotFoundException("User con id: " + id + " non trovata");
         }
     }
 
     @PutMapping("/users/{id}")
     @PreAuthorize("hasAuthority('ADMIN, 'USER')")
     public User updateUser(@PathVariable int id, @RequestBody @Validated UserDto userDto, BindingResult bindingResult) throws NotFoundException {
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream()
-                    .map(e -> e.getDefaultMessage()).reduce("",((s1,s2) -> s1+s2)));
+                    .map(e -> e.getDefaultMessage()).reduce("", ((s1, s2) -> s1 + s2)));
         }
         return userService.updateUser(id, userDto);
     }
@@ -106,9 +103,9 @@ public class UserController {
     public User updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
         System.out.println("Received balance request for userId: " + userId);
         System.out.println("Amount to add: " + balanceRequest.getAmount());
+        // Passa direttamente il BigDecimal al servizio
         return userService.updateBalance(userId, balanceRequest.getAmount());
     }
 }
-
 
 

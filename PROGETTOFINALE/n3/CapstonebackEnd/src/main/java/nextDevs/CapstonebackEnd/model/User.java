@@ -28,8 +28,8 @@ public class User implements UserDetails {
     private TipoUtente tipoUtente;
     private String avatar;
     private String provider;
-
-    private BigDecimal balance;
+    @Column(precision = 38, scale = 2)
+    private BigDecimal balance= BigDecimal.ZERO;;
     private boolean newsletter;
 
     @OneToMany(mappedBy = "user")

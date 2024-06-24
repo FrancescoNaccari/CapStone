@@ -158,10 +158,9 @@ logout() {
   this.initializeGoogleLogin();
 }
 private initializeGoogleLogin() {
-  // Assicurati che il componente GoogleLoginComponent venga reinizializzato
-  // ad esempio, ricaricando la pagina o richiamando la funzione di inizializzazione del componente
+  
  
-  window.location.reload(); // Questo è un modo semplice ma potrebbe non essere il più elegante
+  window.location.reload();  // Ricarica la pagina per reinizializzare il login di Google
 }
 private autoLogout(data: AuthData) {
   const dataExp = this.jwtHelper.getTokenExpirationDate(data.accessToken) as Date;

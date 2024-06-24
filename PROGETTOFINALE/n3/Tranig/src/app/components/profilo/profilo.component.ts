@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthData } from 'src/app/interface/auth-data.interface';
 import { CheckoutComponent } from '../stripe/checkout/checkout.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { CheckoutComponent } from '../stripe/checkout/checkout.component';
   templateUrl: './profilo.component.html',
   styleUrls: ['./profilo.component.scss']
 })
-export class ProfiloComponent implements OnInit  {
+export class ProfiloComponent implements OnInit, OnDestroy  {
 
 //   profilo!:User | undefined  ;
 //   newPassword: string = '';
@@ -634,21 +635,49 @@ passwordError: string | null = null;
 successMessage: string | null = null;
 
 rechargeAmount: number = 0; // Importo della ricarica
-  balance: number = 0; // Saldo dell'utente
+withdrawAmount: number = 0; // Importo del prelievo
+balance: number = 0; // Saldo dell'utente
+private intervalId: any;
 
 constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private renderer: Renderer2) { }
 
 ngOnInit(): void {
   this.authSrv.user$.subscribe((data) => {
+    console.log(data);
     if (isAuthData(data)) {
       this.profilo = data.user;
+      console.log(this.profilo.balance);
       this.newUsername = this.profilo?.username || '';
       this.previewUrl = this.profilo?.avatar || "assets/img/ominoverde.png";
       this.balance = this.profilo?.balance || 0;
     }
   });
+  this.startBalanceUpdateInterval();
 }
 
+ngOnDestroy(): void {
+  if (this.intervalId) {
+    clearInterval(this.intervalId);
+  }
+}
+startBalanceUpdateInterval(): void {
+  this.intervalId = setInterval(() => {
+    this.updateBalance();
+  }, 2000); // Aggiorna ogni 5 secondi
+}
+updateBalance(): void {
+  if (this.profilo?.idUtente) {
+    this.profiloSrv.updateBalance(this.profilo.idUtente, 0).subscribe(
+      (updatedUser) => {
+        this.authSrv.updateUser(updatedUser);
+        this.balance = updatedUser.balance || 0;
+      },
+      (error) => {
+        console.error('Errore durante l\'aggiornamento del saldo', error);
+      }
+    );
+  }
+}
 onFileSelected(event: Event): void {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files[0]) {
@@ -752,28 +781,69 @@ updateUsername() {
 }
 
 
-initiateRecharge() {
-    // L'importo della ricarica viene passato al componente di checkout
+// initiateRecharge() {
+//     // L'importo della ricarica viene passato al componente di checkout
 
+//   if (this.checkoutComponent) {
+//     this.checkoutComponent.amount = this.rechargeAmount;
+//     this.checkoutComponent.pay();
+//   }
+// }
+
+// handlePaymentSuccess() {
+//   console.log(this.profilo?.idUtente)
+//   if (this.profilo?.idUtente) {
+//     console.log(this.rechargeAmount)
+//     this.profiloSrv.updateBalance(this.profilo.idUtente, this.rechargeAmount).subscribe((updatedUser) => {
+//       this.authSrv.updateUser(updatedUser);
+//       this.balance = updatedUser.balance || 0;
+//       this.rechargeAmount = 0;
+//     });
+//   }
+// }
+
+// }
+initiateRecharge() {
   if (this.checkoutComponent) {
     this.checkoutComponent.amount = this.rechargeAmount;
     this.checkoutComponent.pay();
   }
 }
-
-handlePaymentSuccess() {
-  console.log(this.profilo?.idUtente)
+initiateWithdraw() {
   if (this.profilo?.idUtente) {
-    console.log(this.rechargeAmount)
-    this.profiloSrv.updateBalance(this.profilo.idUtente, this.rechargeAmount).subscribe((updatedUser) => {
-      this.authSrv.updateUser(updatedUser);
-      this.balance = updatedUser.balance || 0;
-      this.rechargeAmount = 0;
-    });
+    this.profiloSrv.updateBalance(this.profilo.idUtente, -this.withdrawAmount).subscribe(
+      (updatedUser) => {
+        this.authSrv.updateUser(updatedUser);
+        this.balance = updatedUser.balance || 0;
+        this.withdrawAmount = 0;
+      },
+      (error) => {
+        console.error('Errore durante il prelievo', error);
+      }
+    );
   }
 }
 
+
+handlePaymentSuccess() {
+  if (this.profilo?.idUtente) {
+    const userId = this.profilo.idUtente;
+    setTimeout(() => {
+      this.profiloSrv.updateBalance(userId, this.rechargeAmount).subscribe(
+        (updatedUser) => {
+          this.authSrv.updateUser(updatedUser);
+          this.balance = updatedUser.balance || 0;
+          this.rechargeAmount = 0;
+        },
+        (error) => {
+          console.error('Errore durante l\'aggiornamento del saldo', error);
+        }
+      );
+    }, 2000); // Ritardo di 2 secondi
+  }
 }
+}
+
 
 
 
