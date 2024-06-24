@@ -44,5 +44,10 @@ updateNewsletter(id: number, newsletter: boolean): Observable<User> {
 
 inviaNewsletter(newsletter: Newsletter): Observable<void> {
   return this.http.post<void>(`${this.apiBack}newsletter/send`, newsletter);
+
+}
+
+updateBalance(userId: number, amount: number): Observable<User> {
+  return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount: amount });
 }
 }

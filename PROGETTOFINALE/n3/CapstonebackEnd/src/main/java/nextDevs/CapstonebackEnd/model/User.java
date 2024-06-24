@@ -28,6 +28,7 @@ public class User implements UserDetails {
     private String avatar;
     private String provider;
 
+    private Double balance=0.0;
     private boolean newsletter;
 
     @OneToMany(mappedBy = "user")

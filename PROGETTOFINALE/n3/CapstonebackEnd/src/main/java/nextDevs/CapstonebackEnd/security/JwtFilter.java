@@ -18,6 +18,7 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -62,7 +63,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return new AntPathMatcher().match("/auth/**", request.getServletPath());
+        return List.of("/webhook/**","/auth/**").stream().anyMatch(p-> new AntPathMatcher().match(p,request.getServletPath()));
+//        return new AntPathMatcher().match("/auth/**", request.getServletPath());
     }
 
 }

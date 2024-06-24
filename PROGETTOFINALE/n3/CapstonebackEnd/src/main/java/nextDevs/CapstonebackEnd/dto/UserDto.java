@@ -20,6 +20,8 @@ public class UserDto{
     @NotBlank(message = "Il cognome dell'utente non può essere vuoto, mancante o composto da soli spazi")
     private String cognome;
     private String avatar;
+    private Double  balance= 0.0;;
+
     private String provider;
     private boolean newsletter;
 

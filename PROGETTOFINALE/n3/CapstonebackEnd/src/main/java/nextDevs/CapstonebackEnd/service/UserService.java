@@ -52,6 +52,7 @@ public class UserService {
             user.setEmail(userDto.getEmail());
             user.setTipoUtente(TipoUtente.USER);
             user.setNewsletter(false);
+//            user.setBalance(0.0);
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
             userRepository.save(user);
@@ -191,5 +192,15 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
         user.setNewsletter(newsletter);
         return userRepository.save(user);
+    }
+
+    public User updateBalance(Integer userId, Double amount) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
+        System.out.println("Current balance: " + user.getBalance());
+        System.out.println("Amount to add: " + amount);
+        user.setBalance(user.getBalance() + amount);
+        User updatedUser = userRepository.save(user);
+        System.out.println("Updated balance: " + updatedUser.getBalance());
+        return updatedUser;
     }
 }

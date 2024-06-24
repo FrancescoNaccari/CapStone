@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthData } from 'src/app/interface/auth-data.interface';
+import { CheckoutComponent } from '../stripe/checkout/checkout.component';
 
 
 @Component({
@@ -621,7 +622,7 @@ export class ProfiloComponent implements OnInit  {
 
 
 
-
+@ViewChild(CheckoutComponent) checkoutComponent!: CheckoutComponent;
 @ViewChild('newPasswordField') newPasswordField!: ElementRef;
 profilo: User | undefined;
 currentPassword: string = '';
@@ -632,6 +633,9 @@ previewUrl: string | ArrayBuffer | null = "assets/img/ominoverde.png";
 passwordError: string | null = null;
 successMessage: string | null = null;
 
+rechargeAmount: number = 0; // Importo della ricarica
+  balance: number = 0; // Saldo dell'utente
+
 constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private renderer: Renderer2) { }
 
 ngOnInit(): void {
@@ -640,6 +644,7 @@ ngOnInit(): void {
       this.profilo = data.user;
       this.newUsername = this.profilo?.username || '';
       this.previewUrl = this.profilo?.avatar || "assets/img/ominoverde.png";
+      this.balance = this.profilo?.balance || 0;
     }
   });
 }
@@ -745,7 +750,32 @@ updateUsername() {
     console.error(error);
   }
 }
+
+
+initiateRecharge() {
+    // L'importo della ricarica viene passato al componente di checkout
+
+  if (this.checkoutComponent) {
+    this.checkoutComponent.amount = this.rechargeAmount;
+    this.checkoutComponent.pay();
+  }
 }
+
+handlePaymentSuccess() {
+  console.log(this.profilo?.idUtente)
+  if (this.profilo?.idUtente) {
+    console.log(this.rechargeAmount)
+    this.profiloSrv.updateBalance(this.profilo.idUtente, this.rechargeAmount).subscribe((updatedUser) => {
+      this.authSrv.updateUser(updatedUser);
+      this.balance = updatedUser.balance || 0;
+      this.rechargeAmount = 0;
+    });
+  }
+}
+
+}
+
+
 
 function isAuthData(user: any): user is AuthData {
 return user && 'accessToken' in user && 'user' in user;

@@ -11,4 +11,6 @@ export interface User {
     avatar?: string
     listaFavoriti:FavoriteStock[];
     newsletter: boolean
+    balance: number; // Aggiungi questa riga
+
 }

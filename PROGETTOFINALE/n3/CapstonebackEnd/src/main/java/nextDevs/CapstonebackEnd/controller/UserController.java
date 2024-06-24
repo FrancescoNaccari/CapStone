@@ -6,6 +6,7 @@ import nextDevs.CapstonebackEnd.dto.UserDataDto;
 import nextDevs.CapstonebackEnd.dto.UserDto;
 import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.exception.NotFoundException;
+import nextDevs.CapstonebackEnd.model.BalanceRequest;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,4 +102,13 @@ public class UserController {
         return ResponseEntity.ok(updatedUser);
     }
 
+    @PutMapping("/users/{userId}/balance")
+    public User updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
+        System.out.println("Received balance request for userId: " + userId);
+        System.out.println("Amount to add: " + balanceRequest.getAmount());
+        return userService.updateBalance(userId, balanceRequest.getAmount());
+    }
 }
+
+
+

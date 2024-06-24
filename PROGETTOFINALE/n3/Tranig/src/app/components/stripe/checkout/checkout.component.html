@@ -1,13 +1,17 @@
-<div class="card">
-    <div class="card-header">
-      <div class="card-avatar"></div>
-      <h5 class="card-title">iPhone X</h5>
-    </div>
-    <img class="card-img-top w-25"  src="assets/iphone.jpg" alt="iPhone X">
-    <div class="card-body">
-      <button type="button" class="btn btn-primary" (click)="pay()">
-        Buy it for $999
-      </button>
+<div class="container text-white">
+  <div class="my-5 fw-semibold">
+    <h1>Checkout</h1>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="rounded-4 w-100 p-3 mb-4 custom-color">
+        <h5>Pagamento</h5>
+        <div class="form-floating my-3 me-3">
+          <input class="form-control" type="number" id="paymentAmount" name="paymentAmount" [(ngModel)]="amount" required>
+          <label for="paymentAmount" class="label-custom">Importo</label>
+        </div>
+        <button type="button" class="btn btn-primary rounded-5" (click)="pay()">Paga</button>
+      </div>
     </div>
   </div>
-  
+</div>

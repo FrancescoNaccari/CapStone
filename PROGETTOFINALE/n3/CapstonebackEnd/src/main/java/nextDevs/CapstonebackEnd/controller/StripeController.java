@@ -36,7 +36,9 @@ public class StripeController {
         // We initilize stripe object with the api key
        // init();
         // We create a  stripe session parameters
+
         SessionCreateParams params = SessionCreateParams.builder()
+                .setClientReferenceId(payment.getClientReferenceId())
                 // We will use the credit card payment method
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT).setSuccessUrl(payment.getSuccessUrl())

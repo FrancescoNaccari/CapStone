@@ -13,5 +13,7 @@ public class UserDataDto {
     private String cognome;
     private TipoUtente tipoUtente;
     private String avatar;
+    private Double  balance= 0.0;;
+
     private boolean newsletter;
 }
