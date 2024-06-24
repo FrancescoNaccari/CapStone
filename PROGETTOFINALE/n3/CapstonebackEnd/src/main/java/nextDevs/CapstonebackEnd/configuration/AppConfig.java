@@ -1,6 +1,8 @@
 package nextDevs.CapstonebackEnd.configuration;
 
 import com.cloudinary.Cloudinary;
+import com.stripe.Stripe;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,15 @@ import java.util.Properties;
 @Configuration
 @PropertySource("application.properties")
 public class AppConfig {
+
+    @Value("${STRIPE_KEY}")
+    private String stripeKey;
+
+@PostConstruct
+public void init(){
+    Stripe.apiKey=stripeKey;
+}
+
 
     @Bean
     public Cloudinary uploader(@Value("${cloudinary.name}") String name,

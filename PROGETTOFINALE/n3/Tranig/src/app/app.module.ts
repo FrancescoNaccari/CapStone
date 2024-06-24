@@ -10,6 +10,9 @@ import {
 } from '@abacritt/angularx-social-login';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +37,9 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
 import { CustomNewsletterComponent } from './components/newsletter/custom-newsletter/custom-newsletter.component';
 import { GoogleLoginComponent } from './components/login/google-login/google-login.component';
 import { CalendarioComponent } from './components/borsa/calendario/calendario.component';
+import { CancelComponent } from './components/stripe/cancel/cancel.component';
+import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
+import { SuccessComponent } from './components/stripe/success/success.component';
 
 @NgModule({
   declarations: [
@@ -57,10 +63,15 @@ import { CalendarioComponent } from './components/borsa/calendario/calendario.co
 
     GoogleLoginComponent,
      CalendarioComponent,
+     CancelComponent,
+
+     CheckoutComponent,
+     SuccessComponent,
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     NgbPopoverModule,
