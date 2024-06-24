@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
@@ -51,8 +52,10 @@ public class StripeWebhookController {
                 System.out.println("Aggiunti "+session.getAmountTotal()+" a "+userId);
                 Optional<User> userOptional=userService.getUserById(userId);
                 if (userOptional.isPresent()){
-                    User user=userOptional.get();
-                    user.setBalance(user.getBalance()+session.getAmountTotal());
+                    User user = userOptional.get();
+                    BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
+                    BigDecimal amountToAdd = BigDecimal.valueOf(session.getAmountTotal()).divide(BigDecimal.valueOf(100)); // Converti centesimi a unità
+                    user.setBalance(currentBalance.add(amountToAdd));
                     userRepository.save(user);
                 }
             }

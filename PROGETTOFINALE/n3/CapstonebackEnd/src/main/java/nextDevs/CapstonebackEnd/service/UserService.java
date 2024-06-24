@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.Optional;
 
@@ -194,13 +195,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User updateBalance(Integer userId, Double amount) {
-        User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
-        System.out.println("Current balance: " + user.getBalance());
-        System.out.println("Amount to add: " + amount);
-        user.setBalance(user.getBalance() + amount);
-        User updatedUser = userRepository.save(user);
-        System.out.println("Updated balance: " + updatedUser.getBalance());
-        return updatedUser;
+    public User updateBalance(Integer userId, Long  amount) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
+            BigDecimal updatedBalance = currentBalance.add(BigDecimal.valueOf(amount));
+            user.setBalance(updatedBalance);
+            return userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
+
 }

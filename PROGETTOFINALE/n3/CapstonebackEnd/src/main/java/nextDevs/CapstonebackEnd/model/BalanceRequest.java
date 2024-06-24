@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class BalanceRequest {
-    private Double amount;
+    private Long  amount;
 
 
 }

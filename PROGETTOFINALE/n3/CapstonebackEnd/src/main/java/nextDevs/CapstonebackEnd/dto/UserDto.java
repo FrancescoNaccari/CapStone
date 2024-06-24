@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 
 @Data
 public class UserDto{
@@ -20,7 +22,7 @@ public class UserDto{
     @NotBlank(message = "Il cognome dell'utente non può essere vuoto, mancante o composto da soli spazi")
     private String cognome;
     private String avatar;
-    private Double  balance= 0.0;;
+    private BigDecimal balance;;
 
     private String provider;
     private boolean newsletter;
