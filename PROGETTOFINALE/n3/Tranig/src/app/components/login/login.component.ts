@@ -17,8 +17,11 @@ export class LoginComponent implements OnInit {
     constructor(private authSrv: AuthService, private router: Router) {}
     
     ngOnInit(): void {
+      let firtTime=true;
      this.authSrv.user$.subscribe(user => {
       if (user){
+        if(!firtTime)return;
+        firtTime=false;
         this.router.navigate(['/home'])
       }
      })
