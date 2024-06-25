@@ -49,6 +49,15 @@ npm i ngx-editor@16.0.1
  npm i --save-dev @types/quill
 npm i -D @types/quill@1.3
 
+
+## Come avviare il programma
+1. cambiare nel sito di strime nella sezione webhook (il lick di webhook utilizzato )
+per il li lick andare sulla powerSell e utilizzare il commando ngrok http 8888 e copiare l'indirizzo 
+es. (https://aaxx-xxx-xx-xxx-xxx.ngrok-free.app )
+ps.  se non istallato in precedenza installare sulla powersell il seguente commando : choco install ngrok
+2. npm run startCompleto
+
+
 ## palette COLORI
 <!-- Aquamarine Tint (#09eab4)
 Pale Turquoise Tint (#93fcec)

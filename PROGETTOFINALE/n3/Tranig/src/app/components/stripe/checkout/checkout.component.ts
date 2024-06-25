@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { loadStripe } from '@stripe/stripe-js';
 import { environment } from 'src/app/environment/environment.development';
 import { User } from 'src/app/interface/user.interface';
@@ -17,6 +18,8 @@ export class CheckoutComponent {
   @Input() userId: string = ''; 
   @Output() paymentSuccess = new EventEmitter<void>();
 
+  @ViewChild('rechargePopover', { static: false }) rechargePopover!: NgbPopover;
+  @ViewChild('withdrawPopover', { static: false }) withdrawPopover!: NgbPopover;
   stripePromise = loadStripe(environment.stripe);
 user:User|undefined;
 
@@ -97,12 +100,23 @@ user:User|undefined;
   });
 }
 recharge() {
-  this.pay(this.rechargeAmount);
-  
+  if (this.rechargeAmount > 0) {
+    this.pay(this.rechargeAmount);
+  } else {
+    this.showPopover(this.rechargePopover);
+  }
 }
 withdraw() {
-     // Per ora, la funzionalità di prelievo non utilizza Stripe
-  this.paymentSuccess.emit();
-}
+  if (this.withdrawAmount > 0) {
+    // Per ora, la funzionalità di prelievo non utilizza Stripe
+    this.paymentSuccess.emit();
+  } else {
+    this.showPopover(this.withdrawPopover);
+  }}
+
+  showPopover(popover: NgbPopover) {
+    popover.open();
+    setTimeout(() => popover.close(), 3000); // Nasconde il popover dopo 3 secondi
+  }
 
 }
