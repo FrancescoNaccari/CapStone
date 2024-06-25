@@ -680,7 +680,7 @@ updateBalance(): void {
 }
 
 handlePaymentSuccess() {
-  if (this.rechargeAmount > 0) {
+  if (this.rechargeAmount > 0 && this.profilo?.idUtente !== undefined) {
     this.profiloSrv.updateBalance(this.profilo?.idUtente!, this.rechargeAmount).subscribe(
       (updatedUser) => {
         this.authSrv.updateUser(updatedUser);
@@ -693,7 +693,7 @@ handlePaymentSuccess() {
     );
   }
 
-  if (this.withdrawAmount > 0) {
+  if (this.withdrawAmount >0 && this.profilo?.idUtente !== undefined) {
     this.profiloSrv.updateBalance(this.profilo?.idUtente!, -this.withdrawAmount).subscribe(
       (updatedUser) => {
         this.authSrv.updateUser(updatedUser);
