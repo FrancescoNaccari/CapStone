@@ -624,7 +624,7 @@ export class ProfiloComponent implements OnInit, OnDestroy  {
 
 
 @ViewChild(CheckoutComponent) checkoutComponent!: CheckoutComponent;
-@ViewChild('newPasswordField') newPasswordField!: ElementRef;
+// @ViewChild('newPasswordField') newPasswordField!: ElementRef;
 profilo: User | undefined;
 currentPassword: string = '';
 newPassword: string = '';
@@ -663,7 +663,7 @@ ngOnDestroy(): void {
 startBalanceUpdateInterval(): void {
   this.intervalId = setInterval(() => {
     this.updateBalance();
-  }, 2000); // Aggiorna ogni 5 secondi
+  }, 2000); // Aggiorna ogni 2 secondi
 }
 updateBalance(): void {
   if (this.profilo?.idUtente) {
@@ -678,6 +678,37 @@ updateBalance(): void {
     );
   }
 }
+
+handlePaymentSuccess() {
+  if (this.rechargeAmount > 0) {
+    this.profiloSrv.updateBalance(this.profilo?.idUtente!, this.rechargeAmount).subscribe(
+      (updatedUser) => {
+        this.authSrv.updateUser(updatedUser);
+        this.balance = updatedUser.balance || 0;
+        this.rechargeAmount = 0; // Reset dell'importo della ricarica
+      },
+      (error) => {
+        console.error('Errore durante l\'aggiornamento del saldo', error);
+      }
+    );
+  }
+
+  if (this.withdrawAmount > 0) {
+    this.profiloSrv.updateBalance(this.profilo?.idUtente!, -this.withdrawAmount).subscribe(
+      (updatedUser) => {
+        this.authSrv.updateUser(updatedUser);
+        this.balance = updatedUser.balance || 0;
+        this.withdrawAmount = 0; // Reset dell'importo del prelievo
+      },
+      (error) => {
+        console.error('Errore durante l\'aggiornamento del saldo', error);
+      }
+    );
+  }
+
+}
+
+
 onFileSelected(event: Event): void {
   const input = event.target as HTMLInputElement;
   if (input.files && input.files[0]) {
@@ -803,46 +834,46 @@ updateUsername() {
 // }
 
 // }
-initiateRecharge() {
-  if (this.checkoutComponent) {
-    this.checkoutComponent.amount = this.rechargeAmount;
-    this.checkoutComponent.pay();
-  }
+// initiateRecharge() {
+//   if (this.checkoutComponent) {
+//     this.checkoutComponent.amount = this.rechargeAmount;
+//     this.checkoutComponent.pay();
+//   }
 }
-initiateWithdraw() {
-  if (this.profilo?.idUtente) {
-    this.profiloSrv.updateBalance(this.profilo.idUtente, -this.withdrawAmount).subscribe(
-      (updatedUser) => {
-        this.authSrv.updateUser(updatedUser);
-        this.balance = updatedUser.balance || 0;
-        this.withdrawAmount = 0;
-      },
-      (error) => {
-        console.error('Errore durante il prelievo', error);
-      }
-    );
-  }
-}
+// initiateWithdraw() {
+//   if (this.profilo?.idUtente) {
+//     this.profiloSrv.updateBalance(this.profilo.idUtente, -this.withdrawAmount).subscribe(
+//       (updatedUser) => {
+//         this.authSrv.updateUser(updatedUser);
+//         this.balance = updatedUser.balance || 0;
+//         this.withdrawAmount = 0;
+//       },
+//       (error) => {
+//         console.error('Errore durante il prelievo', error);
+//       }
+//     );
+//   }
+// }
 
 
-handlePaymentSuccess() {
-  if (this.profilo?.idUtente) {
-    const userId = this.profilo.idUtente;
-    setTimeout(() => {
-      this.profiloSrv.updateBalance(userId, this.rechargeAmount).subscribe(
-        (updatedUser) => {
-          this.authSrv.updateUser(updatedUser);
-          this.balance = updatedUser.balance || 0;
-          this.rechargeAmount = 0;
-        },
-        (error) => {
-          console.error('Errore durante l\'aggiornamento del saldo', error);
-        }
-      );
-    }, 2000); // Ritardo di 2 secondi
-  }
-}
-}
+// handlePaymentSuccess() {
+//   if (this.profilo?.idUtente) {
+//     const userId = this.profilo.idUtente;
+//     setTimeout(() => {
+//       this.profiloSrv.updateBalance(userId, this.rechargeAmount).subscribe(
+//         (updatedUser) => {
+//           this.authSrv.updateUser(updatedUser);
+//           this.balance = updatedUser.balance || 0;
+//           this.rechargeAmount = 0;
+//         },
+//         (error) => {
+//           console.error('Errore durante l\'aggiornamento del saldo', error);
+//         }
+//       );
+//     }, 2000); // Ritardo di 2 secondi
+//   }
+// }
+
 
 
 

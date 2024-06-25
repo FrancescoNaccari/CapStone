@@ -61,7 +61,7 @@ export class GoogleLoginComponent implements OnInit {
 constructor(private authSrv:AuthService ) { }
 
 ngOnInit(): void {
-  window.onload = () => {
+  // window.onload = () => {
     google.accounts.id.initialize({
       client_id: '800518808424-6uhijj53k3b0qq0butjpjc0m3mcver38.apps.googleusercontent.com',
       callback: this.handleCredentialResponse.bind(this)
@@ -76,7 +76,7 @@ ngOnInit(): void {
     } else {
       console.error('Elemento buttonDiv non trovato');
     }
-  }
+  // }
 }
 
 

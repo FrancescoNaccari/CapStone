@@ -1,17 +1,17 @@
-<div class="container text-white">
-  <div class="my-5 fw-semibold">
-    <h1>Checkout</h1>
+<div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
+  <h5>Ricarica il tuo conto</h5>
+  <div class="form-floating my-3 me-3">
+    <input class="form-control" type="number" id="rechargeAmount" name="rechargeAmount" [(ngModel)]="rechargeAmount" required>
+    <label for="rechargeAmount" class="label-custom">Importo</label>
   </div>
-  <div class="row">
-    <div class="col-12">
-      <div class="rounded-4 w-100 p-3 mb-4 custom-color">
-        <h5>Pagamento</h5>
-        <div class="form-floating my-3 me-3">
-          <input class="form-control" type="number" id="paymentAmount" name="paymentAmount" [(ngModel)]="amount" required>
-          <label for="paymentAmount" class="label-custom">Importo</label>
-        </div>
-        <button type="button" class="btn btn-primary rounded-5" (click)="pay()">Paga</button>
-      </div>
-    </div>
+  <button type="button" class="btn btn-primary rounded-5" (click)="recharge()">Ricarica</button>
+</div>
+
+<div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
+  <h5>Preleva dal tuo conto</h5>
+  <div class="form-floating my-3 me-3">
+    <input class="form-control" type="number" id="withdrawAmount" name="withdrawAmount" [(ngModel)]="withdrawAmount" required>
+    <label for="withdrawAmount" class="label-custom">Importo</label>
   </div>
+  <button type="button" class="btn btn-primary rounded-5" (click)="withdraw()">Preleva</button>
 </div>

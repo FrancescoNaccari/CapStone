@@ -4,6 +4,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { environment } from 'src/app/environment/environment.development';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
+import { ProfiloService } from 'src/app/service/profilo.service';
 
 @Component({
   selector: 'app-checkout',
@@ -11,13 +12,15 @@ import { AuthService } from 'src/app/service/auth.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent {
-  @Input() amount: number = 0;
+  @Input() rechargeAmount: number = 0;
+  @Input() withdrawAmount: number = 0;
+  @Input() userId: string = ''; 
   @Output() paymentSuccess = new EventEmitter<void>();
 
   stripePromise = loadStripe(environment.stripe);
 user:User|undefined;
 
-  constructor(private http: HttpClient, private authSrv:AuthService) {}
+  constructor(private http: HttpClient, private authSrv:AuthService,private profiloSrv: ProfiloService) {}
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe(user => {
@@ -54,7 +57,7 @@ user:User|undefined;
 //   }
 
 
-  async pay(): Promise<void> {
+  async pay(amount: number): Promise<void> {
   
     // here we create a payment object
 
@@ -63,7 +66,7 @@ user:User|undefined;
       name: 'ricarica',
       currency: 'usd',//moneta
     
-      amount: this.amount * 100,// Importo in centesimi
+      amount: amount * 100,// Importo in centesimi
       quantity: '1',
       cancelUrl: 'http://localhost:4200/cancel',
       successUrl: 'http://localhost:4200/success',
@@ -86,8 +89,20 @@ user:User|undefined;
       if (result.error) {
         console.error('Errore durante il redirect a Stripe:', result.error.message);
       }else {
-        this.paymentSuccess.emit();}
+      
+          this.paymentSuccess.emit();
+       
+      }
     });
   });
 }
+recharge() {
+  this.pay(this.rechargeAmount);
+  
+}
+withdraw() {
+     // Per ora, la funzionalità di prelievo non utilizza Stripe
+  this.paymentSuccess.emit();
+}
+
 }
