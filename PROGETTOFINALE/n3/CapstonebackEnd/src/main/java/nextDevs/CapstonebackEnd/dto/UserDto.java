@@ -23,7 +23,7 @@ public class UserDto{
     private String cognome;
     private String avatar;
     private BigDecimal balance = BigDecimal.ZERO;
-
+    private String stripeAccountId;
 
     private String provider;
     private boolean newsletter;

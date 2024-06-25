@@ -67,7 +67,7 @@ user:User|undefined;
     const payment = {
 
       name: 'ricarica',
-      currency: 'usd',//moneta
+      currency: 'eur',//moneta
     
       amount: amount * 100,// Importo in centesimi
       quantity: '1',
@@ -108,12 +108,18 @@ recharge() {
 }
 withdraw() {
   if (this.withdrawAmount > 0) {
-    // Per ora, la funzionalità di prelievo non utilizza Stripe
-    this.paymentSuccess.emit();
+    if (this.user?.idUtente) {
+      this.profiloSrv.withdrawBalance(this.user.idUtente, this.withdrawAmount).subscribe(
+        () => this.paymentSuccess.emit(),
+        (error) => console.error('Errore durante il prelievo', error)
+      );
+    } else {
+      console.error('User ID is undefined');
+    }
   } else {
     this.showPopover(this.withdrawPopover);
-  }}
-
+  }
+}
   showPopover(popover: NgbPopover) {
     popover.open();
     setTimeout(() => popover.close(), 3000); // Nasconde il popover dopo 3 secondi

@@ -31,10 +31,12 @@ public class User implements UserDetails {
     @Column(precision = 38, scale = 2)
     private BigDecimal balance= BigDecimal.ZERO;;
     private boolean newsletter;
-
+    private String stripeAccountId;
     @OneToMany(mappedBy = "user")
     private List<FavoriteStock> listaFavoriti;
 
+    @OneToMany(mappedBy = "user")
+    private List<Withdrawal> withdrawals;
 
     @Override
     public String getUsername() {

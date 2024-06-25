@@ -50,4 +50,8 @@ inviaNewsletter(newsletter: Newsletter): Observable<void> {
 updateBalance(userId: number, amount: number): Observable<User> {
   return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount });
 }
+
+withdrawBalance(userId: number, amount: number): Observable<User> {
+  return this.http.post<User>(`${environment.serverUrl}/users/${userId}/withdraw`, { amount });
+}
 }

@@ -621,8 +621,6 @@ export class ProfiloComponent implements OnInit, OnDestroy  {
 
 
 
-
-
 @ViewChild(CheckoutComponent) checkoutComponent!: CheckoutComponent;
 // @ViewChild('newPasswordField') newPasswordField!: ElementRef;
 profilo: User | undefined;
@@ -663,7 +661,7 @@ ngOnDestroy(): void {
 startBalanceUpdateInterval(): void {
   this.intervalId = setInterval(() => {
     this.updateBalance();
-  }, 2000); // Aggiorna ogni 2 secondi
+  }, 20000); // Aggiorna ogni 2 secondi
 }
 updateBalance(): void {
   if (this.profilo?.idUtente) {

@@ -41,6 +41,9 @@ public class AuthService {
                 userDataDto.setUsername(user.getUsername());
                 userDataDto.setIdUtente(user.getIdUtente());
                 userDataDto.setTipoUtente(user.getTipoUtente());
+                userDataDto.setBalance(user.getBalance());
+                userDataDto.setNewsletter(user.isNewsletter());
+                userDataDto.setStripeAccountId(user.getStripeAccountId());
                 authDataDto.setUser(userDataDto);
                 return authDataDto;
             } else {

@@ -18,4 +18,5 @@ public class UserDataDto {
     private BigDecimal balance = BigDecimal.ZERO;
 
     private boolean newsletter;
+    private String stripeAccountId;
 }

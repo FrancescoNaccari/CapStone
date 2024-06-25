@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Optional;
 
@@ -105,6 +106,12 @@ public class UserController {
         System.out.println("Amount to add: " + balanceRequest.getAmount());
         // Passa direttamente il BigDecimal al servizio
         return userService.updateBalance(userId, balanceRequest.getAmount());
+    }
+    @PostMapping("/api/users/{id}/withdraw")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    public ResponseEntity<BigDecimal> withdrawFunds(@PathVariable Integer id, @RequestBody BalanceRequest balanceRequest) {
+        BigDecimal newBalance = userService.withdrawFunds(id, balanceRequest.getAmount()).getBalance();
+        return ResponseEntity.ok(newBalance);
     }
 }
 
