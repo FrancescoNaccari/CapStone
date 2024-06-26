@@ -108,8 +108,8 @@ export class AuthService {
 // }
 private jwtHelper = new JwtHelperService();
 
-private authSub = new BehaviorSubject<AuthData | null>(null);
-user$ = this.authSub.asObservable();
+private authSub: BehaviorSubject<AuthData | null> = new BehaviorSubject<AuthData | null>(null);
+public user$: Observable<AuthData | null> = this.authSub.asObservable();
 private timeout!:any;
 
 
@@ -134,12 +134,13 @@ login(data: {email: string, password: string}) {
   console.log(data)
   return this.http.post<AuthData>(`${environment.apiBack}auth/login`, data).pipe(
     tap(async (user) => {
-      this.authSub.next(user);
+      this.authSub.next( user);
       localStorage.setItem('user', JSON.stringify(user));
       this.autoLogout(user);
-    })
-    
-  )
+    }),
+    catchError(this.errors)
+  );
+  
 }
 
 updateUser(data: User) {
@@ -152,7 +153,7 @@ updateUser(data: User) {
 }
 
 logout() {
-  this.authSub.next(null);
+  this.authSub.next(  null );
   localStorage.removeItem('user');
   this.router.navigate(['/home'])
   this.initializeGoogleLogin();
@@ -176,7 +177,7 @@ async restore() {
     return
   }
   const user:AuthData = JSON.parse(userJson);
-  this.authSub.next(user);
+  this.authSub.next( user);
   // this.router.navigate(['/home'])
   this.autoLogout(user);
 }

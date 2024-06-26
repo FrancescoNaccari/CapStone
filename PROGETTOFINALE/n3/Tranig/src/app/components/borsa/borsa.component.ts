@@ -16,6 +16,9 @@ import { StockListService } from 'src/app/service/stock-list.service';
 import { TimeSeriesBorseService } from 'src/app/service/time-series-borse.service';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { QuoteBorseService } from 'src/app/service/quote-borse.service';
+import { TransactionService } from 'src/app/service/transaction.service';
+import { AuthService } from 'src/app/service/auth.service';
+import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
 
 
 
@@ -951,6 +954,13 @@ averagePrice: number = 0;
 bestPrice: number = 0;
 fromDate: string | null = '2024-06-17';
 toDate: string | null = '2024-06-22';
+
+
+balance: number = 0; // Saldo dell'utente
+quantityToBuy: number = 1; // Quantità di acquisto
+quantityToSell: number = 1; // Quantità di vendita
+userId: number | null = null; // ID dell'utente
+
 myChartRef!: HTMLCanvasElement | null;
 private chart!: Chart;
 
@@ -960,14 +970,25 @@ constructor(
   private realTimePriceService: RealTimePriceService,
   private timeSeriesBorseService: TimeSeriesBorseService,
   private quoteBorseService: QuoteBorseService,
-  private http: HttpClient
+  private http: HttpClient,
+  private transactionService: TransactionService,
+  private authSrv: AuthService 
 ) {
   Chart.register(...registerables);
   Chart.register(zoomPlugin); // Registra il plugin zoom
 }
 
 ngOnInit(): void {
-  
+  this.authSrv.user$.subscribe((data) => {
+    if (data && data.user) {
+      this.userId = data.user.idUtente || null;
+      this.balance = data.user.balance || 0;
+      console.log(`User ID: ${this.userId}, Balance: ${this.balance}`);
+    } else {
+      console.warn('Utente non autenticato');
+    }
+  });
+
   this.getTimeSeries(this.interval);
   this.getStocks();
   this.initChart();
@@ -1343,6 +1364,78 @@ toggleFavorite(stock: any): void {
   this.favoriteToggled.emit(stock);
   console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`)
   console.log(this.stock)
+}
+
+
+buyStock(): void {
+  if (this.price !== undefined && this.userId !== null) {
+    console.log(`Attempting to buy stock: ${this.symbol}, Quantity: ${this.quantityToBuy}, Price: ${this.price}`);
+    const request: TransactionRequest = {
+      userId: this.userId,
+      symbol: this.symbol,
+      quantity: this.quantityToBuy,
+      price: this.price
+    };
+
+    const cost = this.price * this.quantityToBuy;
+    if (this.balance >= cost) {
+      this.transactionService.buyStock(request).subscribe(
+        (updatedUser) => {
+          this.authSrv.updateUser(updatedUser);
+          this.balance = updatedUser.balance || 0;
+          console.log('Acquisto effettuato con successo');
+          window.alert('Acquisto effettuato con successo');
+        },
+        (error) => {
+          console.error('Errore durante l\'acquisto delle azioni', error);
+          window.alert('Errore durante l\'acquisto delle azioni');
+        }
+      );
+    } else {
+      window.alert('Saldo insufficiente per completare l\'acquisto');
+    }
+  } else {
+    if (this.price === undefined) {
+      console.warn('Prezzo non disponibile');
+    }
+    if (this.userId === null) {
+      console.warn('Utente non autenticato');
+    }
+    window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare l\'acquisto');
+  }
+}
+
+sellStock(): void {
+  if (this.price !== undefined && this.userId !== null) {
+    console.log(`Attempting to sell stock: ${this.symbol}, Quantity: ${this.quantityToSell}, Price: ${this.price}`);
+    const request: TransactionRequest = {
+      userId: this.userId,
+      symbol: this.symbol,
+      quantity: this.quantityToSell,
+      price: this.price
+    };
+
+    this.transactionService.sellStock(request).subscribe(
+      (updatedUser) => {
+        this.authSrv.updateUser(updatedUser);
+        this.balance = updatedUser.balance || 0;
+        console.log('Vendita effettuata con successo');
+        window.alert('Vendita effettuata con successo');
+      },
+      (error) => {
+        console.error('Errore durante la vendita delle azioni', error);
+        window.alert('Errore durante la vendita delle azioni');
+      }
+    );
+  } else {
+    if (this.price === undefined) {
+      console.warn('Prezzo non disponibile');
+    }
+    if (this.userId === null) {
+      console.warn('Utente non autenticato');
+    }
+    window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
+  }
 }
 
 }

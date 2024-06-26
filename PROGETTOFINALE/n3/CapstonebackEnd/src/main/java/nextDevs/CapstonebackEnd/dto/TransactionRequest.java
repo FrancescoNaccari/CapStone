@@ -1,4 +1,4 @@
-package nextDevs.CapstonebackEnd.model;
+package nextDevs.CapstonebackEnd.dto;
 
 import lombok.Data;
 

@@ -38,6 +38,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Withdrawal> withdrawals;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Stock> stocks;
+
     @Override
     public String getUsername() {
         return username;

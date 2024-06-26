@@ -27,8 +27,12 @@ user:User|undefined;
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe(user => {
-       this.user=user?.user;
-     })
+      if (user?.user) {
+        this.user = user.user;
+      } else {
+        this.user = undefined;
+      }
+    });
     }
       
    
