@@ -1,6 +1,7 @@
 package nextDevs.CapstonebackEnd.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import nextDevs.CapstonebackEnd.enums.TipoUtente;
@@ -33,12 +34,18 @@ public class User implements UserDetails {
     private boolean newsletter;
     private String stripeAccountId;
 
+    @JsonManagedReference
+
     @OneToMany(mappedBy = "user")
     private List<FavoriteStock> listaFavoriti;
+
+    @JsonManagedReference
 
     @OneToMany(mappedBy = "user")
     private List<Withdrawal> withdrawals;
 
+
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Stock> stocks;
 

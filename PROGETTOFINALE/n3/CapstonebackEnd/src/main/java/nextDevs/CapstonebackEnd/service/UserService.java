@@ -247,6 +247,7 @@ public class UserService {
         }
     }
 
+
     public User withdrawFunds(Integer userId, BigDecimal amount) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {

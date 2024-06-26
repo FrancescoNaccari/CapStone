@@ -1,5 +1,6 @@
 package nextDevs.CapstonebackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,7 +13,7 @@ public class FavoriteStock {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;
     private String symbol;

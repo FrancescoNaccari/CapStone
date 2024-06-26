@@ -12,6 +12,7 @@ import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -101,11 +102,13 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}/balance")
-    public User updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
-        System.out.println("Received balance request for userId: " + userId);
-        System.out.println("Amount to add: " + balanceRequest.getAmount());
-        // Passa direttamente il BigDecimal al servizio
-        return userService.updateBalance(userId, balanceRequest.getAmount());
+    public ResponseEntity<User> updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
+        try {
+            User updatedUser = userService.updateBalance(userId, balanceRequest.getAmount());
+            return ResponseEntity.ok(updatedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
     @PostMapping("/api/users/{id}/withdraw")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
