@@ -13,7 +13,9 @@ import nextDevs.CapstonebackEnd.enums.TipoUtente;
 import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.exception.NotFoundException;
 import nextDevs.CapstonebackEnd.exception.UserNotFoundException;
+import nextDevs.CapstonebackEnd.model.Stock;
 import nextDevs.CapstonebackEnd.model.User;
+import nextDevs.CapstonebackEnd.repository.StockRepository;
 import nextDevs.CapstonebackEnd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,20 +25,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.stereotype.Service;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
+
+    @Autowired
+    private StockRepository stockRepository;
+
 
     @Autowired
     private UserRepository userRepository;
@@ -98,8 +100,20 @@ public class UserService {
     }
 
     public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            List<Stock> stocks = stockRepository.findByUser_IdUtente(user.getIdUtente());
+            user.setStocks(stocks); // Assicurati che il setter esista in User
+            return Optional.of(user);
+        } else {
+            return Optional.empty();
+        }
     }
+
+
+
+
 
     public User updateUser(int id, UserDto userDto) {
         Optional<User> userOptional = getUserById(id);
@@ -246,6 +260,7 @@ public class UserService {
             throw new RuntimeException("User not found");
         }
     }
+
 
 
     public User withdrawFunds(Integer userId, BigDecimal amount) {

@@ -1,4 +1,5 @@
 import { FavoriteStock } from "./favorite-stock.interface";
+import { Stock } from "./stock.interface";
 
 export interface User {
     idUtente?: number,
@@ -12,5 +13,5 @@ export interface User {
     listaFavoriti:FavoriteStock[];
     newsletter: boolean
     balance: number; // Aggiungi questa riga
-
+    stocks: Stock[]; 
 }

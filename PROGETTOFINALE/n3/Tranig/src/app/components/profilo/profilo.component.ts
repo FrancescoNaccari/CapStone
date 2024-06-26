@@ -661,7 +661,7 @@ ngOnDestroy(): void {
 startBalanceUpdateInterval(): void {
   this.intervalId = setInterval(() => {
     this.updateBalance();
-  }, 10000); // Aggiorna ogni 2 secondi
+  }, 2000); // Aggiorna ogni 2 secondi
 }
 updateBalance(): void {
   if (this.profilo?.idUtente) {

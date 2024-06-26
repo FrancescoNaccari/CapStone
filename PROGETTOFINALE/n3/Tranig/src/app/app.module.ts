@@ -40,6 +40,7 @@ import { CalendarioComponent } from './components/borsa/calendario/calendario.co
 import { CancelComponent } from './components/stripe/cancel/cancel.component';
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 import { SuccessComponent } from './components/stripe/success/success.component';
+import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-azioni-user.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { SuccessComponent } from './components/stripe/success/success.component'
 
      CheckoutComponent,
      SuccessComponent,
+     ListaAzioniUserComponent,
     
   ],
   imports: [

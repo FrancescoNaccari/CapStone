@@ -1,0 +1,20 @@
+<div class="container mt-4">
+    <h5>Azioni Possedute</h5>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Simbolo</th>
+          <th>Quantità</th>
+          <th>Prezzo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stock of stocks">
+          <td>{{ stock.symbol }}</td>
+          <td>{{ stock.quantity }}</td>
+          <td>{{ stock.price | currency:'EUR' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

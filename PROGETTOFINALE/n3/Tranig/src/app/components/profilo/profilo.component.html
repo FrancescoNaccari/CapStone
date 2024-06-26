@@ -500,7 +500,9 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="profilo?.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
+          <!-- <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="profilo?.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
+          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="(profilo && profilo.idUtente ? profilo.idUtente.toString() : '')" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
+
         </div>
       </div>
       <div class="mt-4">
