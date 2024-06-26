@@ -20,6 +20,8 @@ import { TransactionService } from 'src/app/service/transaction.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
 import { User } from 'src/app/interface/user.interface';
+import { Stock } from 'src/app/interface/stock.interface';
+import { ProfiloService } from 'src/app/service/profilo.service';
 
 
 
@@ -958,9 +960,11 @@ toDate: string | null = '2024-06-22';
 
 
 balance: number = 0; // Saldo dell'utente
-quantityToBuy: number = 1; // Quantità di acquisto
-quantityToSell: number = 1; // Quantità di vendita
+// quantityToBuy: number = 1; // Quantità di acquisto
+// quantityToSell: number = 1; // Quantità di vendita
 userId: number | null = null; // ID dell'utente
+userStocks: Stock[] = []; // Aggiungi questa linea per le azioni possedute
+
 
 myChartRef!: HTMLCanvasElement | null;
 private chart!: Chart;
@@ -972,7 +976,9 @@ constructor(
   private timeSeriesBorseService: TimeSeriesBorseService,
   private quoteBorseService: QuoteBorseService,
   private http: HttpClient,
-  private transactionService: TransactionService,
+  private profiloService: ProfiloService, // Aggiungi questo
+
+  // private transactionService: TransactionService,
   private authSrv: AuthService 
 ) {
   Chart.register(...registerables);
@@ -984,12 +990,14 @@ ngOnInit(): void {
     if (data && data.user) {
       this.userId = data.user.idUtente || null;
       this.balance = data.user.balance || 0;
+      this.userStocks = data.user.stocks || [];
       console.log(`User ID: ${this.userId}, Balance: ${this.balance}`);
     } else {
       console.warn('Utente non autenticato');
     }
   });
-
+    // Aggiorna i dati dell'utente all'avvio del componente
+    this.updateUserData();
   this.getTimeSeries(this.interval);
   this.getStocks();
   this.initChart();
@@ -1012,7 +1020,25 @@ ngAfterViewInit(): void {
   this.initChart();
 }
 
+ // Aggiungi questo metodo per aggiornare i dati dell'utente
+ updateUserData(): void {
+  if (this.userId !== null) {
+    this.profiloService.updateUser(this.userId, {}).subscribe(user => {
+      this.authSrv.updateUser(user);
+      this.balance = user.balance;
+      this.userStocks = user.stocks;
+      
+    });
+  }
+}
+updateUserStocks(stocks: Stock[]): void {
+  this.userStocks = stocks;
+}
 
+// updateOwnedQuantity(stocks: Stock[], symbol: string): void {
+//   const stock = stocks.find(s => s.symbol === symbol);
+//   this.ownedQuantity = stock ? stock.quantity : 0;
+// }
 onSearchChange(event: any): void {
   this.searchTerm = event.target.value;
   if (this.searchTerm.length > 0) {
@@ -1164,6 +1190,7 @@ onIntervalChange(newInterval: string): void {
 onSymbolChange(newSymbol: string): void {
   this.symbol = newSymbol;
   this.stock.symbol = newSymbol;
+    this.updateUserData();
   this.getRealTimePrice();
   this.getTimeSeries(this.interval);
   this.updateChart();
@@ -1368,90 +1395,90 @@ toggleFavorite(stock: any): void {
 }
 
 
-buyStock(): void {
-  if (this.price !== undefined && this.userId !== null) {
-    const request: TransactionRequest = {
-      userId: this.userId,
-      symbol: this.symbol,
-      quantity: this.quantityToBuy,
-      price: this.price
-    };
+// buyStock(): void {
+//   if (this.price !== undefined && this.userId !== null) {
+//     const request: TransactionRequest = {
+//       userId: this.userId,
+//       symbol: this.symbol,
+//       quantity: this.quantityToBuy,
+//       price: this.price
+//     };
 
-    const cost = this.price * this.quantityToBuy;
-    if (this.balance >= cost) {
-      this.transactionService.buyStock(request).subscribe(
-        (response: User) => {
-          console.log('Server response:', response);
-          if (response && response.balance !== undefined) {
-            this.authSrv.updateUser(response);
-            this.balance = response.balance || 0;
-            console.log('Acquisto effettuato con successo');
-            window.alert('Acquisto effettuato con successo');
-          } else {
-            console.error('Risposta del server non valida', response);
-            window.alert('Errore durante l\'acquisto delle azioni');
-          }
-        },
-        (error) => {
-          console.error('Errore durante l\'acquisto delle azioni', error);
-          if (error.status === 400) {
-            window.alert('Saldo insufficiente per completare l\'acquisto');
-          } else {
-            window.alert('Errore durante l\'acquisto delle azioni');
-          }
-        }
-      );
-    } else {
-      window.alert('Saldo insufficiente per completare l\'acquisto');
-    }
-  } else {
-    if (this.price === undefined) {
-      console.warn('Prezzo non disponibile');
-    }
-    if (this.userId === null) {
-      console.warn('Utente non autenticato');
-    }
-    window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare l\'acquisto');
-  }
-}
+//     const cost = this.price * this.quantityToBuy;
+//     if (this.balance >= cost) {
+//       this.transactionService.buyStock(request).subscribe(
+//         (response: User) => {
+//           console.log('Server response:', response);
+//           if (response && response.balance !== undefined) {
+//             this.authSrv.updateUser(response);
+//             this.balance = response.balance || 0;
+//             console.log('Acquisto effettuato con successo');
+//             window.alert('Acquisto effettuato con successo');
+//           } else {
+//             console.error('Risposta del server non valida', response);
+//             window.alert('Errore durante l\'acquisto delle azioni');
+//           }
+//         },
+//         (error) => {
+//           console.error('Errore durante l\'acquisto delle azioni', error);
+//           if (error.status === 400) {
+//             window.alert('Saldo insufficiente per completare l\'acquisto');
+//           } else {
+//             window.alert('Errore durante l\'acquisto delle azioni');
+//           }
+//         }
+//       );
+//     } else {
+//       window.alert('Saldo insufficiente per completare l\'acquisto');
+//     }
+//   } else {
+//     if (this.price === undefined) {
+//       console.warn('Prezzo non disponibile');
+//     }
+//     if (this.userId === null) {
+//       console.warn('Utente non autenticato');
+//     }
+//     window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare l\'acquisto');
+//   }
+// }
 
-sellStock(): void {
-  if (this.price !== undefined && this.userId !== null) {
-    const request: TransactionRequest = {
-      userId: this.userId,
-      symbol: this.symbol,
-      quantity: this.quantityToSell,
-      price: this.price
-    };
+// sellStock(): void {
+//   if (this.price !== undefined && this.userId !== null) {
+//     const request: TransactionRequest = {
+//       userId: this.userId,
+//       symbol: this.symbol,
+//       quantity: this.quantityToSell,
+//       price: this.price
+//     };
 
-    this.transactionService.sellStock(request).subscribe(
-      (response: User) => {
-        console.log('Server response:', response);
-        if (response && response.balance !== undefined) {
-          this.authSrv.updateUser(response);
-          this.balance = response.balance || 0;
-          console.log('Vendita effettuata con successo');
-          window.alert('Vendita effettuata con successo');
-        } else {
-          console.error('Risposta del server non valida', response);
-          window.alert('Errore durante la vendita delle azioni');
-        }
-      },
-      (error) => {
-        console.error('Errore durante la vendita delle azioni', error);
-        window.alert('Errore durante la vendita delle azioni');
-      }
-    );
-  } else {
-    if (this.price === undefined) {
-      console.warn('Prezzo non disponibile');
-    }
-    if (this.userId === null) {
-      console.warn('Utente non autenticato');
-    }
-    window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
-  }
-}
+//     this.transactionService.sellStock(request).subscribe(
+//       (response: User) => {
+//         console.log('Server response:', response);
+//         if (response && response.balance !== undefined) {
+//           this.authSrv.updateUser(response);
+//           this.balance = response.balance || 0;
+//           console.log('Vendita effettuata con successo');
+//           window.alert('Vendita effettuata con successo');
+//         } else {
+//           console.error('Risposta del server non valida', response);
+//           window.alert('Errore durante la vendita delle azioni');
+//         }
+//       },
+//       (error) => {
+//         console.error('Errore durante la vendita delle azioni', error);
+//         window.alert('Errore durante la vendita delle azioni');
+//       }
+//     );
+//   } else {
+//     if (this.price === undefined) {
+//       console.warn('Prezzo non disponibile');
+//     }
+//     if (this.userId === null) {
+//       console.warn('Utente non autenticato');
+//     }
+//     window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
+//   }
+// }
 
 
 }

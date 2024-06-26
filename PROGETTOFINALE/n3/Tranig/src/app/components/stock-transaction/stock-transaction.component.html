@@ -1,0 +1,9 @@
+<div class="col-3 align-content-center text-center">
+    <input type="number" [(ngModel)]="quantityToBuy" min="1" placeholder="Quantità" />
+    <button class="btn btn-success" (click)="buyStock()">Acquista</button>
+  </div>
+  <div class="col-3 align-content-center text-center" [ngClass]="{'d-none': ownedQuantity < 1}">
+    <input type="number" [(ngModel)]="quantityToSell" min="1" placeholder="Quantità" />
+    <button class="btn btn-danger" (click)="sellStock()">Vendi</button>
+  </div>
+  

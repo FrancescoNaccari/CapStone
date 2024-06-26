@@ -41,6 +41,7 @@ import { CancelComponent } from './components/stripe/cancel/cancel.component';
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 import { SuccessComponent } from './components/stripe/success/success.component';
 import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-azioni-user.component';
+import { StockTransactionComponent } from './components/stock-transaction/stock-transaction.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-a
      CheckoutComponent,
      SuccessComponent,
      ListaAzioniUserComponent,
+     StockTransactionComponent,
     
   ],
   imports: [
