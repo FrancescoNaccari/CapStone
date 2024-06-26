@@ -15,7 +15,7 @@ import { ProfiloService } from 'src/app/service/profilo.service';
 export class CheckoutComponent {
   @Input() rechargeAmount: number = 0;
   @Input() withdrawAmount: number = 0;
-  @Input() userId: string = ''; 
+  @Input() userId: string|undefined| null = ''; 
   @Output() paymentSuccess = new EventEmitter<void>();
 
   @ViewChild('rechargePopover', { static: false }) rechargePopover!: NgbPopover;
