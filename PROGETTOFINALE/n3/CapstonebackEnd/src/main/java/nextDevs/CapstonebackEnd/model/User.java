@@ -32,6 +32,7 @@ public class User implements UserDetails {
     private BigDecimal balance= BigDecimal.ZERO;;
     private boolean newsletter;
     private String stripeAccountId;
+
     @OneToMany(mappedBy = "user")
     private List<FavoriteStock> listaFavoriti;
 

@@ -19,6 +19,7 @@ import { QuoteBorseService } from 'src/app/service/quote-borse.service';
 import { TransactionService } from 'src/app/service/transaction.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
+import { User } from 'src/app/interface/user.interface';
 
 
 
@@ -1369,7 +1370,6 @@ toggleFavorite(stock: any): void {
 
 buyStock(): void {
   if (this.price !== undefined && this.userId !== null) {
-    console.log(`Attempting to buy stock: ${this.symbol}, Quantity: ${this.quantityToBuy}, Price: ${this.price}`);
     const request: TransactionRequest = {
       userId: this.userId,
       symbol: this.symbol,
@@ -1380,15 +1380,25 @@ buyStock(): void {
     const cost = this.price * this.quantityToBuy;
     if (this.balance >= cost) {
       this.transactionService.buyStock(request).subscribe(
-        (updatedUser) => {
-          this.authSrv.updateUser(updatedUser);
-          this.balance = updatedUser.balance || 0;
-          console.log('Acquisto effettuato con successo');
-          window.alert('Acquisto effettuato con successo');
+        (response: User) => {
+          console.log('Server response:', response);
+          if (response && response.balance !== undefined) {
+            this.authSrv.updateUser(response);
+            this.balance = response.balance || 0;
+            console.log('Acquisto effettuato con successo');
+            window.alert('Acquisto effettuato con successo');
+          } else {
+            console.error('Risposta del server non valida', response);
+            window.alert('Errore durante l\'acquisto delle azioni');
+          }
         },
         (error) => {
           console.error('Errore durante l\'acquisto delle azioni', error);
-          window.alert('Errore durante l\'acquisto delle azioni');
+          if (error.status === 400) {
+            window.alert('Saldo insufficiente per completare l\'acquisto');
+          } else {
+            window.alert('Errore durante l\'acquisto delle azioni');
+          }
         }
       );
     } else {
@@ -1407,7 +1417,6 @@ buyStock(): void {
 
 sellStock(): void {
   if (this.price !== undefined && this.userId !== null) {
-    console.log(`Attempting to sell stock: ${this.symbol}, Quantity: ${this.quantityToSell}, Price: ${this.price}`);
     const request: TransactionRequest = {
       userId: this.userId,
       symbol: this.symbol,
@@ -1416,11 +1425,17 @@ sellStock(): void {
     };
 
     this.transactionService.sellStock(request).subscribe(
-      (updatedUser) => {
-        this.authSrv.updateUser(updatedUser);
-        this.balance = updatedUser.balance || 0;
-        console.log('Vendita effettuata con successo');
-        window.alert('Vendita effettuata con successo');
+      (response: User) => {
+        console.log('Server response:', response);
+        if (response && response.balance !== undefined) {
+          this.authSrv.updateUser(response);
+          this.balance = response.balance || 0;
+          console.log('Vendita effettuata con successo');
+          window.alert('Vendita effettuata con successo');
+        } else {
+          console.error('Risposta del server non valida', response);
+          window.alert('Errore durante la vendita delle azioni');
+        }
       },
       (error) => {
         console.error('Errore durante la vendita delle azioni', error);
@@ -1437,5 +1452,6 @@ sellStock(): void {
     window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
   }
 }
+
 
 }

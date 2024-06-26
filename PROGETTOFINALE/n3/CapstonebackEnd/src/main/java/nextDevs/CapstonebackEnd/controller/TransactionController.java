@@ -1,6 +1,7 @@
 package nextDevs.CapstonebackEnd.controller;
 
 import nextDevs.CapstonebackEnd.dto.TransactionRequest;
+import nextDevs.CapstonebackEnd.dto.UserDataDto;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,23 +18,62 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+//    @PostMapping("/buyStock")
+//    public ResponseEntity<User> buyStock(@RequestBody TransactionRequest request) {
+//        try {
+//            User user = transactionService.buyStock(request.getUserId(), request.getSymbol(), request.getQuantity(), request.getPrice());
+//            return ResponseEntity.ok(user);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//    }
+//
+//
+//
+//    @PostMapping("/sellStock")
+//    public ResponseEntity<User> sellStock(@RequestBody TransactionRequest request) {
+//        try {
+//            User user = transactionService.sellStock(request.getUserId(), request.getSymbol(), request.getQuantity(), request.getPrice());
+//            return ResponseEntity.ok(user);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//    }
+
     @PostMapping("/buyStock")
-    public ResponseEntity<User> buyStock(@RequestBody TransactionRequest request) {
+    public ResponseEntity<?> buyStock(@RequestBody TransactionRequest request) {
         try {
             User user = transactionService.buyStock(request.getUserId(), request.getSymbol(), request.getQuantity(), request.getPrice());
-            return ResponseEntity.ok(user);
+            UserDataDto userDto = convertToUserDataDto(user);
+            return ResponseEntity.ok(userDto);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
 
     @PostMapping("/sellStock")
-    public ResponseEntity<User> sellStock(@RequestBody TransactionRequest request) {
+    public ResponseEntity<?> sellStock(@RequestBody TransactionRequest request) {
         try {
             User user = transactionService.sellStock(request.getUserId(), request.getSymbol(), request.getQuantity(), request.getPrice());
-            return ResponseEntity.ok(user);
+            UserDataDto userDto = convertToUserDataDto(user);
+            return ResponseEntity.ok(userDto);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+    }
+
+    private UserDataDto convertToUserDataDto(User user) {
+        UserDataDto userDto = new UserDataDto();
+        userDto.setIdUtente(user.getIdUtente());
+        userDto.setEmail(user.getEmail());
+        userDto.setUsername(user.getUsername());
+        userDto.setNome(user.getNome());
+        userDto.setCognome(user.getCognome());
+        userDto.setTipoUtente(user.getTipoUtente());
+        userDto.setAvatar(user.getAvatar());
+        userDto.setBalance(user.getBalance());
+        userDto.setNewsletter(user.isNewsletter());
+        userDto.setStripeAccountId(user.getStripeAccountId());
+        return userDto;
     }
 }
