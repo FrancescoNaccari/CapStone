@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { NgbModal, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { loadStripe } from '@stripe/stripe-js';
 import { environment } from 'src/app/environment/environment.development';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-checkout',
@@ -20,10 +21,11 @@ export class CheckoutComponent {
 
   @ViewChild('rechargePopover', { static: false }) rechargePopover!: NgbPopover;
   @ViewChild('withdrawPopover', { static: false }) withdrawPopover!: NgbPopover;
+  @ViewChild('confirmModal', { static: false }) confirmModal!: ElementRef;
   stripePromise = loadStripe(environment.stripe);
 user:User|undefined;
 
-  constructor(private http: HttpClient, private authSrv:AuthService,private profiloSrv: ProfiloService) {}
+  constructor(private http: HttpClient, private authSrv:AuthService,private profiloSrv: ProfiloService,private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe(user => {
@@ -112,14 +114,26 @@ recharge() {
 }
 withdraw() {
   if (this.withdrawAmount > 0) {
-    if (this.user?.idUtente) {
-      this.profiloSrv.withdrawBalance(this.user.idUtente, this.withdrawAmount).subscribe(
-        () => this.paymentSuccess.emit(),
-        (error) => console.error('Errore durante il prelievo', error)
-      );
-    } else {
-      console.error('User ID is undefined');
-    }
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.amount = this.withdrawAmount;
+
+    modalRef.result.then((result) => {
+      if (result) {
+        if (this.user?.idUtente) {
+          this.profiloSrv.withdrawBalance(this.user.idUtente, this.withdrawAmount).subscribe(
+            () => {
+              this.paymentSuccess.emit();
+              window.alert(`Hai prelevato con successo ${this.withdrawAmount} € dal tuo metodo di pagamento.`);
+            },
+            (error) => console.error('Errore durante il prelievo', error)
+          );
+        } else {
+          console.error('User ID is undefined');
+        }
+      }
+    }, (reason) => {
+      console.log('Prelievo annullato:', reason);
+    });
   } else {
     this.showPopover(this.withdrawPopover);
   }
