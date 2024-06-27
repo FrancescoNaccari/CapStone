@@ -97,10 +97,14 @@ ngOnInit(): void {
     }
   });
 }
-openModal(content: TemplateRef<any>,symbol: string) {
-  const modalRef= this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-  modalRef.componentInstance.symbol = symbol;
+openModal(content: TemplateRef<any>) {
+  this.getRealTimePrice(); // Ensure real-time price is fetched
+  const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  modalRef.componentInstance.symbol = this.stock.symbol;
+  modalRef.componentInstance.currentPrice = this.stock.price;
+  modalRef.componentInstance.userId = this.stock.userId;
 }
+
 getRealTimePrice(): void {
   this.realTimePriceService.getRealTimePrice(this.stock.symbol).subscribe(
     (response: RealTimePriceResponse) => {

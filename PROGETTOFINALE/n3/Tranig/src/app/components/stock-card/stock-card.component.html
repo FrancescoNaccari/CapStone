@@ -33,23 +33,22 @@
         <div *ngIf="stock.increased" class="arrow up">▲</div>
         <div *ngIf="!stock.increased" class="arrow down">▼</div>
       </div>
-      <div class="col">      <button class="btn btn-primary mb-2" (click)="openModal(content,symbol)">Acquista / Vendi</button>
+      <div class="col">
+        <button class="btn btn-primary " (click)="openModal(content)">Acquista / Vendi</button>
       </div>
       <div class="col-1 p-0 m-0 star" (click)="toggleFavorite()">
         <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
       </div>
     </div>
   </div>
-
-
-
-
+  
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h2>Acquista / Vendi azioni {{ symbol }}</h2>
+      <h2>Acquista / Vendi azioni {{ stock.symbol }}</h2>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <app-stock-transaction [symbol]="symbol"></app-stock-transaction>
+      <app-stock-transaction [symbol]="stock.symbol" [currentPrice]="stock.price" [userId]="stock.userId"></app-stock-transaction>
     </div>
   </ng-template>
+  

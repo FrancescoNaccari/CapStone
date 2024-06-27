@@ -146,19 +146,22 @@ export class StockTransactionComponent implements OnInit, OnChanges {
 //     }
 
   @Input() symbol: string = ''
-quantity: number = 1;
-currentPrice: number = 0;
-user: User | null = null;
-private subscription: Subscription = new Subscription();
-alertMessage: string | null = null;
-constructor(
-  private authService: AuthService,
-  private profiloService: ProfiloService,
-  private realTimePriceService: RealTimePriceService,
-  private transactionService: TransactionService,
-  private activeModal: NgbActiveModal, // Inject NgbActiveModal
+  @Input() currentPrice: number = 0;
+  @Input() userId: number | null = null;
 
-) { }
+  quantity: number = 1;
+
+ user: User | null = null;
+ private subscription: Subscription = new Subscription();
+ alertMessage: string | null = null;
+ constructor(
+   private authService: AuthService,
+   private profiloService: ProfiloService,
+   private realTimePriceService: RealTimePriceService,
+   private transactionService: TransactionService,
+   private activeModal: NgbActiveModal, // Inject NgbActiveModal
+ 
+ ) { }
 
 ngOnInit(): void {
   this.authService.user$.subscribe(user => this.user = user?.user || null);
