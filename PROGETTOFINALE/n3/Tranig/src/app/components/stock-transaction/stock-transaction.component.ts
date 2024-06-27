@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { NgbActiveModal, NgbModal, NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, interval } from 'rxjs';import { Stock } from 'src/app/interface/stock.interface';
 import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
 import { User } from 'src/app/interface/user.interface';
@@ -150,13 +150,13 @@ quantity: number = 1;
 currentPrice: number = 0;
 user: User | null = null;
 private subscription: Subscription = new Subscription();
-
+alertMessage: string | null = null;
 constructor(
   private authService: AuthService,
   private profiloService: ProfiloService,
   private realTimePriceService: RealTimePriceService,
   private transactionService: TransactionService,
-  private activeModal: NgbActiveModal // Inject NgbActiveModal
+  private activeModal: NgbActiveModal, // Inject NgbActiveModal
 
 ) { }
 
@@ -175,6 +175,17 @@ validateQuantity(): void {
     this.quantity = 1; // Ensure the quantity is always at least 1
   }
 }
+showAlert(message: string): void {
+  this.alertMessage = message;
+  setTimeout(() => {
+    this.onAlertClose();
+  }, 2000); // Chiudi l'alert e la modale dopo 2 secondi
+}
+
+onAlertClose(): void {
+  this.alertMessage = null;
+  this.activeModal.close();
+}
 
 getRealTimePrice(): void {
   this.subscription.add(
@@ -188,7 +199,7 @@ getRealTimePrice(): void {
 
 buyStock(): void {
   if (this.quantity <= 0) {
-    window.alert('La quantità deve essere maggiore di zero.');
+    alert('La quantità deve essere maggiore di zero.');
     return;
   }
 
@@ -202,7 +213,7 @@ buyStock(): void {
     this.transactionService.buyStock(request).subscribe({
       next: (updatedUser) => {
         this.authService.updateUser(updatedUser);
-        this.activeModal.close(); // Chiudi la modale in caso di successo
+        this.showAlert('Acquisto effettuato con successo'); // Mostra l'alert
       },
       error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
     });
@@ -213,7 +224,7 @@ buyStock(): void {
 
 sellStock(): void {
   if (this.quantity <= 0) {
-    window.alert('La quantità deve essere maggiore di zero.');
+    alert('La quantità deve essere maggiore di zero.');
     return;
   }
 
@@ -227,12 +238,13 @@ sellStock(): void {
     this.transactionService.sellStock(request).subscribe({
       next: (updatedUser) => {
         this.authService.updateUser(updatedUser);
-        this.activeModal.close();
+        this.showAlert('Vendita effettuata con successo'); // Mostra l'alert
       },
       error: (error) => console.error('Errore durante la vendita delle azioni:', error)
     });
   }
 }
+
 
 onSubmit(): void {
   this.getRealTimePrice();

@@ -1,17 +1,16 @@
 <form (ngSubmit)="onSubmit()">
   <div>
-    <label for="quantity">Quantity:</label>
-    <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required min="1" (ngModelChange)="validateQuantity()">
-  </div>
-  <div *ngIf="quantity === 0" class="alert alert-danger">
-    Quantity must be greater than zero.
+    <label for="quantity">Quantità:</label>
+    <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required min="1">
   </div>
   <div>
-    <p>Current Price: {{ currentPrice | currency }}</p>
-    <p>Balance: {{ user?.balance | currency }}</p>
+    <p>Prezzo Attuale: {{ currentPrice | currency }}</p>
+    <p>Saldo: {{ user?.balance | currency }}</p>
   </div>
-  <button type="button" class="btn btn-primary" (click)="buyStock()">Buy</button>
-  <button type="button" class="btn btn-secondary" (click)="sellStock()">Sell</button>
+  <button type="button" class="btn btn-primary" (click)="buyStock()">Acquista</button>
+  <button type="button" class="btn btn-secondary" (click)="sellStock()">Vendi</button>
+  
+  <ngb-alert *ngIf="alertMessage" type="success" (closed)="onAlertClose()">
+    {{ alertMessage }}
+  </ngb-alert>
 </form>
-
-
