@@ -532,15 +532,7 @@
         </div>
 
         <!-- Utilizza il nuovo componente per i pulsanti di acquisto e vendita -->
-        <app-stock-transaction
-        [price]="price"
-        [symbol]="symbol"
-        [balance]="balance"
-        [userId]="userId"
-        [stocks]="userStocks"
-        (balanceUpdated)="balance = $event"
-        (stocksUpdated)="updateUserStocks($event)"
-        ></app-stock-transaction>
+        
 
         <div class="col-3 align-content-center justify-content-center text-center p-0">
           <h5 class="fw-bold fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
@@ -567,4 +559,5 @@
       </div>
     </div>
   </div>
-</div>
+</div>  <app-stock-transaction [symbol]="symbol"></app-stock-transaction>
+

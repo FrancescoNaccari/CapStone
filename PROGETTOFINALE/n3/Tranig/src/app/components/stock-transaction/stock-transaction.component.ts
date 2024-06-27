@@ -4,6 +4,7 @@ import { TransactionRequest } from 'src/app/interface/transaction-request.interf
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
+import { RealTimePriceService } from 'src/app/service/real-time-price.service';
 import { TransactionService } from 'src/app/service/transaction.service';
 import { UsersService } from 'src/app/service/users.service';
 
@@ -12,134 +13,201 @@ import { UsersService } from 'src/app/service/users.service';
   templateUrl: './stock-transaction.component.html',
   styleUrls: ['./stock-transaction.component.scss']
 })
-export class StockTransactionComponent implements OnInit, OnDestroy , OnChanges {
-  @Input() price: number | undefined;
-  @Input() symbol: string = '';
-  @Input() balance: number = 0;
-  @Input() userId: number | null = null;
-  @Output() balanceUpdated = new EventEmitter<number>();
-  @Input() stocks:Stock[] = [];
-  @Output() stocksUpdated = new EventEmitter<Stock[]>();
-  quantityToBuy: number = 1;
-  quantityToSell: number = 1;
-  ownedQuantity: number = 0;
+export class StockTransactionComponent implements OnInit {
+//   @Input() price: number | undefined;
+//   @Input() symbol: string = '';
+//   @Input() balance: number = 0;
+//   @Input() userId: number | null = null;
+//   @Output() balanceUpdated = new EventEmitter<number>();
+//   @Input() stocks:Stock[] = [];
+//   @Output() stocksUpdated = new EventEmitter<Stock[]>();
+//   quantityToBuy: number = 1;
+//   quantityToSell: number = 1;
+//   ownedQuantity: number = 0;
 
-  private intervalSubscription!: Subscription;
+//   private intervalSubscription!: Subscription;
 
 
-  constructor(
-    private transactionService: TransactionService,
-    private authSrv: AuthService,
-    private profiloService: ProfiloService 
-  ) { }
-  ngOnInit(): void {
-    this.updateOwnedQuantity();
-    this.intervalSubscription = interval(3000).subscribe(() => this.updateOwnedQuantity());
+//   constructor(
+//     private transactionService: TransactionService,
+//     private authSrv: AuthService,
+//     private profiloService: ProfiloService 
+//   ) { }
+//   ngOnInit(): void {
+//     this.updateOwnedQuantity();
+//     this.intervalSubscription = interval(3000).subscribe(() => this.updateOwnedQuantity());
 
-    }
+//     }
    
 
-    ngOnChanges():void{
-      this.updateOwnedQuantity();
-    }
- ngOnDestroy(): void {
-      if (this.intervalSubscription) {
-        this.intervalSubscription.unsubscribe();
-      }
-    }
-    updateOwnedQuantity(){
-      const stock = this.stocks.find(s => s.symbol === this.symbol);
-      this.ownedQuantity = stock ? stock.quantity : 0;
-    }
+//     ngOnChanges():void{
+//       this.updateOwnedQuantity();
+//     }
+//  ngOnDestroy(): void {
+//       if (this.intervalSubscription) {
+//         this.intervalSubscription.unsubscribe();
+//       }
+//     }
+//     updateOwnedQuantity(){
+//       const stock = this.stocks.find(s => s.symbol === this.symbol);
+//       this.ownedQuantity = stock ? stock.quantity : 0;
+//     }
 
-    buyStock(): void {
-      if (this.price !== undefined && this.userId !== null) {
-        const request: TransactionRequest = {
-          userId: this.userId,
-          symbol: this.symbol,
-          quantity: this.quantityToBuy,
-          price: this.price
-        };
+//     buyStock(): void {
+//       if (this.price !== undefined && this.userId !== null) {
+//         const request: TransactionRequest = {
+//           userId: this.userId,
+//           symbol: this.symbol,
+//           quantity: this.quantityToBuy,
+//           price: this.price
+//         };
   
-        const cost = this.price * this.quantityToBuy;
-        if (this.balance >= cost) {
-          this.transactionService.buyStock(request).subscribe(
-            (response: User) => {
-              if (response && response.balance !== undefined) {
-                this.profiloService.updateBalance(this.userId!, response.balance).subscribe(updatedUser => {
-                  this.authSrv.updateUser(updatedUser);
-                  this.balance = updatedUser.balance || 0;
-                  this.balanceUpdated.emit(this.balance);
-                  this.stocksUpdated.emit(updatedUser.stocks); // Emetti l'evento stocksUpdated
-                  this.updateOwnedQuantity();
-                  window.alert('Acquisto effettuato con successo');
-                });
-              } else {
-                console.error('Risposta del server non valida', response);
-                window.alert('Errore durante l\'acquisto delle azioni');
-              }
-            },
-            (error) => {
-              console.error('Errore durante l\'acquisto delle azioni', error);
-              if (error.status === 400) {
-                window.alert('Saldo insufficiente per completare l\'acquisto');
-              } else {
-                window.alert('Errore durante l\'acquisto delle azioni');
-              }
-            }
-          );
-        } else {
-          window.alert('Saldo insufficiente per completare l\'acquisto');
-        }
-      } else {
-        if (this.price === undefined) {
-          console.warn('Prezzo non disponibile');
-        }
-        if (this.userId === null) {
-          console.warn('Utente non autenticato');
-        }
-        window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare l\'acquisto');
-      }
-    }
+//         const cost = this.price * this.quantityToBuy;
+//         if (this.balance >= cost) {
+//           this.transactionService.buyStock(request).subscribe(
+//             (response: User) => {
+//               if (response && response.balance !== undefined) {
+//                 this.profiloService.updateBalance(this.userId!, response.balance).subscribe(updatedUser => {
+//                   this.authSrv.updateUser(updatedUser);
+//                   this.balance = updatedUser.balance || 0;
+//                   this.balanceUpdated.emit(this.balance);
+//                   this.stocksUpdated.emit(updatedUser.stocks); // Emetti l'evento stocksUpdated
+//                   this.updateOwnedQuantity();
+//                   window.alert('Acquisto effettuato con successo');
+//                 });
+//               } else {
+//                 console.error('Risposta del server non valida', response);
+//                 window.alert('Errore durante l\'acquisto delle azioni');
+//               }
+//             },
+//             (error) => {
+//               console.error('Errore durante l\'acquisto delle azioni', error);
+//               if (error.status === 400) {
+//                 window.alert('Saldo insufficiente per completare l\'acquisto');
+//               } else {
+//                 window.alert('Errore durante l\'acquisto delle azioni');
+//               }
+//             }
+//           );
+//         } else {
+//           window.alert('Saldo insufficiente per completare l\'acquisto');
+//         }
+//       } else {
+//         if (this.price === undefined) {
+//           console.warn('Prezzo non disponibile');
+//         }
+//         if (this.userId === null) {
+//           console.warn('Utente non autenticato');
+//         }
+//         window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare l\'acquisto');
+//       }
+//     }
   
-    sellStock(): void {
-      if (this.price !== undefined && this.userId !== null) {
-        const request: TransactionRequest = {
-          userId: this.userId,
-          symbol: this.symbol,
-          quantity: this.quantityToSell,
-          price: this.price
-        };
+//     sellStock(): void {
+//       if (this.price !== undefined && this.userId !== null) {
+//         const request: TransactionRequest = {
+//           userId: this.userId,
+//           symbol: this.symbol,
+//           quantity: this.quantityToSell,
+//           price: this.price
+//         };
   
-        this.transactionService.sellStock(request).subscribe(
-          (response: User) => {
-            if (response && response.balance !== undefined) {
-              this.profiloService.updateBalance(this.userId!, response.balance).subscribe(updatedUser => {
-                this.authSrv.updateUser(updatedUser);
-                this.balance = updatedUser.balance || 0;
-                this.balanceUpdated.emit(this.balance);
-                this.stocksUpdated.emit(updatedUser.stocks); // Emetti l'evento stocksUpdated
-                this.updateOwnedQuantity();
-                window.alert('Vendita effettuata con successo');
-              });
-            } else {
-              console.error('Risposta del server non valida', response);
-              window.alert('Errore durante la vendita delle azioni');
-            }
-          },
-          (error) => {
-            console.error('Errore durante la vendita delle azioni', error);
-            window.alert('Errore durante la vendita delle azioni');
-          }
-        );
-      } else {
-        if (this.price === undefined) {
-          console.warn('Prezzo non disponibile');
-        }
-        if (this.userId === null) {
-          console.warn('Utente non autenticato');
-        }
-        window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
-      }
-    }
+//         this.transactionService.sellStock(request).subscribe(
+//           (response: User) => {
+//             if (response && response.balance !== undefined) {
+//               this.profiloService.updateBalance(this.userId!, response.balance).subscribe(updatedUser => {
+//                 this.authSrv.updateUser(updatedUser);
+//                 this.balance = updatedUser.balance || 0;
+//                 this.balanceUpdated.emit(this.balance);
+//                 this.stocksUpdated.emit(updatedUser.stocks); // Emetti l'evento stocksUpdated
+//                 this.updateOwnedQuantity();
+//                 window.alert('Vendita effettuata con successo');
+//               });
+//             } else {
+//               console.error('Risposta del server non valida', response);
+//               window.alert('Errore durante la vendita delle azioni');
+//             }
+//           },
+//           (error) => {
+//             console.error('Errore durante la vendita delle azioni', error);
+//             window.alert('Errore durante la vendita delle azioni');
+//           }
+//         );
+//       } else {
+//         if (this.price === undefined) {
+//           console.warn('Prezzo non disponibile');
+//         }
+//         if (this.userId === null) {
+//           console.warn('Utente non autenticato');
+//         }
+//         window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
+//       }
+//     }
+
+  @Input() symbol: string = ''
+quantity: number = 0;
+currentPrice: number = 0;
+user: User | null = null;
+private subscription: Subscription = new Subscription();
+
+constructor(
+  private authService: AuthService,
+  private profiloService: ProfiloService,
+  private realTimePriceService: RealTimePriceService,
+  private transactionService: TransactionService
+) { }
+
+ngOnInit(): void {
+  this.authService.user$.subscribe(user => this.user = user?.user || null);
+  this.getRealTimePrice();
+
+}
+ngOnChanges(): void {
+  this.getRealTimePrice();
+}
+
+getRealTimePrice(): void {
+  this.subscription.add(
+    this.realTimePriceService.getRealTimePrice(this.symbol).subscribe({
+      next: (response) => this.currentPrice = response.price,
+      error: (error) => console.error('Error fetching real-time price:', error)
+    })
+  );
+}
+
+buyStock(): void {
+  if (this.user && this.currentPrice * this.quantity <= this.user.balance) {
+    const request: TransactionRequest = {
+      userId: this.user.idUtente!,
+      symbol: this.symbol,
+      quantity: this.quantity,
+      price: this.currentPrice
+    };
+    this.transactionService.buyStock(request).subscribe({
+      next: (updatedUser) => this.authService.updateUser(updatedUser),
+      error: (error) => console.error('Error buying stock:', error)
+    });
+  } else {
+    console.error('Insufficient balance');
+  }
+}
+
+sellStock(): void {
+  if (this.user) {
+    const request: TransactionRequest = {
+      userId: this.user.idUtente!,
+      symbol: this.symbol,
+      quantity: this.quantity,
+      price: this.currentPrice
+    };
+    this.transactionService.sellStock(request).subscribe({
+      next: (updatedUser) => this.authService.updateUser(updatedUser),
+      error: (error) => console.error('Error selling stock:', error)
+    });
+  }
+}
+
+onSubmit(): void {
+  this.getRealTimePrice();
+}
   }

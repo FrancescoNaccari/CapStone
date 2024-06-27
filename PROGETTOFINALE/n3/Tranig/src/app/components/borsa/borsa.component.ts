@@ -959,11 +959,11 @@ fromDate: string | null = '2024-06-17';
 toDate: string | null = '2024-06-22';
 
 
-balance: number = 0; // Saldo dell'utente
+// balance: number = 0; // Saldo dell'utente
 // quantityToBuy: number = 1; // Quantità di acquisto
 // quantityToSell: number = 1; // Quantità di vendita
 userId: number | null = null; // ID dell'utente
-userStocks: Stock[] = []; // Aggiungi questa linea per le azioni possedute
+// userStocks: Stock[] = []; // Aggiungi questa linea per le azioni possedute
 
 
 myChartRef!: HTMLCanvasElement | null;
@@ -989,15 +989,15 @@ ngOnInit(): void {
   this.authSrv.user$.subscribe((data) => {
     if (data && data.user) {
       this.userId = data.user.idUtente || null;
-      this.balance = data.user.balance || 0;
-      this.userStocks = data.user.stocks || [];
-      console.log(`User ID: ${this.userId}, Balance: ${this.balance}`);
+      // this.balance = data.user.balance || 0;
+      // this.userStocks = data.user.stocks || [];
+      // console.log(`User ID: ${this.userId}, Balance: ${this.balance}`);
     } else {
       console.warn('Utente non autenticato');
     }
   });
     // Aggiorna i dati dell'utente all'avvio del componente
-    this.updateUserData();
+    // this.updateUserData();
   this.getTimeSeries(this.interval);
   this.getStocks();
   this.initChart();
@@ -1021,24 +1021,29 @@ ngAfterViewInit(): void {
 }
 
  // Aggiungi questo metodo per aggiornare i dati dell'utente
- updateUserData(): void {
-  if (this.userId !== null) {
-    this.profiloService.updateUser(this.userId, {}).subscribe(user => {
-      this.authSrv.updateUser(user);
-      this.balance = user.balance;
-      this.userStocks = user.stocks;
+//  updateUserData(): void {
+//   if (this.userId !== null) {
+//     this.profiloService.updateUser(this.userId, {}).subscribe(user => {
+//       this.authSrv.updateUser(user);
+//       this.balance = user.balance;
+//       this.userStocks = user.stocks;
       
-    });
-  }
-}
-updateUserStocks(stocks: Stock[]): void {
-  this.userStocks = stocks;
-}
+//     });
+//   }
+// }
+// updateUserStocks(stocks: Stock[]): void {
+//   this.userStocks = stocks;
+// }
 
 // updateOwnedQuantity(stocks: Stock[], symbol: string): void {
 //   const stock = stocks.find(s => s.symbol === symbol);
 //   this.ownedQuantity = stock ? stock.quantity : 0;
 // }
+selectSymbol(symbol: string): void {
+  this.symbol = symbol;
+}
+
+
 onSearchChange(event: any): void {
   this.searchTerm = event.target.value;
   if (this.searchTerm.length > 0) {
@@ -1190,7 +1195,7 @@ onIntervalChange(newInterval: string): void {
 onSymbolChange(newSymbol: string): void {
   this.symbol = newSymbol;
   this.stock.symbol = newSymbol;
-    this.updateUserData();
+    // this.updateUserData();
   this.getRealTimePrice();
   this.getTimeSeries(this.interval);
   this.updateChart();
