@@ -2,14 +2,14 @@ package nextDevs.CapstonebackEnd.controller;
 
 import nextDevs.CapstonebackEnd.dto.TransactionRequest;
 import nextDevs.CapstonebackEnd.dto.UserDataDto;
+import nextDevs.CapstonebackEnd.model.Transaction;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -62,6 +62,12 @@ public class TransactionController {
         }
     }
 
+
+    @GetMapping("/transactions/{userId}")
+    public List<Transaction> getUserTransactions(@PathVariable Integer userId) {
+        return transactionService.getUserTransactions(userId);
+    }
+
     private UserDataDto convertToUserDataDto(User user) {
         UserDataDto userDto = new UserDataDto();
         userDto.setIdUtente(user.getIdUtente());
@@ -76,4 +82,7 @@ public class TransactionController {
         userDto.setStripeAccountId(user.getStripeAccountId());
         return userDto;
     }
+
+
+
 }

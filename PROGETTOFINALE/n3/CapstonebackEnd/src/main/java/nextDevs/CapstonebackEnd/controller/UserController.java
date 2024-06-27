@@ -7,6 +7,7 @@ import nextDevs.CapstonebackEnd.dto.UserDto;
 import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.exception.NotFoundException;
 import nextDevs.CapstonebackEnd.model.BalanceRequest;
+import nextDevs.CapstonebackEnd.model.Stock;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -115,6 +117,10 @@ public class UserController {
     public ResponseEntity<BigDecimal> withdrawFunds(@PathVariable Integer id, @RequestBody BalanceRequest balanceRequest) {
         BigDecimal newBalance = userService.withdrawFunds(id, balanceRequest.getAmount()).getBalance();
         return ResponseEntity.ok(newBalance);
+    }
+    @GetMapping("/{userId}/stocks")
+    public List<Stock> getUserStocks(@PathVariable Integer userId) {
+        return userService.getUserStocks(userId);
     }
 }
 

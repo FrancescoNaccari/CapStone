@@ -1,20 +1,17 @@
-<div class="container mt-4">
-    <h5>Azioni Possedute</h5>
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th>Simbolo</th>
-          <th>Quantità</th>
-          <th>Prezzo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let stock of stocks">
-          <td>{{ stock.symbol }}</td>
-          <td>{{ stock.quantity }}</td>
-          <td>{{ stock.price | currency:'EUR' }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+<div *ngIf="stocks.length > 0">
+  <h5>Azioni possedute:</h5>
+  <ul>
+    <li *ngFor="let stock of stocks">
+      {{ stock.symbol }}: {{ stock.quantity }}
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="transactions.length > 0">
+  <h5>Transazioni:</h5>
+  <ul>
+    <li *ngFor="let transaction of transactions">
+      {{ transaction.date | date: 'short' }} - {{ transaction.type }} - {{ transaction.symbol }} - {{ transaction.quantity }} @ {{ transaction.price | currency }}
+    </li>
+  </ul>
+</div>

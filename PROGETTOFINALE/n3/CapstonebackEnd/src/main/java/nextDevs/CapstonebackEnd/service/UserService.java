@@ -324,4 +324,14 @@ public class UserService {
         // Logga l'operazione di prelievo per scopi di auditing
         System.out.println("User " + user.getIdUtente() + " requested withdrawal of amount " + amount);
     }
+
+    public List<Stock> getUserStocks(Integer userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return user.getStocks();
+        } else {
+            throw new NotFoundException("User with id " + userId + " not found");
+        }
+    }
 }

@@ -148,7 +148,7 @@ export class StockTransactionComponent implements OnInit, OnChanges {
   @Input() symbol: string = ''
   @Input() currentPrice: number = 0;
   @Input() userId: number | null = null;
-
+  @Output() transactionUpdated = new EventEmitter<void>();
   quantity: number = 1;
 
  user: User | null = null;
@@ -216,6 +216,7 @@ buyStock(): void {
     this.transactionService.buyStock(request).subscribe({
       next: (updatedUser) => {
         this.authService.updateUser(updatedUser);
+        this.transactionUpdated.emit();
         this.showAlert('Acquisto effettuato con successo'); // Mostra l'alert
       },
       error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
@@ -241,6 +242,7 @@ sellStock(): void {
     this.transactionService.sellStock(request).subscribe({
       next: (updatedUser) => {
         this.authService.updateUser(updatedUser);
+        this.transactionUpdated.emit();
         this.showAlert('Vendita effettuata con successo'); // Mostra l'alert
       },
       error: (error) => console.error('Errore durante la vendita delle azioni:', error)

@@ -1,13 +1,21 @@
 package nextDevs.CapstonebackEnd.service;
 
+
 import nextDevs.CapstonebackEnd.model.Stock;
+
+
+import nextDevs.CapstonebackEnd.model.Transaction;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.repository.StockRepository;
+
+import nextDevs.CapstonebackEnd.repository.TransactionRepository;
 import nextDevs.CapstonebackEnd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,7 +23,8 @@ public class TransactionService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private TransactionRepository transactionRepository;
     @Autowired
     private StockRepository stockRepository;
 
@@ -44,7 +53,8 @@ public class TransactionService {
 
         stockRepository.save(stock);
         userRepository.save(user);
-
+        // Log the transaction
+        logTransaction(userId, symbol, quantity, price, "BUY");
         return user;
     }
 
@@ -70,7 +80,24 @@ public class TransactionService {
         }
 
         userRepository.save(user);
-
+        // Log the transaction
+        logTransaction(userId, symbol, quantity, price, "SELL");
         return user;
+    }
+
+    private void logTransaction(Integer userId, String symbol, int quantity, BigDecimal price, String type) {
+        Transaction transaction = new Transaction();
+        transaction.setUserId(userId);
+        transaction.setSymbol(symbol);
+        transaction.setQuantity(quantity);
+        transaction.setPrice(price);
+        transaction.setType(type);
+        transaction.setDate(LocalDateTime.now());
+        transactionRepository.save(transaction);
+        System.out.println("Logged transaction: " + transaction);
+    }
+
+    public List<Transaction> getUserTransactions(Integer userId) {
+        return transactionRepository.findByUserId(userId);
     }
 }

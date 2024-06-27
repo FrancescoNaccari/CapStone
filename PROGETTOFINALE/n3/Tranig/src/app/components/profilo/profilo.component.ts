@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
@@ -620,6 +620,7 @@ export class ProfiloComponent implements OnInit, OnDestroy  {
 
 
 
+@Input() userId: number | null = null;
 
 @ViewChild(CheckoutComponent) checkoutComponent!: CheckoutComponent;
 // @ViewChild('newPasswordField') newPasswordField!: ElementRef;

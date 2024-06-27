@@ -145,6 +145,6 @@ withdraw() {
 
   showSuccessAlert(message: string) {
     this.alertMessage = message;
-    setTimeout(() => this.alertMessage = null, 3000); // Nasconde l'alert dopo 3 secondi
+    setTimeout(() => this.alertMessage = null, 4000); // Nasconde l'alert dopo 3 secondi
   }
 }
