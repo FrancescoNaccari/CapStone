@@ -1,15 +1,17 @@
-<div>
-  <h1>Stock Transaction for {{ symbol }}</h1>
-  <form (ngSubmit)="onSubmit()">
-    <div>
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required>
-    </div>
-    <div>
-      <p>Current Price: {{currentPrice | currency}}</p>
-      <p>Balance: {{user?.balance | currency}}</p>
-    </div>
-    <button type="button" (click)="buyStock()">Buy</button>
-    <button type="button" (click)="sellStock()">Sell</button>
-  </form>
-</div>
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="quantity">Quantity:</label>
+    <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required min="1" (ngModelChange)="validateQuantity()">
+  </div>
+  <div *ngIf="quantity === 0" class="alert alert-danger">
+    Quantity must be greater than zero.
+  </div>
+  <div>
+    <p>Current Price: {{ currentPrice | currency }}</p>
+    <p>Balance: {{ user?.balance | currency }}</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="buyStock()">Buy</button>
+  <button type="button" class="btn btn-secondary" (click)="sellStock()">Sell</button>
+</form>
+
+

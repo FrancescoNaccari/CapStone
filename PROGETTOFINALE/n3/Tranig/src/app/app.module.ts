@@ -9,9 +9,9 @@ import {
   FacebookLoginProvider
 } from '@abacritt/angularx-social-login';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbActiveModal  } from '@ng-bootstrap/ng-bootstrap';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -71,6 +71,7 @@ import { StockTransactionComponent } from './components/stock-transaction/stock-
      SuccessComponent,
      ListaAzioniUserComponent,
      StockTransactionComponent,
+
     
   ],
   imports: [
@@ -81,6 +82,7 @@ import { StockTransactionComponent } from './components/stock-transaction/stock-
     NgbPopoverModule,
     NgbDatepickerModule,
      FormsModule, 
+     NgbModule,
      SocialLoginModule,
      ReactiveFormsModule,
   NgxEditorModule.forRoot({
@@ -119,13 +121,13 @@ import { StockTransactionComponent } from './components/stock-transaction/stock-
       enterValidUrl: 'Please enter a valid URL',
     },
   }),
-  NgbModule,
   ],
   providers: [    {
     provide: HTTP_INTERCEPTORS,
     useClass: TokenInterceptor,
     multi: true
   },
+  NgbActiveModal,
   {
     provide: 'SocialAuthServiceConfig',
     useValue: {

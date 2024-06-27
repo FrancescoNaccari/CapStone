@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription, interval } from 'rxjs';import { Stock } from 'src/app/interface/stock.interface';
 import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
 import { User } from 'src/app/interface/user.interface';
@@ -13,7 +14,7 @@ import { UsersService } from 'src/app/service/users.service';
   templateUrl: './stock-transaction.component.html',
   styleUrls: ['./stock-transaction.component.scss']
 })
-export class StockTransactionComponent implements OnInit {
+export class StockTransactionComponent implements OnInit, OnChanges {
 //   @Input() price: number | undefined;
 //   @Input() symbol: string = '';
 //   @Input() balance: number = 0;
@@ -145,7 +146,7 @@ export class StockTransactionComponent implements OnInit {
 //     }
 
   @Input() symbol: string = ''
-quantity: number = 0;
+quantity: number = 1;
 currentPrice: number = 0;
 user: User | null = null;
 private subscription: Subscription = new Subscription();
@@ -154,28 +155,43 @@ constructor(
   private authService: AuthService,
   private profiloService: ProfiloService,
   private realTimePriceService: RealTimePriceService,
-  private transactionService: TransactionService
+  private transactionService: TransactionService,
+  private activeModal: NgbActiveModal // Inject NgbActiveModal
+
 ) { }
 
 ngOnInit(): void {
   this.authService.user$.subscribe(user => this.user = user?.user || null);
-  this.getRealTimePrice();
 
 }
-ngOnChanges(): void {
-  this.getRealTimePrice();
+
+ngOnChanges(changes: SimpleChanges): void {
+  if (changes['symbol']) {
+    this.getRealTimePrice();
+  }
+}
+validateQuantity(): void {
+  if (this.quantity < 1) {
+    this.quantity = 1; // Ensure the quantity is always at least 1
+  }
 }
 
 getRealTimePrice(): void {
   this.subscription.add(
     this.realTimePriceService.getRealTimePrice(this.symbol).subscribe({
       next: (response) => this.currentPrice = response.price,
-      error: (error) => console.error('Error fetching real-time price:', error)
+      error: (error) => console.error('Errore durante il recupero del prezzo in tempo reale:', error)
+
     })
   );
 }
 
 buyStock(): void {
+  if (this.quantity <= 0) {
+    window.alert('La quantità deve essere maggiore di zero.');
+    return;
+  }
+
   if (this.user && this.currentPrice * this.quantity <= this.user.balance) {
     const request: TransactionRequest = {
       userId: this.user.idUtente!,
@@ -184,15 +200,23 @@ buyStock(): void {
       price: this.currentPrice
     };
     this.transactionService.buyStock(request).subscribe({
-      next: (updatedUser) => this.authService.updateUser(updatedUser),
-      error: (error) => console.error('Error buying stock:', error)
+      next: (updatedUser) => {
+        this.authService.updateUser(updatedUser);
+        this.activeModal.close(); // Chiudi la modale in caso di successo
+      },
+      error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
     });
   } else {
-    console.error('Insufficient balance');
+    console.error('Saldo insufficiente');
   }
 }
 
 sellStock(): void {
+  if (this.quantity <= 0) {
+    window.alert('La quantità deve essere maggiore di zero.');
+    return;
+  }
+
   if (this.user) {
     const request: TransactionRequest = {
       userId: this.user.idUtente!,
@@ -201,8 +225,11 @@ sellStock(): void {
       price: this.currentPrice
     };
     this.transactionService.sellStock(request).subscribe({
-      next: (updatedUser) => this.authService.updateUser(updatedUser),
-      error: (error) => console.error('Error selling stock:', error)
+      next: (updatedUser) => {
+        this.authService.updateUser(updatedUser);
+        this.activeModal.close();
+      },
+      error: (error) => console.error('Errore durante la vendita delle azioni:', error)
     });
   }
 }

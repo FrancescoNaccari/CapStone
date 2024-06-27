@@ -559,5 +559,17 @@
       </div>
     </div>
   </div>
-</div>  <app-stock-transaction [symbol]="symbol"></app-stock-transaction>
+</div>        <button class="btn btn-primary" (click)="openModal(content,symbol)">Open Transaction Modal</button>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h2>Acquista / Vendi azioni {{ symbol }}</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <app-stock-transaction [symbol]="symbol"></app-stock-transaction>
+  </div>
+</ng-template>
+
+
 

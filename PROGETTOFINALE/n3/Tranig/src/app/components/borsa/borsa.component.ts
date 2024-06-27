@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Chart, ScriptableContext, ScriptableLineSegmentContext, ChartData, registerables } from 'chart.js';
 import { environment } from 'src/app/environment/environment.development';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
@@ -977,7 +977,7 @@ constructor(
   private quoteBorseService: QuoteBorseService,
   private http: HttpClient,
   private profiloService: ProfiloService, // Aggiungi questo
-
+  private modalService: NgbModal,
   // private transactionService: TransactionService,
   private authSrv: AuthService 
 ) {
@@ -1043,7 +1043,11 @@ selectSymbol(symbol: string): void {
   this.symbol = symbol;
 }
 
-
+  // Metodo per aprire la modale
+  openModal(content: TemplateRef<any>,symbol: string) {
+    const modalRef= this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    modalRef.componentInstance.symbol = symbol;
+	}
 onSearchChange(event: any): void {
   this.searchTerm = event.target.value;
   if (this.searchTerm.length > 0) {
