@@ -1,3 +1,4 @@
+
 <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
   <h5>Ricarica il tuo conto</h5>
   <div class="form-floating my-3 me-3">
@@ -14,4 +15,7 @@
     <label for="withdrawAmount" class="label-custom">Importo</label>
   </div>
   <button type="button" class="btn btn-primary rounded-5" (click)="withdraw()" ngbPopover="Inserisci un importo maggiore di zero." placement="right" triggers="manual" #withdrawPopover="ngbPopover">Preleva</button>
+</div>
+<div *ngIf="alertMessage" class="alert alert-success" role="alert" [ngClass]="{'show': alertMessage, 'fade': !alertMessage}">
+  {{ alertMessage }}
 </div>

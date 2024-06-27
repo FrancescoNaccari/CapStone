@@ -24,7 +24,7 @@ export class CheckoutComponent {
   @ViewChild('confirmModal', { static: false }) confirmModal!: ElementRef;
   stripePromise = loadStripe(environment.stripe);
 user:User|undefined;
-
+alertMessage: string | null = null;
   constructor(private http: HttpClient, private authSrv:AuthService,private profiloSrv: ProfiloService,private modalService: NgbModal) {}
 
   ngOnInit(): void {
@@ -123,7 +123,7 @@ withdraw() {
           this.profiloSrv.withdrawBalance(this.user.idUtente, this.withdrawAmount).subscribe(
             () => {
               this.paymentSuccess.emit();
-              window.alert(`Hai prelevato con successo ${this.withdrawAmount} € dal tuo metodo di pagamento.`);
+              this.showSuccessAlert(`Hai prelevato con successo ${this.withdrawAmount} € dal tuo metodo di pagamento.`);
             },
             (error) => console.error('Errore durante il prelievo', error)
           );
@@ -143,4 +143,8 @@ withdraw() {
     setTimeout(() => popover.close(), 3000); // Nasconde il popover dopo 3 secondi
   }
 
+  showSuccessAlert(message: string) {
+    this.alertMessage = message;
+    setTimeout(() => this.alertMessage = null, 3000); // Nasconde l'alert dopo 3 secondi
+  }
 }
