@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
 import { QuoteBorse } from 'src/app/interface/quote-borse.interface';
 import { RealTimePriceResponse } from 'src/app/interface/real-time-price-response.interface';
@@ -73,7 +74,7 @@ export class StockCardComponent implements OnInit {
 // }
 
 
-
+@Input() symbol!: string;
 @Input() stock: any;
 @Input() favorites: any[] = [];
 @Output() favoriteToggled = new EventEmitter<any>();
@@ -82,7 +83,9 @@ constructor(
   private realTimePriceService: RealTimePriceService,
   private logoBorsaService: LogoBorsaService,
   private quoteBorseService: QuoteBorseService,
-  private cdr: ChangeDetectorRef
+  private cdr: ChangeDetectorRef,
+  private modalService: NgbModal,
+
 ) { }
 
 ngOnInit(): void {
@@ -94,7 +97,10 @@ ngOnInit(): void {
     }
   });
 }
-
+openModal(content: TemplateRef<any>,symbol: string) {
+  const modalRef= this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+  modalRef.componentInstance.symbol = symbol;
+}
 getRealTimePrice(): void {
   this.realTimePriceService.getRealTimePrice(this.stock.symbol).subscribe(
     (response: RealTimePriceResponse) => {

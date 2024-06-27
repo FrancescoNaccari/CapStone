@@ -469,7 +469,8 @@
   <div class="row">
     <div class="row my-2"></div>
 
-    <div class="d-none col-12 d-lg-flex align-items-center justify-content-end">
+    <div class="d-none col-12 d-lg-flex align-items-center justify-content-between">
+      <button class="btn btn-primary mb-2" (click)="openModal(content,symbol)">Acquista / Vendi</button>
       <div class="star" (click)="toggleFavorite(stock)">
         <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
       </div>
@@ -559,7 +560,7 @@
       </div>
     </div>
   </div>
-</div>        <button class="btn btn-primary" (click)="openModal(content,symbol)">Open Transaction Modal</button>
+</div>        
 
 <ng-template #content let-modal>
   <div class="modal-header">
