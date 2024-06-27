@@ -494,22 +494,19 @@
         </div>
       </div>
     </div>
-    <div class="container text-white">
+    <div class="container text-white" *ngIf="profilo">
       <div class="my-5 fw-semibold">
         <h1>Profilo</h1>
       </div>
       <div class="row">
         <div class="col-12">
-          <!-- <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="profilo?.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
-          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="(profilo && profilo.idUtente ? profilo.idUtente.toString() : '')" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
-
+          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="profilo?.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
         </div>
       </div>
       <div class="mt-4">
         <h5>Saldo attuale: {{ balance | currency:'€ ' }}</h5>
       </div>
     </div>
-    
     
   </div>
 </div>

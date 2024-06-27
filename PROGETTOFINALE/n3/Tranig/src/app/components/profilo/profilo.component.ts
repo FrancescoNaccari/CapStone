@@ -837,7 +837,7 @@ updateUsername() {
 //     this.checkoutComponent.amount = this.rechargeAmount;
 //     this.checkoutComponent.pay();
 //   }
-}
+
 // initiateWithdraw() {
 //   if (this.profilo?.idUtente) {
 //     this.profiloSrv.updateBalance(this.profilo.idUtente, -this.withdrawAmount).subscribe(
@@ -875,7 +875,7 @@ updateUsername() {
 
 
 
-
+}
 function isAuthData(user: any): user is AuthData {
 return user && 'accessToken' in user && 'user' in user;
 }
