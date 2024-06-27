@@ -500,7 +500,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="profilo?.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
+          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount" [userId]="profilo.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
         </div>
       </div>
       <div class="mt-4">
@@ -508,7 +508,7 @@
       </div>
     </div>
     <div class="col-6">
-      <app-lista-azioni-user [userId]="profilo?.idUtente || null"></app-lista-azioni-user>
+      <app-lista-azioni-user [userId]="profilo.idUtente || null"></app-lista-azioni-user>
     </div>
   </div>
 </div>
