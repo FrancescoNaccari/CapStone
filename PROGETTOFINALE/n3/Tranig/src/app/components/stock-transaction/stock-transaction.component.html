@@ -11,7 +11,10 @@
   <button type="button" class="btn btn-primary" (click)="buyStock()" [disabled]="!isPriceLoaded">Acquista</button>
   <button type="button" class="btn btn-secondary" (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">Vendi</button>
 
-  <ngb-alert *ngIf="alertMessage" type="success" (closed)="onAlertClose()">
+  <ngb-alert *ngIf="alertMessage && alertType === 'success'" type="success" (closed)="onAlertClose()">
+    {{ alertMessage }}
+  </ngb-alert>
+  <ngb-alert *ngIf="alertMessage && alertType === 'danger'" type="danger" (closed)="onAlertClose()">
     {{ alertMessage }}
   </ngb-alert>
 </form>

@@ -144,6 +144,8 @@ export class StockTransactionComponent implements OnInit, OnChanges {
 //         window.alert('Prezzo non disponibile o utente non autenticato, impossibile completare la vendita');
 //       }
 //     }
+alertMessage: string | null = null;
+alertType: 'success' | 'danger' | null = null;
 
   @Input() symbol: string = ''
   @Input() currentPrice: number = 0;
@@ -155,7 +157,6 @@ export class StockTransactionComponent implements OnInit, OnChanges {
 
  user: User | null = null;
  private subscription: Subscription = new Subscription();
- alertMessage: string | null = null;
  isPriceLoaded: boolean = false; 
  constructor(
    private authService: AuthService,
@@ -188,16 +189,17 @@ validateQuantity(): void {
   if (this.quantity < 1) {
     this.quantity = 1; // Ensure the quantity is always at least 1
   }
-}
-showAlert(message: string): void {
+}showAlert(message: string, type: 'success' | 'danger'): void {
   this.alertMessage = message;
+  this.alertType = type;
   setTimeout(() => {
     this.onAlertClose();
-  }, 2000); // Chiudi l'alert e la modale dopo 2 secondi
+  }, 2000); // Chiudi l'alert dopo 2 secondi
 }
 
 onAlertClose(): void {
   this.alertMessage = null;
+  this.alertType = null;
   this.activeModal.close();
 }
 
@@ -224,16 +226,17 @@ updateOwnedQuantity(): void {
 
 buyStock(): void {
   if (this.quantity <= 0) {
-    alert('La quantità deve essere maggiore di zero.');
+    this.showAlert('La quantità deve essere maggiore di zero.', 'danger');
     return;
   }
 
   if (!this.isPriceLoaded || this.currentPrice === 0) {
-    alert('Errore: Il prezzo non è stato caricato correttamente.');
+    this.showAlert('Errore: Il prezzo non è stato caricato correttamente.', 'danger');
     return;
   }
 
-  if (this.user && this.currentPrice * this.quantity <= this.balance) {
+  const totalCost = this.currentPrice * this.quantity;
+  if (this.user && totalCost <= this.balance) {
     const request: TransactionRequest = {
       userId: this.user.idUtente!,
       symbol: this.symbol,
@@ -247,30 +250,30 @@ buyStock(): void {
           this.updateUserData(updatedUser);
           this.authService.loadUserBalance(updatedUser.idUtente!); // Aggiorna i dati dell'utente
 
-          this.updateOwnedQuantity(); // Aggiungi questa riga
+          this.updateOwnedQuantity();
           this.transactionUpdated.emit();
-          this.showAlert('Acquisto effettuato con successo');
+          this.showAlert('Acquisto effettuato con successo', 'success');
         },
         error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
       })
     );
   } else {
-    console.error('Saldo insufficiente');
+    this.showAlert('Saldo insufficiente per completare l\'acquisto', 'danger');
   }
 }
 
 sellStock(): void {
   if (this.quantity <= 0) {
-    alert('La quantità deve essere maggiore di zero.');
+    this.showAlert('La quantità deve essere maggiore di zero.', 'danger');
     return;
   }
 
   if (!this.isPriceLoaded || this.currentPrice === 0) {
-    alert('Errore: Il prezzo non è stato caricato correttamente.');
+    this.showAlert('Errore: Il prezzo non è stato caricato correttamente.', 'danger');
     return;
   }
 
-  if (this.user) {
+  if (this.user && this.quantity <= this.ownedQuantity) {
     const request: TransactionRequest = {
       userId: this.user.idUtente!,
       symbol: this.symbol,
@@ -284,15 +287,18 @@ sellStock(): void {
           this.updateUserData(updatedUser);
           this.authService.loadUserBalance(updatedUser.idUtente!); // Aggiorna i dati dell'utente
 
-          this.updateOwnedQuantity(); // Aggiungi questa riga
+          this.updateOwnedQuantity();
           this.transactionUpdated.emit();
-          this.showAlert('Vendita effettuata con successo');
+          this.showAlert('Vendita effettuata con successo', 'success');
         },
         error: (error) => console.error('Errore durante la vendita delle azioni:', error)
       })
     );
+  } else {
+    this.showAlert('Quantità insufficiente di azioni possedute per completare la vendita', 'danger');
   }
 }
+
 updateUserData(updatedUser: User): void {
   this.user = updatedUser;
   this.balance = updatedUser.balance || 0;
