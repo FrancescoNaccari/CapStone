@@ -6,6 +6,8 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Account;
 import com.stripe.model.Transfer;
 import com.stripe.param.AccountCreateParams;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import nextDevs.CapstonebackEnd.dto.UpdatePasswordDto;
 import nextDevs.CapstonebackEnd.dto.UserDataDto;
 import nextDevs.CapstonebackEnd.dto.UserDto;
@@ -17,13 +19,17 @@ import nextDevs.CapstonebackEnd.model.Stock;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.repository.StockRepository;
 import nextDevs.CapstonebackEnd.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,6 +57,7 @@ public class UserService {
 
     @Autowired
     private JavaMailSenderImpl javaMailSender;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public Integer saveUser(UserDto userDto) {
         if (getUserByEmail(userDto.getEmail()).isEmpty()) {
@@ -216,14 +223,48 @@ public class UserService {
         }
     }
 
-    private void sendMailRegistrazione(String email) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email);
-        message.setSubject("Registrazione Utente");
-        message.setText("Registrazione Utente avvenuta con successo");
+//    private void sendMailRegistrazione(String email) {
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(email);
+//        message.setSubject("Registrazione Utente");
+//        message.setText("Registrazione Utente avvenuta con successo");
+//
+//        javaMailSender.send(message);
+//    }
+private void sendMailRegistrazione(String email) {
+    try {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
-        javaMailSender.send(message);
+        helper.setTo(email);
+        helper.setSubject("Registrazione Utente avvenuta con successo");
+
+        String htmlMsg = """
+            <html>
+            <body>
+                <p>Gentile Utente,</p>
+                <p>La tua registrazione è avvenuta con successo!</p>
+                <p>Puoi ora accedere al sistema utilizzando le credenziali fornite durante la registrazione.</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Grazie per esserti registrato!</p>
+                <p>Distinti saluti,</p>
+                <p>Il Team di Supporto</p>
+                <img src='cid:logoImage' style='width: 200px; height: auto;'>
+            </body>
+            </html>
+            """;
+
+        helper.setText(htmlMsg, true);
+
+        // Add the inline image with content ID 'logoImage'
+        ClassPathResource imageResource = new ClassPathResource("static/images/logo.png");
+        helper.addInline("logoImage", imageResource);
+
+        javaMailSender.send(mimeMessage);
+    } catch (MessagingException e) {
+        logger.error("Errore nell'invio dell'email a {}", email, e);
     }
+}
 
     public void updatePassword(int id, UpdatePasswordDto updatePasswordDto) {
         Optional<User> userOptional = getUserById(id);
@@ -289,6 +330,7 @@ public class UserService {
     private void processWithdrawal(User user, BigDecimal amount) {
         // Implementa l'integrazione con il servizio di pagamento per processare il prelievo
         try {
+
             String stripeAccountId = user.getStripeAccountId();
             if (stripeAccountId == null || stripeAccountId.isEmpty()) {
                 throw new RuntimeException("Stripe account ID is missing for user " + user.getIdUtente());
@@ -308,15 +350,58 @@ public class UserService {
             // Logga l'operazione di prelievo
             logWithdrawal(user, amount);
 
-            // Notifica all'utente via email
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(user.getEmail());
-            message.setSubject("Withdrawal Request");
-            message.setText("Your withdrawal request for amount " + amount + " has been processed. Transaction ID: " + transfer.getId());
-            javaMailSender.send(message);
+//            // Notifica all'utente via email
+//            SimpleMailMessage message = new SimpleMailMessage();
+//            message.setTo(user.getEmail());
+//            message.setSubject("Withdrawal Request");
+//            message.setText("Your withdrawal request for amount " + amount + " has been processed. Transaction ID: " + transfer.getId());
+//            javaMailSender.send(message);
 
+            // Notifica all'utente via email
+            sendMailPrelievo(user, amount, transfer.getId());
         } catch (StripeException e) {
             throw new RuntimeException("Stripe transfer failed: " + e.getMessage());
+        }
+    }
+
+    private void sendMailPrelievo(User user, BigDecimal amount, String transactionId) {
+        try {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            helper.setTo(user.getEmail());
+            helper.setSubject("Richiesta di Prelievo Elaborata");
+
+            String htmlMsg = String.format("""
+            <html>
+            <body>
+                <p>Gentile %s %s,</p>
+                <p>La tua richiesta di prelievo è stata elaborata con successo.</p>
+                <p>Dettagli del Prelievo:</p>
+                <ul>
+                    <li>Importo: € %s</li>
+                    <li>ID Transazione: %s</li>
+                    <li>Data: %s</li>
+                </ul>
+                <p>I fondi sono stati trasferiti al tuo account Stripe associato.</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Grazie per aver utilizzato i nostri servizi.</p>
+                <p>Distinti saluti,</p>
+                <p>Il Team di Supporto</p>
+                <img src='cid:logoImage' style='width: 200px; height: auto;'>
+            </body>
+            </html>
+            """, user.getNome(), user.getCognome(), amount.toString(), transactionId, new Date());
+
+            helper.setText(htmlMsg, true);
+
+            // Add the inline image with content ID 'logoImage'
+            ClassPathResource imageResource = new ClassPathResource("static/images/logo.png");
+            helper.addInline("logoImage", imageResource);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            logger.error("Errore nell'invio dell'email a {}", user.getEmail(), e);
         }
     }
 
