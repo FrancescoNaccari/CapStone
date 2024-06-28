@@ -475,4 +475,6 @@ private void sendMailRegistrazione(String email) {
             throw new NotFoundException("User with id " + userId + " not found");
         }
     }
+
+
 }
