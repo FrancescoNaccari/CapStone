@@ -11,7 +11,7 @@
   <h5>Transazioni:</h5>
   <ul>
     <li *ngFor="let transaction of transactions">
-      {{ transaction.date | date: 'short' }} - {{ transaction.type }} - {{ transaction.symbol }} - {{ transaction.quantity }} @ {{ transaction.price | currency }}
+      {{ transaction.date | date: 'yyyy/MM/dd' }} - {{ transaction.type }} - {{ transaction.symbol }} - {{ transaction.quantity }} @ {{ transaction.price | currency }}
     </li>
   </ul>
 </div>

@@ -1,5 +1,6 @@
 package nextDevs.CapstonebackEnd.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,5 +21,6 @@ public class Transaction {
     private int quantity;
     private BigDecimal price;
     private String type; // "BUY" or "SELL"
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime date;
 }

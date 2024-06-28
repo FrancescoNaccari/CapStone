@@ -35,7 +35,7 @@ export class ListaAzioniUserComponent implements OnInit {
     if (this.userId !== null) {
       this.transactionService.getUserTransactions(this.userId).subscribe(
         (transactions) => {
-          // Converte la stringa di data in stringa ISO se la data è valida
+          // Converte la stringa di data in stringa ISO se la data è valida           // Assicurarsi che la data sia nel formato corretto
           this.transactions = transactions.map(transaction => ({
             ...transaction,
             date: this.formatDate(transaction.date)
@@ -51,7 +51,7 @@ export class ListaAzioniUserComponent implements OnInit {
 
   formatDate(dateString: string): string {
     const parsedDate = new Date(dateString);
-    return isNaN(parsedDate.getTime()) ? new Date().toISOString() : parsedDate.toISOString();
+    return isNaN(parsedDate.getTime()) ? dateString : parsedDate.toISOString();
   }
   
 }
