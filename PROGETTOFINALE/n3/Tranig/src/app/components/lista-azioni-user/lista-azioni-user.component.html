@@ -25,8 +25,8 @@
 
   <div class="row">
     <div *ngFor="let type of transactionTypes; let i = index" class="col-md-6">
-      <div class="card mb-4">
-        <div class="card-header">
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
           <h4 class="card-title">{{ type }}</h4>
         </div>
         <div class="card-body">
@@ -46,27 +46,27 @@
           </div>
           <div *ngIf="getFilteredTransactions(type).length > 0; else noTransactions">
             <ul class="list-group">
-              <li *ngFor="let transaction of getFilteredTransactions(type) | slice: (currentPage[type] - 1) * pageSize : currentPage[type] * pageSize" class="list-group-item d-flex justify-content-between align-items-center">
-                <div>
-                  <span class="badge bg-primary me-2">{{ transaction.date | date: 'yyyy/MM/dd, HH:mm' }}</span>
-                  <strong>{{ transaction.symbol }}</strong>
+              <li *ngFor="let transaction of getFilteredTransactions(type) | slice: (currentPage[type] - 1) * pageSize : currentPage[type] * pageSize" class="list-group-item">
+                <div class="d-flex justify-content-between">
+                  <span class="badge bg-secondary">{{ transaction.type }}</span>
+                  <span *ngIf="transaction.type === 'ACQUISTO' || transaction.type === 'VENDITA'" class="quantity">Quantità: {{ transaction.quantity }}</span>
                 </div>
-                <div>
-                  <span class="badge bg-secondary me-2">{{ transaction.type }}</span>
-                  <span>{{ transaction.quantity }} @ {{ transaction.price | currency }}</span>
+                <div class="d-flex justify-content-between mt-2">
+                  <span class="badge bg-info text-dark">{{ transaction.date | date: 'yyyy/MM/dd, HH:mm' }}</span>
+                  <span>Prezzo: {{ transaction.price | currency }}</span>
                 </div>
               </li>
             </ul>
             <nav aria-label="Page navigation example" class="mt-3">
               <ul class="pagination justify-content-center">
                 <li class="page-item" [class.disabled]="currentPage[type] === 1">
-                  <a class="page-link" href="#" (click)="changePage(type, currentPage[type] - 1)">Previous</a>
+                  <button class="page-link" (click)="changePage($event, type, currentPage[type] - 1)">Previous</button>
                 </li>
                 <li class="page-item" [class.active]="page === currentPage[type]" *ngFor="let page of getPages(type)">
-                  <a class="page-link" href="#" (click)="changePage(type, page)">{{ page }}</a>
+                  <button class="page-link" (click)="changePage($event, type, page)">{{ page }}</button>
                 </li>
                 <li class="page-item" [class.disabled]="currentPage[type] === getPages(type).length">
-                  <a class="page-link" href="#" (click)="changePage(type, currentPage[type] + 1)">Next</a>
+                  <button class="page-link" (click)="changePage($event, type, currentPage[type] + 1)">Next</button>
                 </li>
               </ul>
             </nav>
@@ -79,3 +79,4 @@
     </div>
   </div>
 </div>
+

@@ -15,9 +15,7 @@ export class ListaAzioniUserComponent implements OnInit {
   transactions: Transaction[] = [];
 
 
-  filterDate: string = '';
-  filterType: string = '';
-  filterPrice: number | null = null;
+ 
   transactionTypes: string[] = ['ACQUISTO', 'VENDITA', 'DEPOSITO', 'PRELIEVO'];
   filters: { [key: string]: { date: string; price: number | null } } = {
     'ACQUISTO': { date: '', price: null },
@@ -55,11 +53,12 @@ export class ListaAzioniUserComponent implements OnInit {
     if (this.userId !== null) {
       this.transactionService.getUserTransactions(this.userId).subscribe(
         (transactions) => {
-          // Converte la stringa di data in stringa ISO se la data è valida
-          this.transactions = transactions.map(transaction => ({
-            ...transaction,
-            date: this.formatDate(transaction.date)
-          }));
+          this.transactions = transactions
+            .map(transaction => ({
+              ...transaction,
+              date: this.formatDate(transaction.date)
+            }))
+            .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
         },
         (error) => {
           console.error('Errore durante il recupero delle transazioni:', error);
@@ -72,6 +71,7 @@ export class ListaAzioniUserComponent implements OnInit {
     const parsedDate = new Date(dateString);
     return isNaN(parsedDate.getTime()) ? dateString : parsedDate.toISOString();
   }
+
   getFilteredTransactions(type: string): Transaction[] {
     const filter = this.filters[type];
     return this.transactions.filter(transaction => 
@@ -93,10 +93,12 @@ export class ListaAzioniUserComponent implements OnInit {
     return Array.from({ length: pageCount }, (_, i) => i + 1);
   }
 
-  changePage(type: string, page: number): void {
+  changePage(event: Event, type: string, page: number): void {
+    event.preventDefault();
     const pageCount = this.getPages(type).length;
     if (page > 0 && page <= pageCount) {
       this.currentPage[type] = page;
     }
   }
+
 }

@@ -9,7 +9,7 @@
   }
   
   h4 {
-    color: #495057;
+    color: #fff;
     margin-top: 2rem;
   }
   
@@ -28,6 +28,11 @@
     border: 1px solid #dee2e6;
     border-radius: 5px;
     margin-bottom: 0.5rem;
+  }
+  
+  .quantity {
+    font-weight: bold;
+    color: #007bff;
   }
   
   .form-group {
@@ -50,5 +55,9 @@
     color: #fff;
     background-color: #007bff;
     border-color: #007bff;
+  }
+  
+  .d-flex.justify-content-between {
+    align-items: center;
   }
   
