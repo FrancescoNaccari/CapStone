@@ -47,20 +47,17 @@ public class StripeWebhookController {
 
             Session session= (Session)event.getDataObjectDeserializer().getObject().orElse(null);
 
-            if (session != null){
-                Integer userId=Integer.parseInt(session.getClientReferenceId()) ;
-                System.out.println("Aggiunti "+session.getAmountTotal()+" a "+userId);
-                Optional<User> userOptional=userService.getUserById(userId);
-                if (userOptional.isPresent()){
-                    User user = userOptional.get();
-                    BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
-                    BigDecimal amountToAdd = BigDecimal.valueOf(session.getAmountTotal()).divide(BigDecimal.valueOf(100)); // Converti centesimi a unità
-                    user.setBalance(currentBalance.add(amountToAdd));
-                    userRepository.save(user);
+                    if (session != null) {
+                        Integer userId = Integer.parseInt(session.getClientReferenceId());
+                        System.out.println("Aggiunti " + session.getAmountTotal() + " a " + userId);
+                        Optional<User> userOptional = userService.getUserById(userId);
+                        if (userOptional.isPresent()) {
+                            User user = userOptional.get();
+                            BigDecimal amountToAdd = BigDecimal.valueOf(session.getAmountTotal()).divide(BigDecimal.valueOf(100)); // Converti centesimi a unità
+                            userService.ricaricaSaldo(userId, amountToAdd);
+                        }
+                    }
                 }
-            }
-
-        }
         return ResponseEntity.ok("Success");
     }
 }

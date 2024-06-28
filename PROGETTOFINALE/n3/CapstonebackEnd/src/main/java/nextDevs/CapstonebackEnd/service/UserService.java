@@ -301,7 +301,63 @@ private void sendMailRegistrazione(String email) {
             throw new RuntimeException("User not found");
         }
     }
+    private void inviaEmailRicarica(User user, BigDecimal amount) {
+        try {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
+            helper.setTo(user.getEmail());
+            helper.setSubject("Ricarica Conto Avvenuta con Successo");
+
+            String htmlMsg = String.format("""
+            <html>
+            <body>
+                <p>Gentile %s %s,</p>
+                <p>La tua ricarica è avvenuta con successo!</p>
+                <p>Dettagli della Ricarica:</p>
+                <ul>
+                    <li>Importo: € %s</li>
+                    <li>Data: %s</li>
+                </ul>
+                <p>Il tuo nuovo saldo è: € %s</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Grazie per aver ricaricato il tuo conto!</p>
+                <p>Distinti saluti,</p>
+                <p>Il Team di Supporto</p>
+                <img src='cid:logoImage' style='width: 200px; height: auto;'>
+            </body>
+            </html>
+            """, user.getNome(), user.getCognome(), amount.toString(), new Date(), user.getBalance().toString());
+
+            helper.setText(htmlMsg, true);
+
+            // Aggiungi l'immagine inline con l'ID del contenuto 'logoImage'
+            ClassPathResource imageResource = new ClassPathResource("static/images/logo.png");
+            helper.addInline("logoImage", imageResource);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException e) {
+            logger.error("Errore nell'invio dell'email a {}", user.getEmail(), e);
+        }
+    }
+    public User ricaricaSaldo(Integer userId, BigDecimal amount) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
+            BigDecimal newBalance = currentBalance.add(amount);
+            user.setBalance(newBalance);
+            userRepository.save(user);
+            System.out.println("Saldo ricaricato per l'utente " + userId + ": " + newBalance);
+
+            // Invia notifica via email
+            inviaEmailRicarica(user, amount);
+
+            return user;
+        } else {
+            throw new RuntimeException("Utente non trovato");
+        }
+    }
 
 
     public User withdrawFunds(Integer userId, BigDecimal amount) {
