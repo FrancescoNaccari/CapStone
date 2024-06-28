@@ -568,7 +568,7 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <app-stock-transaction [symbol]="symbol"></app-stock-transaction>
+    <app-stock-transaction [symbol]="symbol" [userId]="userId" (transactionUpdated)="onTransactionUpdated()"></app-stock-transaction>
   </div>
 </ng-template>
 

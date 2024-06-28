@@ -665,7 +665,7 @@ startBalanceUpdateInterval(): void {
   }, 2000); // Aggiorna ogni 2 secondi
 }
 updateBalance(): void {
-  if (this.profilo?.idUtente) {
+  if (this.profilo?.idUtente !== undefined) {
     this.profiloSrv.updateBalance(this.profilo.idUtente, 0).subscribe(
       (updatedUser) => {
         this.authSrv.updateUser(updatedUser);
@@ -677,7 +677,6 @@ updateBalance(): void {
     );
   }
 }
-
 handlePaymentSuccess() {
   if (this.rechargeAmount > 0 && this.profilo?.idUtente !== undefined) {
     this.profiloSrv.updateBalance(this.profilo?.idUtente!, this.rechargeAmount).subscribe(

@@ -127,6 +127,7 @@ loginGoogle(token:any){
       this.authSub.next(user);
       localStorage.setItem('user', JSON.stringify(user));
       this.autoLogout(user);
+      this.loadUserBalance(user.user.idUtente!);
     })
   )
 }
@@ -137,6 +138,7 @@ login(data: {email: string, password: string}) {
       this.authSub.next( user);
       localStorage.setItem('user', JSON.stringify(user));
       this.autoLogout(user);
+      this.loadUserBalance(user.user.idUtente!);
     }),
     catchError(this.errors)
   );
@@ -181,6 +183,12 @@ async restore() {
   // this.router.navigate(['/home'])
   this.autoLogout(user);
 }
+  // Aggiungi un metodo per caricare il saldo dell'utente
+  private loadUserBalance(userId: number) {
+    this.http.get<User>(`${environment.apiBack}users/${userId}`).subscribe(user => {
+      this.updateUser(user);
+    });
+  }
 
 
 private errors(err: any) {

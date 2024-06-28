@@ -150,6 +150,7 @@ export class StockTransactionComponent implements OnInit, OnChanges {
   @Input() userId: number | null = null;
   @Output() transactionUpdated = new EventEmitter<void>();
   quantity: number = 1;
+  balance: number = 0;
 
  user: User | null = null;
  private subscription: Subscription = new Subscription();
@@ -164,7 +165,10 @@ export class StockTransactionComponent implements OnInit, OnChanges {
  ) { }
 
 ngOnInit(): void {
-  this.authService.user$.subscribe(user => this.user = user?.user || null);
+  this.authService.user$.subscribe((data) => {
+    this.user = data?.user || null;
+    this.balance = this.user?.balance || 0; // Assicurarsi che il saldo sia aggiornato
+  });
 
 }
 
