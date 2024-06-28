@@ -151,10 +151,12 @@ export class StockTransactionComponent implements OnInit, OnChanges {
   @Output() transactionUpdated = new EventEmitter<void>();
   quantity: number = 1;
   balance: number = 0;
+  ownedQuantity: number = 0; // Variabile per il numero di azioni possedute
 
  user: User | null = null;
  private subscription: Subscription = new Subscription();
  alertMessage: string | null = null;
+ isPriceLoaded: boolean = false; 
  constructor(
    private authService: AuthService,
    private profiloService: ProfiloService,
@@ -168,13 +170,17 @@ ngOnInit(): void {
   this.authService.user$.subscribe((data) => {
     this.user = data?.user || null;
     this.balance = this.user?.balance || 0; // Assicurarsi che il saldo sia aggiornato
-  });
+    this.updateOwnedQuantity(); // Aggiorna il numero di azioni possedute
 
+  });
+  this.getRealTimePrice();
 }
 
 ngOnChanges(changes: SimpleChanges): void {
   if (changes['symbol']) {
     this.getRealTimePrice();
+    this.updateOwnedQuantity();
+
   }
 }
 validateQuantity(): void {
@@ -195,22 +201,37 @@ onAlertClose(): void {
 }
 
 getRealTimePrice(): void {
+  this.isPriceLoaded = false; // Inizia il caricamento del prezzo
   this.subscription.add(
     this.realTimePriceService.getRealTimePrice(this.symbol).subscribe({
-      next: (response) => this.currentPrice = response.price,
+      next: (response) => {
+        this.currentPrice = response.price;
+        this.isPriceLoaded = true; // Imposta il caricamento del prezzo come completato
+      },
       error: (error) => console.error('Errore durante il recupero del prezzo in tempo reale:', error)
-
     })
   );
 }
 
+
+updateOwnedQuantity(): void {
+  // Logica per ottenere il numero di azioni possedute dall'utente per il simbolo specifico
+  // Esempio fittizio, sostituire con la logica appropriata per il proprio contesto
+  const ownedStock = this.user?.stocks?.find(stock => stock.symbol === this.symbol);
+  this.ownedQuantity = ownedStock ? ownedStock.quantity : 0;
+}
 buyStock(): void {
   if (this.quantity <= 0) {
     alert('La quantità deve essere maggiore di zero.');
     return;
   }
 
-  if (this.user && this.currentPrice * this.quantity <= this.user.balance) {
+  if (!this.isPriceLoaded || this.currentPrice === 0) {
+    alert('Errore: Il prezzo non è stato caricato correttamente.');
+    return;
+  }
+
+  if (this.user && this.currentPrice * this.quantity <= this.balance) {
     const request: TransactionRequest = {
       userId: this.user.idUtente!,
       symbol: this.symbol,
@@ -233,6 +254,11 @@ buyStock(): void {
 sellStock(): void {
   if (this.quantity <= 0) {
     alert('La quantità deve essere maggiore di zero.');
+    return;
+  }
+
+  if (!this.isPriceLoaded || this.currentPrice === 0) {
+    alert('Errore: Il prezzo non è stato caricato correttamente.');
     return;
   }
 

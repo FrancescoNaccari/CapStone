@@ -6,10 +6,11 @@
   <div>
     <p>Prezzo Attuale: {{ currentPrice | currency }}</p>
     <p>Saldo: {{ user?.balance | currency }}</p>
+    <p>Azioni possedute: {{ ownedQuantity }}</p>
   </div>
-  <button type="button" class="btn btn-primary" (click)="buyStock()">Acquista</button>
-  <button type="button" class="btn btn-secondary" (click)="sellStock()">Vendi</button>
-  
+  <button type="button" class="btn btn-primary" (click)="buyStock()" [disabled]="!isPriceLoaded">Acquista</button>
+  <button type="button" class="btn btn-secondary" (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">Vendi</button>
+
   <ngb-alert *ngIf="alertMessage" type="success" (closed)="onAlertClose()">
     {{ alertMessage }}
   </ngb-alert>
