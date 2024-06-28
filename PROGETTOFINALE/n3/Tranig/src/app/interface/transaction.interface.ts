@@ -1,10 +1,10 @@
 export interface Transaction {
     id: number;
     userId: number;
-    symbol: string;
+    symbol: string|null;
     quantity: number;
     price: number;
-    type: string; // "BUY" o "SELL"
+    type: string; // "ACQUISTO", "VENDITA", "DEPOSITO", "PRELIEVO"
     date: string;
   }
   

@@ -16,8 +16,10 @@ import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.exception.NotFoundException;
 import nextDevs.CapstonebackEnd.exception.UserNotFoundException;
 import nextDevs.CapstonebackEnd.model.Stock;
+import nextDevs.CapstonebackEnd.model.Transaction;
 import nextDevs.CapstonebackEnd.model.User;
 import nextDevs.CapstonebackEnd.repository.StockRepository;
+import nextDevs.CapstonebackEnd.repository.TransactionRepository;
 import nextDevs.CapstonebackEnd.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +39,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -44,7 +47,8 @@ public class UserService {
 
     @Autowired
     private StockRepository stockRepository;
-
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -349,7 +353,7 @@ private void sendMailRegistrazione(String email) {
             user.setBalance(newBalance);
             userRepository.save(user);
             System.out.println("Saldo ricaricato per l'utente " + userId + ": " + newBalance);
-
+            logTransaction(userId, null, 0, amount, "DEPOSITO");
             // Invia notifica via email
             inviaEmailRicarica(user, amount);
 
@@ -375,6 +379,7 @@ private void sendMailRegistrazione(String email) {
             BigDecimal newBalance = currentBalance.subtract(amount);
             user.setBalance(newBalance);
             userRepository.save(user);
+            logTransaction(userId, null, 0, amount, "PRELIEVO");
             // Implementa la logica per trasferire i fondi all'utente (es. integrazione con un servizio di pagamento)
             processWithdrawal(user, amount);
             return user;
@@ -475,6 +480,16 @@ private void sendMailRegistrazione(String email) {
             throw new NotFoundException("User with id " + userId + " not found");
         }
     }
-
+    private void logTransaction(Integer userId, String symbol, int quantity, BigDecimal price, String type) {
+        Transaction transaction = new Transaction();
+        transaction.setUserId(userId);
+        transaction.setSymbol(symbol);
+        transaction.setQuantity(quantity);
+        transaction.setPrice(price);
+        transaction.setType(type);// "ACQUISTO", "VENDITA", "DEPOSITO", "PRELIEVO"
+        transaction.setDate(LocalDateTime.now());
+        transactionRepository.save(transaction);
+        System.out.println("Logged transaction: " + transaction);
+    }
 
 }

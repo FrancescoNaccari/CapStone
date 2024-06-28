@@ -20,7 +20,7 @@ public class Transaction {
     private String symbol;
     private int quantity;
     private BigDecimal price;
-    private String type; // "BUY" or "SELL"
+    private String type; //"ACQUISTO", "VENDITA", "DEPOSITO", "PRELIEVO"
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime date;
 }

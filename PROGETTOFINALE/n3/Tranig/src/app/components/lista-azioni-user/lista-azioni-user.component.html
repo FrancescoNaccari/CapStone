@@ -11,7 +11,12 @@
   <h5>Transazioni:</h5>
   <ul>
     <li *ngFor="let transaction of transactions">
-      {{ transaction.date | date: 'yyyy/MM/dd' }} - {{ transaction.type }} - {{ transaction.symbol }} - {{ transaction.quantity }} @ {{ transaction.price | currency }}
+      <span *ngIf="transaction.type === 'DEPOSITO' || transaction.type === 'PRELIEVO'">
+        {{ transaction.date | date: 'yyyy/MM/dd' }} - {{ transaction.type }} - {{ transaction.price | currency }}
+      </span>
+      <span *ngIf="transaction.type !== 'DEPOSITO' && transaction.type !== 'PRELIEVO'">
+        {{ transaction.date | date: 'yyyy/MM/dd' }} - {{ transaction.type }} - {{ transaction.symbol }} - {{ transaction.quantity }} @ {{ transaction.price | currency }}
+      </span>
     </li>
   </ul>
 </div>

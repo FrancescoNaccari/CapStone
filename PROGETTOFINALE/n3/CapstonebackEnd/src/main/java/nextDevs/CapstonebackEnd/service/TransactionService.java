@@ -64,7 +64,7 @@ public class TransactionService {
         stockRepository.save(stock);
         userRepository.save(user);
         // Log the transaction
-        logTransaction(userId, symbol, quantity, price, "BUY");
+        logTransaction(userId, symbol, quantity, price, "ACQUISTO");
         // Invia email di riepilogo acquisto
         inviaEmailAcquisto(user, symbol, quantity, price);
 
@@ -94,7 +94,7 @@ public class TransactionService {
 
         userRepository.save(user);
         // Log the transaction
-        logTransaction(userId, symbol, quantity, price, "SELL");
+        logTransaction(userId, symbol, quantity, price, "VENDITA");
         // Invia email di riepilogo vendita
         inviaEmailVendita(user, symbol, quantity, price);
         return user;
