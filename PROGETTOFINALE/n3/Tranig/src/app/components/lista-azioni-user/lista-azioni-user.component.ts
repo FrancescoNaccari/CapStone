@@ -14,6 +14,26 @@ export class ListaAzioniUserComponent implements OnInit {
   stocks: Stock[] = [];
   transactions: Transaction[] = [];
 
+
+  filterDate: string = '';
+  filterType: string = '';
+  filterPrice: number | null = null;
+  transactionTypes: string[] = ['ACQUISTO', 'VENDITA', 'DEPOSITO', 'PRELIEVO'];
+  filters: { [key: string]: { date: string; price: number | null } } = {
+    'ACQUISTO': { date: '', price: null },
+    'VENDITA': { date: '', price: null },
+    'DEPOSITO': { date: '', price: null },
+    'PRELIEVO': { date: '', price: null }
+  };
+
+
+  currentPage: { [key: string]: number } = {
+    'ACQUISTO': 1,
+    'VENDITA': 1,
+    'DEPOSITO': 1,
+    'PRELIEVO': 1
+  };
+  pageSize = 10;
   constructor(private transactionService: TransactionService) {}
 
   ngOnInit(): void {
@@ -35,12 +55,11 @@ export class ListaAzioniUserComponent implements OnInit {
     if (this.userId !== null) {
       this.transactionService.getUserTransactions(this.userId).subscribe(
         (transactions) => {
-          // Converte la stringa di data in stringa ISO se la data è valida           // Assicurarsi che la data sia nel formato corretto
+          // Converte la stringa di data in stringa ISO se la data è valida
           this.transactions = transactions.map(transaction => ({
             ...transaction,
             date: this.formatDate(transaction.date)
           }));
-          console.log('Transazioni ricevute:', this.transactions);
         },
         (error) => {
           console.error('Errore durante il recupero delle transazioni:', error);
@@ -53,5 +72,31 @@ export class ListaAzioniUserComponent implements OnInit {
     const parsedDate = new Date(dateString);
     return isNaN(parsedDate.getTime()) ? dateString : parsedDate.toISOString();
   }
-  
+  getFilteredTransactions(type: string): Transaction[] {
+    const filter = this.filters[type];
+    return this.transactions.filter(transaction => 
+      transaction.type === type &&
+      (!filter.date || this.doesDateMatch(transaction.date, filter.date)) &&
+      (!filter.price || transaction.price === filter.price)
+    );
+  }
+
+  doesDateMatch(transactionDate: string, filterDate: string): boolean {
+    const transactionDateObj = new Date(transactionDate);
+    const filterDateObj = new Date(filterDate);
+    return transactionDateObj.toDateString() === filterDateObj.toDateString();
+  }
+
+  getPages(type: string): number[] {
+    const filteredTransactions = this.getFilteredTransactions(type);
+    const pageCount = Math.ceil(filteredTransactions.length / this.pageSize);
+    return Array.from({ length: pageCount }, (_, i) => i + 1);
+  }
+
+  changePage(type: string, page: number): void {
+    const pageCount = this.getPages(type).length;
+    if (page > 0 && page <= pageCount) {
+      this.currentPage[type] = page;
+    }
+  }
 }

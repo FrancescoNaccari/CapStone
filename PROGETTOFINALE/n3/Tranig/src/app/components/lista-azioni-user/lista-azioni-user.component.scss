@@ -1,0 +1,54 @@
+.container {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  h3 {
+    color: #343a40;
+  }
+  
+  h4 {
+    color: #495057;
+    margin-top: 2rem;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+  
+  .card-header {
+    background: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .list-group-item {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control, .form-select {
+    border-radius: 5px;
+  }
+  
+  .pagination .page-item.disabled .page-link {
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+  }
+  
+  .pagination .page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
