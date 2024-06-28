@@ -167,12 +167,13 @@ export class StockTransactionComponent implements OnInit, OnChanges {
  ) { }
 
 ngOnInit(): void {
-  this.authService.user$.subscribe((data) => {
-    this.user = data?.user || null;
-    this.balance = this.user?.balance || 0; // Assicurarsi che il saldo sia aggiornato
-    this.updateOwnedQuantity(); // Aggiorna il numero di azioni possedute
-
-  });
+  this.subscription.add(
+    this.authService.user$.subscribe((data) => {
+      this.user = data?.user || null;
+      this.balance = this.user?.balance || 0;
+      this.updateOwnedQuantity();
+    })
+  );
   this.getRealTimePrice();
 }
 
@@ -215,11 +216,12 @@ getRealTimePrice(): void {
 
 
 updateOwnedQuantity(): void {
-  // Logica per ottenere il numero di azioni possedute dall'utente per il simbolo specifico
-  // Esempio fittizio, sostituire con la logica appropriata per il proprio contesto
-  const ownedStock = this.user?.stocks?.find(stock => stock.symbol === this.symbol);
-  this.ownedQuantity = ownedStock ? ownedStock.quantity : 0;
+  if (this.user) {
+    const ownedStock = this.user.stocks?.find(stock => stock.symbol === this.symbol);
+    this.ownedQuantity = ownedStock ? ownedStock.quantity : 0;
+  }
 }
+
 buyStock(): void {
   if (this.quantity <= 0) {
     alert('La quantità deve essere maggiore di zero.');
@@ -238,14 +240,20 @@ buyStock(): void {
       quantity: this.quantity,
       price: this.currentPrice
     };
-    this.transactionService.buyStock(request).subscribe({
-      next: (updatedUser) => {
-        this.authService.updateUser(updatedUser);
-        this.transactionUpdated.emit();
-        this.showAlert('Acquisto effettuato con successo'); // Mostra l'alert
-      },
-      error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
-    });
+    this.subscription.add(
+      this.transactionService.buyStock(request).subscribe({
+        next: (updatedUser) => {
+          this.authService.updateUser(updatedUser);
+          this.updateUserData(updatedUser);
+          this.authService.loadUserBalance(updatedUser.idUtente!); // Aggiorna i dati dell'utente
+
+          this.updateOwnedQuantity(); // Aggiungi questa riga
+          this.transactionUpdated.emit();
+          this.showAlert('Acquisto effettuato con successo');
+        },
+        error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
+      })
+    );
   } else {
     console.error('Saldo insufficiente');
   }
@@ -269,17 +277,27 @@ sellStock(): void {
       quantity: this.quantity,
       price: this.currentPrice
     };
-    this.transactionService.sellStock(request).subscribe({
-      next: (updatedUser) => {
-        this.authService.updateUser(updatedUser);
-        this.transactionUpdated.emit();
-        this.showAlert('Vendita effettuata con successo'); // Mostra l'alert
-      },
-      error: (error) => console.error('Errore durante la vendita delle azioni:', error)
-    });
+    this.subscription.add(
+      this.transactionService.sellStock(request).subscribe({
+        next: (updatedUser) => {
+          this.authService.updateUser(updatedUser);
+          this.updateUserData(updatedUser);
+          this.authService.loadUserBalance(updatedUser.idUtente!); // Aggiorna i dati dell'utente
+
+          this.updateOwnedQuantity(); // Aggiungi questa riga
+          this.transactionUpdated.emit();
+          this.showAlert('Vendita effettuata con successo');
+        },
+        error: (error) => console.error('Errore durante la vendita delle azioni:', error)
+      })
+    );
   }
 }
-
+updateUserData(updatedUser: User): void {
+  this.user = updatedUser;
+  this.balance = updatedUser.balance || 0;
+  this.authService.updateUser(updatedUser);
+}
 
 onSubmit(): void {
   this.getRealTimePrice();

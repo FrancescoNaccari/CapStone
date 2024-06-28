@@ -184,7 +184,7 @@ async restore() {
   this.autoLogout(user);
 }
   // Aggiungi un metodo per caricare il saldo dell'utente
-  private loadUserBalance(userId: number) {
+   loadUserBalance(userId: number) {
     this.http.get<User>(`${environment.apiBack}users/${userId}`).subscribe(user => {
       this.updateUser(user);
     });
