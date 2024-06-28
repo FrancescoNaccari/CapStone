@@ -1407,7 +1407,7 @@ onTransactionUpdated(): void {
   if (this.userId) {
     this.authSrv.restore(); // Assicura che il saldo venga aggiornato
   }
-}
+}}
 // buyStock(): void {
 //   if (this.price !== undefined && this.userId !== null) {
 //     const request: TransactionRequest = {
@@ -1494,4 +1494,3 @@ onTransactionUpdated(): void {
 // }
 
 
-}

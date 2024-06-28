@@ -20,6 +20,7 @@
     </li>
   </ul>
 </div> -->
+
 <div *ngIf="transactions.length > 0" class="container mt-4">
   <h3 class="mb-4">Transazioni</h3>
 
@@ -31,16 +32,22 @@
         </div>
         <div class="card-body">
           <div class="row mb-3">
-            <div class="col-md-6">
+            <div class="col-md-12">
               <div class="form-group">
-                <label for="{{ type }}-filterDate">Cerca per data</label>
-                <input type="date" id="{{ type }}-filterDate" [(ngModel)]="filters[type].date" class="form-control" />
+                <label for="{{ type }}-filterDate">Cerca per data o periodo</label>
+                <app-calendario (dateRangeSelected)="onDateRangeSelected($event, type)"></app-calendario>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="{{ type }}-filterPrice">Cerca per prezzo</label>
-                <input type="number" id="{{ type }}-filterPrice" [(ngModel)]="filters[type].price" class="form-control" placeholder="Prezzo" />
+                <label for="{{ type }}-filterMinPrice">Prezzo Minimo</label>
+                <input type="number" id="{{ type }}-filterMinPrice" [(ngModel)]="filters[type].minPrice" class="form-control" placeholder="Prezzo Minimo" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="{{ type }}-filterMaxPrice">Prezzo Massimo</label>
+                <input type="number" id="{{ type }}-filterMaxPrice" [(ngModel)]="filters[type].maxPrice" class="form-control" placeholder="Prezzo Massimo" />
               </div>
             </div>
           </div>
@@ -79,4 +86,3 @@
     </div>
   </div>
 </div>
-

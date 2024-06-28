@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Stock } from 'src/app/interface/stock.interface';
 import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
 import { Transaction } from 'src/app/interface/transaction.interface';
@@ -14,16 +15,21 @@ export class ListaAzioniUserComponent implements OnInit {
   stocks: Stock[] = [];
   transactions: Transaction[] = [];
 
-
- 
   transactionTypes: string[] = ['ACQUISTO', 'VENDITA', 'DEPOSITO', 'PRELIEVO'];
-  filters: { [key: string]: { date: string; price: number | null } } = {
-    'ACQUISTO': { date: '', price: null },
-    'VENDITA': { date: '', price: null },
-    'DEPOSITO': { date: '', price: null },
-    'PRELIEVO': { date: '', price: null }
+
+  filters: { [key: string]: { fromDate: NgbDate | null; toDate: NgbDate | null; minPrice: number | null; maxPrice: number | null } } = {
+    'ACQUISTO': { fromDate: null, toDate: null, minPrice: null, maxPrice: null },
+    'VENDITA': { fromDate: null, toDate: null, minPrice: null, maxPrice: null },
+    'DEPOSITO': { fromDate: null, toDate: null, minPrice: null, maxPrice: null },
+    'PRELIEVO': { fromDate: null, toDate: null, minPrice: null, maxPrice: null }
   };
 
+  hoveredDate: { [key: string]: NgbDate | null } = {
+    'ACQUISTO': null,
+    'VENDITA': null,
+    'DEPOSITO': null,
+    'PRELIEVO': null
+  };
 
   currentPage: { [key: string]: number } = {
     'ACQUISTO': 1,
@@ -31,8 +37,10 @@ export class ListaAzioniUserComponent implements OnInit {
     'DEPOSITO': 1,
     'PRELIEVO': 1
   };
+
   pageSize = 10;
-  constructor(private transactionService: TransactionService) {}
+
+  constructor(private transactionService: TransactionService, private calendar: NgbCalendar) {}
 
   ngOnInit(): void {
     if (this.userId !== null) {
@@ -72,19 +80,47 @@ export class ListaAzioniUserComponent implements OnInit {
     return isNaN(parsedDate.getTime()) ? dateString : parsedDate.toISOString();
   }
 
+  onDateRangeSelected(range: { fromDate: string, toDate: string }, type: string): void {
+    const fromDate = new Date(range.fromDate);
+    const toDate = new Date(range.toDate);
+    this.filters[type].fromDate = new NgbDate(fromDate.getFullYear(), fromDate.getMonth() + 1, fromDate.getDate());
+    this.filters[type].toDate = new NgbDate(toDate.getFullYear(), toDate.getMonth() + 1, toDate.getDate());
+  }
+
   getFilteredTransactions(type: string): Transaction[] {
     const filter = this.filters[type];
-    return this.transactions.filter(transaction => 
+    return this.transactions.filter(transaction =>
       transaction.type === type &&
-      (!filter.date || this.doesDateMatch(transaction.date, filter.date)) &&
-      (!filter.price || transaction.price === filter.price)
+      this.doesDateMatch(transaction.date, filter.fromDate, filter.toDate) &&
+      this.doesPriceMatch(transaction.price, filter.minPrice, filter.maxPrice)
     );
   }
 
-  doesDateMatch(transactionDate: string, filterDate: string): boolean {
-    const transactionDateObj = new Date(transactionDate);
-    const filterDateObj = new Date(filterDate);
-    return transactionDateObj.toDateString() === filterDateObj.toDateString();
+  doesDateMatch(transactionDate: string, fromDate: NgbDate | null, toDate: NgbDate | null): boolean {
+    const date = new Date(transactionDate);
+    const start = fromDate ? new Date(fromDate.year, fromDate.month - 1, fromDate.day) : null;
+    const end = toDate ? new Date(toDate.year, toDate.month - 1, toDate.day) : null;
+
+    if (start && end) {
+      return date >= start && date <= end;
+    } else if (start) {
+      const nextDay = new Date(start);
+      nextDay.setDate(nextDay.getDate() + 1);
+      return date >= start && date < nextDay;
+    } else if (end) {
+      return date <= end;
+    }
+    return true;
+  }
+
+  doesPriceMatch(price: number, minPrice: number | null, maxPrice: number | null): boolean {
+    if (minPrice !== null && price < minPrice) {
+      return false;
+    }
+    if (maxPrice !== null && price > maxPrice) {
+      return false;
+    }
+    return true;
   }
 
   getPages(type: string): number[] {
@@ -100,5 +136,4 @@ export class ListaAzioniUserComponent implements OnInit {
       this.currentPage[type] = page;
     }
   }
-
 }
