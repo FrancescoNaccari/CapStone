@@ -133,7 +133,9 @@
     "WITHDRAW_AMOUNT": "Importo",
     "RECHARGE_BUTTON": "Ricarica",
     "WITHDRAW_BUTTON": "Preleva",
-    "ALERT_MESSAGE": "Inserisci un importo maggiore di zero."
+    "ALERT_MESSAGE": "Inserisci un importo maggiore di zero.",
+    "WITHDRAW_SUCCESS": "Hai prelevato con successo {{amount}} € dal tuo metodo di pagamento."
+
   },
   "CONTACT_US": {
     "TITLE": "Contattaci",

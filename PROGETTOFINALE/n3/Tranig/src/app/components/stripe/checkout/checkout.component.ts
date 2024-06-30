@@ -7,6 +7,7 @@ import { User } from 'src/app/interface/user.interface';
 import { AuthService } from 'src/app/service/auth.service';
 import { ProfiloService } from 'src/app/service/profilo.service';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-checkout',
@@ -25,7 +26,7 @@ export class CheckoutComponent {
   stripePromise = loadStripe(environment.stripe);
 user:User|undefined;
 alertMessage: string | null = null;
-  constructor(private http: HttpClient, private authSrv:AuthService,private profiloSrv: ProfiloService,private modalService: NgbModal) {}
+  constructor(private http: HttpClient, private authSrv:AuthService,private profiloSrv: ProfiloService,private modalService: NgbModal,  private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe(user => {
@@ -123,7 +124,9 @@ withdraw() {
           this.profiloSrv.withdrawBalance(this.user.idUtente, this.withdrawAmount).subscribe(
             () => {
               this.paymentSuccess.emit();
-              this.showSuccessAlert(`Hai prelevato con successo ${this.withdrawAmount} € dal tuo metodo di pagamento.`);
+              this.translate.get('CHECKOUT.WITHDRAW_SUCCESS', { amount: this.withdrawAmount }).subscribe((res: string) => {
+                this.showSuccessAlert(res);
+              });
             },
             (error) => console.error('Errore durante il prelievo', error)
           );

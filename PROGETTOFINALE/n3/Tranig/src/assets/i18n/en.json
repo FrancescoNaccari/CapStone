@@ -133,7 +133,8 @@
     "WITHDRAW_AMOUNT": "Amount",
     "RECHARGE_BUTTON": "Recharge",
     "WITHDRAW_BUTTON": "Withdraw",
-    "ALERT_MESSAGE": "Insert an amount greater than zero."
+    "ALERT_MESSAGE": "Insert an amount greater than zero.",
+    "WITHDRAW_SUCCESS": "You have successfully withdrawn {{amount}} € from your payment method."
   },
   "CONTACT_US": {
     "TITLE": "Contact Us",
