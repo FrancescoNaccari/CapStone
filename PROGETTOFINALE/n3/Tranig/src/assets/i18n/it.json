@@ -1,0 +1,185 @@
+{
+  "HEADER": {
+    "TITLE": "Mercato Azionario"
+  },
+  "FOOTER": {
+    "COPYRIGHT": "&copy; 2024 NomeDelTuoSito. Tutti i diritti riservati.",
+    "INFORMATION": "Le informazioni fornite su questo sito sono solo a scopo informativo e non costituiscono consulenza finanziaria. Si prega di consultare un consulente finanziario prima di prendere decisioni di investimento. Investire comporta rischi, inclusa la perdita del capitale.",
+    "TERMS_OF_SERVICE": "Termini di Servizio",
+    "PRIVACY_POLICY": "Privacy Policy",
+    "CONTACT_US": "Contattaci"
+  },
+  "PROFILE": {
+    "TITLE": "Profilo",
+    "CHANGE_AVATAR": "Cambia Avatar",
+    "NAME": "Nome",
+    "SURNAME": "Cognome",
+    "EMAIL": "Email",
+    "USERNAME": "Username",
+    "CURRENT_PASSWORD": "Password Attuale",
+    "NEW_PASSWORD": "Nuova Password",
+    "CONFIRM_PASSWORD": "Conferma Nuova Password",
+    "CHANGE": "Cambia",
+    "CURRENT_BALANCE": "Saldo Attuale",
+    "TRANSACTIONS": "Transazioni",
+    "PASSWORD_HINT": "La password deve contenere almeno 8 caratteri, includere una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale (!, @, #, $, %, ^, &, *).",
+    "CURRENT_USERNAME": "Username Attuale",
+    "NEW_USERNAME": "Nuovo Username"
+  },
+  "STOCK_TRANSACTION": {
+    "QUANTITY": "Quantità",
+    "CURRENT_PRICE": "Prezzo Attuale",
+    "BALANCE": "Saldo",
+    "OWNED_QUANTITY": "Azioni possedute",
+    "BUY": "Acquista",
+    "SELL": "Vendi",
+    "BUY_SELL": "Acquista / Vendi",
+    "REAL_TIME": "Tempo reale",
+    "AVERAGE_PRICE": "Prezzo medio",
+    "BEST_PRICE": "Miglior Prezzo",
+    "SEARCH_STOCK": "Cerca per azione"
+  },
+  "NAVBAR": {
+    "HOME": "Home",
+    "FAVORITES": "Preferiti",
+    "PROFILE": "Profilo",
+    "NEWSLETTER": "Newsletter",
+    "ACCOUNT": "Account",
+    "HELP_CENTER": "Centro Assistenza",
+    "LOGOUT": "Logout",
+    "LANGUAGE": {
+      "ENGLISH": "Inglese",
+      "ITALIAN": "Italiano"
+    }
+  },
+  "LOGIN": {
+    "CREATE_ACCOUNT": "Crea Account",
+    "SIGN_IN": "Accedi",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "REGISTER": "Registrati",
+    "WELCOME_BACK": "Bentornato!",
+    "LOGIN_WITH_YOUR_DATA": "Effettua il Login con i tuoi dati",
+    "ACCESS": "Accedi",
+    "WELCOME": "Benvenuto!",
+    "ENTER_DETAILS": "Inserisci i tuoi dati e inizia un viaggio con noi!",
+    "REGISTER_NOW": "Registrati"
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Termini di Servizio",
+    "ACCEPTANCE": "Accettazione dei Termini",
+    "ACCEPTANCE_TEXT": "Utilizzando il nostro sito web, accetti questi Termini di Servizio. Se non accetti questi termini, ti preghiamo di non utilizzare il nostro sito.",
+    "CHANGES": "Modifiche ai Termini",
+    "CHANGES_TEXT": "Ci riserviamo il diritto di modificare questi termini in qualsiasi momento. Le modifiche verranno pubblicate su questa pagina. L'uso continuato del sito dopo la pubblicazione delle modifiche implica l'accettazione delle stesse.",
+    "DESCRIPTION": "Descrizione dei Servizi",
+    "DESCRIPTION_TEXT": "Il nostro sito offre una dashboard interattiva che riproduce l’andamento del mercato azionario, consentendo agli utenti di analizzare i dati storici e le tendenze attuali delle borse. Le funzionalità principali includono:",
+    "DATA_DISPLAY": "Visualizzazione dei Dati",
+    "DATA_DISPLAY_TEXT": "Grafici interattivi per il monitoraggio dei prezzi delle azioni. Integrazione con API finanziarie per l’acquisizione di dati aggiornati in tempo reale.",
+    "FAVORITE_MANAGEMENT": "Gestione dei Preferiti",
+    "FAVORITE_MANAGEMENT_TEXT": "Una funzione che permette agli utenti di selezionare e salvare le azioni preferite per un accesso rapido e personalizzato.",
+    "MARKET_OVERVIEW": "Panoramica delle Borse Finanziarie",
+    "MARKET_OVERVIEW_TEXT": "Una sezione esclusiva che elenca le principali borse finanziarie internazionali, come NYSE, NASDAQ, LSE, e altre, fornendo agli utenti una visione globale e aggiornata del mercato.",
+    "USER_RESPONSIBILITIES": "Obblighi e Responsabilità degli Utenti",
+    "USER_RESPONSIBILITIES_TEXT": "Gli utenti si impegnano a non utilizzare il sito per attività illegali o non autorizzate. Non sono consentite le seguenti azioni:",
+    "ILLEGAL_ACTIVITIES": "Violazione di leggi locali, statali, nazionali o internazionali.",
+    "INTELLECTUAL_PROPERTY": "Infrangere diritti di proprietà intellettuale.",
+    "DISTRIBUTE_VIRUSES": "Distribuire virus o qualsiasi altra tecnologia dannosa.",
+    "LIMITATION_OF_LIABILITY": "Limitazione di Responsabilità",
+    "LIMITATION_OF_LIABILITY_TEXT": "Non siamo responsabili per eventuali danni diretti, indiretti, incidentali, speciali o consequenziali derivanti dall'uso o dall'incapacità di usare il nostro sito. I dati finanziari forniti attraverso le API di Twelve Data sono per uso informativo e non devono essere considerati come consulenza finanziaria.",
+    "INTELLECTUAL_PROPERTY_TEXT": "Tutti i contenuti presenti sul sito, inclusi testi, grafica, logo, immagini e software, sono di nostra proprietà o concessi in licenza e sono protetti dalle leggi sul copyright e sui marchi.",
+    "PRIVACY": "Privacy",
+    "PRIVACY_TEXT": "La tua privacy è importante per noi. Ti invitiamo a leggere la nostra Politica sulla Privacy per sapere come raccogliamo, utilizziamo e proteggiamo le tue informazioni personali.",
+    "APPLICABLE_LAW": "Legge Applicabile",
+    "APPLICABLE_LAW_TEXT": "Questi Termini di Servizio sono regolati e interpretati secondo le leggi dello Stato di [nome dello stato o del paese], senza riguardo ai conflitti di legge.",
+    "CONTACT": "Contatti",
+    "CONTACT_TEXT": "Per qualsiasi domanda riguardante questi Termini di Servizio, puoi contattarci alla sezione Contattaci."
+  },
+  "NEWSLETTER": {
+    "MANAGE": "Gestione Newsletter",
+    "SUBSCRIBE": "Iscriviti alla newsletter",
+    "TITLE": "Titolo",
+    "SEND": "Invia Newsletter"
+  },
+  
+    "TRANSACTION": {
+      "TITLE": "Transazioni",
+      "ACQUISTO": "Acquisto",
+      "VENDITA": "Vendita",
+      "DEPOSITO": "Deposito",
+      "PRELIEVO": "Prelievo",
+      "FILTER_DATE": "Cerca per data o periodo",
+      "MIN_PRICE": "Prezzo Minimo",
+      "MAX_PRICE": "Prezzo Massimo",
+      "QUANTITY": "Quantità",
+      "PRICE": "Prezzo",
+      "PREVIOUS": "Precedente",
+      "NEXT": "Successivo",
+      "NO_TRANSACTIONS": "Nessuna transazione trovata per"
+    }
+  
+  ,
+  "CANCEL": {
+    "TITLE": "Pagamento Annullato",
+    "MESSAGE": "Il tuo pagamento è stato annullato. Per favore, riprova. Verrai reindirizzato al tuo profilo a breve."
+  },
+  "SUCCESS": {
+    "TITLE": "Pagamento Riuscito",
+    "MESSAGE": "Grazie per il tuo acquisto! Il pagamento è stato completato con successo. Verrai reindirizzato al tuo profilo a breve."
+  },
+  "CHECKOUT": {
+    "RECHARGE": "Ricarica il tuo conto",
+    "RECHARGE_AMOUNT": "Importo",
+    "WITHDRAW": "Preleva dal tuo conto",
+    "WITHDRAW_AMOUNT": "Importo",
+    "RECHARGE_BUTTON": "Ricarica",
+    "WITHDRAW_BUTTON": "Preleva",
+    "ALERT_MESSAGE": "Inserisci un importo maggiore di zero."
+  },
+  "CONTACT_US": {
+    "TITLE": "Contattaci",
+    "DESCRIPTION": "Se hai domande, commenti o richieste, sentiti libero di contattarci tramite uno dei seguenti metodi:",
+    "EMAIL": "Email",
+    "EMAIL_DESCRIPTION": "Puoi inviarci un'email a: info@nomedeltuosito.com",
+    "PHONE": "Telefono",
+    "PHONE_DESCRIPTION": "Chiamaci al numero: +39 123 456 789",
+    "ADDRESS": "Indirizzo",
+    "ADDRESS_DESCRIPTION": "Se preferisci scriverci, il nostro indirizzo è:\nNome dell'Azienda\nVia delle Azioni, 10\n00100 Roma RM\nItalia",
+    "CONTACT_FORM": "Modulo di Contatto",
+    "NAME": "Nome",
+    "EMAIL_LABEL": "Email",
+    "MESSAGE": "Messaggio",
+    "SEND_BUTTON": "Invia"
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "Politica sulla Privacy",
+    "INTRODUCTION": "Introduzione",
+    "INTRODUCTION_TEXT": "La tua privacy è importante per noi. Questa politica sulla privacy spiega come raccogliamo, utilizziamo, e proteggiamo le tue informazioni personali quando utilizzi il nostro sito.",
+    "COLLECTED_INFORMATION": "Informazioni Raccolte",
+    "COLLECTED_INFORMATION_TEXT": "Raccogliamo informazioni che ci fornisci direttamente, come il tuo nome, indirizzo email, e qualsiasi altra informazione che scegli di fornirci.",
+    "INFORMATION_USE": "Utilizzo delle Informazioni",
+    "INFORMATION_USE_TEXT": "Utilizziamo le informazioni raccolte per fornire, mantenere e migliorare i nostri servizi, per comunicare con te e per proteggere i nostri utenti.",
+    "INFORMATION_SHARING": "Condivisione delle Informazioni",
+    "INFORMATION_SHARING_TEXT": "Non condividiamo le tue informazioni personali con terze parti senza il tuo consenso, salvo ove richiesto dalla legge o necessario per fornire i nostri servizi.",
+    "INFORMATION_SECURITY": "Sicurezza delle Informazioni",
+    "INFORMATION_SECURITY_TEXT": "Adottiamo misure di sicurezza ragionevoli per proteggere le tue informazioni personali da accessi non autorizzati, uso o divulgazione.",
+    "YOUR_RIGHTS": "I Tuoi Diritti",
+    "YOUR_RIGHTS_TEXT": "Hai il diritto di accedere, correggere, o eliminare le tue informazioni personali. Puoi esercitare questi diritti contattandoci all'indirizzo email fornito.",
+    "POLICY_CHANGES": "Modifiche alla Politica sulla Privacy",
+    "POLICY_CHANGES_TEXT": "Ci riserviamo il diritto di modificare questa politica sulla privacy in qualsiasi momento. Le modifiche verranno pubblicate su questa pagina. L'uso continuato del sito dopo la pubblicazione delle modifiche implica l'accettazione delle stesse.",
+    "CONTACT": "Contatti",
+    "CONTACT_TEXT": "Per qualsiasi domanda riguardante questa politica sulla privacy, puoi contattarci alla sezione Contattaci."
+  },
+  "ERROR_404": {
+    "MESSAGE": "Errore improvviso? Torna alla",
+    "HOME_LINK": "Home"
+  },
+  "FAVORITES": {
+    "TITLE": "I miei preferiti"
+  },
+  "CONFIRM": {
+    "TITLE": "Conferma Prelievo",
+    "MESSAGE": "Sei sicuro di voler prelevare",
+    "CANCEL": "Annulla",
+    "CONFIRM": "Conferma"
+  }
+}

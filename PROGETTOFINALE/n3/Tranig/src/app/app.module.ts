@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxEditorModule } from 'ngx-editor';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
@@ -43,7 +43,11 @@ import { SuccessComponent } from './components/stripe/success/success.component'
 import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-azioni-user.component';
 import { StockTransactionComponent } from './components/stock-transaction/stock-transaction.component';
 import { ConfirmModalComponent } from './components/stripe/checkout/confirm-modal/confirm-modal.component';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +91,13 @@ import { ConfirmModalComponent } from './components/stripe/checkout/confirm-moda
      NgbModule,
      SocialLoginModule,
      ReactiveFormsModule,
+     TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
   NgxEditorModule.forRoot({
     locals: {
       // menu

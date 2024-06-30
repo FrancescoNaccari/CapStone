@@ -1,0 +1,185 @@
+{
+  "HEADER": {
+    "TITLE": "Stock Market"
+  },
+  "FOOTER": {
+    "COPYRIGHT": "&copy; 2024 YourSiteName. All rights reserved.",
+    "INFORMATION": "The information provided on this site is for informational purposes only and does not constitute financial advice. Please consult a financial advisor before making investment decisions. Investing carries risks, including the loss of capital.",
+    "TERMS_OF_SERVICE": "Terms of Service",
+    "PRIVACY_POLICY": "Privacy Policy",
+    "CONTACT_US": "Contact Us"
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "CHANGE_AVATAR": "Change Avatar",
+    "NAME": "Name",
+    "SURNAME": "Surname",
+    "EMAIL": "Email",
+    "USERNAME": "Username",
+    "CURRENT_PASSWORD": "Current Password",
+    "NEW_PASSWORD": "New Password",
+    "CONFIRM_PASSWORD": "Confirm New Password",
+    "CHANGE": "Change",
+    "CURRENT_BALANCE": "Current Balance",
+    "TRANSACTIONS": "Transactions",
+    "PASSWORD_HINT": "The password must contain at least 8 characters, including an uppercase letter, a lowercase letter, a number, and a special character (!, @, #, $, %, ^, &, *).",
+    "CURRENT_USERNAME": "Current Username",
+    "NEW_USERNAME": "New Username"
+  },
+  "STOCK_TRANSACTION": {
+    "QUANTITY": "Quantity",
+    "CURRENT_PRICE": "Current Price",
+    "BALANCE": "Balance",
+    "OWNED_QUANTITY": "Owned Quantity",
+    "BUY": "Buy",
+    "SELL": "Sell",
+    "BUY_SELL": "Buy / Sell",
+    "REAL_TIME": "Real Time",
+    "AVERAGE_PRICE": "Average Price",
+    "BEST_PRICE": "Best Price",
+    "SEARCH_STOCK": "Search for stock"
+  },
+  "NAVBAR": {
+    "HOME": "Home",
+    "FAVORITES": "Favorites",
+    "PROFILE": "Profile",
+    "NEWSLETTER": "Newsletter",
+    "ACCOUNT": "Account",
+    "HELP_CENTER": "Help Center",
+    "LOGOUT": "Logout",
+    "LANGUAGE": {
+      "ENGLISH": "English",
+      "ITALIAN": "Italian"
+    }
+  },
+  "LOGIN": {
+    "CREATE_ACCOUNT": "Create Account",
+    "SIGN_IN": "Sign In",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "REGISTER": "Register",
+    "WELCOME_BACK": "Welcome Back!",
+    "LOGIN_WITH_YOUR_DATA": "Log in with your data",
+    "ACCESS": "Access",
+    "WELCOME": "Welcome!",
+    "ENTER_DETAILS": "Enter your details and start a journey with us!",
+    "REGISTER_NOW": "Register Now"
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Terms of Service",
+    "ACCEPTANCE": "Acceptance of Terms",
+    "ACCEPTANCE_TEXT": "By using our website, you accept these Terms of Service. If you do not accept these terms, please do not use our site.",
+    "CHANGES": "Changes to Terms",
+    "CHANGES_TEXT": "We reserve the right to modify these terms at any time. Changes will be posted on this page. Continued use of the site after changes are posted implies acceptance of those changes.",
+    "DESCRIPTION": "Description of Services",
+    "DESCRIPTION_TEXT": "Our site offers an interactive dashboard that replicates the stock market trend, allowing users to analyze historical data and current market trends. The main features include:",
+    "DATA_DISPLAY": "Data Display",
+    "DATA_DISPLAY_TEXT": "Interactive charts for monitoring stock prices. Integration with financial APIs for real-time data acquisition.",
+    "FAVORITE_MANAGEMENT": "Favorite Management",
+    "FAVORITE_MANAGEMENT_TEXT": "A feature that allows users to select and save favorite stocks for quick and personalized access.",
+    "MARKET_OVERVIEW": "Market Overview",
+    "MARKET_OVERVIEW_TEXT": "An exclusive section listing major international stock exchanges, such as NYSE, NASDAQ, LSE, and others, providing users with an up-to-date global market view.",
+    "USER_RESPONSIBILITIES": "User Responsibilities and Obligations",
+    "USER_RESPONSIBILITIES_TEXT": "Users agree not to use the site for illegal or unauthorized activities. The following actions are not allowed:",
+    "ILLEGAL_ACTIVITIES": "Violation of local, state, national, or international laws.",
+    "INTELLECTUAL_PROPERTY": "Infringement of intellectual property rights.",
+    "DISTRIBUTE_VIRUSES": "Distribution of viruses or any other harmful technology.",
+    "LIMITATION_OF_LIABILITY": "Limitation of Liability",
+    "LIMITATION_OF_LIABILITY_TEXT": "We are not responsible for any direct, indirect, incidental, special, or consequential damages resulting from the use or inability to use our site. Financial data provided through Twelve Data APIs is for informational purposes and should not be considered financial advice.",
+    "INTELLECTUAL_PROPERTY_TEXT": "All content on the site, including text, graphics, logos, images, and software, is our property or licensed to us and is protected by copyright and trademark laws.",
+    "PRIVACY": "Privacy",
+    "PRIVACY_TEXT": "Your privacy is important to us. Please read our Privacy Policy to understand how we collect, use, and protect your personal information.",
+    "APPLICABLE_LAW": "Applicable Law",
+    "APPLICABLE_LAW_TEXT": "These Terms of Service are governed and interpreted according to the laws of the State of [state or country name], without regard to conflicts of law principles.",
+    "CONTACT": "Contact",
+    "CONTACT_TEXT": "For any questions regarding these Terms of Service, you can contact us at the Contact Us section."
+  },
+  "NEWSLETTER": {
+    "MANAGE": "Manage Newsletter",
+    "SUBSCRIBE": "Subscribe to newsletter",
+    "TITLE": "Title",
+    "SEND": "Send Newsletter"
+  },
+  
+    "TRANSACTION": {
+      "TITLE": "Transactions",
+      "ACQUISTO": "Purchase",
+      "VENDITA": "Sale",
+      "DEPOSITO": "Deposit",
+      "PRELIEVO": "Withdrawal",
+      "FILTER_DATE": "Filter by date or period",
+      "MIN_PRICE": "Minimum Price",
+      "MAX_PRICE": "Maximum Price",
+      "QUANTITY": "Quantity",
+      "PRICE": "Price",
+      "PREVIOUS": "Previous",
+      "NEXT": "Next",
+      "NO_TRANSACTIONS": "No transactions found for"
+    }
+  
+  ,
+  "CANCEL": {
+    "TITLE": "Payment Canceled",
+    "MESSAGE": "Your payment has been canceled. Please try again. You will be redirected to your profile shortly."
+  },
+  "SUCCESS": {
+    "TITLE": "Payment Successful",
+    "MESSAGE": "Thank you for your purchase! The payment has been successfully completed. You will be redirected to your profile shortly."
+  },
+  "CHECKOUT": {
+    "RECHARGE": "Recharge Your Account",
+    "RECHARGE_AMOUNT": "Amount",
+    "WITHDRAW": "Withdraw from Your Account",
+    "WITHDRAW_AMOUNT": "Amount",
+    "RECHARGE_BUTTON": "Recharge",
+    "WITHDRAW_BUTTON": "Withdraw",
+    "ALERT_MESSAGE": "Insert an amount greater than zero."
+  },
+  "CONTACT_US": {
+    "TITLE": "Contact Us",
+    "DESCRIPTION": "If you have questions, comments, or requests, feel free to contact us via one of the following methods:",
+    "EMAIL": "Email",
+    "EMAIL_DESCRIPTION": "You can email us at: info@yourwebsite.com",
+    "PHONE": "Phone",
+    "PHONE_DESCRIPTION": "Call us at: +39 123 456 789",
+    "ADDRESS": "Address",
+    "ADDRESS_DESCRIPTION": "If you prefer to write to us, our address is:\nYour Company Name\nVia delle Azioni, 10\n00100 Rome RM\nItaly",
+    "CONTACT_FORM": "Contact Form",
+    "NAME": "Name",
+    "EMAIL_LABEL": "Email",
+    "MESSAGE": "Message",
+    "SEND_BUTTON": "Send"
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "Privacy Policy",
+    "INTRODUCTION": "Introduction",
+    "INTRODUCTION_TEXT": "Your privacy is important to us. This privacy policy explains how we collect, use, and protect your personal information when you use our site.",
+    "COLLECTED_INFORMATION": "Information Collected",
+    "COLLECTED_INFORMATION_TEXT": "We collect information you provide directly to us, such as your name, email address, and any other information you choose to provide.",
+    "INFORMATION_USE": "Use of Information",
+    "INFORMATION_USE_TEXT": "We use the information collected to provide, maintain, and improve our services, to communicate with you, and to protect our users.",
+    "INFORMATION_SHARING": "Information Sharing",
+    "INFORMATION_SHARING_TEXT": "We do not share your personal information with third parties without your consent, except where required by law or necessary to provide our services.",
+    "INFORMATION_SECURITY": "Information Security",
+    "INFORMATION_SECURITY_TEXT": "We take reasonable security measures to protect your personal information from unauthorized access, use, or disclosure.",
+    "YOUR_RIGHTS": "Your Rights",
+    "YOUR_RIGHTS_TEXT": "You have the right to access, correct, or delete your personal information. You can exercise these rights by contacting us at the provided email address.",
+    "POLICY_CHANGES": "Changes to Privacy Policy",
+    "POLICY_CHANGES_TEXT": "We reserve the right to modify this privacy policy at any time. Changes will be posted on this page. Continued use of the site after changes are posted implies acceptance of those changes.",
+    "CONTACT": "Contact",
+    "CONTACT_TEXT": "For any questions regarding this privacy policy, you can contact us at the Contact Us section."
+  },
+  "ERROR_404": {
+    "MESSAGE": "Unexpected error? Go back to the",
+    "HOME_LINK": "Home"
+  },
+  "FAVORITES": {
+    "TITLE": "My Favorites"
+  },
+  "CONFIRM": {
+    "TITLE": "Confirm Withdrawal",
+    "MESSAGE": "Are you sure you want to withdraw",
+    "CANCEL": "Cancel",
+    "CONFIRM": "Confirm"
+  }
+}

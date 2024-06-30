@@ -1,9 +1,9 @@
-<div class="container gigi" #container>
+<!-- <div class="container gigi" #container>
   <div class="form-container sign-up-container">
     <form   #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
       <h1>Crea Account</h1>
       <div class="social-container mb-3">
-        <!-- <app-google-login></app-google-login> -->
+        -- <app-google-login></app-google-login> --
       
       </div>
      
@@ -44,5 +44,46 @@
     </div>
   </div>
 </div>
+ -->
 
-
+ <div class="container gigi" #container>
+  <div class="form-container sign-up-container">
+    <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
+      <h1>{{ 'LOGIN.CREATE_ACCOUNT' | translate }}</h1>
+      <div class="social-container mb-3">
+        <!-- <app-google-login></app-google-login> -->
+      </div>
+      <input type="text" placeholder="{{ 'PROFILE.NAME' | translate }}" id="nomeRegister" name="nomeRegister" required class="form-control " ngModel />
+      <input type="text" placeholder="{{ 'PROFILE.SURNAME' | translate }}" id="cognomeRegister" name="cognomeRegister" required class="form-control " ngModel />
+      <input type="text" placeholder="{{ 'PROFILE.USERNAME' | translate }}" id="usernameRegister" name="usernameRegister" required class="form-control " ngModel />
+      <input type="email" placeholder="{{ 'LOGIN.EMAIL' | translate }}" id="emailRegister" name="emailRegister" required class="form-control " ngModel  />
+      <input type="password" placeholder="{{ 'LOGIN.PASSWORD' | translate }}" id="passwordRegister" name="passwordRegister" required class="form-control " ngModel />
+      <button class="mt-2 overEd" type="submit" [disabled]="registerForm.invalid">{{ 'LOGIN.REGISTER' | translate }}</button>
+    </form>
+  </div>
+  <div class="form-container sign-in-container">
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+      <h1>{{ 'LOGIN.SIGN_IN' | translate }}</h1>
+      <div class="social-container mb-3">
+        <app-google-login></app-google-login>
+      </div>
+      <input type="email" placeholder="{{ 'LOGIN.EMAIL' | translate }}" name="email" id="email" required class="form-control" ngModel/>
+      <input type="password" placeholder="{{ 'LOGIN.PASSWORD' | translate }}" name="password" id="password" required class="form-control" ngModel />
+      <button type="submit" class="overEd mt-4" [disabled]="loginForm.invalid">{{ 'LOGIN.ACCESS' | translate }}</button>
+    </form>
+  </div>
+  <div class="overlay-container">
+    <div class="overlay">
+      <div class="overlay-panel overlay-left">
+        <h1>{{ 'LOGIN.WELCOME_BACK' | translate }}</h1>
+        <p>{{ 'LOGIN.LOGIN_WITH_YOUR_DATA' | translate }}</p>
+        <button class="ghost overEd" (click)="signIn()">{{ 'LOGIN.ACCESS' | translate }}</button>
+      </div>
+      <div class="overlay-panel overlay-right">
+        <h1>{{ 'LOGIN.WELCOME' | translate }}</h1>
+        <p>{{ 'LOGIN.ENTER_DETAILS' | translate }}</p>
+        <button class="ghost overEd mt-2" (click)="signUp()">{{ 'LOGIN.REGISTER_NOW' | translate }}</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,6 +49,8 @@ npm i ngx-editor@16.0.1
  npm i --save-dev @types/quill
 npm i -D @types/quill@1.3
 
+ ### installazione solo per la traduzione
+npm install @ngx-translate/core @ngx-translate/http-loader
 
 ## Come avviare il programma
 1. cambiare nel sito di strime nella sezione webhook (il lick di webhook utilizzato )

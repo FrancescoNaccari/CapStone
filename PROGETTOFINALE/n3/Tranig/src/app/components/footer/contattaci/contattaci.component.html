@@ -1,4 +1,4 @@
-<h1>Contattaci</h1>
+<!-- <h1>Contattaci</h1>
 
 <p>Se hai domande, commenti o richieste, sentiti libero di contattarci tramite uno dei seguenti metodi:</p>
 
@@ -27,4 +27,30 @@ Italia</p>
   <textarea id="message" name="message" rows="4" ngModel required></textarea>
 
   <button type="submit" [disabled]="contactForm.invalid">Invia</button>
+</form> -->
+<h1>{{ 'CONTACT_US.TITLE' | translate }}</h1>
+
+<p>{{ 'CONTACT_US.DESCRIPTION' | translate }}</p>
+
+<h2>{{ 'CONTACT_US.EMAIL' | translate }}</h2>
+<p>{{ 'CONTACT_US.EMAIL_DESCRIPTION' | translate }}</p>
+
+<h2>{{ 'CONTACT_US.PHONE' | translate }}</h2>
+<p>{{ 'CONTACT_US.PHONE_DESCRIPTION' | translate }}</p>
+
+<h2>{{ 'CONTACT_US.ADDRESS' | translate }}</h2>
+<p>{{ 'CONTACT_US.ADDRESS_DESCRIPTION' | translate }}</p>
+
+<h2>{{ 'CONTACT_US.CONTACT_FORM' | translate }}</h2>
+<form (ngSubmit)="onSubmit()" #contactForm="ngForm">
+  <label for="name">{{ 'CONTACT_US.NAME' | translate }}:</label>
+  <input type="text" id="name" name="name" ngModel required>
+
+  <label for="email">{{ 'CONTACT_US.EMAIL_LABEL' | translate }}:</label>
+  <input type="email" id="email" name="email" ngModel required>
+
+  <label for="message">{{ 'CONTACT_US.MESSAGE' | translate }}:</label>
+  <textarea id="message" name="message" rows="4" ngModel required></textarea>
+
+  <button type="submit" [disabled]="contactForm.invalid">{{ 'CONTACT_US.SEND_BUTTON' | translate }}</button>
 </form>

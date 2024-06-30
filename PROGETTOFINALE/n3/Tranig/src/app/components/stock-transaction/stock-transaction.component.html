@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()">
+<!-- <form (ngSubmit)="onSubmit()">
   <div>
     <label for="quantity">Quantità:</label>
     <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required min="1">
@@ -10,6 +10,26 @@
   </div>
   <button type="button" class="btn btn-primary" (click)="buyStock()" [disabled]="!isPriceLoaded">Acquista</button>
   <button type="button" class="btn btn-secondary" (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">Vendi</button>
+
+  <ngb-alert *ngIf="alertMessage && alertType === 'success'" type="success" (closed)="onAlertClose()">
+    {{ alertMessage }}
+  </ngb-alert>
+  <ngb-alert *ngIf="alertMessage && alertType === 'danger'" type="danger" (closed)="onAlertClose()">
+    {{ alertMessage }}
+  </ngb-alert>
+</form> -->
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label for="quantity">{{ 'STOCK_TRANSACTION.QUANTITY' | translate }}:</label>
+    <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required min="1">
+  </div>
+  <div>
+    <p>{{ 'STOCK_TRANSACTION.CURRENT_PRICE' | translate }}: {{ currentPrice | currency }}</p>
+    <p>{{ 'STOCK_TRANSACTION.BALANCE' | translate }}: {{ user?.balance | currency }}</p>
+    <p>{{ 'STOCK_TRANSACTION.OWNED_QUANTITY' | translate }}: {{ ownedQuantity }}</p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="buyStock()" [disabled]="!isPriceLoaded">{{ 'STOCK_TRANSACTION.BUY' | translate }}</button>
+  <button type="button" class="btn btn-secondary" (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">{{ 'STOCK_TRANSACTION.SELL' | translate }}</button>
 
   <ngb-alert *ngIf="alertMessage && alertType === 'success'" type="success" (closed)="onAlertClose()">
     {{ alertMessage }}
