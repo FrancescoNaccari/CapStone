@@ -51,7 +51,7 @@ updateBalance(userId: number, amount: number): Observable<User> {
   return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount });
 }
 
-withdrawBalance(userId: number, amount: number): Observable<User> {
-  return this.http.post<User>(`${environment.serverUrl}/users/${userId}/withdraw`, { amount });
+withdrawBalance(userId: number, amount: number): Observable<number> {
+  return this.http.post<number>(`${environment.serverUrl}/users/${userId}/withdraw`, { amount });
 }
 }

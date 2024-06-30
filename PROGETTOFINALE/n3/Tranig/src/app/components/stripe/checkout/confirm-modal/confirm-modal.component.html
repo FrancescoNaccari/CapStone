@@ -12,14 +12,14 @@
    -->
 
    <div class="modal-header">
-    <h4 class="modal-title">{{ 'CONFIRM.TITLE' | translate }}</h4>
+    <h4 class="modal-title">{{ 'CONFIRM_MODAL.TITLE' | translate }}</h4>
     <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
-    <p>{{ 'CONFIRM.MESSAGE' | translate }} {{ amount }} €?</p>
+    <p>{{ 'CONFIRM_MODAL.BODY' | translate: { amount: amount } }}</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">{{ 'CONFIRM.CANCEL' | translate }}</button>
-    <button type="button" class="btn btn-primary" (click)="activeModal.close(true)">{{ 'CONFIRM.CONFIRM' | translate }}</button>
+    <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">{{ 'CONFIRM_MODAL.CANCEL' | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="activeModal.close(true)">{{ 'CONFIRM_MODAL.CONFIRM' | translate }}</button>
   </div>
   

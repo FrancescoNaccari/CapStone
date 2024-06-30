@@ -519,7 +519,7 @@
 
 <div class="container text-white" *ngIf="profilo">
   <div class="my-5 fw-semibold">
-    <h1>{{ 'PROFILE.TITLE' | translate }}</h1>
+    <h1>{{ 'profile.PROFILE' | translate }}</h1>
   </div>
   <div class="row">
     <div class="col-6">
@@ -547,7 +547,7 @@
       <div class="rounded-4 w-100 px-5 shadow py-3 custom-color">
         <div class="d-flex align-items-center">
           <div class="col-10">
-            <h5>{{ 'PROFILE.CURRENT_PASSWORD' | translate }}</h5>
+            <h5>{{ 'profile.CURRENT_PASSWORD' | translate }}</h5>
           </div>
           <div class="col-2">
             <p class="p-0 m-0">**********</p>
@@ -557,23 +557,23 @@
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input class="form-control" type="password" id="currentPassword" name="currentPassword" [(ngModel)]="currentPassword" required>
-              <label for="currentPassword" class="label-custom">{{ 'PROFILE.CURRENT_PASSWORD' | translate }}</label>
+              <label for="currentPassword" class="label-custom">{{ 'profile.CURRENT_PASSWORD' | translate }}</label>
             </div>
           </div>
         </div>
         <div class="d-flex align-items-center">
           <div class="col-10">
             <div class="form-floating my-3 me-3">
-              <input #newPasswordField class="form-control" type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required ngbPopover="{{ 'PROFILE.PASSWORD_HINT' | translate }}" placement="right" popoverClass="fs-5" container="body">
-              <label for="newPassword" class="label-custom">{{ 'PROFILE.NEW_PASSWORD' | translate }}</label>
+              <input #newPasswordField class="form-control" type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" required ngbPopover="{{ 'profile.PASSWORD_HELP' | translate }}" placement="right" popoverClass="fs-5" container="body">
+              <label for="newPassword" class="label-custom">{{ 'profile.NEW_PASSWORD' | translate }}</label>
             </div>
           </div>
         </div>
         <div class="d-flex align-items-center">
           <div class="col-10">
             <div class="form-floating my-3 me-3">
-              <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required ngbPopover="{{ 'PROFILE.PASSWORD_HINT' | translate }}" placement="right" popoverClass="fs-5 custom-popover" container="body">
-              <label for="confirmPassword" class="label-custom">{{ 'PROFILE.CONFIRM_PASSWORD' | translate }}</label>
+              <input class="form-control" type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" required ngbPopover="{{ 'profile.PASSWORD_HELP' | translate }}" placement="right" popoverClass="fs-5 custom-popover" container="body">
+              <label for="confirmPassword" class="label-custom">{{ 'profile.CONFIRM_PASSWORD' | translate }}</label>
             </div>
             <div *ngIf="passwordError" class="text-danger">
               {{ passwordError }}
@@ -583,7 +583,7 @@
             </div>
           </div>
           <div class="col-2">
-            <button type="button" class="btn btn-primary rounded-5" (click)="updatePassword()">{{ 'PROFILE.CHANGE' | translate }}</button>
+            <button type="button" class="btn btn-primary rounded-5" (click)="updatePassword()">{{ 'profile.CHANGE' | translate }}</button>
           </div>
         </div>
       </div>
@@ -591,7 +591,7 @@
       <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
         <div class="d-flex align-items-center">
           <div class="col-10">
-            <h5>{{ 'PROFILE.CURRENT_USERNAME' | translate }}</h5>
+            <h5>{{ 'profile.USERNAME' | translate }}</h5>
           </div>
           <div class="col-2">
             <p class="p-0 m-0">{{ profilo.username }}</p>
@@ -601,18 +601,18 @@
           <div class="col-10">
             <div class="form-floating my-3 me-3">
               <input class="form-control" type="text" id="newUsername" name="newUsername" ngModel required>
-              <label for="newUsername" class="label-custom">{{ 'PROFILE.NEW_USERNAME' | translate }}</label>
+              <label for="newUsername" class="label-custom">{{ 'profile.USERNAME' | translate }}</label>
             </div>
           </div>
           <div class="col-2">
-            <button type="button" class="btn btn-primary rounded-5" (click)="updateUsername()">{{ 'PROFILE.CHANGE' | translate }}</button>
+            <button type="button" class="btn btn-primary rounded-5" (click)="updateUsername()">{{ 'profile.CHANGE' | translate }}</button>
           </div>
         </div>
       </div>
     </div>
     <div class="container text-white" *ngIf="profilo">
       <div class="my-5 fw-semibold">
-        <h1>{{ 'PROFILE.TITLE' | translate }}</h1>
+        <h1>{{ 'profile.PROFILE' | translate }}</h1>
       </div>
       <div class="row">
         <div class="col-12">
@@ -620,7 +620,7 @@
         </div>
       </div>
       <div class="mt-4">
-        <h5>{{ 'PROFILE.CURRENT_BALANCE' | translate }}: {{ balance | currency:'€ ' }}</h5>
+        <h5>{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance | currency:'€ ' }}</h5>
       </div>
     </div>
     <div class="col-12">

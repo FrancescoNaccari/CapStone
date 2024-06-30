@@ -144,11 +144,19 @@ login(data: {email: string, password: string}) {
   );
   
 }
-
 updateUser(data: User) {
   const datas = this.authSub.getValue();
   if (datas) {
     datas.user = data;
+  }
+  this.authSub.next(datas);
+  localStorage.setItem('user', JSON.stringify(datas))
+}
+
+updateUser2(data: number) {
+  const datas = this.authSub.getValue();
+  if (datas) {
+    datas.user.balance = data;
   }
   this.authSub.next(datas);
   localStorage.setItem('user', JSON.stringify(datas))

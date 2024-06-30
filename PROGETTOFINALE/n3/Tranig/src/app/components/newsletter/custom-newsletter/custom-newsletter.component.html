@@ -58,7 +58,7 @@
   </div>
    -->
 
-   <div class="container">
+   <!-- <div class="container">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <div class="m-2">
         <label for="title">{{ 'NEWSLETTER.TITLE' | translate }}:</label>
@@ -70,6 +70,27 @@
       </div>
       <div class="m-2">
         <button type="submit" class="text-white btn btn-primary" [disabled]="form.invalid">{{ 'NEWSLETTER.SEND' | translate }}</button>
+      </div>
+    </form>
+  
+    <div *ngFor="let alert of alerts; trackBy: trackByIndex">
+      <ngb-alert [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+    </div>
+  </div>
+   -->
+
+   <div class="container">
+    <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+      <div class="m-2">
+        <label for="title">{{ 'newsletter.TITLE' | translate }}:</label>
+        <input id="title" name="title" type="text" class="form-control" ngModel />
+      </div>
+      <div class="NgxEditor__Wrapper text-black custom-altezza m-2">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor [editor]="editor" name="editorContent" ngModel></ngx-editor>
+      </div>
+      <div class="m-2">
+        <button type="submit" class="text-white btn btn-primary" [disabled]="form.invalid">{{ 'newsletter.SEND_NEWSLETTER' | translate }}</button>
       </div>
     </form>
   

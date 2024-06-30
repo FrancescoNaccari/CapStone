@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirm-modal',
@@ -9,7 +10,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ConfirmModalComponent {
   @Input() amount: number = 0;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private translate: TranslateService) {}
 
-
+  ngOnInit(): void {
+    // Mantieni la lingua attuale
+    this.translate.use(this.translate.currentLang);
+  }
 }

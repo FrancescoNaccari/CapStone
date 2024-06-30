@@ -15,7 +15,9 @@ export class NavbarComponent implements OnInit  {
   user!: AuthData | null
     constructor(private authSrv: AuthService,private translate: TranslateService) {
       this.translate.addLangs(['en', 'it']);
-      this.translate.setDefaultLang('it'); // Imposta l'italiano come lingua predefinita
+      this.translate.setDefaultLang('it'); // Imposta 'it' come lingua predefinita
+      const browserLang: string = this.translate.getBrowserLang() || 'it';
+      this.translate.use(browserLang.match(/en|it/) ? browserLang : 'it');
     }
     ngOnInit(): void {
       this.authSrv.user$.subscribe((data) => {
