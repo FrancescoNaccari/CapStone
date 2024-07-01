@@ -144,5 +144,75 @@
     "BODY": "Sei sicuro di voler prelevare {{ amount }} €?",
     "CANCEL": "Annulla",
     "CONFIRM": "Conferma"
+  },
+  "PRIVACY_POLICY": {
+    "TITLE": "Politica sulla Privacy",
+    "INTRODUCTION_TITLE": "Introduzione",
+    "INTRODUCTION_CONTENT": "La tua privacy è importante per noi. Questa politica sulla privacy spiega come raccogliamo, utilizziamo e proteggiamo le tue informazioni personali quando utilizzi il nostro sito.",
+    "INFORMATION_COLLECTED_TITLE": "Informazioni Raccolte",
+    "INFORMATION_COLLECTED_CONTENT": "Raccogliamo informazioni che ci fornisci direttamente, come il tuo nome, indirizzo email e qualsiasi altra informazione che scegli di fornirci.",
+    "INFORMATION_USAGE_TITLE": "Utilizzo delle Informazioni",
+    "INFORMATION_USAGE_CONTENT": "Utilizziamo le informazioni raccolte per fornire, mantenere e migliorare i nostri servizi, per comunicare con te e per proteggere i nostri utenti.",
+    "INFORMATION_SHARING_TITLE": "Condivisione delle Informazioni",
+    "INFORMATION_SHARING_CONTENT": "Non condividiamo le tue informazioni personali con terze parti senza il tuo consenso, salvo ove richiesto dalla legge o necessario per fornire i nostri servizi.",
+    "INFORMATION_SECURITY_TITLE": "Sicurezza delle Informazioni",
+    "INFORMATION_SECURITY_CONTENT": "Adottiamo misure di sicurezza ragionevoli per proteggere le tue informazioni personali da accessi non autorizzati, uso o divulgazione.",
+    "YOUR_RIGHTS_TITLE": "I Tuoi Diritti",
+    "YOUR_RIGHTS_CONTENT": "Hai il diritto di accedere, correggere o eliminare le tue informazioni personali. Puoi esercitare questi diritti contattandoci all'indirizzo email fornito.",
+    "POLICY_CHANGES_TITLE": "Modifiche alla Politica sulla Privacy",
+    "POLICY_CHANGES_CONTENT": "Ci riserviamo il diritto di modificare questa politica sulla privacy in qualsiasi momento. Le modifiche verranno pubblicate su questa pagina. L'uso continuato del sito dopo la pubblicazione delle modifiche implica l'accettazione delle stesse.",
+    "CONTACT_TITLE": "Contatti",
+    "CONTACT_CONTENT": "Per qualsiasi domanda riguardante questa politica sulla privacy, puoi contattarci alla sezione",
+    "CONTACT_LINK": "Contattaci."
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Termini di Servizio",
+    "ACCEPTANCE_TITLE": "Accettazione dei Termini",
+    "ACCEPTANCE_CONTENT": "Utilizzando il nostro sito web, accetti questi Termini di Servizio. Se non accetti questi termini, ti preghiamo di non utilizzare il nostro sito.",
+    "CHANGES_TITLE": "Modifiche ai Termini",
+    "CHANGES_CONTENT": "Ci riserviamo il diritto di modificare questi termini in qualsiasi momento. Le modifiche verranno pubblicate su questa pagina. L'uso continuato del sito dopo la pubblicazione delle modifiche implica l'accettazione delle stesse.",
+    "SERVICES_TITLE": "Descrizione dei Servizi",
+    "SERVICES_CONTENT": "Il nostro sito offre una dashboard interattiva che riproduce l’andamento del mercato azionario, consentendo agli utenti di analizzare i dati storici e le tendenze attuali delle borse. Le funzionalità principali includono:",
+    "SERVICES_LIST": {
+      "DATA_VISUALIZATION": "Visualizzazione dei Dati:",
+      "DATA_VISUALIZATION_DETAILS": [
+        "Grafici interattivi per il monitoraggio dei prezzi delle azioni.",
+        "Integrazione con API finanziarie per l’acquisizione di dati aggiornati in tempo reale."
+      ],
+      "FAVORITES_MANAGEMENT": "Gestione dei Preferiti:",
+      "FAVORITES_MANAGEMENT_DETAILS": "Una funzione che permette agli utenti di selezionare e salvare le azioni preferite per un accesso rapido e personalizzato.",
+      "MARKET_OVERVIEW": "Panoramica delle Borse Finanziarie:",
+      "MARKET_OVERVIEW_DETAILS": "Una sezione esclusiva che elenca le principali borse finanziarie internazionali, come NYSE, NASDAQ, LSE e altre, fornendo agli utenti una visione globale e aggiornata del mercato."
+    },
+    "USER_OBLIGATIONS_TITLE": "Obblighi e Responsabilità degli Utenti",
+    "USER_OBLIGATIONS_CONTENT": "Gli utenti si impegnano a non utilizzare il sito per attività illegali o non autorizzate. Non sono consentite le seguenti azioni:",
+    "USER_OBLIGATIONS_LIST": [
+      "Violazione di leggi locali, statali, nazionali o internazionali.",
+      "Infrangere diritti di proprietà intellettuale.",
+      "Distribuire virus o qualsiasi altra tecnologia dannosa."
+    ],
+    "LIMITATION_OF_LIABILITY_TITLE": "Limitazione di Responsabilità",
+    "LIMITATION_OF_LIABILITY_CONTENT": "Non siamo responsabili per eventuali danni diretti, indiretti, incidentali, speciali o consequenziali derivanti dall'uso o dall'incapacità di usare il nostro sito. I dati finanziari forniti attraverso le API di Twelve Data sono per uso informativo e non devono essere considerati come consulenza finanziaria.",
+    "INTELLECTUAL_PROPERTY_TITLE": "Proprietà Intellettuale",
+    "INTELLECTUAL_PROPERTY_CONTENT": "Tutti i contenuti presenti sul sito, inclusi testi, grafica, logo, immagini e software, sono di nostra proprietà o concessi in licenza e sono protetti dalle leggi sul copyright e sui marchi.",
+    "PRIVACY_TITLE": "Privacy",
+    "PRIVACY_CONTENT": "La tua privacy è importante per noi. Ti invitiamo a leggere la nostra",
+    "PRIVACY_LINK": "Politica sulla Privacy",
+    "APPLICABLE_LAW_TITLE": "Legge Applicabile",
+    "APPLICABLE_LAW_CONTENT": "Questi Termini di Servizio sono regolati e interpretati secondo le leggi dello Stato di [nome dello stato o del paese], senza riguardo ai conflitti di legge.",
+    "CONTACT_TITLE": "Contatti",
+    "CONTACT_CONTENT": "Per qualsiasi domanda riguardante questi Termini di Servizio, puoi contattarci alla sezione",
+    "CONTACT_LINK": "Contattaci."
+  },
+  "FOOTER": {
+    "COPYRIGHT": "&copy; 2024 NomeDelTuoSito. Tutti i diritti riservati.",
+    "DISCLAIMER": "Le informazioni fornite su questo sito sono solo a scopo informativo e non costituiscono consulenza finanziaria. Si prega di consultare un consulente finanziario prima di prendere decisioni di investimento. Investire comporta rischi, inclusa la perdita del capitale.",
+    "LINKS": {
+      "TERMS_OF_SERVICE": "Termini di Servizio",
+      "PRIVACY_POLICY": "Privacy Policy",
+      "CONTACT_US": "Contattaci"
+    }
   }
-}
+  }
+  
+

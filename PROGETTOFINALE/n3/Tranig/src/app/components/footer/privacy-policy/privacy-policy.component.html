@@ -67,7 +67,7 @@
       </ngb-panel>
     </ngb-accordion>
   </div> -->
-  <div class="container mt-5">
+  <!-- <div class="container mt-5">
     <h1 class="privacy-title">{{ 'PRIVACY_POLICY.TITLE' | translate }}</h1>
     <ngb-accordion>
       <ngb-panel>
@@ -132,6 +132,77 @@
         </ng-template>
         <ng-template ngbPanelContent>
           <p>{{ 'PRIVACY_POLICY.CONTACT_TEXT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+   -->
+
+   <div class="container mt-5">
+    <h1 class="privacy-title">{{ 'PRIVACY_POLICY.TITLE' | translate }}</h1>
+    <ngb-accordion>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.INTRODUCTION_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.INTRODUCTION_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.INFORMATION_COLLECTED_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.INFORMATION_COLLECTED_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.INFORMATION_USAGE_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.INFORMATION_USAGE_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.INFORMATION_SHARING_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.INFORMATION_SHARING_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.INFORMATION_SECURITY_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.INFORMATION_SECURITY_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.YOUR_RIGHTS_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.YOUR_RIGHTS_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.POLICY_CHANGES_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.POLICY_CHANGES_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'PRIVACY_POLICY.CONTACT_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="privacy-content">{{ 'PRIVACY_POLICY.CONTACT_CONTENT' | translate }} <a [routerLink]="['/contattaci']">{{ 'PRIVACY_POLICY.CONTACT_LINK' | translate }}</a></p>
         </ng-template>
       </ngb-panel>
     </ngb-accordion>

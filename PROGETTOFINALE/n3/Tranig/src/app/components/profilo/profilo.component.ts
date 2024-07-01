@@ -920,7 +920,7 @@ export class ProfiloComponent implements OnInit, OnDestroy  {
         this.profilo = data.user;
         console.log(this.profilo.balance);
         this.newUsername = this.profilo?.username || '';
-        this.previewUrl = this.profilo?.avatar || "assets/img/ominoverde.png";
+        this.previewUrl = this.profilo?.avatar || "";
         this.balance = this.profilo?.balance || 0;
       }
     });

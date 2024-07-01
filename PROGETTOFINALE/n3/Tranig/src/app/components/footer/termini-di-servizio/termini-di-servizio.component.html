@@ -168,7 +168,7 @@
     </ngb-accordion>
   </div> -->
 
-  <div class="container mt-5">
+  <!-- <div class="container mt-5">
     <h1>{{ 'TERMS_OF_SERVICE.TITLE' | translate }}</h1>
     <ngb-accordion>
       <ngb-panel>
@@ -258,4 +258,110 @@
         </ng-template>
       </ngb-panel>
     </ngb-accordion>
+  </div> -->
+  <div class="container mt-5">
+    <h1 class="terms-title">{{ 'TERMS_OF_SERVICE.TITLE' | translate }}</h1>
+    <ngb-accordion>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.ACCEPTANCE_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.ACCEPTANCE_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.CHANGES_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.CHANGES_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.SERVICES_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.SERVICES_CONTENT' | translate }}</p>
+          <ul class="terms-content">
+            <li>
+              <strong>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.DATA_VISUALIZATION' | translate }}</strong>
+              <ul>
+                <li>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.DATA_VISUALIZATION_DETAILS.0' | translate }}</li>
+                <li>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.DATA_VISUALIZATION_DETAILS.1' | translate }}</li>
+              </ul>
+            </li>
+            <li>
+              <strong>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.FAVORITES_MANAGEMENT' | translate }}</strong>
+              <ul>
+                <li>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.FAVORITES_MANAGEMENT_DETAILS' | translate }}</li>
+              </ul>
+            </li>
+            <li>
+              <strong>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.MARKET_OVERVIEW' | translate }}</strong>
+              <ul>
+                <li>{{ 'TERMS_OF_SERVICE.SERVICES_LIST.MARKET_OVERVIEW_DETAILS' | translate }}</li>
+              </ul>
+            </li>
+          </ul>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.USER_OBLIGATIONS_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.USER_OBLIGATIONS_CONTENT' | translate }}</p>
+          <ul class="terms-content">
+            <li>{{ 'TERMS_OF_SERVICE.USER_OBLIGATIONS_LIST.0' | translate }}</li>
+            <li>{{ 'TERMS_OF_SERVICE.USER_OBLIGATIONS_LIST.1' | translate }}</li>
+            <li>{{ 'TERMS_OF_SERVICE.USER_OBLIGATIONS_LIST.2' | translate }}</li>
+          </ul>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.LIMITATION_OF_LIABILITY_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.LIMITATION_OF_LIABILITY_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.INTELLECTUAL_PROPERTY_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.INTELLECTUAL_PROPERTY_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.PRIVACY_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.PRIVACY_CONTENT' | translate }} <a [routerLink]="['/privacy-policy']">{{ 'TERMS_OF_SERVICE.PRIVACY_LINK' | translate }}</a></p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.APPLICABLE_LAW_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.APPLICABLE_LAW_CONTENT' | translate }}</p>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span class="panel-title">{{ 'TERMS_OF_SERVICE.CONTACT_TITLE' | translate }}</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <p class="terms-content">{{ 'TERMS_OF_SERVICE.CONTACT_CONTENT' | translate }} <a [routerLink]="['/contattaci']">{{ 'TERMS_OF_SERVICE.CONTACT_LINK' | translate }}</a></p>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
   </div>
+  
+  
+  

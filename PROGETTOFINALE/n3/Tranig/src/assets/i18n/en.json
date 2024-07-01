@@ -144,5 +144,73 @@
     "BODY": "Are you sure you want to withdraw {{ amount }} €?",
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm"
+  },
+ "PRIVACY_POLICY": {
+    "TITLE": "Privacy Policy",
+    "INTRODUCTION_TITLE": "Introduction",
+    "INTRODUCTION_CONTENT": "Your privacy is important to us. This privacy policy explains how we collect, use, and protect your personal information when you use our site.",
+    "INFORMATION_COLLECTED_TITLE": "Information Collected",
+    "INFORMATION_COLLECTED_CONTENT": "We collect information you provide directly, such as your name, email address, and any other information you choose to provide.",
+    "INFORMATION_USAGE_TITLE": "Information Usage",
+    "INFORMATION_USAGE_CONTENT": "We use the collected information to provide, maintain, and improve our services, to communicate with you, and to protect our users.",
+    "INFORMATION_SHARING_TITLE": "Information Sharing",
+    "INFORMATION_SHARING_CONTENT": "We do not share your personal information with third parties without your consent, except where required by law or necessary to provide our services.",
+    "INFORMATION_SECURITY_TITLE": "Information Security",
+    "INFORMATION_SECURITY_CONTENT": "We adopt reasonable security measures to protect your personal information from unauthorized access, use, or disclosure.",
+    "YOUR_RIGHTS_TITLE": "Your Rights",
+    "YOUR_RIGHTS_CONTENT": "You have the right to access, correct, or delete your personal information. You can exercise these rights by contacting us at the provided email address.",
+    "POLICY_CHANGES_TITLE": "Policy Changes",
+    "POLICY_CHANGES_CONTENT": "We reserve the right to change this privacy policy at any time. Changes will be posted on this page. Continued use of the site after the changes are posted implies acceptance of the changes.",
+    "CONTACT_TITLE": "Contacts",
+    "CONTACT_CONTENT": "For any questions regarding this privacy policy, you can contact us at the",
+    "CONTACT_LINK": "Contact Us section."
+  },
+  "TERMS_OF_SERVICE": {
+    "TITLE": "Terms of Service",
+    "ACCEPTANCE_TITLE": "Acceptance of Terms",
+    "ACCEPTANCE_CONTENT": "By using our website, you agree to these Terms of Service. If you do not agree to these terms, please do not use our site.",
+    "CHANGES_TITLE": "Changes to Terms",
+    "CHANGES_CONTENT": "We reserve the right to change these terms at any time. Changes will be posted on this page. Continued use of the site after the changes are posted implies acceptance of the changes.",
+    "SERVICES_TITLE": "Description of Services",
+    "SERVICES_CONTENT": "Our site offers an interactive dashboard that replicates stock market trends, allowing users to analyze historical data and current stock exchange trends. Key features include:",
+    "SERVICES_LIST": {
+      "DATA_VISUALIZATION": "Data Visualization:",
+      "DATA_VISUALIZATION_DETAILS": [
+        "Interactive charts for monitoring stock prices.",
+        "Integration with financial APIs to acquire real-time updated data."
+      ],
+      "FAVORITES_MANAGEMENT": "Favorites Management:",
+      "FAVORITES_MANAGEMENT_DETAILS": "A function that allows users to select and save favorite stocks for quick and personalized access.",
+      "MARKET_OVERVIEW": "Market Overview:",
+      "MARKET_OVERVIEW_DETAILS": "An exclusive section listing major international stock exchanges such as NYSE, NASDAQ, LSE, and others, providing users with an updated global market view."
+    },
+    "USER_OBLIGATIONS_TITLE": "User Obligations and Responsibilities",
+    "USER_OBLIGATIONS_CONTENT": "Users agree not to use the site for illegal or unauthorized activities. The following actions are not allowed:",
+    "USER_OBLIGATIONS_LIST": [
+      "Violating local, state, national, or international laws.",
+      "Infringing intellectual property rights.",
+      "Distributing viruses or any other harmful technology."
+    ],
+    "LIMITATION_OF_LIABILITY_TITLE": "Limitation of Liability",
+    "LIMITATION_OF_LIABILITY_CONTENT": "We are not responsible for any direct, indirect, incidental, special, or consequential damages arising from the use or inability to use our site. Financial data provided through Twelve Data APIs is for informational purposes only and should not be considered financial advice.",
+    "INTELLECTUAL_PROPERTY_TITLE": "Intellectual Property",
+    "INTELLECTUAL_PROPERTY_CONTENT": "All content on the site, including texts, graphics, logos, images, and software, is our property or licensed to us and is protected by copyright and trademark laws.",
+    "PRIVACY_TITLE": "Privacy",
+    "PRIVACY_CONTENT": "Your privacy is important to us. Please read our",
+    "PRIVACY_LINK": "Privacy Policy",
+    "APPLICABLE_LAW_TITLE": "Applicable Law",
+    "APPLICABLE_LAW_CONTENT": "These Terms of Service are governed and interpreted according to the laws of [state or country name], without regard to conflict of law principles.",
+    "CONTACT_TITLE": "Contacts",
+    "CONTACT_CONTENT": "For any questions regarding these Terms of Service, you can contact us at the",
+    "CONTACT_LINK": "Contact Us section."
+  },
+  "FOOTER": {
+    "COPYRIGHT": "&copy; 2024 YourSiteName. All rights reserved.",
+    "DISCLAIMER": "The information provided on this site is for informational purposes only and does not constitute financial advice. Please consult a financial advisor before making investment decisions. Investing involves risks, including loss of capital.",
+    "LINKS": {
+      "TERMS_OF_SERVICE": "Terms of Service",
+      "PRIVACY_POLICY": "Privacy Policy",
+      "CONTACT_US": "Contact Us"
+    }
   }
 }

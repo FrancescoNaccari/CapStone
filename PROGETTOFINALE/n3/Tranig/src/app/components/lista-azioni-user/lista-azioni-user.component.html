@@ -124,7 +124,7 @@
                   <span *ngIf="transaction.type === 'ACQUISTO' || transaction.type === 'VENDITA'" class="quantity">{{ 'listaAzioniUser.QUANTITY' | translate }}: {{ transaction.quantity }}</span>
                 </div>
                 <div class="d-flex justify-content-between mt-2">
-                  <span class="badge bg-info text-dark">{{ transaction.date | date: 'yyyy/MM/dd, HH:mm' }}</span>
+                  <span class="badge bg-info text-dark">{{ transaction.date | date: 'yyyy/MM/dd HH:mm' }}</span>
                   <span>{{ 'listaAzioniUser.PRICE' | translate }}: {{ transaction.price | currency }}</span>
                 </div>
               </li>
