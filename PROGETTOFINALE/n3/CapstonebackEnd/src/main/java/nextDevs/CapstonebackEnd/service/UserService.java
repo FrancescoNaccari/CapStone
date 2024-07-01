@@ -245,15 +245,108 @@ private void sendMailRegistrazione(String email) {
 
         String htmlMsg = """
             <html>
+            <head>
+                <style>
+                    body {
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                        margin: 0;
+                        padding: 0;
+                        color: #333;
+                    }
+                    .container {
+                        width: 100%;
+                        max-width: 600px;
+                        margin: 20px auto;
+                        background-color: #fff;
+                        padding: 20px;
+                        border-radius: 10px;
+                        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                    }
+                    .header {
+                        text-align: center;
+                        padding-bottom: 20px;
+                        border-bottom: 1px solid #e0e0e0;
+                    }
+                    .header img {
+                        width: 200px;
+                        height: auto;
+                    }
+                    .content {
+                        padding: 20px;
+                        line-height: 1.6;
+                    }
+                    .content p {
+                        margin: 0 0 15px;
+                    }
+                    .footer {
+                        text-align: center;
+                        padding-top: 20px;
+                        border-top: 1px solid #e0e0e0;
+                        font-size: 12px;
+                        color: #888;
+                    }
+                    .button {
+                        display: inline-block;
+                        padding: 12px 25px;
+                        font-size: 16px;
+                        color: #ffffff;
+                        background-color: #007bff;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        margin-top: 20px;
+                    }
+                    .social-icons {
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+                    .social-icons img {
+                        width: 30px;
+                        height: auto;
+                        margin: 0 10px;
+                    }
+                    .greeting {
+                        font-size: 18px;
+                        font-weight: bold;
+                        margin-bottom: 15px;
+                    }
+                    .important-info {
+                        background-color: #f9f9f9;
+                        border-left: 4px solid #007bff;
+                        padding: 10px;
+                        margin: 20px 0;
+                    }
+                </style>
+            </head>
             <body>
-                <p>Gentile Utente,</p>
-                <p>La tua registrazione è avvenuta con successo!</p>
-                <p>Puoi ora accedere al sistema utilizzando le credenziali fornite durante la registrazione.</p>
-                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
-                <p>Grazie per esserti registrato!</p>
-                <p>Distinti saluti,</p>
-                <p>Il Team di Supporto</p>
-                <img src='cid:logoImage' style='width: 200px; height: auto;'>
+                <div class="container">
+                    <div class="header">
+                        <img src='cid:logoImage' alt="Company Logo">
+                    </div>
+                    <div class="content">
+                        <p class="greeting">Gentile Utente,</p>
+                        <p>La tua registrazione è avvenuta con successo!</p>
+                        <p>Puoi ora accedere al sistema utilizzando le credenziali fornite durante la registrazione.</p>
+                        <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                        <div class="important-info">
+                            <p><strong>Informazioni Importanti:</strong></p>
+                            <p>Assicurati di completare il tuo profilo e di aggiornare la tua password per garantire la sicurezza del tuo account.</p>
+                        </div>
+                        <p>Grazie per esserti registrato!</p>
+                        <p>Distinti saluti,</p>
+                        <p>Il Team di Supporto</p>
+                        <a href="http://www.example.com/login" class="button">Accedi</a>
+                    </div>
+                    <div class="social-icons">
+                        <a href="https://facebook.com"><img src="cid:facebookIcon" alt="Facebook"></a>
+                        <a href="https://twitter.com"><img src="cid:twitterIcon" alt="Twitter"></a>
+                        <a href="https://instagram.com"><img src="cid:instagramIcon" alt="Instagram"></a>
+                    </div>
+                    <div class="footer">
+                        Copyright © 2024 BrokerSphere. Tutti i diritti riservati.<br>
+                        <a href="http://www.example.com/unsubscribe">Disiscriviti</a> | <a href="http://www.example.com/privacy">Privacy</a>
+                    </div>
+                </div>
             </body>
             </html>
             """;
@@ -264,11 +357,21 @@ private void sendMailRegistrazione(String email) {
         ClassPathResource imageResource = new ClassPathResource("static/images/logo.png");
         helper.addInline("logoImage", imageResource);
 
+        // Add social media icons
+        ClassPathResource facebookIcon = new ClassPathResource("static/images/facebook.png");
+        ClassPathResource twitterIcon = new ClassPathResource("static/images/twitter.webp");
+        ClassPathResource instagramIcon = new ClassPathResource("static/images/instagram.png");
+        helper.addInline("facebookIcon", facebookIcon);
+        helper.addInline("twitterIcon", twitterIcon);
+        helper.addInline("instagramIcon", instagramIcon);
+
         javaMailSender.send(mimeMessage);
     } catch (MessagingException e) {
         logger.error("Errore nell'invio dell'email a {}", email, e);
     }
 }
+
+
 
     public void updatePassword(int id, UpdatePasswordDto updatePasswordDto) {
         Optional<User> userOptional = getUserById(id);
