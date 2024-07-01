@@ -516,7 +516,6 @@
 <!-- <app-checkout [amount]="rechargeAmount" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
 
 
-
 <div class="container text-white" *ngIf="profilo">
   <div class="my-5 fw-semibold">
     <h1>{{ 'profile.PROFILE' | translate }}</h1>
@@ -529,10 +528,8 @@
             <input type="file" id="avatarChange" #avatarChange (change)="onFileSelected($event)" class="d-none" />
             <div style="width: max-content;" class="position-relative">
               <img [src]="previewUrl" height="100" style="border-radius: 50%;" width="100" alt="Immagine Profilo">
-              <div class="border bg-light border-black position-absolute bottom-0 end-0"
-                style="border-radius: 50%;width: 30px; height: 30px;">
-                <i class="bi bi-pencil-fill position-absolute start-50 translate-middle top-50 text-black"
-                  style="font-size: 0.9em;"></i>
+              <div class="border bg-light border-black position-absolute bottom-0 end-0" style="border-radius: 50%;width: 30px; height: 30px;">
+                <i class="bi bi-pencil-fill position-absolute start-50 translate-middle top-50 text-black" style="font-size: 0.9em;"></i>
               </div>
             </div>
           </div>
@@ -578,14 +575,19 @@
             <div *ngIf="passwordError" class="text-danger">
               {{ passwordError }}
             </div>
-            <div *ngIf="successMessage" class="text-success">
-              {{ successMessage }}
-            </div>
           </div>
           <div class="col-2">
             <button type="button" class="btn btn-primary rounded-5" (click)="updatePassword()">{{ 'profile.CHANGE' | translate }}</button>
           </div>
         </div>
+        <!-- Alert per il cambio della password -->
+        <ngb-alert *ngIf="passwordAlertMessage" type="success" (close)="closePasswordAlert()">
+          {{ passwordAlertMessage }}
+        </ngb-alert>
+        <!-- Alert per errore di cambio della password -->
+        <ngb-alert *ngIf="passwordErrorAlertMessage" type="danger" (close)="closePasswordErrorAlert()">
+          {{ passwordErrorAlertMessage }}
+        </ngb-alert>
       </div>
 
       <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
@@ -608,6 +610,14 @@
             <button type="button" class="btn btn-primary rounded-5" (click)="updateUsername()">{{ 'profile.CHANGE' | translate }}</button>
           </div>
         </div>
+        <!-- Alert per il cambio del nome utente -->
+        <ngb-alert *ngIf="usernameAlertMessage" type="success" (close)="closeUsernameAlert()">
+          {{ usernameAlertMessage }}
+        </ngb-alert>
+        <!-- Alert per errore di cambio del nome utente -->
+        <ngb-alert *ngIf="usernameErrorAlertMessage" type="danger" (close)="closeUsernameErrorAlert()">
+          {{ usernameErrorAlertMessage }}
+        </ngb-alert>
       </div>
     </div>
     <div class="container text-white" *ngIf="profilo">
