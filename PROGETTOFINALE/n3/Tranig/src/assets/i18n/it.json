@@ -77,7 +77,9 @@
   },
   "error404": {
     "ERROR_MESSAGE": "Errore improvviso? Torna alla ",
-    "HOME_LINK": "Home"
+    "HOME_LINK": "Home",
+    "REDIRECT_MESSAGE": "Reindirizzamento in",
+    "SECONDS": "secondi..."
   },
   "favoriteStocks": {
     "MY_FAVORITES": "I miei preferiti",

@@ -77,7 +77,9 @@
   },
   "error404": {
     "ERROR_MESSAGE": "Unexpected error? Go back to ",
-    "HOME_LINK": "Home"
+    "HOME_LINK": "Home",
+    "REDIRECT_MESSAGE": "Redirecting in",
+    "SECONDS": "seconds..."
   },
   "favoriteStocks": {
     "MY_FAVORITES": "My Favorites",
