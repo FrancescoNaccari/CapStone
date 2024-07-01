@@ -45,6 +45,7 @@ import { StockTransactionComponent } from './components/stock-transaction/stock-
 import { ConfirmModalComponent } from './components/stripe/checkout/confirm-modal/confirm-modal.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -77,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
      ListaAzioniUserComponent,
      StockTransactionComponent,
      ConfirmModalComponent,
+     CurrencyFormatPipe,
 
     
   ],

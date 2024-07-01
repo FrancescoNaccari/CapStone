@@ -52,7 +52,7 @@
     </div>
   </ng-template>
    -->
-  
+<!--   
    <div class="container text-white shadow p-0">
     <div class="row card-color border border-1 text-center justify-content-between align-items-center rounded-2 mx-1 mx-md-2 my-2" *ngIf="stock?.symbol">
       <div class="col-2 p-0 text-center">
@@ -62,7 +62,44 @@
         <p class="m-0">{{ stock.symbol }}</p>
       </div>
       <div class="col-2 p-0 justify-content-center fw-bold d-flex" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
-        ${{ stock.price | number:'1.0-2' }}
+        €{{ stock.price | number:'1.0-2' }}
+        <div *ngIf="stock.increased" class="arrow up">▲</div>
+        <div *ngIf="!stock.increased" class="arrow down">▼</div>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" (click)="openModal(content)">{{ 'stockCard.BUY_SELL' | translate }}</button>
+      </div>
+      <div class="col-1 p-0 m-0 star" (click)="toggleFavorite()">
+        <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h2>{{ 'stockCard.MODAL_TITLE' | translate:{symbol: stock.symbol} }}</h2>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <app-stock-transaction [symbol]="stock.symbol" [currentPrice]="stock.price" [userId]="stock.userId"></app-stock-transaction>
+    </div>
+  </ng-template>
+   -->
+
+   <div *ngIf="alertMessage" class="alert alert-{{ alertType }} mt-2">
+    {{ alertMessage }}
+  </div>
+  
+  <div class="container text-white shadow p-0">
+    <div class="row card-color border border-1 text-center justify-content-between align-items-center rounded-2 mx-1 mx-md-2 my-2" *ngIf="stock?.symbol">
+      <div class="col-2 p-0 text-center">
+        <img *ngIf="stock.logoUrl" [src]="stock.logoUrl" alt="{{ stock.symbol }}" class="w-50 rounded-circle logo-img">
+      </div>
+      <div class="col-2 fs-1 p-0 text-center">
+        <p class="m-0">{{ stock.symbol }}</p>
+      </div>
+      <div class="col-2 p-0 justify-content-center fw-bold d-flex" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
+        €{{ stock.price | number:'1.0-2' }}
         <div *ngIf="stock.increased" class="arrow up">▲</div>
         <div *ngIf="!stock.increased" class="arrow down">▼</div>
       </div>

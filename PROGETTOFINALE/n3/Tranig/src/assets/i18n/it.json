@@ -24,6 +24,10 @@
     "INVALID_QUANTITY": "La quantità deve essere maggiore di zero",
     "PRICE_NOT_LOADED": "Errore: Il prezzo non è stato caricato correttamente"
   },
+  "alerts": {
+    "ADDED_TO_FAVORITES": "{{ stockName }} è stato aggiunto ai preferiti.",
+    "REMOVED_FROM_FAVORITES": "{{ stockName }} è stato rimosso dai preferiti."
+  },
   "profile": {
     "PROFILE": "Profilo",
     "CURRENT_PASSWORD": "Password attuale",
@@ -212,6 +216,4 @@
       "CONTACT_US": "Contattaci"
     }
   }
-  }
-  
-
+}

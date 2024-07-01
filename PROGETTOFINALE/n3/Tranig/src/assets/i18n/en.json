@@ -24,7 +24,11 @@
     "INVALID_QUANTITY": "Quantity must be greater than zero",
     "PRICE_NOT_LOADED": "Error: Price not loaded correctly"
   },
- "profile": {
+  "alerts": {
+    "ADDED_TO_FAVORITES": "{{ stockName }} has been added to favorites.",
+    "REMOVED_FROM_FAVORITES": "{{ stockName }} has been removed from favorites."
+  },
+  "profile": {
     "PROFILE": "Profile",
     "CURRENT_PASSWORD": "Current Password",
     "NEW_PASSWORD": "New Password",
@@ -144,7 +148,7 @@
     "CANCEL": "Cancel",
     "CONFIRM": "Confirm"
   },
- "PRIVACY_POLICY": {
+  "PRIVACY_POLICY": {
     "TITLE": "Privacy Policy",
     "INTRODUCTION_TITLE": "Introduction",
     "INTRODUCTION_CONTENT": "Your privacy is important to us. This privacy policy explains how we collect, use, and protect your personal information when you use our site.",

@@ -630,7 +630,7 @@
         </div>
       </div>
       <div class="mt-4">
-        <h5>{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance | currency:'€ ' }}</h5>
+        <h5>{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance | currencyFormat:'€':2:'.':',':3  }}</h5>
       </div>
     </div>
     <div class="col-12">
