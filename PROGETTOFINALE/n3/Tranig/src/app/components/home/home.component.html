@@ -15,8 +15,8 @@
 </div>
 
  -->
- <div class="container-fluid m-0">
-  <div class="row justify-content-between m-2">
+ <div class="container-fluid  ">
+  <div class="row justify-content-between m-2 ">
     <div class="col-12 col-md-4 p-0 p-lg-2">
       <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock" [symbol]="symbol" [favorites]="favoriteStocks" (favoriteToggled)="onFavoriteToggled($event)"></app-stock-card>
     </div>
