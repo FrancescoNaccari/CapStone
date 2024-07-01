@@ -136,7 +136,7 @@
     "PAYMENT_SUCCESS_MESSAGE": "Thank you for your purchase! The payment was completed successfully. You will be redirected to your profile shortly.",
     "PAYMENT_CANCELLED": "Payment Cancelled",
     "PAYMENT_CANCELLED_MESSAGE": "Your payment was cancelled. Please try again. You will be redirected to your profile shortly.",
-    "WITHDRAW_SUCCESS": "Successfully withdrawn {{amount}}."
+    "WITHDRAW_SUCCESS": "Successfully withdrawn {{amount}}€."
   },
   "CONFIRM_MODAL": {
     "TITLE": "Confirm Withdrawal",

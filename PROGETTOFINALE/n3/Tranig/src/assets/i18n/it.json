@@ -136,7 +136,7 @@
     "PAYMENT_SUCCESS_MESSAGE": "Grazie per il tuo acquisto! Il pagamento è stato completato con successo. Verrai reindirizzato al tuo profilo a breve.",
     "PAYMENT_CANCELLED": "Pagamento Annullato",
     "PAYMENT_CANCELLED_MESSAGE": "Il tuo pagamento è stato annullato. Per favore, riprova. Verrai reindirizzato al tuo profilo a breve.",
-    "WITHDRAW_SUCCESS": "Prelevato con successo {{amount}}."
+    "WITHDRAW_SUCCESS": "Prelevato con successo {{amount}}€."
   },
   "CONFIRM_MODAL": {
     "TITLE": "Conferma Prelievo",

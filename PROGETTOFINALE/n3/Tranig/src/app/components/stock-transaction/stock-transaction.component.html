@@ -25,8 +25,8 @@
     <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" required min="1">
   </div>
   <div>
-    <p>{{ 'stockTransaction.CURRENT_PRICE' | translate }}: {{ currentPrice | currency }}</p>
-    <p>{{ 'stockTransaction.BALANCE' | translate }}: {{ user?.balance | currency }}</p>
+    <p>{{ 'stockTransaction.CURRENT_PRICE' | translate }}: {{ currentPrice | currency:'EUR':'symbol':'1.2-2' }}</p>
+    <p>{{ 'stockTransaction.BALANCE' | translate }}: {{ user?.balance | currency:'EUR':'symbol':'1.2-2' }}</p>
     <p>{{ 'stockTransaction.OWNED_QUANTITY' | translate }}: {{ ownedQuantity }}</p>
   </div>
   <button type="button" class="btn btn-primary" (click)="buyStock()" [disabled]="!isPriceLoaded">{{ 'stockTransaction.BUY' | translate }}</button>
