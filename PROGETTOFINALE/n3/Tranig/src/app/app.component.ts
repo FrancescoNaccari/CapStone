@@ -14,14 +14,11 @@ export class AppComponent {
     private languageService: LanguageService,
     private authService: AuthService
   ) {
-    // Imposta la lingua di default
-    const browserLang = this.translate.getBrowserLang();
-    this.languageService.setLanguage(browserLang?.match(/en|it/) ? browserLang : 'it');
+    this.languageService.setLanguage(this.languageService.getLanguage());
     this.authService.restore();
   }
 
   switchLanguage(language: string) {
     this.languageService.setLanguage(language);
   }
-
 }
