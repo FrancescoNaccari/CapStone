@@ -2123,6 +2123,7 @@ export class BorsaComponent implements OnInit {
             }
           });
           this.price = response.price;
+          console.log(this.price)
           this.stock.price = response.price;
           this.getPreviousClosePrice(response.price);
         },

@@ -746,8 +746,8 @@
             {{ 'borsa.REAL_TIME_PRICE' | translate }}
           </h5>
           <div class="fw-bolder m-0 fs-sm-1 fs-5 text-center fs-lg-2 d-flex justify-content-center">
-            <p class="fw-bolder m-0 fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
-              €{{price | number:'1.0-2'}}
+            <p  class="fw-bolder m-0 fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
+              {{price|| 0 | currencyFormat:'€':2:'.':',':3}}
             </p>
             <span class="me-0" *ngIf="stock?.increased" style="color: #00A68C; margin: 0 10px; float: right;">▲</span>
             <span class="me-0" *ngIf="!stock?.increased" style="color: #D9475A; margin: 0 10px; float: right;">▼</span>

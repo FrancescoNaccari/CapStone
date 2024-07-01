@@ -99,7 +99,7 @@
         <p class="m-0">{{ stock.symbol }}</p>
       </div>
       <div class="col-2 p-0 justify-content-center fw-bold d-flex" [ngClass]="{'text-green': stock.increased, 'text-red': !stock.increased}">
-        €{{ stock.price | number:'1.0-2' }}
+        {{ stock.price || 0 | currencyFormat:'€':2:'.':',':3 }}
         <div *ngIf="stock.increased" class="arrow up">▲</div>
         <div *ngIf="!stock.increased" class="arrow down">▼</div>
       </div>
