@@ -118,10 +118,14 @@
     "LOGIN": "Login",
     "WELCOME_BACK": "Welcome back!",
     "LOGIN_WITH_YOUR_DATA": "Log in with your data",
-    "WELCOME": "Welcome!",
-    "ENTER_YOUR_DATA": "Enter your data and start a journey with us!",
-    "REGISTRATION_SUCCESS": "Registration successful. Please log in.",
-    "SOCIAL_LOGIN": "Social Login"
+    "NO_ACCOUNT": "Don't have an account?",
+    "ALREADY_MEMBER": "Already member?",
+    "PASSWORD_TOOLTIP": "Password must contain at least 8 characters, including uppercase, lowercase, number and special character.",
+    "AGREE_TERMS": "I agree with ",
+    "TERMS_AND_CONDITIONS": "terms and conditions",
+    "CREATE_ACCOUNT_DESC": "It's just a few minutes and free!",
+    "INVALID_EMAIL": "Invalid email address",
+    "REGISTRATION_SUCCESS": "Registration successful. Please log in."
   },
   "newsletter": {
     "TITLE": "Manage Newsletter",

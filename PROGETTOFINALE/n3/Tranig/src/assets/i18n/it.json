@@ -116,12 +116,16 @@
     "PASSWORD": "Password",
     "REGISTER": "Registrati",
     "LOGIN": "Accedi",
-    "WELCOME_BACK": "Bentornato!",
+    "WELCOME_BACK":"Bentornato!",
     "LOGIN_WITH_YOUR_DATA": "Effettua il Login con i tuoi dati",
-    "WELCOME": "Benvenuto!",
-    "ENTER_YOUR_DATA": "Inserisci i tuoi dati e inizia un viaggio con noi!",
-    "REGISTRATION_SUCCESS": "Registrazione effettuata. Effettua il login.",
-    "SOCIAL_LOGIN": "Login con social"
+    "NO_ACCOUNT": "Non hai un account?",
+    "ALREADY_MEMBER": "Sei già un membro?",
+    "PASSWORD_TOOLTIP": "La password deve contenere almeno 8 caratteri, inclusi maiuscole, minuscole, numeri e caratteri speciali.",
+    "AGREE_TERMS": "Accetto i ",
+    "TERMS_AND_CONDITIONS": "termini e condizioni",
+    "CREATE_ACCOUNT_DESC": "Bastano pochi minuti ed è gratis!",
+    "INVALID_EMAIL": "Indirizzo email non valido",
+    "REGISTRATION_SUCCESS": "Registrazione effettuata. Effettua il login."
   },
   "newsletter": {
     "TITLE": "Gestione Newsletter",

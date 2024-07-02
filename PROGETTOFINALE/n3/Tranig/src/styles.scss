@@ -46,6 +46,7 @@ $utilities: (
             //Dimensione micrio,
             6: 0.5rem,
             7: 0.4rem,
+            9: 3rem,
             10: 5rem,
 
         ),
@@ -62,7 +63,8 @@ html {
     // background-image: url('./assets/img/1920X1080_HOME-BACKGROUND.png');
     background-image: url('./assets/img/1920X1080_BACKGROUND-SINGLE.png');
     background-size: cover;
-    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: 0;
 }
 
@@ -117,7 +119,11 @@ h5 {
     background-color: $chart-bg;
     color: $text-light;
 }
-
+button{
+    background: rgb(21,73,188);
+background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+color: white;
+}
 .card-color {
     background-color: #122036;
     padding: 10px;
@@ -139,6 +145,8 @@ h5 {
   @media (max-width: 768px) {
     body, html{
       background-image: url('./assets/img/SMART_BACKGROUND-SINGLE.png');
+
+
     }
   }
   

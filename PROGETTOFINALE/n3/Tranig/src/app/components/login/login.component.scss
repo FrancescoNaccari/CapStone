@@ -274,9 +274,11 @@
 // //   border:white;
 // // }
 
+
+
 .form-container {
   background-color: transparent;
-  padding: 100px;
+ 
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   text-align: center;
@@ -316,7 +318,7 @@
 }
 
 .input-group {
-  border: 3px solid white;
+  border:2px solid white;
 }
 
 .input-group-text {
@@ -341,15 +343,15 @@
   height: auto;
 }
 
-.btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
-}
+// .btn-primary {
+//   background-color: #007bff;
+//   border-color: #007bff;
+// }
 
-.btn-primary:hover {
-  background-color: #0056b3;
-  border-color: #004085;
-}
+// .btn-primary:hover {
+//   background-color: #0056b3;
+//   border-color: #004085;
+// }
 
 .opacity-text {
   opacity: .6;

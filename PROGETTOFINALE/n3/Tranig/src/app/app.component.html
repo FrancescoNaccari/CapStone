@@ -2,12 +2,12 @@
   <header class=" sticky-top top-0 start-0 w-100">
     <app-navbar ></app-navbar>
   </header>
-<main >
+
   <router-outlet ></router-outlet>
 
-</main>
 
-  <app-footer></app-footer>
+
+  <app-footer *ngIf="!isLoginPage"></app-footer>
 <!-- 
   <div class="language-switcher">
     <button (click)="switchLanguage('en')">English</button>
