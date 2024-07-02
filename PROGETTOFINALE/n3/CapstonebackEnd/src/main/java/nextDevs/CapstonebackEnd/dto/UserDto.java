@@ -17,9 +17,9 @@ public class UserDto{
     private String password;
     @NotBlank(message = "Lo username dell'utente non può essere vuoto, mancante o composto da soli spazi")
     private String username;
-    @NotBlank(message = "Il nome dell'utente non può essere vuoto, mancante o composto da soli spazi")
+   // @NotBlank(message = "Il nome dell'utente non può essere vuoto, mancante o composto da soli spazi")
     private String nome;
-    @NotBlank(message = "Il cognome dell'utente non può essere vuoto, mancante o composto da soli spazi")
+  //  @NotBlank(message = "Il cognome dell'utente non può essere vuoto, mancante o composto da soli spazi")
     private String cognome;
     private String avatar;
     private BigDecimal balance = BigDecimal.ZERO;

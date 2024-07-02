@@ -148,7 +148,7 @@ import { AuthService } from 'src/app/service/auth.service';
 export class LoginComponent implements OnInit {
   register = false;
   termsAccepted = false;
-
+  
   constructor(private authSrv: AuthService, private router: Router, private translate: TranslateService) {}
 
   ngOnInit(): void {
@@ -160,6 +160,25 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home']);
       }
     });
+
+    // Add event listeners for toggle password visibility
+    this.setupPasswordToggle('togglePasswordLogin', 'password');
+    this.setupPasswordToggle('togglePasswordRegister', 'passwordRegister');
+  }
+
+  setupPasswordToggle(toggleId: string, inputId: string) {
+    const togglePassword = document.querySelector(`#${toggleId}`);
+    const passwordInput = document.querySelector(`#${inputId}`) as HTMLInputElement;
+
+    if (togglePassword && passwordInput) {
+      togglePassword.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        const icon = togglePassword.querySelector('i') as HTMLElement;
+        icon.classList.toggle('bi-eye');
+        icon.classList.toggle('bi-eye-slash');
+      });
+    }
   }
 
   onSubmit(form: NgForm) {

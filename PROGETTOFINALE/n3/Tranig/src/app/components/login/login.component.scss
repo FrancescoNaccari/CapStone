@@ -312,6 +312,24 @@
 .transparent-input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 1000px transparent inset !important; /* Transparent background for autofill */
   -webkit-text-fill-color: white !important; /* White text color for autofill */
+  transition: background-color 5000s ease-in-out 0s; /* Ensure the background remains transparent */
+}
+
+.input-group {
+  border: 3px solid white;
+}
+
+.input-group-text {
+  background-color: transparent !important; /* Ensure background is transparent */
+  border: none; /* Remove border if present */
+  color: white; /* Set icon color to white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-text i {
+  color: white !important; /* Ensure icon color is white */
 }
 
 .hidden {
@@ -342,19 +360,10 @@
   text-decoration: underline;
 }
 
-.input-group-text {
+
+.toggle-password {
+  cursor: pointer;
   background-color: transparent !important; /* Ensure background is transparent */
   border: none; /* Remove border if present */
   color: white; /* Set icon color to white */
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-.input-group{
-  border: 3px solid white;
-
-}
-.input-group-text i {
-  color: white !important; /* Ensure icon color is white */
-}
-
