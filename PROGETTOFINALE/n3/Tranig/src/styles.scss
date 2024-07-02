@@ -58,7 +58,12 @@ body,
 html {
     font-family: Helvetica, Arial, sans-serif !important;
     color: white!important;
+    background-image: url('./assets/img/1920X1080_HOME-BACKGROUND.png');
+    background-size: cover;
+height: 100%;
+    margin: 0;
 }
+
 
 body {
     background-color: $body-bg;
@@ -125,6 +130,16 @@ h5 {
 .custom-popover .popover-body {
     font-size: 1rem;
   }
+
+  
+  
+  /* Mobile background */
+  @media (max-width: 768px) {
+    body, html{
+      background-image: url('./assets/img/SMART_BACKGROUND-SINGLE.png');
+    }
+  }
+  
   
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';

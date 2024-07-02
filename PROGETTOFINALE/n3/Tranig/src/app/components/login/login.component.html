@@ -87,13 +87,17 @@
     </div>
   </div>
 </div> -->
-<div class="container gigi" #container>
+
+
+
+
+<!-- <div class="container gigi" #container>
   <div class="form-container sign-up-container">
     <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
       <h1>{{ 'login.CREATE_ACCOUNT' | translate }}</h1>
-      <div class="social-container mb-3">
+      <div class="social-container mb-3"> -->
         <!-- <app-google-login></app-google-login> -->
-      </div>
+      <!-- </div>
       <input type="text" placeholder="{{ 'login.NAME' | translate }}" id="nomeRegister" name="nomeRegister" required class="form-control" ngModel />
       <input type="text" placeholder="{{ 'login.SURNAME' | translate }}" id="cognomeRegister" name="cognomeRegister" required class="form-control" ngModel />
       <input type="text" placeholder="{{ 'login.USERNAME' | translate }}" id="usernameRegister" name="usernameRegister" required class="form-control" ngModel />
@@ -127,4 +131,127 @@
       </div>
     </div>
   </div>
+</div> -->
+<div class="page-container">
+  <div class="container">
+    <div class="row justify-content-start align-items-center" style="height: 100vh;">
+      <div class="col-md-6 text-center">
+        <img src="./assets/img/ICON_LOGO-ICON-E-TEXT.png" alt="Logo" class="img-fluid w-50">
+      </div>
+      <div class="col-md-6">
+        <div class="form-container" [class.hidden]="register">
+          <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+            <h1>Welcome back...</h1>
+            <p>Sign in to continue</p>
+            <div class="input-group mb-3 rounded-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+              <input type="email" placeholder="Email" name="email" id="email" required class="form-control transparent-input border-0 " ngModel />
+            </div>
+            <div class="input-group mb-3 rounded-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock"></i></span>
+              <input type="password" placeholder="Password" name="password" id="password" required class="form-control transparent-input border-0" ngModel />
+            </div>
+            <!-- <div class="d-flex align-items-center mb-3">
+              <input type="checkbox" id="termsLogin" name="termsLogin" required class="form-check-input me-2" />
+              <label for="termsLogin" class="form-check-label">
+                <span class="opacity-text">I agree with </span>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="terms-link">terms and conditions</a>.
+              </label>
+            </div> -->
+            <button type="submit" class="btn btn-primary rounded-2 w-100 my-3" [disabled]="loginForm.invalid">LOGIN</button>
+            <p>
+              Don't have an account? 
+              <a href="#" (click)="signUp()">Register</a>
+            </p> 
+            <div>
+              <app-google-login class="social-container d-flex justify-content-center mb-3"></app-google-login>
+            </div>
+          </form>
+        </div>
+
+        <div class="form-container" [class.hidden]="!register">
+          <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
+            <h1>Create your account</h1>
+            <p>It's just a few minutes and free!</p>
+            <div class="social-container mb-3"> 
+              <!-- Placeholder for social login buttons -->
+            </div>
+            <div class="input-group mb-3 rounded-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill"></i></span>
+              <input type="text" placeholder="Username" id="usernameRegister" name="usernameRegister" required class="form-control transparent-input border-0" ngModel />
+            </div>
+            <div class="input-group mb-3 rounded-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-envelope"></i></span>
+              <input type="email" placeholder="webmail@mail.com" id="emailRegister" name="emailRegister" required class="form-control transparent-input border-0" ngModel />
+            </div>
+            <div class="input-group mb-3 rounded-2">
+              <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock"></i></span>
+              <input type="password" placeholder="Password" id="passwordRegister" name="passwordRegister" required class="form-control transparent-input border-0" ngModel />
+            </div>
+            <div class="d-flex align-items-center mb-3">
+              <input type="checkbox" id="termsRegister" name="termsRegister" [(ngModel)]="termsAccepted" required class="form-check-input me-2 " />
+              <label for="termsRegister" class="form-check-label">
+                <span class="opacity-text">I agree with </span>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal" class="terms-link">terms and conditions</a>.
+              </label>
+            </div>
+            <button class="btn btn-primary w-100 mb-3" type="submit" [disabled]="registerForm.invalid || !termsAccepted">Create my account</button>
+            <p>
+              Already member? 
+              <a href="#" (click)="signIn()">Sign in</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- Terms and Conditions Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="termsModalLabel">Terms and Conditions</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Welcome to our application. By accessing or using our service, you agree to be bound by these terms and conditions. Please read them carefully.</p>
+        
+        <h4>Acceptance of Terms</h4>
+        <p>By using our service, you agree to comply with and be bound by these terms. If you do not agree to these terms, please do not use our service.</p>
+        
+        <h4>Changes to Terms</h4>
+        <p>We reserve the right to change these terms at any time. We will notify you of any changes by posting the new terms on our website. Your continued use of the service after any changes constitutes your acceptance of the new terms.</p>
+        
+        <h4>Privacy Policy</h4>
+        <p>Our privacy policy explains how we collect, use, and protect your information. By using our service, you agree to the collection and use of your information in accordance with our privacy policy.</p>
+        
+        <h4>User Conduct</h4>
+        <p>You agree to use our service only for lawful purposes. You are prohibited from using our service to violate any laws, infringe on anyone's rights, or engage in any harmful activity.</p>
+        
+        <h4>Account Security</h4>
+        <p>You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account. You agree to notify us immediately of any unauthorized use of your account.</p>
+        
+        <h4>Intellectual Property</h4>
+        <p>All content and materials on our service, including but not limited to text, graphics, logos, and software, are the property of our company or its licensors and are protected by copyright and other intellectual property laws.</p>
+        
+        <h4>Termination</h4>
+        <p>We may terminate or suspend your account and access to our service at any time, without prior notice or liability, if you breach these terms or for any other reason.</p>
+        
+        <h4>Limitation of Liability</h4>
+        <p>To the fullest extent permitted by law, our company shall not be liable for any indirect, incidental, special, or consequential damages arising out of or in connection with your use of our service.</p>
+        
+        <h4>Governing Law</h4>
+        <p>These terms shall be governed and construed in accordance with the laws of the jurisdiction in which our company is based, without regard to its conflict of law provisions.</p>
+        
+        <h4>Contact Us</h4>
+        <p>If you have any questions about these terms, please contact us at [your contact information].</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

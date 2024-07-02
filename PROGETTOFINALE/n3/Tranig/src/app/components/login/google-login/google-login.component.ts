@@ -70,7 +70,13 @@ ngOnInit(): void {
     if (buttonDiv) {
       google.accounts.id.renderButton(
         buttonDiv,
-        { theme: 'outline', size: 'large' }  // personalizza il pulsante come desideri
+        {
+          theme: 'filled_blue',
+          size: 'medium',
+          
+         
+         
+          }  // personalizza il pulsante come desideri
       );
       google.accounts.id.prompt(); // mostra il dialogo One Tap
     } else {
