@@ -46,6 +46,7 @@ $utilities: (
             //Dimensione micrio,
             6: 0.5rem,
             7: 0.4rem,
+            10: 5rem,
 
         ),
     ),
@@ -58,9 +59,10 @@ body,
 html {
     font-family: Helvetica, Arial, sans-serif !important;
     color: white!important;
-    background-image: url('./assets/img/1920X1080_HOME-BACKGROUND.png');
+    // background-image: url('./assets/img/1920X1080_HOME-BACKGROUND.png');
+    background-image: url('./assets/img/1920X1080_BACKGROUND-SINGLE.png');
     background-size: cover;
-height: 100%;
+    height: 100%;
     margin: 0;
 }
 

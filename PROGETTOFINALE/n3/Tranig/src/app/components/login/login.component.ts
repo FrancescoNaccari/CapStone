@@ -148,7 +148,8 @@ import { AuthService } from 'src/app/service/auth.service';
 export class LoginComponent implements OnInit {
   register = false;
   termsAccepted = false;
-  
+  passwordRegex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})';
+
   constructor(private authSrv: AuthService, private router: Router, private translate: TranslateService) {}
 
   ngOnInit(): void {
