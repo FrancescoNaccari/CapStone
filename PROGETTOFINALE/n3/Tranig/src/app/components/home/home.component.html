@@ -39,13 +39,13 @@
 
     <div *ngIf="!isLoading">
       <div class="row justify-content-between m-2">
-        <div class="d-none d-lg-block col-4 p-0 p-lg-2">
+        <div class="d-none d-lg-block col-4 p-0 p-lg-2 my-lg-5">
           <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock" [symbol]="symbol" [favorites]="favoriteStocks" (favoriteToggled)="onFavoriteToggled($event)"></app-stock-card>
         </div>
-        <div class="col-12 col-lg-8 p-0 p-lg-2">
+        <div class="col-12 col-lg-8 p-0 p-lg-2 my-lg-5">
           <app-borsa (favoriteToggled)="onFavoriteToggled($event)" [favorites]="favoriteStocks"></app-borsa>
         </div>
-        <div class="col-10 d-lg-none col-lg-4 p-0 p-lg-2">
+        <div class="col-10 d-lg-none col-lg-4 p-0 p-lg-2 my-5">
           <app-stock-card *ngFor="let stock of displayedStocks" [stock]="stock" [symbol]="symbol" [favorites]="favoriteStocks" (favoriteToggled)="onFavoriteToggled($event)"></app-stock-card>
         </div>
       </div>
@@ -53,6 +53,6 @@
         {{ errorMessage }}
       </div>
     </div>
-    <app-newsletter></app-newsletter>
+    <app-iscrizione-newsletter></app-iscrizione-newsletter>
   </div>
 

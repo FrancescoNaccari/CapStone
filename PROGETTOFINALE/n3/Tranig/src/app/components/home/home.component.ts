@@ -538,17 +538,33 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
+  // updateDisplayedStocks(): void {
+  //   const width = window.innerWidth;
+
+  //   let numberOfCards;
+  //   if (width < 768) {
+  //     numberOfCards = 5;
+  //   } else if (width >= 768 && width < 992) {
+  //     numberOfCards = 7;
+  //   } else if (width >= 992 && width < 1200) {
+  //     numberOfCards = 8;
+  //   } else if (width >= 1200 && width < 1640) {
+  //     numberOfCards = 9;
+  //   } else {
+  //     numberOfCards = 10;
+  //   }
+
+  //   const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
+  //   this.displayedStocks = shuffled.slice(0, numberOfCards);
+  // }
+
   updateDisplayedStocks(): void {
     const width = window.innerWidth;
 
     let numberOfCards;
-    if (width < 768) {
-      numberOfCards = 5;
-    } else if (width >= 768 && width < 992) {
-      numberOfCards = 7;
-    } else if (width >= 992 && width < 1200) {
+    if (width < 1200) {
       numberOfCards = 8;
-    } else if (width >= 1200 && width < 1640) {
+    }else if (width >= 1200 && width < 1920) {
       numberOfCards = 9;
     } else {
       numberOfCards = 10;
@@ -557,7 +573,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
     this.displayedStocks = shuffled.slice(0, numberOfCards);
   }
-
   loadFavorites(userId: string): void {
     this.favoriteStockService.getFavorites(parseInt(userId)).subscribe(
       (favorites: FavoriteStock[]) => {

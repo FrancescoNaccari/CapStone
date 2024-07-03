@@ -46,6 +46,7 @@ import { ConfirmModalComponent } from './components/stripe/checkout/confirm-moda
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
+import { IscrizioneNewsletterComponent } from './components/home/iscrizione-newsletter/iscrizione-newsletter.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
      StockTransactionComponent,
      ConfirmModalComponent,
      CurrencyFormatPipe,
+     IscrizioneNewsletterComponent,
 
     
   ],
