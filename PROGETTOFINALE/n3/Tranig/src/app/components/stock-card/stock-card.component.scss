@@ -10,21 +10,27 @@
 .fa-star-o {
   color: gray;
 }
-  .text-green {
-    color: green; // Colore verde se il prezzo aumenta
-  }
-  
-  .text-red {
-    color: red; // Colore rosso se il prezzo diminuisce
-  }
 
-  .logo-lg {
-    width: 100%; /* Default behavior */
+.text-green {
+  color: green; /* Colore verde se il prezzo aumenta */
+}
+
+.text-red {
+  color: red; /* Colore rosso se il prezzo diminuisce */
+}
+
+.logo-lg {
+  width: 100%; /* Default behavior */
 }
 
 @media (min-width: 992px) {
-    .logo-lg {
-        max-width: 40px;
-        max-height: 40px;
-    }
+  .logo-lg {
+    max-width: 40px;
+    max-height: 40px;
+  }
+}
+
+.card-color {
+  background-color:rgba(0, 0, 0, 0)!important; /* Adding transparency to the container */
+  
 }

@@ -519,8 +519,11 @@ export class HomeComponent implements OnInit {
       numberOfCards = 7;
     } else if (width >= 992 && width < 1200) {
       numberOfCards = 8;
-    } else {
+    } else if (width >= 1200 && width < 1640) {
+      numberOfCards = 9;
+    }else {
       numberOfCards = 10;
+
     }
 
     const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
