@@ -59,26 +59,38 @@ $utilities: (
 @import "bootstrap/scss/bootstrap";
 @import "../node_modules/bootstrap/scss/bootstrap";
 
-body,
-html {
+body, html {
     font-family: Helvetica, Arial, sans-serif !important;
-    color: white!important;
-    // background-image: url('./assets/img/1920X1080_HOME-BACKGROUND.png');
-    background-image: url('./assets/img/1920X1080_BACKGROUND-SINGLE.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    color: white !important;
     margin: 0;
-}
-
-
+    // min-height: 100%;
+    // height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-position: center;  // Imposta il valore predefinito
+    background-repeat: no-repeat;
+  }
+  
 body {
     background-color: $body-bg;
     color: $text-light;
 
 
 }
-.popover{
+
+
+@media (max-width: 768px) {
+    body, html {
+      background-image: url('./assets/img/SMART_BACKGROUND-SINGLE.png');
+    }
+  }
+  
+  @media (min-width: 769px) {
+    body, html {
+      background-image: url('./assets/img/1920X1080_BACKGROUND-SINGLE.png');
+    }}
+
+    .popover{
     --bs-popover-body-color: white!important;// colore testo popover
 }
 

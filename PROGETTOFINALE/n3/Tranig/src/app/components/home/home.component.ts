@@ -420,8 +420,9 @@
 
 // function isAuthData(user: any): user is AuthData {
 //   return user && 'accessToken' in user && 'user' in user;
-// }
-import { Component, HostListener, OnInit } from '@angular/core';
+// }import { Component, HostListener, OnInit } from '@angular/core';
+
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { AuthData } from 'src/app/interface/auth-data.interface';
 import { FavoriteStock } from 'src/app/interface/favorite-stock.interface';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
@@ -440,7 +441,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   stock: any = {};
   symbol: string = '';
   errorMessage: string | null = null;
@@ -448,7 +449,7 @@ export class HomeComponent implements OnInit {
   allStocks: StockList[] = [];
   displayedStocks: StockList[] = [];
   favoriteStocks: FavoriteStock[] = [];
-  isLoading: boolean = true; // Aggiungi questa variabile
+  isLoading: boolean = true;
 
   constructor(
     private realTimePriceService: RealTimePriceService,
@@ -469,15 +470,43 @@ export class HomeComponent implements OnInit {
         }
       }
     });
+    this.updateBackgroundImage();
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.updateDisplayedStocks();
+    this.updateBackgroundImage();
+  }
+
+  ngOnDestroy(): void {
+    this.restoreDefaultBackgroundImage();
+  }
+
+  updateBackgroundImage(): void {
+    const width = window.innerWidth;
+    const desktopBackground = '../../../assets/img/1920X1080_HOME-BACKGROUND.png';
+    const mobileBackground = '../../../assets/img/SMART_HOME-BACKGROUND.png';
+    const backgroundImage = width < 768 ? mobileBackground : desktopBackground;
+    document.body.style.backgroundImage = `url('${backgroundImage}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundRepeat = 'no-repeat';
+    document.body.style.backgroundAttachment = 'scroll'; // Imposta lo sfondo per scorrere insieme alla pagina
+    document.body.style.minHeight = '100vh'; // Assicurati che il body copra almeno tutta la vista
+  }
+
+  restoreDefaultBackgroundImage(): void {
+    // Imposta lo sfondo predefinito qui
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundSize = '';
+    document.body.style.backgroundPosition = '';
+    document.body.style.backgroundRepeat = '';
+    document.body.style.backgroundAttachment = '';
+    document.body.style.minHeight = '';
   }
 
   getStocks(): void {
-    this.isLoading = true; // Mostra lo spinner
+    this.isLoading = true;
     this.logoBorsaService.getAllLogos().subscribe(
       (response: LogoDto[]) => {
         let filteredStocks = response.filter(logo => logo.url !== null && logo.url !== '');
@@ -496,7 +525,7 @@ export class HomeComponent implements OnInit {
               return filter2.map(logo => logo.symbol).includes(stock.symbol);
             });
             this.updateDisplayedStocks();
-            this.isLoading = false; // Nascondi lo spinner
+            this.isLoading = false;
           });
         }, 100);
       },
@@ -504,7 +533,7 @@ export class HomeComponent implements OnInit {
         this.errorMessage = this.translate.instant('home.ERROR_MESSAGE');
         this.allStocks = [];
         this.updateDisplayedStocks();
-        this.isLoading = false; // Nascondi lo spinner
+        this.isLoading = false;
       }
     );
   }
@@ -521,9 +550,8 @@ export class HomeComponent implements OnInit {
       numberOfCards = 8;
     } else if (width >= 1200 && width < 1640) {
       numberOfCards = 9;
-    }else {
+    } else {
       numberOfCards = 10;
-
     }
 
     const shuffled = this.allStocks.sort(() => 0.5 - Math.random());
