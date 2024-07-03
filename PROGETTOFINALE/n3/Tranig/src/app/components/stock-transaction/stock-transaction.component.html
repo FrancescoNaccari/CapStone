@@ -19,6 +19,8 @@
   </ngb-alert>
 </form> -->
 <!-- <h2>{{ 'stockTransaction.BUY_SELL' | translate }}</h2> -->
+
+
 <form (ngSubmit)="onSubmit()">
   <div>
     <label for="quantity">{{ 'stockTransaction.QUANTITY' | translate }}:</label>
@@ -29,9 +31,15 @@
     <p>{{ 'stockTransaction.BALANCE' | translate }}: {{ user?.balance ||0|currencyFormat:'€':2:'.':',':3 }}</p>
     <p>{{ 'stockTransaction.OWNED_QUANTITY' | translate }}: {{ ownedQuantity }}</p>
   </div>
-  <button type="button" class="btn btn-primary" (click)="buyStock()" [disabled]="!isPriceLoaded">{{ 'stockTransaction.BUY' | translate }}</button>
-  <button type="button" class="btn btn-secondary" (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">{{ 'stockTransaction.SELL' | translate }}</button>
-
+  <button type="button" class="btn text-center pe-2" (click)="buyStock()" [disabled]="!isPriceLoaded">
+    <img src="../../../assets/img/ICON-buy.png" alt="Buy Icon" style="width: 30px; height: 30px; margin-right: 3px;">
+    {{ 'stockTransaction.BUY' | translate }}
+  </button>
+  <button type="button" class="btn text-center pe-2" (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">
+    <img src="../../../assets/img/ICON-sell.png" alt="Sell Icon" style="width: 30px; height: 30px; margin-right: 3px;">
+    {{ 'stockTransaction.SELL' | translate }}
+  </button>
+ 
   <ngb-alert *ngIf="alertMessage && alertType === 'success'" type="success" (closed)="onAlertClose()">
     {{ alertMessage }}
   </ngb-alert>

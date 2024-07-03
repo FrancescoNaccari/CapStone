@@ -385,7 +385,7 @@ export class StockTransactionComponent implements OnInit, OnChanges {
     this.alertType = type;
     setTimeout(() => {
       this.onAlertClose();
-    }, 2000);
+    }, 3000);
   }
 
   onAlertClose(): void {

@@ -250,8 +250,10 @@
 //     console.log(`${this.stock.name} è stato ${this.stock.favorite ? 'aggiunto ai' : 'rimosso dai'} preferiti.`);
 //   }
 // }
+// stock-card.component.ts
+
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { LogoBorsa } from 'src/app/interface/logo-borsa.interface';
 import { QuoteBorse } from 'src/app/interface/quote-borse.interface';
 import { RealTimePriceResponse } from 'src/app/interface/real-time-price-response.interface';
@@ -273,6 +275,10 @@ export class StockCardComponent implements OnInit {
 
   alertMessage: string | null = null;
   alertType: string = 'info';
+  currentCartIcon: string = '../../../assets/img/ICON_BUY-ACQUISTARE-WH.png';
+  defaultCartIcon: string = '../../../assets/img/ICON_BUY-ACQUISTARE-WH.png';
+  hoverCartIcon: string = '../../../assets/img/ICON-buy.png';
+  private modalRef!: NgbModalRef;
 
   constructor(
     private realTimePriceService: RealTimePriceService,
@@ -295,10 +301,15 @@ export class StockCardComponent implements OnInit {
 
   openModal(content: TemplateRef<any>) {
     this.getRealTimePrice();
-    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
-    modalRef.componentInstance.symbol = this.stock.symbol;
-    modalRef.componentInstance.currentPrice = this.stock.price;
-    modalRef.componentInstance.userId = this.stock.userId;
+    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    this.currentCartIcon = this.hoverCartIcon;  // Mantieni l'icona cambiata dopo il click
+  }
+
+  closeModal() {
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
+    this.currentCartIcon = this.defaultCartIcon;  // Ripristina l'icona originale alla chiusura del modal
   }
 
   getRealTimePrice(): void {
@@ -355,5 +366,15 @@ export class StockCardComponent implements OnInit {
     this.alertMessage = message;
     this.alertType = type;
     setTimeout(() => this.alertMessage = null, 3000); // Nasconde l'alert dopo 3 secondi
+  }
+
+  changeCartIcon(): void {
+    this.currentCartIcon = this.hoverCartIcon;
+  }
+
+  restoreCartIcon(): void {
+    if (!this.modalService.hasOpenModals()) { // Se il modal non è aperto, ripristina l'icona originale
+      this.currentCartIcon = this.defaultCartIcon;
+    }
   }
 }
