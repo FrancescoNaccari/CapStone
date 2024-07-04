@@ -2,3 +2,22 @@
     display: none;
   }
   
+  /* Remove arrows for number input in WebKit browsers */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+
+  /* Apply native appearance in Firefox */
+  input[type=number] {
+    appearance: textfield;
+  }
+
+  /* Set text color to white */
+  input[type=number] {
+    color: white;
+    background-color: transparent; /* Optional: make background transparent */
+  }
+  
