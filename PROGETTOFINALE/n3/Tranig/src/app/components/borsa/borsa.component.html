@@ -772,7 +772,7 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h2>{{ 'stockCard.MODAL_TITLE' | translate:{symbol: symbol} }}</h2>
-    <button type="button" class="btn-close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close bg-white" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <app-stock-transaction [symbol]="symbol" [userId]="userId" (transactionUpdated)="onTransactionUpdated()"></app-stock-transaction>

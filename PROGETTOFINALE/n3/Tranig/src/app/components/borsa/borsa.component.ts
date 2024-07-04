@@ -2053,13 +2053,16 @@ export class BorsaComponent implements OnInit {
   }
   openModal(content: TemplateRef<any>, symbol: string) {
     const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',backdrop:"static",keyboard:false  });
-    modalRef.componentInstance.symbol = symbol;
+    modalRef.result.then((result) => {
+      console.log('suca');
+      this.currentCartIcon=this.defaultCartIcon;
+    },() => { 
+      console.log('suca2');
+      this.currentCartIcon=this.defaultCartIcon;
+    }) // modalRef.componentInstance.symbol = this.symbol;
     modalRef.componentInstance.currentPrice = this.stock.price;
     modalRef.componentInstance.userId = this.stock.userId;
-    modalRef.result.then((result) => {
-      this.currentCartIcon=this.defaultCartIcon;
-    },() => { this.currentCartIcon=this.defaultCartIcon;
-    })
+   
     this.currentCartIcon = this.hoverCartIcon;  // Mantieni l'icona cambiata dopo il click
   }
   closeModal(modal: any) {
