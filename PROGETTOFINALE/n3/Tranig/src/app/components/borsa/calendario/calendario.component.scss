@@ -72,6 +72,7 @@
     --bs-info: #00084B;
     --bs-link-color: white; /* Definisci il colore del link come bianco */
     --bs-btn-color: var(--bs-link-color); /* Imposta il colore del pulsante come il colore del link */
+    --bs-body-color: white;
   }
   
   
@@ -148,7 +149,8 @@
   /* Styles for weekdays */
   .ngb-dp-weekdays .ngb-dp-weekday {
       color: #00084C !important;/* Weekday text color */
-     
+      font-weight: 600!important; /* Apply font-weight 600 */
+
   }
   /* .btn-link styles */
 .btn-link {

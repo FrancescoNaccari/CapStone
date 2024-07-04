@@ -177,3 +177,14 @@ color: white;
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+.ngb-dp-weekday, .ngb-dp-week-number {
+    font-weight: bold!important;
+    border: 1px solid white;
+}
+
+ngb-datepicker-month {
+    border: 1px solid white;
+  border-bottom-left-radius:0.5rem ;
+  border-bottom-right-radius:0.5rem ;
+}
