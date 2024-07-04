@@ -69,8 +69,11 @@
 
 /* Hidden datepicker */
 :host {
-    --bs-info: #00084C ;
+    --bs-info: #00084B;
+    --bs-link-color: white; /* Definisci il colore del link come bianco */
+    --bs-btn-color: var(--bs-link-color); /* Imposta il colore del pulsante come il colore del link */
   }
+  
   
   .dp-hidden {
       width: 0;
@@ -118,7 +121,7 @@
       background: rgb(21, 73, 188);
       background: linear-gradient(90deg, rgba(21, 73, 188, 1) 0%, rgba(25, 118, 210, 1) 50%);
       border: none;
-      color: white;
+      color: var(--bs-btn-color); /* Usa la variabile per il colore del testo dei pulsanti */
       padding: 10px 20px;
       font-size: 1em;
       cursor: pointer;
@@ -128,14 +131,14 @@
   
   /* Arrow button styles */
   .bi-calendar3::before {
-      color: white; /* White color for arrows */
+    color: var(--bs-btn-color); /* White color for arrows */
   }
   
   /* Styles for ngb-dp-header, ngb-dp-week, ngb-dp-weekdays */
   .ngb-dp-header, .ngb-dp-week, .ngb-dp-weekdays {
       background-color: #00084C!important; /* Background color #00084B */
       color: white !important;
-      font-weight: bold; /* White text */
+     /* White text */
   }
   
   .ngb-dp-header button {
@@ -145,7 +148,9 @@
   /* Styles for weekdays */
   .ngb-dp-weekdays .ngb-dp-weekday {
       color: #00084C !important;/* Weekday text color */
-      font-weight: bold!important; 
-      font-size: 1000px!important; 
+     
   }
-  
+  /* .btn-link styles */
+.btn-link {
+    --bs-btn-color: var(--bs-link-color); /* Imposta il colore dei pulsanti come il colore dei link */
+}
