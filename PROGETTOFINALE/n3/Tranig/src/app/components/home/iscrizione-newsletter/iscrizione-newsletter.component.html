@@ -14,8 +14,8 @@
         <div class="col-12 m-0">
           <div class="form-check my-2">
             <input type="checkbox" class="form-check-input" id="privacyPolicy" [(ngModel)]="privacyAccepted" name="privacyAccepted" required>
-            <label class="form-check-label px-3 fs-6 fs-md-1" for="privacyPolicy">
-              <span class="opacity-75">{{ 'iscrizioneNewsletter.PRIVACY_POLICY_TEXT' | translate }}</span>
+            <label class="form-check-label fs-6 fs-md-1" for="privacyPolicy">
+              <span class="opacity-75">{{ 'iscrizioneNewsletter.PRIVACY_POLICY_TEXT' | translate }}</span>&nbsp;
               <a class="text-decoration-none text-white fw-bold" [routerLink]="['/privacy-policy']">{{ 'iscrizioneNewsletter.PRIVACY_POLICY_LINK' | translate }}</a>
             </label>
           </div>
