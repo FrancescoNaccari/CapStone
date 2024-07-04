@@ -213,6 +213,18 @@
     "CONTACT_CONTENT": "Per qualsiasi domanda riguardante questi Termini di Servizio, puoi contattarci alla sezione",
     "CONTACT_LINK": "Contattaci."
   },
+ "iscrizioneNewsletter": {
+    "TITLE": "ISCRIVITI ALLA NEWSLETTER",
+    "SUBTITLE": "Entra a far parte del club!",
+    "EMAIL_PLACEHOLDER": "Inserisci il tuo indirizzo email",
+    "PRIVACY_POLICY_TEXT": "Ho letto e accettato i termini e le condizioni riportate nella",
+    "PRIVACY_POLICY_LINK": "Privacy Policy",
+    "SUBSCRIBE_BUTTON": "ISCRIVITI",
+    "SUCCESS_MESSAGE": "Iscritto con successo!",
+    "ALREADY_SUBSCRIBED_MESSAGE": "Sei già iscritto alla newsletter.",
+    "PRIVACY_POLICY_ERROR": "Per favore accetta la privacy policy.",
+    "SUBSCRIPTION_ERROR": "Iscrizione fallita. Per favore riprova."
+  },
   "FOOTER": {
     "COPYRIGHT": "Copyright © 2024 NomeDelTuoSito. Tutti i diritti riservati.",
     "DISCLAIMER": "Le informazioni fornite su questo sito sono solo a scopo informativo e non costituiscono consulenza finanziaria. Si prega di consultare un consulente finanziario prima di prendere decisioni di investimento. Investire comporta rischi, inclusa la perdita del capitale.",

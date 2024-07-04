@@ -213,6 +213,18 @@
     "CONTACT_CONTENT": "For any questions regarding these Terms of Service, you can contact us at the",
     "CONTACT_LINK": "Contact Us section."
   },
+  "iscrizioneNewsletter": {
+    "TITLE": "SUBSCRIBE TO THE NEWSLETTER",
+    "SUBTITLE": "Join the club!",
+    "EMAIL_PLACEHOLDER": "Enter your email address",
+    "PRIVACY_POLICY_TEXT": "I have read and accepted the terms and conditions stated in the",
+    "PRIVACY_POLICY_LINK": "Privacy Policy",
+    "SUBSCRIBE_BUTTON": "SUBSCRIBE",
+    "SUCCESS_MESSAGE": "Subscribed successfully!",
+    "ALREADY_SUBSCRIBED_MESSAGE": "You are already subscribed to the newsletter.",
+    "PRIVACY_POLICY_ERROR": "Please accept the privacy policy.",
+    "SUBSCRIPTION_ERROR": "Subscription failed. Please try again."
+  },
   "FOOTER": {
     "COPYRIGHT": "Copyright © 2024 YourSiteName. All rights reserved.",
     "DISCLAIMER": "The information provided on this site is for informational purposes only and does not constitute financial advice. Please consult a financial advisor before making investment decisions. Investing involves risks, including loss of capital.",

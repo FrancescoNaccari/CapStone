@@ -1,29 +1,35 @@
 <div class="newsletter-container my-5 container">
   <div class="row justify-content-center">
     <div class="col-12 text-center">
-      <h2 class="fs-md-9 fw-bold fs-2">ISCRIVITI ALLA NEWSLETTER</h2>
-      <p class="fs-md-3 fs-5 mb-3 ">Entra a far parte del club!</p>
+      <h2 class="fs-md-9 fw-bold fs-2">{{ 'iscrizioneNewsletter.TITLE' | translate }}</h2>
+      <p class="fs-md-3 fs-5 mb-3">{{ 'iscrizioneNewsletter.SUBTITLE' | translate }}</p>
     </div>
     <div class="col-12 col-md-8 col-lg-6">
       <form (ngSubmit)="subscribeToNewsletter()" class="row g-3">
         <div class="col-12">
           <div class="form-group text-white">
-            <input type="email" class="form-control email-input" placeholder="Inserisci il tuo indirizzo email" [(ngModel)]="email" name="email" required>
+            <input type="email" class="form-control email-input" placeholder="{{ 'iscrizioneNewsletter.EMAIL_PLACEHOLDER' | translate }}" [(ngModel)]="email" name="email" required>
           </div>
         </div>
         <div class="col-12 m-0">
           <div class="form-check my-2">
             <input type="checkbox" class="form-check-input" id="privacyPolicy" [(ngModel)]="privacyAccepted" name="privacyAccepted" required>
             <label class="form-check-label px-3 fs-6 fs-md-1" for="privacyPolicy">
-              <span class="opacity-75">Ho letto e accettato i termini e le condizioni riportate nella </span>
-              <a class="text-decoration-none text-white fw-bold" [routerLink]="['/privacy-policy']">Privacy Policy</a>
+              <span class="opacity-75">{{ 'iscrizioneNewsletter.PRIVACY_POLICY_TEXT' | translate }}</span>
+              <a class="text-decoration-none text-white fw-bold" [routerLink]="['/privacy-policy']">{{ 'iscrizioneNewsletter.PRIVACY_POLICY_LINK' | translate }}</a>
             </label>
           </div>
         </div>
         <div class="col-12 text-center">
-          <button type="submit" class="btn border-0 text-white px-3">ISCRIVITI</button>
+          <button type="submit" class="btn border-0 text-white px-3">{{ 'iscrizioneNewsletter.SUBSCRIBE_BUTTON' | translate }}</button>
         </div>
       </form>
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
     </div>
   </div>
 </div>
