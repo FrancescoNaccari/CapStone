@@ -1,39 +1,119 @@
+// .dp-hidden {
+//     width: 0;
+//     margin: 0;
+//     border: none;
+//     padding: 0;
+// }
+// .custom-day {
+//     text-align: center;
+//     padding: 0.185rem 0.25rem;
+//     display: inline-block;
+//     height: 2rem;
+//     width: 2rem;
+//     color: white; /* Colore bianco per tutte le date */
+// }
+// .custom-day.focused {
+//     background-color: #e6e6e6;
+//     color: white; /* Colore bianco quando il giorno è focalizzato */
+// }
+// .custom-day.range,
+// .custom-day:hover {
+//     background-color: rgb(2, 117, 216);
+//     color: white; /* Colore bianco quando il giorno è selezionato come parte di un range o quando è hoverato */
+// }
+// .custom-day.faded {
+//     background-color: rgba(2, 117, 216, 0.5);
+//     color: white; /* Colore bianco quando il giorno è parte di un range non confermato */
+// }
+
+// .form-control{
+//     color: white;
+   
+// }
+// button {
+//     position: relative;
+//     background: rgb(21,73,188);
+//     background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+//     border: none;
+//     color: white;
+//     padding: 10px 20px;
+//     font-size: 1em;
+//     cursor: pointer;
+//     z-index: 1;
+//     overflow: hidden;
+// }
+
+// // button::before {
+// //     content: '';
+// //     position: absolute;
+// //     top: -2px;
+// //     left: -2px;
+// //     right: -2px;
+// //     bottom: -2px;
+// //     background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+// //     z-index: -1;
+// //     border-radius: 4px;
+// // }
+
+// // button::after {
+// //     content: '';
+// //     position: absolute;
+// //     top: 2px;
+// //     left: 2px;
+// //     right: 2px;
+// //     bottom: 2px;
+// //     background: rgb(21,73,188);
+// //     z-index: -1;
+// //     border-radius: 2px;
+// // }
+
+/* Hidden datepicker */
 .dp-hidden {
     width: 0;
     margin: 0;
     border: none;
     padding: 0;
 }
+
+/* Custom day styles */
 .custom-day {
     text-align: center;
     padding: 0.185rem 0.25rem;
     display: inline-block;
     height: 2rem;
     width: 2rem;
-    color: white; /* Colore bianco per tutte le date */
+    color: white; /* White text for all dates */
+    background-color: #00084B; /* Calendar background color */
 }
+
 .custom-day.focused {
     background-color: #e6e6e6;
-    color: white; /* Colore bianco quando il giorno è focalizzato */
+    color: white; /* White text when the day is focused */
 }
+
 .custom-day.range,
 .custom-day:hover {
     background-color: rgb(2, 117, 216);
-    color: white; /* Colore bianco quando il giorno è selezionato come parte di un range o quando è hoverato */
-}
-.custom-day.faded {
-    background-color: rgba(2, 117, 216, 0.5);
-    color: white; /* Colore bianco quando il giorno è parte di un range non confermato */
+    color: white; /* White text when the day is part of a range or hovered */
 }
 
-.form-control{
-    color: white;
-   
+.custom-day.faded {
+    background-color: rgba(2, 117, 216, 0.5);
+    color: white; /* White text when the day is part of an unconfirmed range */
 }
+
+/* Input field styles */
+.form-control {
+    color: white;
+    background-color: #010B2D; /* Input field background color */
+    border: 2px solid white; /* White border */
+}
+
+/* Button styles */
 button {
     position: relative;
-    background: rgb(21,73,188);
-    background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+    background: rgb(21, 73, 188);
+    background: linear-gradient(90deg, rgba(21, 73, 188, 1) 0%, rgba(25, 118, 210, 1) 50%);
     border: none;
     color: white;
     padding: 10px 20px;
@@ -43,26 +123,21 @@ button {
     overflow: hidden;
 }
 
-// button::before {
-//     content: '';
-//     position: absolute;
-//     top: -2px;
-//     left: -2px;
-//     right: -2px;
-//     bottom: -2px;
-//     background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
-//     z-index: -1;
-//     border-radius: 4px;
-// }
+/* Arrow button styles */
+.bi-calendar3::before {
+    color: white; /* White color for arrows */
+}
 
-// button::after {
-//     content: '';
-//     position: absolute;
-//     top: 2px;
-//     left: 2px;
-//     right: 2px;
-//     bottom: 2px;
-//     background: rgb(21,73,188);
-//     z-index: -1;
-//     border-radius: 2px;
-// }
+/* Styles for ngb-dp-header, ngb-dp-week, ngb-dp-weekdays */
+.ngb-dp-header, .ngb-dp-week, .ngb-dp-weekdays {
+    background-color: #00084B; /* Background color #00084B */
+    color: white !important; /* White text */
+}
+
+.ngb-dp-header button {
+    color: white; /* White arrows in the header */
+}
+
+.ngb-dp-weekday {
+    color: white !important; /* White text for weekday names */
+}

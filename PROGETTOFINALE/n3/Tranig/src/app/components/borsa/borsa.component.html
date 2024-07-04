@@ -683,7 +683,7 @@
     <div class="mb-2 col-12 d-flex align-items-center justify-content-between">
          <div class="w-50 w-sm-45 w-md-40 w-lg-35">   <img [src]="currentCartIcon" alt="logo acquisto" (click)="openModal(content,symbol)" (mouseover)="changeCartIcon()" (mouseout)="restoreCartIcon()" class="w-13 mb-1">
          </div>
-           <div class="star" (click)="toggleFavorite(stock)">
+           <div class="star pe-1" (click)="toggleFavorite(stock)">
            <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
            </div>     
     </div>

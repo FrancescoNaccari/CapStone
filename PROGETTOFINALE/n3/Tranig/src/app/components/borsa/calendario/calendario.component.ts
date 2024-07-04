@@ -202,15 +202,14 @@
 // // }
 // // }
 
-
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Output, inject, ViewEncapsulation } from '@angular/core';
 import { NgbCalendar, NgbDate, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-calendario',
   templateUrl: './calendario.component.html',
-  styleUrls: ['./calendario.component.scss']
+  styleUrls: ['./calendario.component.scss'],
 })
 export class CalendarioComponent {
 

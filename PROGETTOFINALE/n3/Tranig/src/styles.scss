@@ -7,12 +7,12 @@
 // $body-bg: #0e1014; // Colore di sfondo per il tema dark
 // $text-color: #ffffff; // Colore del testo per il tema dark
 
-$body-bg: #010B2D; // Sfondo generale
+$body-bg: #00084B; // Sfondo generale
 $navbar-bg: #0b1426; // Sfondo della navbar
 $chart-bg: #010B2D; // Sfondo del grafico
 $card-bg: #122640; // Sfondo delle card
 $btn-primary-bg: #2ea5fb; // Sfondo dei bottoni
-$title-color: #1199fa; // Colore dei titoli e icone
+//$title-color: #1199fa; // Colore dei titoli e icone
 $text-light: #ffffff; // Colore dei titoli h1-h2
 
 $increase-color: #00a68c; // Colore per aumenti
@@ -119,14 +119,14 @@ h2 {
     color: $text-light;
 }
 
-h5 {
-    color: $title-color;
-}
+// h5 {
+//     color: $title-color;
+// }
 
-.title-icon,
-h5 {
-    color: $title-color;
-}
+// .title-icon,
+// h5 {
+//     color: $title-color;
+// }
 
 .increase {
     color: $increase-color;
