@@ -21,7 +21,12 @@ $utilities: (
     "width": (property: width,
         class: w,
         responsive: true,
-        values: (25: 25%,
+        values: (
+            10:10%,
+            13:13%,
+            15:15%,
+            20:20%,
+            25: 25%,
             35: 35%,
             40:40%,
             45:45%,

@@ -2000,6 +2000,11 @@ export class BorsaComponent implements OnInit {
   alertMessage: string | null = null;
   alertType: string = 'info';
 
+  currentCartIcon: string = '../../../assets/img/ICON_BUY-ACQUISTARE-WH.png';
+  defaultCartIcon: string = '../../../assets/img/ICON_BUY-ACQUISTARE-WH.png';
+  hoverCartIcon: string = '../../../assets/img/ICON-buy.png';
+
+
   myChartRef!: HTMLCanvasElement | null;
   private chart!: Chart;
 
@@ -2046,12 +2051,25 @@ export class BorsaComponent implements OnInit {
   selectSymbol(symbol: string): void {
     this.symbol = symbol;
   }
-
   openModal(content: TemplateRef<any>, symbol: string) {
     const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
     modalRef.componentInstance.symbol = symbol;
+
+    this.currentCartIcon = this.hoverCartIcon;  // Mantieni l'icona cambiata dopo il click
+  }
+  closeModal(modal: any) {
+    modal.dismiss();
+    this.currentCartIcon = this.defaultCartIcon;  // Ripristina l'icona originale alla chiusura del modal
+  }
+  changeCartIcon(): void {
+    this.currentCartIcon = this.hoverCartIcon;
   }
 
+  restoreCartIcon(): void {
+    if (!this.modalService.hasOpenModals()) { // Se il modal non è aperto, ripristina l'icona originale
+      this.currentCartIcon = this.defaultCartIcon;
+    }
+  }
   onSearchChange(event: any): void {
     this.searchTerm = event.target.value;
     if (this.searchTerm.length > 0) {

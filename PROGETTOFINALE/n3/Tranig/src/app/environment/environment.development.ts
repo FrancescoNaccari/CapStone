@@ -72,6 +72,14 @@ export const environment = {
     apikey64: 'cf467c18f7msh2a42517008d3baep136cfdjsn1bffafb2f6e8',
     apikey65: 'a990d26344msh053ce9ff3f2ae53p16c04cjsn63103cebb45b',
     apikey66: 'b469400b25mshc59b6de436e5455p154107jsn6ef8f1ed76b5',
+    apikey67: '18587f1a18msh62c9f6c984a9d7ep17c062jsn3452b1150948',
+    apikey68: '3921da925amsh9d76f46c3c30d1ep10dd57jsn904da988c3af',
+    apikey69: 'bbd705fc24msh136049c8180040ap141310jsn1686d8c6cea2',
+    apikey70: '9c8b1bce9amsh6172b9f5d2d9bbcp11f0aajsnffb114188bc9',
+    apikey71: 'e3b563b456msh1299915c2b472b1p1e1b22jsn041059b6fa64',
+    apikey72: '4b2d811bd6msh2673e810e67aadap147337jsn88e5c0383840',
+    apikey73: '',
+    apikey74: '',
 
     
     

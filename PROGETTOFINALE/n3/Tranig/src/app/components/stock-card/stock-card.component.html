@@ -142,7 +142,7 @@
       <div *ngIf="!stock.increased" class="arrow down">▼</div>
     </div>
     <div class="col-2 p-0">
-      <img [src]="currentCartIcon" alt="logo acquisto" (click)="openModal(content)" (mouseover)="changeCartIcon()" (mouseout)="restoreCartIcon()" class="w-50 w-md-40">
+      <img [src]="currentCartIcon" alt="logo acquisto" (click)="openModal(content)" (mouseover)="changeCartIcon()" (mouseout)="restoreCartIcon()" class="w-50 mb-1 w-md-40">
     </div>
     <div class="col-1 p-0 m-0 star" (click)="toggleFavorite()">
       <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>

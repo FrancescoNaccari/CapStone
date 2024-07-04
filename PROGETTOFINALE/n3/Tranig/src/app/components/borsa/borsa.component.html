@@ -674,18 +674,26 @@
 </ng-template> -->
 <div class="container card-color rounded-3 shadow ">
   <div class="row">
-    <div class="row my-2"></div>
+   
 
     <div *ngIf="alertMessage" class="alert alert-{{ alertType }} mt-2 col-12">
       {{ alertMessage }}
     </div>
 
-    <div class="d-none col-12 d-lg-flex align-items-center justify-content-between">
-      <button class="btn btn-primary mb-2" (click)="openModal(content, symbol)">{{ 'borsa.BUY_SELL' | translate }}</button>
-      <div class="star" (click)="toggleFavorite(stock)">
-        <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
-      </div>
+    <div class="mb-2 col-12 d-flex align-items-center justify-content-between">
+         <div class="w-50 w-sm-45 w-md-40 w-lg-35">   <img [src]="currentCartIcon" alt="logo acquisto" (click)="openModal(content,symbol)" (mouseover)="changeCartIcon()" (mouseout)="restoreCartIcon()" class="w-13 mb-1">
+         </div>
+  
+
+           <div class="star" (click)="toggleFavorite(stock)">
+           <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
+
+           </div>     
+
+      
     </div>
+
+
     <div class="d-flex justify-content-between col-12 col-lg-6 pe-lg-0 m-0">
       <div class="dropdown search-dropdown">
         <input
@@ -702,11 +710,11 @@
         </ul>
       </div>
       <app-calendario class="my-1 mx-2" (dateRangeSelected)="onDateRangeSelected($event)"></app-calendario>
-      <div class="d-lg-none d-flex align-items-center justify-content-start m-2 me-0 me-sm-2">
+      <!-- <div class="d-lg-none d-flex align-items-center justify-content-start m-2 me-0 me-sm-2">
         <div class="star m-0 ms-1" (click)="toggleFavorite(stock)">
           <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div

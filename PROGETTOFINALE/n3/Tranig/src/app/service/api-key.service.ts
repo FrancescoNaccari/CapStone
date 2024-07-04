@@ -72,10 +72,15 @@ export class ApiKeyService {
     environment.apikey64,
     environment.apikey65,
     environment.apikey66,
-    // environment.apikey67,
-    // environment.apikey68,
-    // environment.apikey69,
-    // environment.apikey70,
+    environment.apikey67,
+    environment.apikey68,
+    environment.apikey69,
+    environment.apikey70,
+    environment.apikey71,
+    environment.apikey72,
+    // environment.apikey73,
+    // environment.apikey74,
+    // environment.apikey75,
 
     // aggiungere qui altre chiavi
   ];
