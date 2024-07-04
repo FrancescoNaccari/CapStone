@@ -30,3 +30,39 @@
     color: white;
    
 }
+button {
+    position: relative;
+    background: rgb(21,73,188);
+    background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    z-index: 1;
+    overflow: hidden;
+}
+
+// button::before {
+//     content: '';
+//     position: absolute;
+//     top: -2px;
+//     left: -2px;
+//     right: -2px;
+//     bottom: -2px;
+//     background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+//     z-index: -1;
+//     border-radius: 4px;
+// }
+
+// button::after {
+//     content: '';
+//     position: absolute;
+//     top: 2px;
+//     left: 2px;
+//     right: 2px;
+//     bottom: 2px;
+//     background: rgb(21,73,188);
+//     z-index: -1;
+//     border-radius: 2px;
+// }

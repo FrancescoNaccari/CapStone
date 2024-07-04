@@ -133,7 +133,7 @@
 </form> -->
 
 
-<form class="row row-cols-sm-auto">
+<form class="row row-cols-sm-auto ">
   <div class="col-12 pe-lg-0 pe-0 pe-sm-1">
     <div class="dp-hidden position-absolute">
       <div class="input-group">
@@ -164,16 +164,16 @@
         </ng-template>
       </div>
     </div>
-    <div class="input-group">
+    <div class="input-group border-2 border-white border rounded-3">
       <input
         #dpFromDate
-        class="form-control fs-7 fs-sm-2 fs-md-2 fs-lg-5 fs-xl-2"
+        class="form-control fs-7 fs-sm-2 fs-md-2 fs-lg-5 fs-xl-2  border-0"
         [placeholder]="'calendario.DATE_PLACEHOLDER' | translate"
         name="dpFromDate"
         [value]="formatter.format(fromDate)"
         (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
       />
-      <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()" type="button"></button>
+      <button class="btn btn-outline-secondary bi bi-calendar3  " (click)="datepicker.toggle()" type="button"></button>
     </div>
   </div>
 </form>

@@ -683,14 +683,9 @@
     <div class="mb-2 col-12 d-flex align-items-center justify-content-between">
          <div class="w-50 w-sm-45 w-md-40 w-lg-35">   <img [src]="currentCartIcon" alt="logo acquisto" (click)="openModal(content,symbol)" (mouseover)="changeCartIcon()" (mouseout)="restoreCartIcon()" class="w-13 mb-1">
          </div>
-  
-
            <div class="star" (click)="toggleFavorite(stock)">
            <i class="fa" [ngClass]="{'fa-star': stock.favorite, 'fa-star-o': !stock.favorite}"></i>
-
            </div>     
-
-      
     </div>
 
 
@@ -698,14 +693,14 @@
       <div class="dropdown search-dropdown">
         <input
           type="text"
-          class="form-control text-white fs-1 fs-xxl-2"
+          class="form-control text-white border-white rounded-3 border-2 fs-1 fs-xxl-2"
           [placeholder]="'borsa.SEARCH_PLACEHOLDER' | translate"
           (input)="onSearchChange($event)"
           [(ngModel)]="searchTerm"
         />
-        <ul *ngIf="filteredStocks.length > 0" class="dropdown-menu custom-dropdown-menu show">
+        <ul *ngIf="filteredStocks.length > 0" class="dropdown-menu custom-dropdown-menu mt-0 py-0 show">
           <li *ngFor="let stock of filteredStocks">
-            <button class="dropdown-item" (click)="selectStock(stock.symbol)">{{ stock.symbol }}</button>
+            <p class="dropdown-item m-0" (click)="selectStock(stock.symbol)">{{ stock.symbol }}</p>
           </li>
         </ul>
       </div>
@@ -750,15 +745,15 @@
           <img class="border-white rounded-circle w-75 w-md-50 w-lg-35" [src]="logoUrl" alt="Stock Icon" />
         </div>
         <div class="col-3 align-content-center justify-content-center text-center p-0">
-          <h5 class="fw-bold fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
+          <h5 class="fw-bold fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? 'green' : 'red'}">
             {{ 'borsa.REAL_TIME_PRICE' | translate }}
           </h5>
           <div class="fw-bolder m-0 fs-sm-1 fs-5 text-center fs-lg-2 d-flex justify-content-center">
-            <p  class="fw-bolder m-0 fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? '#00A68C ' : '#D9475A'}">
+            <p  class="fw-bolder m-0 fs-sm-1 fs-5 fs-lg-2" [ngStyle]="{'color': stock?.increased ? 'green ' : 'red'}">
               {{price|| 0 | currencyFormat:'€':2:'.':',':3}}
             </p>
-            <span class="me-0" *ngIf="stock?.increased" style="color: #00A68C; margin: 0 10px; float: right;">▲</span>
-            <span class="me-0" *ngIf="!stock?.increased" style="color: #D9475A; margin: 0 10px; float: right;">▼</span>
+            <span class="me-0" *ngIf="stock?.increased" style="color: green; margin: 0 10px; float: right;">▲</span>
+            <span class="me-0" *ngIf="!stock?.increased" style="color: red; margin: 0 10px; float: right;">▼</span>
           </div>
         </div>
         <div class="col-3 align-content-center text-center">
@@ -777,7 +772,7 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h2>{{ 'stockCard.MODAL_TITLE' | translate:{symbol: symbol} }}</h2>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close text-white" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <app-stock-transaction [symbol]="symbol" [userId]="userId" (transactionUpdated)="onTransactionUpdated()"></app-stock-transaction>

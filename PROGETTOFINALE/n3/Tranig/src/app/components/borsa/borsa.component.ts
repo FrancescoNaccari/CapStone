@@ -2052,9 +2052,14 @@ export class BorsaComponent implements OnInit {
     this.symbol = symbol;
   }
   openModal(content: TemplateRef<any>, symbol: string) {
-    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',backdrop:"static",keyboard:false  });
     modalRef.componentInstance.symbol = symbol;
-
+    modalRef.componentInstance.currentPrice = this.stock.price;
+    modalRef.componentInstance.userId = this.stock.userId;
+    modalRef.result.then((result) => {
+      this.currentCartIcon=this.defaultCartIcon;
+    },() => { this.currentCartIcon=this.defaultCartIcon;
+    })
     this.currentCartIcon = this.hoverCartIcon;  // Mantieni l'icona cambiata dopo il click
   }
   closeModal(modal: any) {
@@ -2397,8 +2402,8 @@ export class BorsaComponent implements OnInit {
         }
       }
     });
-
-    this.myChartRef.style.backgroundColor = '#122036';
+   
+    this.myChartRef.style.backgroundColor = ' #010B2D';
   }
 
   zoomIn(): void {

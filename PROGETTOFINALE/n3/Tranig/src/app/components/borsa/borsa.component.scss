@@ -60,16 +60,7 @@ select::-ms-expand {
    display: flex;
    width: 300px; /* Fissa la larghezza del campo di ricerca */
 }
-.search-dropdown input {
-   width: 100%;
-   padding: 0.5em;
-   font-size: 1.2em;
-   border: 1px solid #5c6664;
-   border-radius: 0.25em;
-   background-color: #5c6664;
-   color: #fff;
-   outline: none;
-}
+
 .search-dropdown .dropdown-menu {
    position: absolute;
    top: 100%;
@@ -89,7 +80,7 @@ select::-ms-expand {
    cursor: pointer;
 }
 .search-dropdown .dropdown-item:hover {
-   background-color: #1199FA;
+   background-color: #00084C;
    color: #fff;
    font-weight: bold;
 }
@@ -148,9 +139,33 @@ select::-ms-expand {
 }
 
 input{
-background-color: #122036!important;
+background-color: #010B2D!important;
 }
 input::placeholder {
    color: white; /* Sostituisci con il colore desiderato */
    opacity: 0.5; /* Rendi il colore completamente opaco */
+}
+.search-dropdown .dropdown-menu {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   width: 100%;
+   background: #000749 !important; /* Cambia il colore dello sfondo della lista */
+   border: none;
+   border-radius: 0.25em;
+   max-height: 300px; /* Limita l'altezza massima */
+   overflow-y: auto; /* Abilita lo scorrimento verticale */
+   z-index: 1000;
+   margin-top: 0.5em;
+}
+.search-dropdown .dropdown-item {
+   color: #fff;
+   padding: 0.5em 1em;
+   cursor: pointer;
+   background-color: #00084C!important;
+}
+.search-dropdown .dropdown-item:hover {
+   background-color: #00084C!important;
+   color: #fff;
+   font-weight: bold;
 }

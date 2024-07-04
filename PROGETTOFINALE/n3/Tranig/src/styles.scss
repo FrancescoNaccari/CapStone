@@ -9,7 +9,7 @@
 
 $body-bg: #010B2D; // Sfondo generale
 $navbar-bg: #0b1426; // Sfondo della navbar
-$chart-bg: #122036; // Sfondo del grafico
+$chart-bg: #010B2D; // Sfondo del grafico
 $card-bg: #122640; // Sfondo delle card
 $btn-primary-bg: #2ea5fb; // Sfondo dei bottoni
 $title-color: #1199fa; // Colore dei titoli e icone
@@ -146,7 +146,7 @@ background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%)
 color: white;
 }
 .card-color {
-    background-color: #122036;
+    background-color: #010B2D;
     padding: 10px;
 
     // background: linear-gradient(to right, rgb(255, 255, 255) -280%, rgb(18, 32, 54) 100%, rgb(255, 255, 255) -47%);
