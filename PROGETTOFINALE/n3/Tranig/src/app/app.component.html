@@ -6,8 +6,10 @@
   <router-outlet ></router-outlet>
 
 
-
-  <app-footer *ngIf="!isLoginPage"></app-footer>
+<footer>
+<app-footer *ngIf="!isLoginPage"></app-footer>  
+</footer>
+  
 <!-- 
   <div class="language-switcher">
     <button (click)="switchLanguage('en')">English</button>

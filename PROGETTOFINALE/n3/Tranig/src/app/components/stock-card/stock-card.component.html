@@ -151,8 +151,8 @@
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h2>{{ 'stockCard.MODAL_TITLE' | translate:{symbol: stock.symbol} }}</h2>
+  <div class="modal-header ">
+    <h2 class="fs-md-4 fs-3 fw-bold">{{ 'stockCard.MODAL_TITLE' | translate:{ symbol: stock.symbol} }}</h2>
     <button type="button" class="btn-close bg-white" aria-label="Close" (click)="closeModal(modal)"></button>
   </div>
   <div class="modal-body">

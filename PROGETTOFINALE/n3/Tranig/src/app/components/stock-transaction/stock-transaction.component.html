@@ -67,30 +67,30 @@
 </form> -->
 
 <form (ngSubmit)="onSubmit()">
-  <div class="row fs-2 fs-md-3 align-items-center my-4 justify-content-center">
+  <div class="row fs-1 fs-sm-2   align-items-center mt-4 mb-2 justify-content-center">
    
-    <div class="col-5 d-flex my-2 text-start  align-items-center">
+    <div class="col-6 d-flex my-2 ps-4 text-start  align-items-center">
       <label for="quantity" class="me-2">{{ 'stockTransaction.QUANTITY' | translate }}:</label>
       <input type="number" id="quantity" [(ngModel)]="quantity" name="quantity" class="form-control p-0 text-center" style="width: 60px; height: 35px; color: white; background-color: transparent;" required min="1">
     </div>
-    <div class="col-5 d-flex my-2  text-start  align-items-center">
+    <div class="col-5 d-flex my-2 ps-4 pe-0 text-start  align-items-center">
       <p class="m-0">{{ 'stockTransaction.CURRENT_PRICE' | translate }}: {{ currentPrice || 0 | currencyFormat:'€':2:'.':',':3 }}</p>
     </div>
-    <div class="col-5 d-flex my-2  text-start  align-items-center">
+    <div class="col-6 d-flex my-2 ps-4 text-start  align-items-center">
       <p class="m-0">{{ 'stockTransaction.BALANCE' | translate }}: {{ user?.balance || 0 | currencyFormat:'€':2:'.':',':3 }}</p>
     </div>
-    <div class="col-5 d-flex my-2  text-start  align-items-center">
+    <div class="col-5 d-flex my-2 ps-4 pe-0 text-start  align-items-center">
       <p class="m-0">{{ 'stockTransaction.OWNED_QUANTITY' | translate }}: {{ ownedQuantity }}</p>
     </div>
     
-    <div class="col-12 text-start d-flex mt-4 my-2 p-0 justify-content-center">
-      <button type="button" class="btn border-0 text-white text-center mx-4 ps-1 pe-2 " (click)="buyStock()" [disabled]="!isPriceLoaded">
-        <img src="../../../assets/img/ICON_BUY-ACQUISTARE-WH.png" alt="Buy Icon" style="width: 30px; height: 30px; margin-right: 3px;">
-        {{ 'stockTransaction.BUY' | translate }}
+    <div class="col-12 text-start d-flex mt-4 my-1 p-0 justify-content-center">
+      <button type="button" class="btn border-0 text-white text-center mx-4 p-0 ps-sm-3 px-2 " (click)="buyStock()" [disabled]="!isPriceLoaded">
+       {{ 'stockTransaction.BUY' | translate }} <img src="../../../assets/img/ICON_BUY-ACQUISTARE-WH.png" alt="Buy Icon" class="mb-2" style="width: 30px; height: 30px; ">
+        
       </button>
-      <button type="button" class="btn text-start border-0 text-white mx-4 text-center ps-2 pe-3 " (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">
-        <img src="../../../assets/img/ICON_SELL-VENDERE-WH.png" alt="Sell Icon" style="width: 30px; height: 30px; margin-right: 3px;">
-        {{ 'stockTransaction.SELL' | translate }}
+      <button type="button" class="btn border-0 text-white mx-4  text-center p-0 ps-sm-4 px-3 " (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">
+          {{ 'stockTransaction.SELL' | translate }} <img src="../../../assets/img/ICON_SELL-VENDERE-WH.png" alt="Sell Icon" class="mb-1 " style="width: 30px; height: 30px; ">
+     
       </button>
     </div>
   </div>
