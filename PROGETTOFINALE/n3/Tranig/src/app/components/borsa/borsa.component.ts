@@ -2054,10 +2054,8 @@ export class BorsaComponent implements OnInit {
   openModal(content: TemplateRef<any>, symbol: string) {
     const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',backdrop:"static",keyboard:false  });
     modalRef.result.then((result) => {
-      console.log('suca');
       this.currentCartIcon=this.defaultCartIcon;
     },() => { 
-      console.log('suca2');
       this.currentCartIcon=this.defaultCartIcon;
     }) // modalRef.componentInstance.symbol = this.symbol;
     modalRef.componentInstance.currentPrice = this.stock.price;
