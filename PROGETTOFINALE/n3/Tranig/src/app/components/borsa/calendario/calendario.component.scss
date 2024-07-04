@@ -73,6 +73,7 @@
     --bs-link-color: white; /* Definisci il colore del link come bianco */
     --bs-btn-color: var(--bs-link-color); /* Imposta il colore del pulsante come il colore del link */
     --bs-body-color: white;
+    --bs-btn-color:white;
   }
   
   
@@ -156,3 +157,5 @@
 .btn-link {
     --bs-btn-color: var(--bs-link-color); /* Imposta il colore dei pulsanti come il colore dei link */
 }
+.btn-outline-secondary {
+    --bs-btn-color: white;}
