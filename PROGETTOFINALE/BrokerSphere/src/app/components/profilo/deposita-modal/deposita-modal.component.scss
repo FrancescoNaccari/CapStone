@@ -1,0 +1,14 @@
+input,.label-custom {
+    color: white!important;
+  }
+  
+  .custom-box,.form-control,.label-custom {
+    background-color: transparent;
+  }
+  .form-control{
+    border: 3px solid white;  
+  }
+  .transparent-input::placeholder {
+    color: white;
+    opacity: .6;
+  }

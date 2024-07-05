@@ -644,8 +644,12 @@ m            </ngb-alert>          </div>
       </div> -->
       <div class="row">
         <div class="col-12">
-          <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount"
-            [userId]="profilo.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout>
+          <!-- <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount"
+            [userId]="profilo.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
+            <div class="col-12 text-center">
+              <button type="button" class="btn text-white border-0 me-2 " (click)="openDepositModal()">{{ 'CHECKOUT.RECHARGE' | translate }}</button>
+              <button type="button" class="btn text-white border-0" (click)="openWithdrawModal()">{{ 'CHECKOUT.WITHDRAW' | translate }}</button>
+            </div>
         </div>
       </div>
      
@@ -655,7 +659,7 @@ m            </ngb-alert>          </div>
 
  <!-- sezione lista azioni utente -->
  <div class="col-12 mt-4">
-  <button type="button" class="btn btn-primary" [routerLink]="['/lista-azioni-user']">{{ 'profile.VIEW_TRANSACTIONS' | translate }}</button>
+  <button type="button" class="btn border-0 text-white" [routerLink]="['/lista-azioni-user']">{{ 'profile.VIEW_TRANSACTIONS' | translate }}</button>
 </div>
     <!-- <div class="col-12">
       <app-lista-azioni-user [userId]="profilo.idUtente || null"></app-lista-azioni-user>

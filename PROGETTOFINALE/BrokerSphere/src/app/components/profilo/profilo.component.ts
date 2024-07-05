@@ -1111,6 +1111,9 @@ import { AuthData } from 'src/app/interface/auth-data.interface';
 import { CheckoutComponent } from '../stripe/checkout/checkout.component';
 import { Subscription } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DepositaModalComponent } from './deposita-modal/deposita-modal.component';
+import { PrelevaModalComponent } from './preleva-modal/preleva-modal.component';
 
 @Component({
   selector: 'app-profilo',
@@ -1140,7 +1143,7 @@ export class ProfiloComponent implements OnInit, OnDestroy {
   balance: number = 0; // Saldo dell'utente
   private intervalId: any;
 
-  constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private renderer: Renderer2, private translate: TranslateService) { }
+  constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private renderer: Renderer2, private translate: TranslateService,private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
@@ -1156,6 +1159,25 @@ export class ProfiloComponent implements OnInit, OnDestroy {
     this.startBalanceUpdateInterval();
   }
 
+  openDepositModal() {
+    const modalRef = this.modalService.open(DepositaModalComponent);
+    modalRef.componentInstance.userId = this.profilo?.idUtente;
+    modalRef.result.then(() => {
+      this.updateBalance();
+    }, (reason) => {
+      console.log('Deposit modal dismissed:', reason);
+    });
+  }
+
+  openWithdrawModal() {
+    const modalRef = this.modalService.open(PrelevaModalComponent);
+    modalRef.componentInstance.userId = this.profilo?.idUtente;
+    modalRef.result.then(() => {
+      this.updateBalance();
+    }, (reason) => {
+      console.log('Withdraw modal dismissed:', reason);
+    });
+  }
   ngOnDestroy(): void {
     if (this.intervalId) {
       clearInterval(this.intervalId);

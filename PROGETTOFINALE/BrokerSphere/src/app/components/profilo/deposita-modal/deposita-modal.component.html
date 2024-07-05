@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ 'CHECKOUT.RECHARGE_ACCOUNT' | translate }}</h4>
+    <button type="button" class="btn-close bg-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="form-floating my-3 me-3">
+      <input class="form-control" type="number" [(ngModel)]="rechargeAmount" required min="0">
+      <label for="rechargeAmount" class="label-custom">{{ 'CHECKOUT.AMOUNT' | translate }}</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn border-0 text-white" (click)="recharge()">{{ 'CHECKOUT.RECHARGE' | translate }}</button>
+  </div>

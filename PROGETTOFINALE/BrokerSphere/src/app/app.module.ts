@@ -47,6 +47,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { IscrizioneNewsletterComponent } from './components/home/iscrizione-newsletter/iscrizione-newsletter.component';
+import { PrelevaModalComponent } from './components/profilo/preleva-modal/preleva-modal.component';
+import { DepositaModalComponent } from './components/profilo/deposita-modal/deposita-modal.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -81,6 +83,8 @@ export function HttpLoaderFactory(http: HttpClient) {
      ConfirmModalComponent,
      CurrencyFormatPipe,
      IscrizioneNewsletterComponent,
+     PrelevaModalComponent,
+     DepositaModalComponent,
 
     
   ],

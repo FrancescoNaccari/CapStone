@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <h4 class="modal-title">{{ 'CHECKOUT.WITHDRAW_ACCOUNT' | translate }}</h4>
+    <button type="button" class="btn-close bg-white" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="alert alert-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    <div class="form-floating my-3 me-3">
+      <input class="form-control" type="number" [(ngModel)]="withdrawAmount" required min="0">
+      <label for="withdrawAmount" class="label-custom">{{ 'CHECKOUT.AMOUNT' | translate }}</label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn border-0 text-white" (click)="withdraw()">{{ 'CHECKOUT.WITHDRAW' | translate }}</button>
+  </div>
