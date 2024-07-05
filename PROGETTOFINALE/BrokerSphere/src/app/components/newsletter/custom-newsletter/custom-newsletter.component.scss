@@ -1,8 +1,11 @@
-
- 
-
- .custom-altezza{
-    min-height: 250px!important; // Imposta qui l'altezza minima desiderata
- 
-    background-color: white;
-}
+.transparent-input {
+    background-color: transparent;
+    border: 2px solid white;
+    color: white; /* Ensure text color is visible against transparent background */
+  }
+  
+  .custom-altezza {
+    min-height: 250px!important;
+    background-color: rgba(255, 255, 255, 0.9); /* Set to a slightly opaque white */
+  }
+  
