@@ -4,6 +4,7 @@
     "FAVORITES": "Preferiti",
     "PROFILE": "Profilo",
     "NEWSLETTER": "Newsletter",
+    "TRANSACTIONS": "Transazioni",
     "LOGOUT": "Logout",
     "WELCOME": "Benvenuto"
   },
@@ -47,7 +48,9 @@
     "UPDATE_SUCCESS": "Nome utente aggiornato con successo.",
     "UPDATE_ERROR": "Errore durante l'aggiornamento del nome utente.",
     "USERNAME_EMPTY_ERROR": "Il nome utente non può essere vuoto.",
-    "BALANCE_UPDATE": "Saldo aggiornato"
+    "BALANCE_UPDATE": "Saldo aggiornato",
+    "VIEW_TRANSACTIONS": "Visualizza Transazioni"
+
   },
   "stockCard": {
     "BUY_SELL": "Acquista / Vendi",

@@ -1,14 +1,22 @@
-.label-custom {
-    color: rgba(255, 255, 255, 0.5)!important;
-  }
-  input{
-    color: white!important;
-  }
 
-  .custom-color{
-background-color: #122640;
 
-  }
+input,.label-custom {
+  color: white!important;
+}
+
+.custom-box,.form-control,.label-custom {
+  background-color: transparent;
+}
+.form-control{
+  border: 3px solid white;  
+}
+.transparent-input::placeholder {
+  color: white;
+  opacity: .6;
+}
+.align-content-end{
+  align-content: end!important;
+}
 //   input.form-control[type="password"] ~ .custom-popover .popover-body {
 //     // 
 //     color: white !important;

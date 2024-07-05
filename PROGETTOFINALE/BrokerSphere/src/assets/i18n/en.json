@@ -1,9 +1,10 @@
 {
-  "navbar": {
+"navbar": {
     "HOME": "Home",
     "FAVORITES": "Favorites",
     "PROFILE": "Profile",
     "NEWSLETTER": "Newsletter",
+    "TRANSACTIONS": "Transactions",
     "LOGOUT": "Logout",
     "WELCOME": "Welcome"
   },
@@ -47,7 +48,9 @@
     "UPDATE_SUCCESS": "Username updated successfully.",
     "UPDATE_ERROR": "Error updating username.",
     "USERNAME_EMPTY_ERROR": "Username cannot be empty.",
-    "BALANCE_UPDATE": "Balance Update"
+    "BALANCE_UPDATE": "Balance Update",
+    "VIEW_TRANSACTIONS": "View Transactions"
+
   },
   "stockCard": {
     "BUY_SELL": "Buy / Sell",

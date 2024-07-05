@@ -1162,6 +1162,16 @@ export class ProfiloComponent implements OnInit, OnDestroy {
     }
   }
 
+  onInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const label = input.nextElementSibling as HTMLElement;
+  
+    if (input.value) {
+      label.classList.add('placeholder-hidden');
+    } else {
+      label.classList.remove('placeholder-hidden');
+    }
+  }
   startBalanceUpdateInterval(): void {
     this.intervalId = setInterval(() => {
       this.updateBalance();

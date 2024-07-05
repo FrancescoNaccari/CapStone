@@ -86,9 +86,10 @@
     </div>
   </div>
 </div> -->
-<div *ngIf="transactions.length > 0" class="container mt-4">
-  <h3 class="mb-4">{{ 'listaAzioniUser.TRANSACTIONS' | translate }}</h3>
-
+<!-- <div *ngIf="transactions.length > 0" class="container mt-4"> -->
+  
+<div class="container ">
+  <h1 class="my-4 text-center fs-10">{{ 'listaAzioniUser.TRANSACTIONS' | translate }}</h1>
   <div class="row">
     <div *ngFor="let type of transactionTypes; let i = index" class="col-md-6">
       <div class="card mb-4 shadow-sm">
@@ -97,8 +98,8 @@
         </div>
         <div class="card-body">
           <div class="row mb-3">
-            <div class="col-md-12">
-              <div class="form-group">
+            <div class="col-md-12 text-white">
+              <div class="form-group ">
                 <label for="{{ type }}-filterDate">{{ 'listaAzioniUser.SEARCH_BY_DATE' | translate }}</label>
                 <app-calendario (dateRangeSelected)="onDateRangeSelected($event, type)"></app-calendario>
               </div>
@@ -144,10 +145,12 @@
             </nav>
           </div>
           <ng-template #noTransactions>
-            <p class="text-muted">{{ 'listaAzioniUser.NO_TRANSACTIONS_FOUND' | translate:{type: 'listaAzioniUser.TRANSACTION_TYPES.' + type | translate} }}</p>
+            <p class="text-muted ">{{ 'listaAzioniUser.NO_TRANSACTIONS_FOUND' | translate:{type: 'listaAzioniUser.TRANSACTION_TYPES.' + type | translate} }}</p>
           </ng-template>
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </div>
+ 
+<!-- </div> -->

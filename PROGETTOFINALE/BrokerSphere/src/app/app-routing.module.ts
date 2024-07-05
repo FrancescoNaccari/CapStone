@@ -17,6 +17,7 @@ import { NewsletterComponent } from './components/newsletter/newsletter.componen
 import { CheckoutComponent } from './components/stripe/checkout/checkout.component';
 import { CancelComponent } from './components/stripe/cancel/cancel.component';
 import { SuccessComponent } from './components/stripe/success/success.component';
+import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-azioni-user.component';
 
 
 
@@ -30,6 +31,8 @@ const routes: Routes = [
   { path: 'favorites', component: FavoriteStocksComponent },
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'newsletter', component: NewsletterComponent },
+  { path: 'lista-azioni-user', component: ListaAzioniUserComponent },
+
   
   
   { path: 'checkout',  component: CheckoutComponent,},
