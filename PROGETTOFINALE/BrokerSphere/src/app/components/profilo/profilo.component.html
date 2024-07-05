@@ -514,22 +514,22 @@
 </div> -->
 
 <!-- <app-checkout [amount]="rechargeAmount" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
-
 <div class="container text-white" *ngIf="profilo">
   <div class="my-5">
-    <h1 class=" fw-bold fs-10 text-center">{{ 'profile.PROFILE' | translate }}</h1>
+    <h1 class="fw-bold fs-9 fs-sm-10 text-center">{{ 'profile.PROFILE' | translate }}</h1>
   </div>
   <div class="row">
     <!-- sezione profilo -->
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-lg-6 p-lg-0">
       <!-- sezione avatat -->
 
       <div class="rounded-4 w-100 p-3 mb-4 custom-box">
         <div class="row">
-          <div class="col-3 d-flex justify-content-center align-items-center clicca" (click)="avatarChange.click()">
+          <div class="col-3  ps-4 d-flex justify-content-center align-items-center clicca"
+            (click)="avatarChange.click()">
             <input type="file" id="avatarChange" #avatarChange (change)="onFileSelected($event)" class="d-none" />
-            <div style="width: max-content;" class="position-relative">
-              <img [src]="previewUrl" height="100" style="border-radius: 50%;" width="100" alt="Immagine Profilo">
+            <div class="position-relative profile-image-container">
+              <img [src]="previewUrl" class="profile-image" alt="Immagine Profilo">
               <div class="border bg-light border-black position-absolute bottom-0 end-0"
                 style="border-radius: 50%;width: 30px; height: 30px;">
                 <i class="bi bi-pencil-fill position-absolute start-50 translate-middle top-50 text-black"
@@ -537,39 +537,38 @@
               </div>
             </div>
           </div>
-          <div class="col-9 d-flex flex-column justify-content-center align-items-start">
-            <p class="m-1"><span class="verdescuro fw-semibold">{{profilo.nome}} {{profilo.cognome}}</span></p>
+          <div class="col-9 d-flex flex-column justify-content-center align-items-start ps-4 ps-md-5">
+            <p class="m-1 fs-3"><span class="verdescuro fw-semibold">{{profilo.nome}} {{profilo.cognome}}</span></p>
             <p class="m-1">{{profilo.email}}</p>
             <p class="m-1">{{profilo.username}}</p>
-         <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="newsletter" [checked]="profilo.newsletter" (change)="onNewsletterChange($event)">
-                <label class="form-check-label" for="newsletter">
-                  {{ profilo.newsletter ? ('newsletter.UNSUBSCRIBE' | translate) : ('newsletter.SUBSCRIBE' | translate) }}
-                </label>
-              </div> 
-              <div *ngIf="successMessage" class="alert alert-success">
+            <div class="form-check m-1">
+              <input class="form-check-input" type="checkbox" id="newsletter" [checked]="profilo.newsletter"
+                (change)="onNewsletterChange($event)">
+              <label class="form-check-label" for="newsletter">
+                {{ profilo.newsletter ? ('newsletter.UNSUBSCRIBE' | translate) : ('newsletter.SUBSCRIBE' | translate) }}
+              </label>
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success">
               {{ successMessage }}
             </div>
             <div *ngIf="errorMessage" class="alert alert-danger">
               {{ errorMessage }}
             </div>
-            </div>
-       
+          </div>
         </div>
       </div>
+
       <!-- sezione password -->
       <div class="rounded-4 w-100 px-2 py-3 custom-box">
         <div class="d-flex align-items-center">
-          <div class="col-10 d-flex  align-items-center justify-content-between ps-1 pe-2">
+          <div class="col-12 col-lg-10 d-flex align-items-center justify-content-between ps-1 pe-2">
             <h5>{{ 'profile.CURRENT_PASSWORD' | translate }}</h5>
             <p class="p-0 m-0">**********</p>
           </div>
-
         </div>
 
-
         <div class="row">
-          <div class="col-10 ">
+          <div class="col-12 col-lg-10 ">
             <div class="input-group mb-3 p-1 rounded-3">
               <input class="form-control transparent-input border-3" type="password" id="currentPassword"
                 name="currentPassword" [(ngModel)]="currentPassword" required
@@ -592,11 +591,11 @@
               {{ passwordError }}
             </div>
           </div>
-          <div class="d-flex col-2 align-items-end justify-content-center">
+          <div
+            class="d-flex col-12 col-lg-2 align-items-end justify-content-end justify-content-lg-center pe-3 pe-lg-0 ps-xl-0">
             <button type="button" class="btn border-0 text-white mb-3 px-3 py-2" (click)="updatePassword()">{{
               'profile.CHANGE' | translate }}</button>
           </div>
-
 
           <!-- Alert per il cambio della password -->
           <ngb-alert *ngIf="passwordAlertMessage" type="success" (close)="closePasswordAlert()">
@@ -607,86 +606,65 @@
             {{ passwordErrorAlertMessage }}
           </ngb-alert>
         </div>
-
       </div>
+
       <!-- sezione nome utenti -->
       <div class="rounded-4 mt-4 w-100 px-2 py-3 custom-box">
         <div class="d-flex align-items-center">
-          <div class="col-10 d-flex align-items-center justify-content-between ps-1 pe-2">
+          <div class="col-12 col-lg-10 d-flex align-items-center justify-content-between ps-1 pe-2">
             <h5>{{ 'profile.USERNAME' | translate }}</h5>
             <p class="p-0 m-0">{{ profilo.username }}</p>
           </div>
-
         </div>
 
-
         <div class="row">
-          <div class="col-10">
+          <div class="col-12 col-lg-10">
             <div class="input-group mb-3 p-1 rounded-3">
               <input class="form-control transparent-input border-3" type="text" id="newUsername" name="newUsername"
                 ngModel required placeholder="{{ 'profile.USERNAME' | translate }}">
-            </div> <!-- Alert per il cambio del nome utente -->
+            </div>
+            <!-- Alert per il cambio del nome utente -->
             <ngb-alert *ngIf="usernameAlertMessage" type="success" (close)="closeUsernameAlert()">
               {{ usernameAlertMessage }}
             </ngb-alert>
             <!-- Alert per errore di cambio del nome utente -->
             <ngb-alert *ngIf="usernameErrorAlertMessage" type="danger" (close)="closeUsernameErrorAlert()">
               {{ usernameErrorAlertMessage }}
-              m </ngb-alert>
+            </ngb-alert>
           </div>
 
-          <div class="d-flex col-2 align-items-end justify-content-center">
-            <div class="d-flex justify-content-end">
+          <div
+            class="d-flex col-12 col-lg-2 align-items-center justify-content-end justify-content-lg-center pe-3 pe-lg-0 ps-xl-0">
+            <div class="d-flex justify-content-end ">
               <button type="button" class="btn border-0 text-white mb-3 px-3 py-2" (click)="updateUsername()">{{
                 'profile.CHANGE' | translate }}</button>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
 
     <!-- sezione saldo a disposizione -->
-
-    <div class="container text-white col-12 col-md-6 p-0" *ngIf="profilo">
+    <div class="container text-white col-12 col-lg-6 p-3 p-xl-0 " *ngIf="profilo">
       <div class="mt-4 text-center">
-        <h5 class="fs-9 mb-5">{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance | currencyFormat:'€':2:'.':',':3 }}
+        <h5 class="fs-8 fs-xl-11 fs-xxl-9 mb-3 mb-md-5">{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance |
+          currencyFormat:'€':2:'.':',':3 }}
         </h5>
       </div>
-      <!-- <div class="my-5 fw-semibold">
-        <h1>{{ 'profile.PROFILE' | translate }}</h1>
-      </div> -->
-      <div class="row">
-        <div class="col-12">
-          <!-- <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount"
-            [userId]="profilo.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
-          <div class="col-12 text-center d-flex justify-content-between align-items-center">
-            <div>
-              <button type="button" class="btn text-white border-0 me-3 " (click)="openDepositModal()">{{
-                'CHECKOUT.RECHARGE' | translate }}</button>
-              <button type="button" class="btn text-white border-0" (click)="openWithdrawModal()">{{ 'CHECKOUT.WITHDRAW'
-                |
-                translate }}</button>
-            </div>
-            <div class=" ">
-              <button type="button" class="btn border-0 text-white" [routerLink]="['/lista-azioni-user']">{{
-                'profile.VIEW_TRANSACTIONS' | translate }}</button>
-            </div>
+      <div class="row px-1 px-md-4 px-xxl-3  text-center justify-content-between">
+          <div class=" col-6 ps-xl-2 ps-xxl-0  m-sm-0 m-1 mb-2 p-0 d-flex align-items-center">
+            <button type="button" class="btn text-white border-0 me-3" (click)="openDepositModal()">{{
+              'CHECKOUT.RECHARGE' | translate }}</button>
+            <button type="button" class="btn text-white border-0 ms-1" (click)="openWithdrawModal()">{{ 'CHECKOUT.WITHDRAW'|translate }}</button>
           </div>
-        </div>
+          
+          <div class="col-4 col-sm-6 m-1 m-sm-0 p-0 pe-xl-2 pe-xxl-0  text-end">
+            <button type="button" class="btn border-0 text-white" [routerLink]="['/lista-azioni-user']">{{
+              'profile.VIEW_TRANSACTIONS' | translate }}</button>
+          </div>
+
       </div>
 
     </div>
-
-
-
-    <!-- sezione lista azioni utente -->
-
-    <!-- <div class="col-12">
-      <app-lista-azioni-user [userId]="profilo.idUtente || null"></app-lista-azioni-user>
-    </div> -->
   </div>
 </div>
-
-

@@ -49,7 +49,7 @@
     "UPDATE_ERROR": "Errore durante l'aggiornamento del nome utente.",
     "USERNAME_EMPTY_ERROR": "Il nome utente non può essere vuoto.",
     "BALANCE_UPDATE": "Saldo aggiornato",
-    "VIEW_TRANSACTIONS": "Visualizza Transazioni"
+    "VIEW_TRANSACTIONS": "Transazioni"
 
   },
   "stockCard": {

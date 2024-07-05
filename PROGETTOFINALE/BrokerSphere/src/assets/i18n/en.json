@@ -49,7 +49,7 @@
     "UPDATE_ERROR": "Error updating username.",
     "USERNAME_EMPTY_ERROR": "Username cannot be empty.",
     "BALANCE_UPDATE": "Balance Update",
-    "VIEW_TRANSACTIONS": "View Transactions"
+    "VIEW_TRANSACTIONS": "Transactions"
 
   },
   "stockCard": {

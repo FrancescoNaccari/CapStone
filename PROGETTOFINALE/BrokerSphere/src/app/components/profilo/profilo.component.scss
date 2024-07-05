@@ -1,27 +1,39 @@
-
 :host {
-  min-height:100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-input,.label-custom {
-  color: white!important;
+input, .label-custom {
+  color: white !important;
 }
 
-.custom-box,.form-control,.label-custom {
+.custom-box, .form-control, .label-custom {
   background-color: transparent;
 }
-.form-control{
-  border: 3px solid white;  
+
+.form-control {
+  border: 3px solid white;
 }
+
 .transparent-input::placeholder {
   color: white;
   opacity: .6;
 }
-.align-content-end{
-  align-content: end!important;
+
+.profile-image {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
 }
+
+@media (max-width: 500px) {
+  .profile-image {
+    height: 90px;
+    width: 90px;
+  }
+}
+
 
 //   input.form-control[type="password"] ~ .custom-popover .popover-body {
 //     // 
