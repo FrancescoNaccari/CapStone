@@ -82,13 +82,13 @@
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <div class="m-2">
         <label for="title">{{ 'newsletter.TITLE' | translate }}:</label>
-        <input id="title" name="title" type="text" class="form-control transparent-input" ngModel />
+        <input id="title"  name="title" type="text" class="form-control mt-2 mb-3 transparent-input" ngModel />
       </div>
-      <div class="NgxEditor__Wrapper text-black custom-altezza  border-white m-2">
+      <div class="NgxEditor__Wrapper text-black custom-altezza  border-white m-2 mb-3">
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
         <ngx-editor [editor]="editor" name="editorContent" ngModel></ngx-editor>
       </div>
-      <div class="m-2 pb-xl-5">
+      <div class="m-2  pb-xl-5">
         <button type="submit" class="text-white btn mb-5" [disabled]="form.invalid">{{ 'newsletter.SEND_NEWSLETTER' | translate }}</button>
       </div>
     </form>

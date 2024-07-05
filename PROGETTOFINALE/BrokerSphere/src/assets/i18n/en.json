@@ -133,6 +133,7 @@
   "newsletter": {
     "TITLE": "Manage Newsletter",
     "SUBSCRIBE": "Subscribe to the newsletter",
+    "UNSUBSCRIBE": "Unsubscribe",
     "SUCCESS_MESSAGE": "Newsletter preference updated successfully",
     "ERROR_MESSAGE": "Error updating newsletter preference",
     "SEND_NEWSLETTER": "Send Newsletter",

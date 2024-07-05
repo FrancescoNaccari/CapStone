@@ -157,7 +157,7 @@
 // function isAuthData(user: any): user is AuthData {
 //   return user && 'accessToken' in user;
 // }
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthData } from 'src/app/interface/auth-data.interface';
 import { User } from 'src/app/interface/user.interface';
@@ -176,7 +176,7 @@ export class NewsletterComponent implements OnInit {
   errorMessage: string | null = null;
   isAdmin: boolean = false;
 
-  constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private translate: TranslateService) { }
+  constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private translate: TranslateService, private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
@@ -193,11 +193,13 @@ export class NewsletterComponent implements OnInit {
         (updatedUser) => {
           this.authSrv.updateUser(updatedUser);
           this.successMessage = this.translate.instant('newsletter.SUCCESS_MESSAGE');
+          this.cd.detectChanges(); 
           setTimeout(() => this.successMessage = null, 3000);
         },
         (error) => {
           console.error('Errore durante l\'aggiornamento della preferenza newsletter', error);
           this.errorMessage = this.translate.instant('newsletter.ERROR_MESSAGE');
+          this.cd.detectChanges(); 
           setTimeout(() => this.errorMessage = null, 3000);
         }
       );

@@ -133,6 +133,7 @@
   "newsletter": {
     "TITLE": "Gestione Newsletter",
     "SUBSCRIBE": "Iscriviti alla newsletter",
+    "UNSUBSCRIBE": "Annulla iscrizione",
     "SUCCESS_MESSAGE": "Preferenza newsletter aggiornata con successo",
     "ERROR_MESSAGE": "Errore durante l'aggiornamento della preferenza newsletter",
     "SEND_NEWSLETTER": "Invia Newsletter",

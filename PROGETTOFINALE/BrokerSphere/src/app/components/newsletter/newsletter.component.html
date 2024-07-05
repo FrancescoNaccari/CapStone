@@ -98,7 +98,6 @@
   
   <app-custom-newsletter></app-custom-newsletter>
    -->
-
    <div class="container text-white" *ngIf="profilo">
     <div class="my-5 fw-semibold">
       <h1>{{ 'newsletter.TITLE' | translate }}</h1>
@@ -113,7 +112,9 @@
               <p class="m-1">{{ profilo.username }}</p>
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="newsletter" [checked]="profilo.newsletter" (change)="onNewsletterChange($event)">
-                <label class="form-check-label" for="newsletter">{{ 'newsletter.SUBSCRIBE' | translate }}</label>
+                <label class="form-check-label" for="newsletter">
+                  {{ profilo.newsletter ? ('newsletter.UNSUBSCRIBE' | translate) : ('newsletter.SUBSCRIBE' | translate) }}
+                </label>
               </div>
             </div>
           </div>

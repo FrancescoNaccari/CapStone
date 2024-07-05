@@ -541,7 +541,20 @@
             <p class="m-1"><span class="verdescuro fw-semibold">{{profilo.nome}} {{profilo.cognome}}</span></p>
             <p class="m-1">{{profilo.email}}</p>
             <p class="m-1">{{profilo.username}}</p>
-          </div>
+         <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="newsletter" [checked]="profilo.newsletter" (change)="onNewsletterChange($event)">
+                <label class="form-check-label" for="newsletter">
+                  {{ profilo.newsletter ? ('newsletter.UNSUBSCRIBE' | translate) : ('newsletter.SUBSCRIBE' | translate) }}
+                </label>
+              </div> 
+              <div *ngIf="successMessage" class="alert alert-success">
+              {{ successMessage }}
+            </div>
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+            </div>
+       
         </div>
       </div>
       <!-- sezione password -->
@@ -675,3 +688,5 @@
     </div> -->
   </div>
 </div>
+
+
