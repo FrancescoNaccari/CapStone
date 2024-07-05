@@ -79,7 +79,7 @@
   </div>
    -->
 
-   <div class="container">
+   <div class="container mb-5 pb-5">
     <form #form="ngForm" (ngSubmit)="onSubmit(form)">
       <div class="m-2">
         <label for="title">{{ 'newsletter.TITLE' | translate }}:</label>
@@ -89,8 +89,8 @@
         <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
         <ngx-editor [editor]="editor" name="editorContent" ngModel></ngx-editor>
       </div>
-      <div class="m-2">
-        <button type="submit" class="text-white btn btn-primary" [disabled]="form.invalid">{{ 'newsletter.SEND_NEWSLETTER' | translate }}</button>
+      <div class="m-2 pb-xl-5">
+        <button type="submit" class="text-white btn mb-5 " [disabled]="form.invalid">{{ 'newsletter.SEND_NEWSLETTER' | translate }}</button>
       </div>
     </form>
   
