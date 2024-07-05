@@ -9,7 +9,14 @@ import { LanguageService } from 'src/app/service/language.service';
   styleUrls: ['./success.component.scss']
 })
 export class SuccessComponent implements   OnInit {
-  constructor(private route: ActivatedRoute, private router: Router, private languageService: LanguageService, private authService: AuthService) {}
+  countdown: number = 5; // Imposta il timer a 5 secondi
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private languageService: LanguageService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -21,8 +28,12 @@ export class SuccessComponent implements   OnInit {
 
     this.authService.restore(); // Ripristina lo stato dell'utente
 
-    setTimeout(() => {
-      this.router.navigate(['/profilo']);
-    }, 5000);
+    const interval = setInterval(() => {
+      this.countdown--;
+      if (this.countdown === 0) {
+        clearInterval(interval);
+        this.router.navigate(['/profilo']);
+      }
+    }, 1000);
   }
 }

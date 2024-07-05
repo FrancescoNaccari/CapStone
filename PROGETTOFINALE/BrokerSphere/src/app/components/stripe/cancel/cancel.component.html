@@ -1,4 +1,11 @@
 <!-- <h1>Pagamento Annullato</h1>
 <p>Il tuo pagamento è stato annullato. Per favore, riprova. Verrai reindirizzato al tuo profilo a breve.</p> -->
-<h1>{{ 'CHECKOUT.PAYMENT_CANCELLED' | translate }}</h1>
-<p>{{ 'CHECKOUT.PAYMENT_CANCELLED_MESSAGE' | translate }}</p>
+
+<div class="container">
+    <div class="row">
+      <h1 class="text-center my-3 mt-5 fs-lg-10 fs-md-9 fs-8 fw-bold">{{ 'CHECKOUT.PAYMENT_CANCELLED' | translate }}</h1>
+      <p class="text-center fs-lg-4 fs-md-3 fs-2"  >{{ 'CHECKOUT.PAYMENT_CANCELLED_MESSAGE' | translate }}</p>
+      <p class="text-center fs-lg-2 fs-1 ">{{ 'CHECKOUT.REDIRECT_MESSAGE' | translate }} {{ countdown }} {{ 'CHECKOUT.SECONDS' | translate }}</p>
+    </div>
+  </div>
+  
