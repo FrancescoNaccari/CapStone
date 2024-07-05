@@ -10,7 +10,7 @@ import { LanguageService } from 'src/app/service/language.service';
 })
 export class CancelComponent implements  OnInit {
 
-  countdown: number = 100000; // Imposta il timer a 5 secondi
+  countdown: number = 5; // Imposta il timer a 5 secondi
 
   constructor(
     private route: ActivatedRoute,

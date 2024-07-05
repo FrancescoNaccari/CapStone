@@ -1,4 +1,9 @@
 
+:host {
+  min-height:100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 input,.label-custom {
   color: white!important;

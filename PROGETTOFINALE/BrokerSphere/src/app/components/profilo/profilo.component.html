@@ -521,8 +521,8 @@
   </div>
   <div class="row">
     <!-- sezione profilo -->
-    <div class="col-12">
-          <!-- sezione avatat -->
+    <div class="col-12 col-md-6">
+      <!-- sezione avatat -->
 
       <div class="rounded-4 w-100 p-3 mb-4 custom-box">
         <div class="row">
@@ -544,7 +544,7 @@
           </div>
         </div>
       </div>
- <!-- sezione password -->
+      <!-- sezione password -->
       <div class="rounded-4 w-100 px-2 py-3 custom-box">
         <div class="d-flex align-items-center">
           <div class="col-10 d-flex  align-items-center justify-content-between ps-1 pe-2">
@@ -554,7 +554,7 @@
 
         </div>
 
-       
+
         <div class="row">
           <div class="col-10 ">
             <div class="input-group mb-3 p-1 rounded-3">
@@ -596,7 +596,7 @@
         </div>
 
       </div>
-<!-- sezione nome utenti -->
+      <!-- sezione nome utenti -->
       <div class="rounded-4 mt-4 w-100 px-2 py-3 custom-box">
         <div class="d-flex align-items-center">
           <div class="col-10 d-flex align-items-center justify-content-between ps-1 pe-2">
@@ -619,7 +619,8 @@
             <!-- Alert per errore di cambio del nome utente -->
             <ngb-alert *ngIf="usernameErrorAlertMessage" type="danger" (close)="closeUsernameErrorAlert()">
               {{ usernameErrorAlertMessage }}
-m            </ngb-alert>          </div>
+              m </ngb-alert>
+          </div>
 
           <div class="d-flex col-2 align-items-end justify-content-center">
             <div class="d-flex justify-content-end">
@@ -635,9 +636,10 @@ m            </ngb-alert>          </div>
 
     <!-- sezione saldo a disposizione -->
 
-    <div class="container text-white" *ngIf="profilo">
- <div class="mt-4 text-center">
-        <h5 class="fs-10">{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance | currencyFormat:'€':2:'.':',':3 }}</h5>
+    <div class="container text-white col-12 col-md-6 p-0" *ngIf="profilo">
+      <div class="mt-4 text-center">
+        <h5 class="fs-9 mb-5">{{ 'profile.BALANCE_UPDATE' | translate }}: {{ balance | currencyFormat:'€':2:'.':',':3 }}
+        </h5>
       </div>
       <!-- <div class="my-5 fw-semibold">
         <h1>{{ 'profile.PROFILE' | translate }}</h1>
@@ -646,21 +648,28 @@ m            </ngb-alert>          </div>
         <div class="col-12">
           <!-- <app-checkout [rechargeAmount]="rechargeAmount" [withdrawAmount]="withdrawAmount"
             [userId]="profilo.idUtente?.toString() || ''" (paymentSuccess)="handlePaymentSuccess()"></app-checkout> -->
-            <div class="col-12 text-center">
-              <button type="button" class="btn text-white border-0 me-2 " (click)="openDepositModal()">{{ 'CHECKOUT.RECHARGE' | translate }}</button>
-              <button type="button" class="btn text-white border-0" (click)="openWithdrawModal()">{{ 'CHECKOUT.WITHDRAW' | translate }}</button>
+          <div class="col-12 text-center d-flex justify-content-between align-items-center">
+            <div>
+              <button type="button" class="btn text-white border-0 me-3 " (click)="openDepositModal()">{{
+                'CHECKOUT.RECHARGE' | translate }}</button>
+              <button type="button" class="btn text-white border-0" (click)="openWithdrawModal()">{{ 'CHECKOUT.WITHDRAW'
+                |
+                translate }}</button>
             </div>
+            <div class=" ">
+              <button type="button" class="btn border-0 text-white" [routerLink]="['/lista-azioni-user']">{{
+                'profile.VIEW_TRANSACTIONS' | translate }}</button>
+            </div>
+          </div>
         </div>
       </div>
-     
+
     </div>
 
 
 
- <!-- sezione lista azioni utente -->
- <div class="col-12 mt-4">
-  <button type="button" class="btn border-0 text-white" [routerLink]="['/lista-azioni-user']">{{ 'profile.VIEW_TRANSACTIONS' | translate }}</button>
-</div>
+    <!-- sezione lista azioni utente -->
+
     <!-- <div class="col-12">
       <app-lista-azioni-user [userId]="profilo.idUtente || null"></app-lista-azioni-user>
     </div> -->
