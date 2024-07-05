@@ -1,3 +1,9 @@
+:host {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .container {
     background: #f8f9fa;
     padding: 20px;
