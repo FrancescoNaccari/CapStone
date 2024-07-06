@@ -21,5 +21,4 @@ export class Error404Component implements OnInit {
       complete: () => this.router.navigate(['/home'])
     });
   }
-
 }

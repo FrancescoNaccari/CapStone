@@ -1,19 +1,20 @@
- <div class="container-fluid d-flex justify-content-center bg-black m-0 custom-top-margin">
-  <div class="row">
-    <div class="position-absolute">
-      <p class="text-center fw-bold p-0 fs-1 fs-md-2 fs-lg-4 m-1 m-sm-2">
-        {{ 'error404.ERROR_MESSAGE' | translate }}
-        <a [routerLink]="['/home']" routerLinkActive="active">{{ 'error404.HOME_LINK' | translate }}</a>
-      </p>
-      <div class="text-center mt-3">
-        <div class="spinner-border text-light" role="status">
-          <span class="visually-hidden">Loading...</span>
-        </div>
-        <p class="text-light mt-2">
-          {{ 'error404.REDIRECT_MESSAGE' | translate }} {{ countdown }} {{ 'error404.SECONDS' | translate }}
-        </p>
+<div class="row">
+  <div class="position-absolute">
+    <p class="text-center fw-bold p-0 fs-2 fs-md-3 fs-lg-9 m-1 m-sm-2">
+      {{ 'error404.ERROR_MESSAGE' | translate }}
+      <a [routerLink]="['/home']" routerLinkActive="active">{{ 'error404.HOME_LINK' | translate }}</a>
+    </p>
+    <div class="text-center mt-3">
+      <div class="custom-spinner">
+        <img src="../../../assets/img/ICON_LOGO-ICON-TEXT-WHITE.png" class="heartbeat" alt="Loading Icon 1">
+        <img src="../../../assets/img/ICON_LOGO ICON.png" class="heartbeat" alt="Loading Icon 2">
       </div>
+      <div class="loading-bar-container">
+        <div class="loading-bar"></div>
+      </div>
+      <p class="text-light mt-2">
+        {{ 'error404.REDIRECT_MESSAGE' | translate }} {{ countdown }} {{ 'error404.SECONDS' | translate }}
+      </p>
     </div>
-    <img class="p-0 w-auto" src="./assets/altaDef404.webp" alt="pagina 404">
   </div>
 </div>
