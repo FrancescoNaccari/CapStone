@@ -1,4 +1,3 @@
-import { SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthData } from 'src/app/interface/auth-data.interface';
@@ -10,8 +9,9 @@ import { LanguageService } from 'src/app/service/language.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent  implements OnInit {
+export class NavbarComponent implements OnInit {
   user!: AuthData | null;
+  userId: number | null = null;
 
   constructor(
     private authSrv: AuthService,
@@ -22,6 +22,9 @@ export class NavbarComponent  implements OnInit {
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
       this.user = data;
+      if (data && 'user' in data) {
+        this.userId = data.user.idUtente ?? null;
+      }
     });
     this.languageService.setLanguage(this.languageService.getLanguage());
   }
@@ -33,4 +36,4 @@ export class NavbarComponent  implements OnInit {
   logout() {
     this.authSrv.logout();
   }
-  }
+}

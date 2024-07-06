@@ -137,10 +137,10 @@
 //     }
 //   }
 // }
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Stock } from 'src/app/interface/stock.interface';
-import { TransactionRequest } from 'src/app/interface/transaction-request.interface';
 import { Transaction } from 'src/app/interface/transaction.interface';
 import { TransactionService } from 'src/app/service/transaction.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -151,7 +151,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./lista-azioni-user.component.scss']
 })
 export class ListaAzioniUserComponent implements OnInit {
-  @Input() userId: number | null = null;
+  userId: number | null = null;
   stocks: Stock[] = [];
   transactions: Transaction[] = [];
 
@@ -180,20 +180,36 @@ export class ListaAzioniUserComponent implements OnInit {
 
   pageSize = 10;
 
-  constructor(private transactionService: TransactionService, private calendar: NgbCalendar, private translate: TranslateService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private transactionService: TransactionService,
+    private calendar: NgbCalendar,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
-    if (this.userId !== null) {
-      this.loadUserStocks();
-      this.loadUserTransactions();
-    }
+    this.route.queryParams.subscribe(params => {
+      this.userId = +params['userId'];
+      if (this.userId) {
+        this.loadUserStocks();
+        this.loadUserTransactions();
+      } else {
+        console.error('User ID is null');
+      }
+    });
   }
 
   loadUserStocks(): void {
     if (this.userId !== null) {
-      this.transactionService.getUserStocks(this.userId).subscribe((stocks) => {
-        this.stocks = stocks;
-      });
+      this.transactionService.getUserStocks(this.userId).subscribe(
+        (stocks) => {
+          this.stocks = stocks;
+          console.log('Loaded stocks:', this.stocks);
+        },
+        (error) => {
+          console.error('Error loading user stocks:', error);
+        }
+      );
     }
   }
 
@@ -207,9 +223,10 @@ export class ListaAzioniUserComponent implements OnInit {
               date: this.formatDate(transaction.date)
             }))
             .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          console.log('Loaded transactions:', this.transactions);
         },
         (error) => {
-          console.error(this.translate.instant('home.ERROR_MESSAGE'), error);
+          console.error('Error loading user transactions:', error);
         }
       );
     }

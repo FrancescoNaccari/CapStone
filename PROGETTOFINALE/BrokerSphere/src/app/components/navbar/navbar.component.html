@@ -179,8 +179,8 @@
         <li>
           <a class="nav-link text-white" [routerLink]="['/newsletter']" routerLinkActive="active">{{ 'navbar.NEWSLETTER' | translate }}</a>
         </li>
-        <li>
-          <a class="nav-link text-white" [routerLink]="['/lista-azioni-user']" routerLinkActive="active">{{ 'navbar.TRANSACTIONS' | translate }}</a>
+        <li *ngIf="userId !== null">
+          <a class="nav-link text-white" [routerLink]="['/lista-azioni-user']" [queryParams]="{ userId: userId }" routerLinkActive="active">{{ 'navbar.TRANSACTIONS' | translate }}</a>
         </li>
         <li><a class="nav-link text-white d-lg-none">{{ 'navbar.WELCOME' | translate }}</a></li>
         <li class="p-1 d-lg-none">
@@ -194,10 +194,10 @@
       </div>
       <div *ngIf="user" class="dropdown d-flex align-items-center d-none d-lg-flex">
         <div class="d-flex align-items-center text-center">
-          <p class="m-0 fw-bold fs-5 fs-lg-2 text-p">{{ user.user.username }}</p>
+          <p class="m-0 fw-bold fs-5 fs-lg-2 text-p">{{ user?.user?.username }}</p>
         </div>
         <button class="btn dropdown-toggle rounded-0 mx-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <img width="30" class="rounded-circle" [src]="user.user.avatar" alt="">
+          <img width="30" class="rounded-circle" [src]="user?.user?.avatar" alt="">
         </button>
         <ul class="dropdown-menu dropdown-menu-end fs-5 fs-lg-2 text-center">
           <li>
