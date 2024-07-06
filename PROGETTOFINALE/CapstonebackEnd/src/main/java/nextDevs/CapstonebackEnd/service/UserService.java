@@ -494,7 +494,6 @@ private void sendMailRegistrazione(String email) {
     private void processWithdrawal(User user, BigDecimal amount) {
         // Implementa l'integrazione con il servizio di pagamento per processare il prelievo
         try {
-
             String stripeAccountId = user.getStripeAccountId();
             if (stripeAccountId == null || stripeAccountId.isEmpty()) {
                 throw new RuntimeException("Stripe account ID is missing for user " + user.getIdUtente());

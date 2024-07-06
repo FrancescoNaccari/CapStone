@@ -14,6 +14,7 @@ export class PrelevaModalComponent {
   withdrawAmount: number = 0;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  alertMessage: string | null = null;
 
   constructor(
     public activeModal: NgbActiveModal, 
@@ -24,20 +25,24 @@ export class PrelevaModalComponent {
 
   withdraw() {
     if (this.withdrawAmount > 0 && this.userId !== undefined) {
-      this.profiloSrv.updateBalance(this.userId, -this.withdrawAmount).subscribe(
+      this.profiloSrv.withdrawBalance(this.userId, this.withdrawAmount).subscribe(
         (updatedUser) => {
-          this.authSrv.updateUser(updatedUser);
+          console.log(updatedUser);
+          this.authSrv.updateUser2(updatedUser); // Aggiorna il profilo dell'utente
           this.successMessage = 'Prelievo effettuato con successo.';
           setTimeout(() => {
             this.activeModal.close();
           }, 3000); // Chiudi il modale dopo 3 secondi
         },
-        (error) => {
-          this.errorMessage = 'Errore durante il prelievo: ' + error.message;
-        }
+        (error) => console.error('Errore durante il prelievo', error)
       );
     } else {
       this.errorMessage = 'L\'importo deve essere maggiore di zero.';
     }
+  }
+
+  showSuccessAlert(message: string) {
+    this.alertMessage = message;
+    setTimeout(() => this.alertMessage = null, 4000); // Nasconde l'alert dopo 3 secondi
   }
 }

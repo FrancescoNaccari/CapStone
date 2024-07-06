@@ -13,3 +13,7 @@
   <div class="modal-footer">
     <button type="button" class="btn border-0 text-white" (click)="withdraw()">{{ 'CHECKOUT.WITHDRAW' | translate }}</button>
   </div>
+
+  <div *ngIf="alertMessage" class="alert alert-success" role="alert" [ngClass]="{'show': alertMessage, 'fade': !alertMessage}">
+    {{ alertMessage }}
+  </div>
