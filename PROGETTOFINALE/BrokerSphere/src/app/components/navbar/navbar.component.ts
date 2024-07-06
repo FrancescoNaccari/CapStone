@@ -14,18 +14,15 @@ export class NavbarComponent implements OnInit {
   userId: number | null = null;
   menuOpen = false;
 
-
   constructor(
     private authSrv: AuthService,
     private translate: TranslateService,
     private languageService: LanguageService
   ) {}
 
-
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
-  
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
