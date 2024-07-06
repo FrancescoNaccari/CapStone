@@ -16,5 +16,5 @@ export class ContattaciComponent {
 
   onSubmit() {
     // Logica per l'invio del modulo di contatto
-    alert(this.translate.instant('CONTACT_US.SUCCESS_MESSAGE'));
+    alert(this.translate.instant('CONTATTI.SUCCESS_MESSAGE'));
   }}

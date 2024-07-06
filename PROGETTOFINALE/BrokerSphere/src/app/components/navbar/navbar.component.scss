@@ -69,7 +69,7 @@ body {
   position: fixed;
   width: 100%;
   top: 1.5rem;
-  z-index: 999;
+  z-index: 1001;
 }
 
 .menu {
@@ -87,6 +87,7 @@ body {
   border-bottom-color: white; /* Bottom border color */
   cursor: pointer;
   transition: color 0.3s, border-color 0.3s; /* Smooth transition */
+
 }
 
 .menu-button:hover {

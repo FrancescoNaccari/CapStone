@@ -240,5 +240,19 @@
       "PRIVACY_POLICY": "Privacy Policy",
       "CONTACT_US": "Contattaci"
     }
+  },
+  "CONTATTI": {
+    "TITLE": "Contattaci",
+    "EMAIL": "Email:",
+    "PHONE": "Telefono:",
+    "ADDRESS": "Indirizzo:",
+    "FORM": {
+      "NAME": "Nome",
+      "EMAIL": "Email",
+      "MESSAGE": "Messaggio",
+      "BUTTON": "Invia",
+      "EMAIL_ERROR": "Per favore inserisci un'email valida."
+    },
+    "SUCCESS_MESSAGE": "Il tuo messaggio è stato inviato con successo!"
   }
 }

@@ -239,5 +239,18 @@
       "PRIVACY_POLICY": "Privacy Policy",
       "CONTACT_US": "Contact Us"
     }
-  }
-}
+  },
+  "CONTATTI": {
+    "TITLE": "Contact Us",
+    "EMAIL": "Email:",
+    "PHONE": "Phone:",
+    "ADDRESS": "Address:",
+    "FORM": {
+      "NAME": "Name",
+      "EMAIL": "Email",
+      "MESSAGE": "Message",
+      "BUTTON": "Send",
+      "EMAIL_ERROR": "Please enter a valid email address."
+    },
+    "SUCCESS_MESSAGE": "Your message has been sent successfully!"
+  }}
