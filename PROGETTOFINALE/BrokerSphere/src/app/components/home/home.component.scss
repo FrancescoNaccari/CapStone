@@ -1,3 +1,9 @@
+:host {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
 .icon {
     max-width: 60px;
     max-height: 60px;

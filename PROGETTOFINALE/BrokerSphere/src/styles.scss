@@ -27,6 +27,7 @@ $utilities: (
             15:15%,
             20:20%,
             25: 25%,
+            30: 30%,
             35: 35%,
             40:40%,
             45:45%,
@@ -198,4 +199,9 @@ ngb-datepicker-month {
 }
 
 .NgxEditor {
-    background: #ffffff00!important;}
+    background: #ffffff00!important;
+}
+
+    .custom-top-margin{
+        margin-top: 6rem;
+      }
