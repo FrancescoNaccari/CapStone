@@ -83,35 +83,37 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   getStocks(): void {
     this.isLoading = true;
-    this.logoBorsaService.getAllLogos().subscribe(
-      (response: LogoDto[]) => {
-        let filteredStocks = response.filter(logo => logo.url !== null && logo.url !== '');
-        let filter2: LogoDto[] = [];
-        filteredStocks.forEach(logo => {
-          let image = new Image();
-          image.src = logo.url;
-          image.onload = () => {
-            filter2.push(logo);
-          };
-        });
-
-        setTimeout(() => {
-          this.stockListService.getStockList().subscribe((response: StockList[]) => {
-            this.allStocks = response.filter(stock => {
-              return filter2.map(logo => logo.symbol).includes(stock.symbol);
-            });
-            this.updateDisplayedStocks();
-            this.isLoading = false;
+    setTimeout(() => {
+      this.logoBorsaService.getAllLogos().subscribe(
+        (response: LogoDto[]) => {
+          let filteredStocks = response.filter(logo => logo.url !== null && logo.url !== '');
+          let filter2: LogoDto[] = [];
+          filteredStocks.forEach(logo => {
+            let image = new Image();
+            image.src = logo.url;
+            image.onload = () => {
+              filter2.push(logo);
+            };
           });
-        }, 100);
-      },
-      (error) => {
-        this.errorMessage = this.translate.instant('home.ERROR_MESSAGE');
-        this.allStocks = [];
-        this.updateDisplayedStocks();
-        this.isLoading = false;
-      }
-    );
+
+          setTimeout(() => {
+            this.stockListService.getStockList().subscribe((response: StockList[]) => {
+              this.allStocks = response.filter(stock => {
+                return filter2.map(logo => logo.symbol).includes(stock.symbol);
+              });
+              this.updateDisplayedStocks();
+              this.isLoading = false;
+            });
+          }, 100);
+        },
+        (error) => {
+          this.errorMessage = this.translate.instant('home.ERROR_MESSAGE');
+          this.allStocks = [];
+          this.updateDisplayedStocks();
+          this.isLoading = false;
+        }
+      );
+    }, 3000); // Delay for at least 3 seconds
   }
 
   // updateDisplayedStocks(): void {

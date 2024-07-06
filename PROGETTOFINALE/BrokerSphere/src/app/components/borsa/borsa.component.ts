@@ -98,8 +98,8 @@ export class BorsaComponent implements OnInit {
   stock: any = {};
   averagePrice: number = 0;
   bestPrice: number = 0;
-  fromDate: string | null = '2024-06-17';
-  toDate: string | null = '2024-06-22';
+  fromDate: string | null = '2024-06-20';
+  toDate: string | null = '2024-07-10';
   userId: number | null = null;
   alertMessage: string | null = null;
   alertType: string = 'info';

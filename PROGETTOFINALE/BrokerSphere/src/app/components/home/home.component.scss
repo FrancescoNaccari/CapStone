@@ -74,16 +74,81 @@ div {
     font-size: 12px;
     font-weight: lighter;
 }
-
 .spinner-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh; /* Imposta l'altezza a 100vh per centrare verticalmente */
+    justify-content: center;
+    height: 100vh;
   }
   
-  .spinner-border {
-    width: 3rem;
-    height: 3rem;
+  .custom-spinner {
+    position: relative;
+    width: 25%;
+    height:15%;
   }
   
+  .custom-spinner img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: heartbeat 1s infinite alternate;
+  }
+  
+  .custom-spinner img:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+  
+  @keyframes heartbeat {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+  }
+  
+  .loading-bar-container {
+    width: 40%; /* Adjusted to match the larger spinner */
+    margin-top: 30px;
+  }
+  
+  .loading-bar {
+    width: 0;
+    height: 10px; /* Increased height */
+    background-color: #1976d2;
+    animation: loading 3s infinite;
+  }
+  
+  @keyframes loading {
+    0% {
+      width: 0;
+    }
+    50% {
+      width: 50%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+  @media (min-width: 1440px) {
+    .custom-spinner {
+      height: 20%;
+    }
+  }
+  @media (min-width: 1650px) {
+    .custom-spinner {
+      height: 25%;
+    }
+  }
+  @media (max-width: 991px) {
+    .custom-spinner {
+      width: 40%;
+    }
+  }
