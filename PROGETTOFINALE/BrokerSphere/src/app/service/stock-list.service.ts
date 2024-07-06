@@ -10,53 +10,7 @@ import { ApiKeyService } from './api-key.service';
 })
 export class StockListService {
 
-  // private apiUrl= environment.apiURL;
-  // private apikey1 = `${environment.apikey1}`;
-  // private apikey2 = `${environment.apekey2}`;
-  
-  // constructor(private http: HttpClient) { }
-  // getStockList(): Observable<StockList[]> {
-  //   const url = `${this.apiUrl}stocks?exchange=NASDAQ&format=json`;
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({
-  //       'x-rapidapi-key':`${this.apikey1}`,
-  //         'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
-  //       })
-  //     };
-  
-  //     return this.http.get<any>(url, httpOptions).pipe(
-  //       map(response => {
-  //         if (response && Array.isArray(response.data)) {
-  //           return response.data;
-  //         } else {
-  //           console.error('Risposta inattesa dal server', response);
-  //           return [];
-  //         }
-  //       })
-  //     );
-  //   }
-  // }
-
-  // GET STOCKS LIST
-// GET LISTA DI TUTTE LE BORSE
-// const url = 'https://twelve-data1.p.rapidapi.com/stocks?exchange=NASDAQ&format=json';
-// const options = {
-// 	method: 'GET',
-// 	headers: {
-// 		'x-rapidapi-key': 'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',
-// 		'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
-// 	}
-// };
-
-// try {
-// 	const response = await fetch(url, options);
-// 	const result = await response.text();
-// 	console.log(result);
-// } catch (error) {
-// 	console.error(error);
-
-
-private apiUrl = `${environment.apiURL}stocks`;
+  private apiUrl = `${environment.apiURL}stocks`;
 
 constructor(private http: HttpClient, private apiKeyService: ApiKeyService) {}
 

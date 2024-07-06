@@ -1,24 +1,3 @@
-<!-- 
-<div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
-  <h5>Ricarica il tuo conto</h5>
-  <div class="form-floating my-3 me-3">
-    <input class="form-control" type="number" id="rechargeAmount" name="rechargeAmount" [(ngModel)]="rechargeAmount" required min="0">
-    <label for="rechargeAmount" class="label-custom">Importo</label>
-  </div>
-  <button type="button" class="btn btn-primary rounded-5" (click)="recharge()" ngbPopover="Inserisci un importo maggiore di zero." placement="right" triggers="manual" #rechargePopover="ngbPopover">Ricarica</button>
-</div>
-
-<div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
-  <h5>Preleva dal tuo conto</h5>
-  <div class="form-floating my-3 me-3">
-    <input class="form-control" type="number" id="withdrawAmount" name="withdrawAmount" [(ngModel)]="withdrawAmount" required min="0">
-    <label for="withdrawAmount" class="label-custom">Importo</label>
-  </div>
-  <button type="button" class="btn btn-primary rounded-5" (click)="withdraw()" ngbPopover="Inserisci un importo maggiore di zero." placement="right" triggers="manual" #withdrawPopover="ngbPopover">Preleva</button>
-</div>
-<div *ngIf="alertMessage" class="alert alert-success" role="alert" [ngClass]="{'show': alertMessage, 'fade': !alertMessage}">
-  {{ alertMessage }}
-</div> -->
 <div class="rounded-4 mt-4 w-100 px-5 py-3 shadow custom-color">
   <h5>{{ 'CHECKOUT.RECHARGE_ACCOUNT' | translate }}</h5>
   <div class="form-floating my-3 me-3">

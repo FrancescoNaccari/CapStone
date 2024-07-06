@@ -17,45 +17,6 @@ declare global {
 })
 export class GoogleLoginComponent implements OnInit {
    
-//   @Output() loginWithGoogle: EventEmitter<any> = new EventEmitter<any>();
-
-//   createFakeGoogleWrapper = () => {
-//       const googleLoginWrapper = document.createElement('div');
-//       googleLoginWrapper.style.display = 'none';
-//       googleLoginWrapper.classList.add('custom-google-button');
-//       document.body.appendChild(googleLoginWrapper);
-//       window.google.accounts.id.renderButton(googleLoginWrapper, {
-//           type: 'icon',
-//           width: '200',
-//       });
-
-//       const googleLoginWrapperButton = googleLoginWrapper.querySelector(
-//           'div[role=button]'
-//       ) as HTMLElement;
-
-//       return {
-//           click: () => {
-//               googleLoginWrapperButton?.click();
-//           },
-//       };
-//   };
-
-//   handleGoogleLogin() {
-//       this.loginWithGoogle.emit(this.createFakeGoogleWrapper());
-//   }
-
-
-
-//  constructor(private authSrv: AuthService){
-
-//     }
-// handleGoogleLogin(){
-//     this.authSrv.loginGoole().subscribe((user: number) => {
-//       console.log(user);
-    
-//     });
-  
-// }
 
 
 constructor(private authSrv:AuthService ) { }

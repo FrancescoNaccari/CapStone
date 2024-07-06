@@ -20,13 +20,13 @@ public class LogoController {
     private LogoService logoService;
 
     @GetMapping
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public List<Logo> getAllLogos() {
         return logoService.getAllLogos();
     }
 
     @GetMapping("/{symbol}")
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN', 'USER')")
     public LogoDto getLogo(@PathVariable String symbol) {
         Optional<Logo> logo = logoService.findBySymbol(symbol);
         if (logo.isPresent()) {

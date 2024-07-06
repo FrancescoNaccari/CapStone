@@ -63,7 +63,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return List.of("/webhook/**","/auth/**").stream().anyMatch(p-> new AntPathMatcher().match(p,request.getServletPath()));
+        return List.of("/webhook/**","/auth/**", "/logos/**").stream().anyMatch(p-> new AntPathMatcher().match(p,request.getServletPath()));
 //        return new AntPathMatcher().match("/auth/**", request.getServletPath());
     }
 

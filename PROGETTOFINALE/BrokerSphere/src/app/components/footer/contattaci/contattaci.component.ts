@@ -7,10 +7,6 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./contattaci.component.scss']
 })
 export class ContattaciComponent {
-  // onSubmit() {
-  //   // Logica per l'invio del modulo di contatto
-  //   alert('Il tuo messaggio è stato inviato con successo!');
-  // }
 
   constructor(private translate: TranslateService) {}
 

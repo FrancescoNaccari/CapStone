@@ -10,6 +10,7 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  title = 'BrokerSphere';
   isLoginPage: boolean = false;
   constructor(
     private translate: TranslateService,

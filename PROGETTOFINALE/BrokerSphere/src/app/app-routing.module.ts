@@ -28,15 +28,14 @@ const routes: Routes = [
   { path: 'termini-di-servizio', component: TerminiDiServizioComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'contattaci', component: ContattaciComponent },
-  { path: 'favorites', component: FavoriteStocksComponent },
+  { path: 'favorites', component: FavoriteStocksComponent, canActivate: [AuthGuard]},
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'newsletter', component: NewsletterComponent },
-  { path: 'lista-azioni-user', component: ListaAzioniUserComponent },
-  { path:'transazioni', component: ListaAzioniUserComponent},
+  { path:'transazioni', component: ListaAzioniUserComponent, canActivate: [AuthGuard]},
 
   
   
-  { path: 'checkout',  component: CheckoutComponent,},
+  { path: 'checkout',  component: CheckoutComponent, canActivate: [AuthGuard]},
   { path: 'cancel', component: CancelComponent },
   { path: 'success', component: SuccessComponent},
 

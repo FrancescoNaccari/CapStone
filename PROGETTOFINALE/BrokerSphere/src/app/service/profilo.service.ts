@@ -10,19 +10,6 @@ import { Newsletter } from '../interface/newsletter.interface';
   providedIn: 'root'
 })
 export class ProfiloService {
-//   private apiBack=environment.apiBack;
-
-//   constructor(private http: HttpClient,private authService: AuthService) { }
-
-//   updateUser(id: number, user: Partial<User>): Observable<User> {
-//     return this.http.patch<User>(`${this.apiBack}users/${id}`, user);
-//   }
-
-//   updateAvatar(id: number, formData: FormData) : Observable<User> {
-//     return this.http.patch<User>(`${this.apiBack}users/${id}/avatar`, formData)
-//   }
-
-// }
 private apiBack = environment.apiBack;
 
 constructor(private http: HttpClient, private authService: AuthService) { }
