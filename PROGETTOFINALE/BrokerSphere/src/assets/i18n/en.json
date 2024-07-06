@@ -26,6 +26,7 @@
     "PRICE_NOT_LOADED": "Error: Price not loaded correctly"
   },
   "alerts": {
+    "LOGIN_REQUIRED": "Please log in to use this feature.",
     "ADDED_TO_FAVORITES": "{{ stockName }} has been added to favorites.",
     "REMOVED_FROM_FAVORITES": "{{ stockName }} has been removed from favorites."
   },

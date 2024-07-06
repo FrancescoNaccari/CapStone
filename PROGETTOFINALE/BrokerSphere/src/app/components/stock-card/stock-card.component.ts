@@ -8,6 +8,7 @@ import { RealTimePriceService } from 'src/app/service/real-time-price.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, TemplateRef, OnInit } from '@angular/core';
 import { from } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-stock-card',
@@ -32,7 +33,8 @@ export class StockCardComponent implements OnInit {
     private quoteBorseService: QuoteBorseService,
     private cdr: ChangeDetectorRef,
     private modalService: NgbModal,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -44,20 +46,26 @@ export class StockCardComponent implements OnInit {
       }
     });
   }
-
+  isUserAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
+  }
   openModal(content: TemplateRef<any>) {
+    if (!this.isUserAuthenticated()) {
+      this.showAlert(this.translate.instant('alerts.LOGIN_REQUIRED'), 'danger');
+      return;
+    }
+  
     this.getRealTimePrice();
-    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',backdrop:"static",keyboard:false });
+    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: "static", keyboard: false });
     modalRef.componentInstance.symbol = this.stock.symbol;
     modalRef.componentInstance.currentPrice = this.stock.price;
     modalRef.componentInstance.userId = this.stock.userId;
     modalRef.result.then((result) => {
-      this.currentCartIcon=this.defaultCartIcon;
-    },() => { this.currentCartIcon=this.defaultCartIcon;
+      this.currentCartIcon = this.defaultCartIcon;
+    }, () => { this.currentCartIcon = this.defaultCartIcon;
     })
-    this.currentCartIcon = this.hoverCartIcon;  // Mantieni l'icona cambiata dopo il click
+    this.currentCartIcon = this.hoverCartIcon;
   }
-
   closeModal(modal: any) {
     modal.dismiss();
     this.currentCartIcon = this.defaultCartIcon;  // Ripristina l'icona originale alla chiusura del modal
@@ -105,6 +113,11 @@ export class StockCardComponent implements OnInit {
   }
 
   toggleFavorite(): void {
+    if (!this.isUserAuthenticated()) {
+      this.showAlert(this.translate.instant('alerts.LOGIN_REQUIRED'), 'danger');
+      return;
+    }
+  
     this.stock.favorite = !this.stock.favorite;
     this.favoriteToggled.emit(this.stock);
     this.showAlert(
@@ -112,7 +125,6 @@ export class StockCardComponent implements OnInit {
       this.stock.favorite ? 'success' : 'warning'
     );
   }
-
   showAlert(message: string, type: string): void {
     this.alertMessage = message;
     this.alertType = type;

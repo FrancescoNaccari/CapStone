@@ -155,17 +155,26 @@ export class BorsaComponent implements OnInit {
   selectSymbol(symbol: string): void {
     this.symbol = symbol;
   }
+  isUserAuthenticated(): boolean {
+    return this.authSrv.isAuthenticated();
+  }
   openModal(content: TemplateRef<any>, symbol: string) {
-    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title',backdrop:"static",keyboard:false  });
+    if (!this.isUserAuthenticated()) {
+      this.showAlert(this.translate.instant('alerts.LOGIN_REQUIRED'), 'danger');
+      return;
+    }
+  
+    const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: "static", keyboard: false });
     modalRef.result.then((result) => {
-      this.currentCartIcon=this.defaultCartIcon;
-    },() => { 
-      this.currentCartIcon=this.defaultCartIcon;
-    }) // modalRef.componentInstance.symbol = this.symbol;
+      this.currentCartIcon = this.defaultCartIcon;
+    }, () => {
+      this.currentCartIcon = this.defaultCartIcon;
+    });
+    modalRef.componentInstance.symbol = this.symbol;
     modalRef.componentInstance.currentPrice = this.stock.price;
     modalRef.componentInstance.userId = this.stock.userId;
-   
-    this.currentCartIcon = this.hoverCartIcon;  // Mantieni l'icona cambiata dopo il click
+  
+    this.currentCartIcon = this.hoverCartIcon;
   }
   closeModal(modal: any) {
     modal.dismiss();
@@ -524,10 +533,15 @@ export class BorsaComponent implements OnInit {
   }
 
   toggleFavorite(stock: any): void {
+    if (!this.isUserAuthenticated()) {
+      this.showAlert(this.translate.instant('alerts.LOGIN_REQUIRED'), 'danger');
+      return;
+    }
+  
     stock.favorite = !stock.favorite;
     this.favoriteToggled.emit(stock);
     this.showAlert(
-      this.translate.instant(stock.favorite ? 'alerts.ADDED_TO_FAVORITES' : 'alerts.REMOVED_FROM_FAVORITES', { stockName: stock.name || stock.symbol}),
+      this.translate.instant(stock.favorite ? 'alerts.ADDED_TO_FAVORITES' : 'alerts.REMOVED_FROM_FAVORITES', { stockName: stock.name || stock.symbol }),
       stock.favorite ? 'success' : 'warning'
     );
   }

@@ -129,4 +129,8 @@ private errors(err: any) {
     }
     return throwError(error)
 }
+
+isAuthenticated(): boolean {
+  return this.authSub.value !== null;
+}
 }
