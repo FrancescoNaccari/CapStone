@@ -10,7 +10,7 @@
       <a class="m-2 text-end "routerLink="/favorites" (click)="toggleMenu()">Preferiti</a>
       <a class="m-2 text-end "routerLink="/profilo" (click)="toggleMenu()">Profilo</a>
       <a class="m-2 text-end "routerLink="/newsletter" (click)="toggleMenu()">Newsletter</a>
-      <a class="m-2 text-end "routerLink="/transazioni" (click)="toggleMenu()">Transazioni</a>
+      <a class="m-2 text-end "routerLink="/transazioni"  [queryParams]="{ userId: userId }"  (click)="toggleMenu()">Transazioni</a>
       <div class="d-flex mx-3 my-2 justify-content-end align-items-center">
         <a (click)="switchLanguage('it')">ITA</a>
         <span class="text-white">|</span>
