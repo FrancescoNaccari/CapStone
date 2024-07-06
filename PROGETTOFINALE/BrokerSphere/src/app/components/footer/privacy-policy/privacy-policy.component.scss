@@ -1,3 +1,9 @@
+:host {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .privacy-title {
     color: #1199fa;
   }

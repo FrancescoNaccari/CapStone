@@ -327,7 +327,7 @@ private void sendMailRegistrazione(String email) {
                         <p class="greeting">Gentile Utente,</p>
                         <p>La tua registrazione è avvenuta con successo!</p>
                         <p>Puoi ora accedere al sistema utilizzando le credenziali fornite durante la registrazione.</p>
-                        <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                        <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:brokersphere1@gmail.com>brokersphere1@gmail.com</a>.</p>
                         <div class="important-info">
                             <p><strong>Informazioni Importanti:</strong></p>
                             <p>Assicurati di completare il tuo profilo e di aggiornare la tua password per garantire la sicurezza del tuo account.</p>
@@ -335,7 +335,7 @@ private void sendMailRegistrazione(String email) {
                         <p>Grazie per esserti registrato!</p>
                         <p>Distinti saluti,</p>
                         <p>Il Team di Supporto</p>
-                        <a href="http://www.example.com/login" class="button">Accedi</a>
+                        <a href="http://localhost:4200/login" class="button">Accedi</a>
                     </div>
                     <div class="social-icons">
                         <a href="https://facebook.com"><img src="cid:facebookIcon" alt="Facebook"></a>
@@ -344,7 +344,7 @@ private void sendMailRegistrazione(String email) {
                     </div>
                     <div class="footer">
                         Copyright © 2024 BrokerSphere. Tutti i diritti riservati.<br>
-                        <a href="http://www.example.com/unsubscribe">Disiscriviti</a> | <a href="http://www.example.com/privacy">Privacy</a>
+                        <a href="http://localhost:4200/profilo">Disiscriviti</a> | <a href="http://localhost:4200/privacy-policy">Privacy</a>
                     </div>
                 </div>
             </body>
@@ -427,7 +427,7 @@ private void sendMailRegistrazione(String email) {
                     <li>Data: %s</li>
                 </ul>
                 <p>Il tuo nuovo saldo è: € %s</p>
-                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:brokersphere1@gmail.com">brokersphere1@gmail.com</a>.</p>
                 <p>Grazie per aver ricaricato il tuo conto!</p>
                 <p>Distinti saluti,</p>
                 <p>Il Team di Supporto</p>
@@ -547,7 +547,7 @@ private void sendMailRegistrazione(String email) {
                     <li>Data: %s</li>
                 </ul>
                 <p>I fondi sono stati trasferiti al tuo account Stripe associato.</p>
-                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="brokersphere1@gmail.com">brokersphere1@gmail.com</a>.</p>
                 <p>Grazie per aver utilizzato i nostri servizi.</p>
                 <p>Distinti saluti,</p>
                 <p>Il Team di Supporto</p>

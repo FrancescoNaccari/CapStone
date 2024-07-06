@@ -158,7 +158,7 @@ export class LoginComponent implements OnInit {
       if (user) {
         if (!firstTime) return;
         firstTime = false;
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       }
     });
 

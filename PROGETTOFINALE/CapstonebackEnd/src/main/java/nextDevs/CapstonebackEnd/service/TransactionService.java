@@ -136,7 +136,7 @@ public class TransactionService {
                     <li>Totale: € %s</li>
                     <li>Data: %s</li>
                 </ul>
-                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:brokersphere1@gmail.com">brokersphere1@gmail.com</a>.</p>
                 <p>Grazie per aver acquistato azioni!</p>
                 <p>Distinti saluti,</p>
                 <p>Il Team di Supporto</p>
@@ -177,7 +177,7 @@ public class TransactionService {
                     <li>Totale: € %s</li>
                     <li>Data: %s</li>
                 </ul>
-                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:support@example.com">support@example.com</a>.</p>
+                <p>Se hai domande o necessiti di assistenza, non esitare a contattarci all'indirizzo <a href="mailto:brokersphere1@gmail.com">brokersphere1@gmail.com</a>.</p>
                 <p>Grazie per aver venduto azioni!</p>
                 <p>Distinti saluti,</p>
                 <p>Il Team di Supporto</p>

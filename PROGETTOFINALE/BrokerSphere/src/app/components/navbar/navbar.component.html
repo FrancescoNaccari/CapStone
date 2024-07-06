@@ -23,13 +23,13 @@
         <li>
           <a class="nav-link text-white " [routerLink]="['/newsletter']" routerLinkActive="active">Newsletter</a>
         </li> -->
-        <!-- <li *ngIf="!user" class="nav-item">
+<!-- <li *ngIf="!user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/login']" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active">Login</a>
         </li>
         <li *ngIf="!user" class="nav-item">
           <a class="nav-link text-white" [routerLink]="['/register']" routerLinkActive="active">Registrati</a>
         </li> -->
-        <!-- <li>
+<!-- <li>
           <a class="nav-link text-white d-lg-none" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
         </li>
         
@@ -43,15 +43,15 @@
 
       <div class="dropdown d-flex align-items-center d-none d-lg-flex">
         <div class="d-flex flex-column text-center"> -->
-          <!-- <p class="text-danger m-0">Benvenuto</p> -->
-          <!-- <p class="m-0 fw-bold fs-5 fs-lg-2">{{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}</p>
+<!-- <p class="text-danger m-0">Benvenuto</p> -->
+<!-- <p class="m-0 fw-bold fs-5 fs-lg-2">{{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}</p>
           <p class="m-0 fw-bold fs-5 fs-lg-2 text-p"> {{user.user.username}}</p>
         </div>
         <button class="btn dropdown-toggle rounded-0 mx-1  " type="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img width="30" class="rounded-circle" src="{{user.user.avatar}}" alt="">
         </button>
         <ul class="dropdown-menu dropdown-menu-end  fs-5 fs-lg-2 text-center"> -->
-          <!-- <li>
+<!-- <li>
             <a class="dropdown-item" href="#">
               <img width="20" src="{{ checkTypeOfAuthData(user) ? user.user.thumbnailUrl : checkTypeOfSocialUser(user) ? user.photoUrl : '' }}" alt="avatar" />
             {{ checkTypeOfAuthData(user) ? user.user.name : checkTypeOfSocialUser(user) ? user.firstName + ' ' + (user.lastName !== undefined ? user.lastName : '') : '' }}
@@ -62,7 +62,7 @@
           <li>
             <p class="m-0 fw-bold fs-5 fs-lg-2"> {{user.user.username}}</p>
           </li> -->
-          <!-- <li>
+<!-- <li>
             <a class="dropdown-item fs-1" [routerLink]="['/profile']" routerLinkActive="active">Account</a>
           </li>
           <li>
@@ -155,7 +155,7 @@
     </div>
   </div>
 </nav> -->
-<nav class="navbar navbar-expand-lg fs-5 fs-lg-2 ">
+<!-- <nav class="navbar navbar-expand-lg fs-5 fs-lg-2 ">
   <div class="container-fluid">
     <a class="navbar-brand overb ms-3" [routerLink]="['/home']">
       <img src="./assets/triangle.png" width="10" alt="logo" />
@@ -214,3 +214,50 @@
     </div>
   </div>
 </nav>
+ -->
+
+
+<!-- 
+
+<div class="logo-container">
+  <img src="../../../assets/img/ICON_LOGO ICON.png" alt="Logo" class="logo">
+</div>
+<div class="navbar">
+  <div class="menu">
+    <a class="menu-button text-decoration-none m-4" (click)="toggleMenu()">MENU</a>
+    <div class="menu-content" [class.show]="menuOpen">
+      <a routerLink="/home" (click)="toggleMenu()">Home</a>
+      <a routerLink="/favorites" (click)="toggleMenu()">Preferiti</a>
+      <a routerLink="/profilo" (click)="toggleMenu()">Profilo</a>
+      <a routerLink="/newsletter" (click)="toggleMenu()">Newsletter</a>
+      <a routerLink="/transazioni" (click)="toggleMenu()">Transazioni</a>
+      <div class="d-flex align-items-center">
+        <a (click)="switchLanguage('it')">ITA</a> <span class="text-white">|</span><a
+          (click)="switchLanguage('en')">EN</a>
+      </div>
+      <a routerLink="/login" (click)="toggleMenu()">Login</a>
+    </div>
+  </div>
+</div> -->
+<div class="logo-container">
+  <img src="../../../assets/img/ICON_LOGO ICON.png" alt="Logo" class="logo">
+</div>
+<div class="navbar">
+  <div class="menu">
+    <a class="menu-button text-decoration-none m-4" (click)="toggleMenu()">MENU</a>
+    <div class="menu-content" [class.show]="menuOpen">
+      <a routerLink="/" (click)="toggleMenu()">Home</a>
+      <a routerLink="/favorites" (click)="toggleMenu()">Preferiti</a>
+      <a routerLink="/profilo" (click)="toggleMenu()">Profilo</a>
+      <a routerLink="/newsletter" (click)="toggleMenu()">Newsletter</a>
+      <a routerLink="/transazioni" (click)="toggleMenu()">Transazioni</a>
+      <div class="d-flex align-items-center">
+        <a (click)="switchLanguage('it')">ITA</a>
+        <span class="text-white">|</span>
+        <a (click)="switchLanguage('en')">EN</a>
+      </div>
+      <a *ngIf="!user" routerLink="/login" (click)="toggleMenu()">Login</a>
+      <a *ngIf="user" (click)="logout()">Logout</a>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,8 @@ import { LanguageService } from 'src/app/service/language.service';
 export class NavbarComponent implements OnInit {
   user!: AuthData | null;
   userId: number | null = null;
+  menuOpen = false;
+
 
   constructor(
     private authSrv: AuthService,
@@ -19,11 +21,19 @@ export class NavbarComponent implements OnInit {
     private languageService: LanguageService
   ) {}
 
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+  
+
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
       this.user = data;
       if (data && 'user' in data) {
         this.userId = data.user.idUtente ?? null;
+      } else {
+        this.userId = null;
       }
     });
     this.languageService.setLanguage(this.languageService.getLanguage());

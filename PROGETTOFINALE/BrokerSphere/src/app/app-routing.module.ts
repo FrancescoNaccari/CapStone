@@ -22,8 +22,8 @@ import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-a
 
 
 const routes: Routes = [
-  { path: "", component: LoginComponent },
-  { path: "home", component: HomeComponent, canActivate: [AuthGuard] },
+  { path: "login", component: LoginComponent },
+  { path: "", component: HomeComponent},
   // { path: "borse", component: BorsaComponent, canActivate: [AuthGuard]},
   { path: 'termini-di-servizio', component: TerminiDiServizioComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
@@ -32,6 +32,7 @@ const routes: Routes = [
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'newsletter', component: NewsletterComponent },
   { path: 'lista-azioni-user', component: ListaAzioniUserComponent },
+  { path:'transazioni', component: ListaAzioniUserComponent},
 
   
   
