@@ -18,7 +18,7 @@ export class Error404Component implements OnInit {
 
     timer$.subscribe({
       next: (value) => this.countdown -= 1,
-      complete: () => this.router.navigate(['/home'])
+      complete: () => this.router.navigate(['/'])
     });
   }
 }
