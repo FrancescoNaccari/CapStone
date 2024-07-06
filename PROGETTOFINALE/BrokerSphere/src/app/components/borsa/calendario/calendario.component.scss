@@ -113,8 +113,8 @@
   /* Input field styles */
   .form-control {
       color: white;
-      background-color: #010B2D; /* Input field background color */
-      border: 2px solid white; /* White border */
+      background-color: transparent; /* Input field background color */
+      border:0; /* White border */
   }
   
   /* Button styles */

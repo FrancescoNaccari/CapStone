@@ -4,88 +4,79 @@
   flex-direction: column;
 }
 
-.container {
-    background: #f8f9fa;
-    padding: 20px;
-    border-radius: 10px;
-  }
-  
-  h3 {
-    color: #343a40;
-  }
-  
-  h4 {
-    color: #fff;
-    margin-top: 2rem;
-  }
-  
-  .card {
-    border-radius: 10px;
-  }
-  
-  .card-header {
-    background: #007bff;
-    color: #fff;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  .list-group-item {
-    background: #fff;
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    margin-bottom: 0.5rem;
-  }
-  
-  .quantity {
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-control, .form-select {
-    border-radius: 5px;
-  }
-  
-  .pagination .page-item.disabled .page-link {
-    pointer-events: none;
-    cursor: not-allowed;
-    background-color: #e9ecef;
-    border-color: #dee2e6;
-  }
-  
-  .pagination .page-item.active .page-link {
-    z-index: 1;
-    color: #fff;
-    background-color: #007bff;
-    border-color: #007bff;
-  }
-  
-  .d-flex.justify-content-between {
-    align-items: center;
-  }
-  
-  .custom-day {
-    text-align: center;
-    padding: 0.185rem 0.25rem;
-    display: inline-block;
-    height: 2rem;
-    width: 2rem;
-  }
-  
-  .custom-day.focused {
-    background-color: #e6e6e6;
-  }
-  
-  .custom-day.range,
-  .custom-day:hover {
-    background-color: rgb(2, 117, 216);
-    color: white;
-  }
-  
-  .custom-day.faded {
-    background-color: rgba(2, 117, 216, 0.5);
-  }
-  
+h3 {
+  color: white;
+}
+
+h4 {
+  color: #fff;
+  margin-top: 2rem;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.card-header {
+  background: rgb(21,73,188);
+  background: linear-gradient(90deg, rgba(21,73,188,1) 0%, rgba(25,118,210,1) 50%);
+  color: white;
+  border-radius: 10px 10px 0 0;
+}
+
+.list-group-item {
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 5px;
+  color: white;
+}
+
+.text-custum {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control, .form-select {
+  border-radius: 5px;
+}
+
+.pagination .page-item .page-link {
+  color: white; /* Colore delle scritte delle pagine */
+}
+
+.pagination .page-item.disabled .page-link {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.pagination .page-item.active .page-link {
+  z-index: 1;
+  color: #000c62; /* Colore della pagina corrente */
+  background-color: #fff; /* Sfondo della pagina corrente */
+  border-color: #007bff;
+}
+
+.d-flex.justify-content-between {
+  align-items: center;
+}
+
+.form-control {
+  color: white;
+  background-color: transparent; /* Input field background color */
+  border: 2px solid white; /* White border */
+}
+
+.text-muted {
+  color: white !important;
+}
+
+.form-control::placeholder {
+  color: white; /* Colore del placeholder */
+  opacity: 0.6; /* Assicurati che il placeholder non sia trasparente */
+}
