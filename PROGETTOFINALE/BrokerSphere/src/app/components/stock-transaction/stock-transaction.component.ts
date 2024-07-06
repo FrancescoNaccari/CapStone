@@ -63,21 +63,22 @@ export class StockTransactionComponent implements OnInit, OnChanges {
       this.quantity = 1;
     }
   }
-
   showAlert(message: string, type: 'success' | 'danger'): void {
     this.alertMessage = message;
     this.alertType = type;
     setTimeout(() => {
-      this.onAlertClose();
+        this.onAlertClose();
     }, 3000);
-  }
+}
 
-  onAlertClose(): void {
-    this.alertMessage = null;
-    this.alertType = null;
-    this.activeModal.close();
-  }
 
+onAlertClose(): void {
+  this.alertMessage = null;
+  this.alertType = null;
+}
+closeModal(): void {
+  this.activeModal.close();
+}
   getRealTimePrice(): void {
     this.isPriceLoaded = false;
     this.subscription.add(
