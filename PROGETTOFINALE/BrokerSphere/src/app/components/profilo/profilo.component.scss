@@ -33,3 +33,26 @@ input, .label-custom {
     width: 90px;
   }
 }
+.toggle-password {
+  cursor: pointer;
+  background-color: transparent !important; /* Ensure background is transparent */
+  border: none; /* Remove border if present */
+  color: white; /* Set icon color to white */
+}
+
+.input-group {
+  border: 2px solid white;
+}
+
+.input-group-text {
+  background-color: transparent !important; /* Ensure background is transparent */
+  border: none; /* Remove border if present */
+  color: white; /* Set icon color to white */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-group-text i {
+  color: white !important; /* Ensure icon color is white */
+}

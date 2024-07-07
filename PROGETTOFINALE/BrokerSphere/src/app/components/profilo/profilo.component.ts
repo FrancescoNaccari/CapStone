@@ -38,7 +38,9 @@ export class ProfiloComponent implements OnInit, OnDestroy {
   withdrawAmount: number = 0; // Importo del prelievo
   balance: number = 0; // Saldo dell'utente
   private intervalId: any;
-
+  showCurrentPassword: boolean = false;
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
   constructor(private authSrv: AuthService, private profiloSrv: ProfiloService, private renderer: Renderer2, private translate: TranslateService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -55,6 +57,29 @@ export class ProfiloComponent implements OnInit, OnDestroy {
     this.startBalanceUpdateInterval();
   }
 
+ 
+  togglePasswordVisibility(inputId: string) {
+    const inputElement = document.getElementById(inputId) as HTMLInputElement;
+    if (inputElement.type === 'password') {
+      inputElement.type = 'text';
+      if (inputId === 'currentPassword') {
+        this.showCurrentPassword = true;
+      } else if (inputId === 'newPassword') {
+        this.showNewPassword = true;
+      } else if (inputId === 'confirmPassword') {
+        this.showConfirmPassword = true;
+      }
+    } else {
+      inputElement.type = 'password';
+      if (inputId === 'currentPassword') {
+        this.showCurrentPassword = false;
+      } else if (inputId === 'newPassword') {
+        this.showNewPassword = false;
+      } else if (inputId === 'confirmPassword') {
+        this.showConfirmPassword = false;
+      }
+    }
+  }
   openDepositModal() {
     const modalRef = this.modalService.open(DepositaModalComponent);
     modalRef.componentInstance.userId = this.profilo?.idUtente;
