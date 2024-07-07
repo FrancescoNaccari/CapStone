@@ -22,7 +22,18 @@ export class NavbarComponent implements OnInit {
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
+    const menuContent = document.querySelector('.menu-content');
+    if (menuContent) {
+      if (this.menuOpen) {
+        menuContent.classList.add('show');
+        menuContent.classList.remove('hide');
+      } else {
+        menuContent.classList.add('hide');
+        menuContent.classList.remove('show');
+      }
+    }
   }
+  
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
