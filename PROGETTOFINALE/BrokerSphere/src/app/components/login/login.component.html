@@ -1,13 +1,13 @@
 <div class="page-container">
   <div class="container">
-    <div class="row justify-content-start justify-content-xxl-center align-items-md-center align-content-center" style="height: 100vh;">
-      <div class="col-12 col-md-6 text-start mb-3 p-md-0 mb-md-0 text-md-center text-xxl-start">
+    <div class="row justify-content-start justify-content-xxl-center align-items-md-center align-content-sm-center  " style="height: 80vh;">
+      <div class="col-12 col-md-6 text-start mb-3 p-md-0 mb-md-0 text-md-center text-xxl-start d-none d-md-flex">
         <img src="./assets/img/ICON_LOGO-ICON-E-TEXT.png" alt="Logo" class="img-fluid w-25 mt-2 mt-md-0 w-md-50">
       </div>
       <div class="col-12 col-md-6 col-lg-5 p-4 p-md-0">
         <div class="form-container text-start" [class.hidden]="register">
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
-            <h1 class="fs-9 fs-lg-10 mb-3 fw-bold text-start">{{ 'login.WELCOME_BACK' | translate }}</h1>
+            <h1 class="fs-9 fs-lg-10 mb-3 mt-3 mt-sm-0 fw-bold text-start">{{ 'login.WELCOME_BACK' | translate }}</h1>
             <p class="fs-lg-4 fs-md-3 ">{{ 'login.LOGIN_WITH_YOUR_DATA' | translate }}</p>
             <div class="input-group mb-3 p-1 rounded-3">
               <span class="input-group-text" id="basic-addon1"><i class="bi bi-person-fill fs-4"></i></span>
