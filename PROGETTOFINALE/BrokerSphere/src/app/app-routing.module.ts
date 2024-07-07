@@ -18,6 +18,7 @@ import { CheckoutComponent } from './components/stripe/checkout/checkout.compone
 import { CancelComponent } from './components/stripe/cancel/cancel.component';
 import { SuccessComponent } from './components/stripe/success/success.component';
 import { ListaAzioniUserComponent } from './components/lista-azioni-user/lista-azioni-user.component';
+import { SocialMediaLinComponent } from './components/social-media-lin/social-media-lin.component';
 
 
 
@@ -32,7 +33,7 @@ const routes: Routes = [
   { path: "profilo", component: ProfiloComponent, canActivate: [AuthGuard] },
   { path: 'newsletter', component: NewsletterComponent },
   { path:'transazioni', component: ListaAzioniUserComponent, canActivate: [AuthGuard]},
-
+  {path:'social',component: SocialMediaLinComponent},
   
   
   { path: 'checkout',  component: CheckoutComponent, canActivate: [AuthGuard]},

@@ -257,5 +257,6 @@
       "EMAIL_ERROR": "Per favore inserisci un'email valida."
     },
     "SUCCESS_MESSAGE": "Il tuo messaggio è stato inviato con successo!"
-  }
+  }, "COMING_SOON": "Prossimamente",
+  "STAY_TUNED": "Rimanete sintonizzati per aggiornamenti!"
 }

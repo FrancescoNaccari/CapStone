@@ -256,4 +256,10 @@
       "EMAIL_ERROR": "Please enter a valid email address."
     },
     "SUCCESS_MESSAGE": "Your message has been sent successfully!"
-  }}
+  },
+  
+    "COMING_SOON": "Coming Soon",
+    "STAY_TUNED": "Stay tuned for updates!"
+  
+
+}

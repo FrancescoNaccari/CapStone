@@ -49,6 +49,7 @@ import { CurrencyFormatPipe } from './pipes/currency-format.pipe';
 import { IscrizioneNewsletterComponent } from './components/home/iscrizione-newsletter/iscrizione-newsletter.component';
 import { PrelevaModalComponent } from './components/profilo/preleva-modal/preleva-modal.component';
 import { DepositaModalComponent } from './components/profilo/deposita-modal/deposita-modal.component';
+import { SocialMediaLinComponent } from './components/social-media-lin/social-media-lin.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -85,6 +86,7 @@ export function HttpLoaderFactory(http: HttpClient) {
      IscrizioneNewsletterComponent,
      PrelevaModalComponent,
      DepositaModalComponent,
+     SocialMediaLinComponent,
 
     
   ],

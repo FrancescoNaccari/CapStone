@@ -1,0 +1,77 @@
+:host {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-20px);
+    }
+    60% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .social-component {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+    text-decoration: none;
+    color: #333;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+//   .social-component:hover {
+//     background-color: #ececec;
+//     border-color: #999;
+//   }
+  
+  .social-icon-container {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    animation: bounce 2s infinite;
+  }
+  
+  .social-icon {
+    width: 100%;
+    height: auto;
+  }
+  
+  .social-text-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .social-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+  }
+  
+  .social-subtext {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+  }
+  
