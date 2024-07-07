@@ -3,18 +3,30 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/service/auth.service';
+import { NgbAlertConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  providers: [NgbAlertConfig]  // Configurazione degli alert
 })
 export class LoginComponent implements OnInit {
   register = false;
   termsAccepted = false;
   passwordRegex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})';
+  alerts: any[] = [];
 
-  constructor(private authSrv: AuthService, private router: Router, private translate: TranslateService) {}
+  constructor(
+    private authSrv: AuthService,
+    private router: Router,
+    private translate: TranslateService,
+    private alertConfig: NgbAlertConfig
+  ) {
+    // Configurazione degli alert
+    alertConfig.type = 'success';
+    alertConfig.dismissible = true;
+  }
 
   ngOnInit(): void {
     let firstTime = true;
@@ -66,7 +78,8 @@ export class LoginComponent implements OnInit {
         cognome: form.value.cognomeRegister
       };
       this.authSrv.register(value).subscribe(() => {
-        window.alert(this.translate.instant('login.REGISTRATION_SUCCESS'));
+        this.addAlert(this.translate.instant('login.REGISTRATION_SUCCESS'), 'success');
+        this.signIn(); // Torna al form di login dopo la registrazione
       });
     } catch (error) {
       console.error(error);
@@ -79,5 +92,17 @@ export class LoginComponent implements OnInit {
 
   signUp() {
     this.register = true;
+  }
+
+  addAlert(message: string, type: string) {
+    this.alerts.push({
+      type: type,
+      msg: message,
+      timeout: 5000
+    });
+  }
+
+  onClose(dismissedAlert: any): void {
+    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 }

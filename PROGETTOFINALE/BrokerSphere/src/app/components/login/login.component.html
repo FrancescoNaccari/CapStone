@@ -5,6 +5,11 @@
         <img src="./assets/img/ICON_LOGO-ICON-E-TEXT.png" alt="Logo" class="img-fluid w-25 mt-2 mt-md-0 w-md-50">
       </div>
       <div class="col-12 col-md-6 col-lg-5 p-4 p-md-0 ">
+        <!-- Alert Container -->
+        <ngb-alert *ngFor="let alert of alerts; let i = index" [type]="alert.type" (close)="onClose(alert)">
+          {{ alert.msg }}
+        </ngb-alert>
+
         <!-- Login Form -->
         <div class="form-container text-start" [class.hidden]="register">
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
