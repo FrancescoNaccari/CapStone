@@ -82,7 +82,12 @@ export class LoginComponent implements OnInit {
         this.signIn(); // Torna al form di login dopo la registrazione
       
       }, (error) => {
-        alert(error);
+        // Check if error is due to email already existing
+        if (error.error && error.error.message === 'Email already exists') {
+          this.addAlert(this.translate.instant('auth.EMAIL_EXISTS'), 'danger');
+        } else {
+          this.addAlert(this.translate.instant('auth.EMAIL_EXISTS'), 'danger');
+        }
       });
     } catch (error) {
       console.error(error);
