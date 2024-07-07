@@ -259,7 +259,17 @@
   },
   
     "COMING_SOON": "Coming Soon",
-    "STAY_TUNED": "Stay tuned for updates!"
+    "STAY_TUNED": "Stay tuned for updates!",
+    
+      "auth": {
+        "EMAIL_EXISTS": "Email already exists",
+        "INCORRECT_PASSWORD": "Incorrect password",
+        "USER_NOT_FOUND": "Cannot find user",
+        "PASSWORD_TOO_SHORT": "Password is too short",
+        "DEFAULT_ERROR": "An unknown error occurred"
+      }
+    
+    
   
 
 }

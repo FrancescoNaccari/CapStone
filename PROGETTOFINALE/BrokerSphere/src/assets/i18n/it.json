@@ -258,5 +258,12 @@
     },
     "SUCCESS_MESSAGE": "Il tuo messaggio è stato inviato con successo!"
   }, "COMING_SOON": "Prossimamente",
-  "STAY_TUNED": "Rimanete sintonizzati per aggiornamenti!"
+  "STAY_TUNED": "Rimanete sintonizzati per aggiornamenti!",
+  "auth": {
+    "EMAIL_EXISTS": "Email già esistente",
+    "INCORRECT_PASSWORD": "Password errata",
+    "USER_NOT_FOUND": "Utente non trovato",
+    "PASSWORD_TOO_SHORT": "La password è troppo corta",
+    "DEFAULT_ERROR": "Errore sconosciuto"
+  }
 }

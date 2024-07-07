@@ -107,8 +107,9 @@ export class AuthService {
 
   private errors(err: any) {
     let errorKey = '';
-    switch (err.error) {
-      case 'Email already exists':
+    console.log(err);
+    switch (err.error.message) {
+      case 'Email già esistente':
         errorKey = 'auth.EMAIL_EXISTS';
         break;
       case 'Incorrect password':

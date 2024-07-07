@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     try {
       this.authSrv.login(form.value).subscribe(() => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       });
     } catch (error) {
       console.log(error);
@@ -80,6 +80,9 @@ export class LoginComponent implements OnInit {
       this.authSrv.register(value).subscribe(() => {
         this.addAlert(this.translate.instant('login.REGISTRATION_SUCCESS'), 'success');
         this.signIn(); // Torna al form di login dopo la registrazione
+      
+      }, (error) => {
+        alert(error);
       });
     } catch (error) {
       console.error(error);

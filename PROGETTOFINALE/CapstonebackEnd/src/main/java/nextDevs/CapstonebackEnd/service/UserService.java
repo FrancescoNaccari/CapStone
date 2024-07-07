@@ -101,7 +101,7 @@ public class UserService {
 
             return user.getIdUtente();
         } else {
-            throw new BadRequestException("L'utente con email " + userDto.getEmail() + " già esistente");
+            throw new BadRequestException("Email già esistente");
         }
     }
 
