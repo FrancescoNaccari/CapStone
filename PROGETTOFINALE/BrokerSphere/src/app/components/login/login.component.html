@@ -1,10 +1,11 @@
 <div class="page-container">
   <div class="container">
-    <div class="row justify-content-start justify-content-xxl-center align-items-md-center align-content-sm-center  " style="height: 80vh;">
+    <div class="row justify-content-start justify-content-xxl-center align-items-md-center align-content-sm-center" style="height: 80vh;">
       <div class="col-12 col-md-6 text-start mb-3 p-md-0 mb-md-0 text-md-center text-xxl-start d-none d-md-flex">
         <img src="./assets/img/ICON_LOGO-ICON-E-TEXT.png" alt="Logo" class="img-fluid w-25 mt-2 mt-md-0 w-md-50">
       </div>
-      <div class="col-12 col-md-6 col-lg-5 p-4 p-md-0">
+      <div class="col-12 col-md-6 col-lg-5 p-4 p-md-0 ">
+        <!-- Login Form -->
         <div class="form-container text-start" [class.hidden]="register">
           <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
             <h1 class="fs-9 fs-lg-10 mb-3 mt-3 mt-sm-0 fw-bold text-start">{{ 'login.WELCOME_BACK' | translate }}</h1>
@@ -24,7 +25,7 @@
             <button type="submit" class="btn text-white p-3 border-0 rounded-3 w-100 my-3 mb-4" [disabled]="loginForm.invalid">{{ 'login.LOGIN' | translate }}</button>
             <p class="text-center fs-2">
               <span class="opacity-75">{{ 'login.NO_ACCOUNT' | translate }} </span>
-              <a class="text-decoration-none text-white fw-bold" (click)="signUp()">&nbsp;{{ 'login.REGISTER' | translate }}</a>
+              <a class="text-decoration-none text-white fw-bold over" (click)="signUp()">&nbsp;{{ 'login.REGISTER' | translate }}</a>
             </p>
             <div>
               <app-google-login class="social-container d-flex justify-content-center mb-3"></app-google-login>
@@ -32,6 +33,7 @@
           </form>
         </div>
 
+        <!-- Register Form -->
         <div class="form-container text-start" [class.hidden]="!register">
           <form #registerForm="ngForm" (ngSubmit)="onSubmitRegister(registerForm)">
             <h1 class="fw-bold">{{ 'login.CREATE_ACCOUNT' | translate }}</h1>
@@ -58,22 +60,38 @@
             <div class="input-group mb-3 p-1 rounded-3">
               <span class="input-group-text" id="basic-addon1"><i class="bi bi-lock"></i></span>
               <input type="password" placeholder="{{ 'login.PASSWORD' | translate }}" id="passwordRegister" name="passwordRegister" required class="form-control transparent-input border-0" ngModel ngbPopover="{{ 'login.PASSWORD_TOOLTIP' | translate }}" triggers="focus" placement="right" />
-              <span class="input-group-text toggle-password" id="togglePasswordRegister"><i class="bi bi-eye-slash fs-4"></i></span>
+              <span class="input-group-text toggle-password" id="togglePasswordRegister"><i class="bi bi-eye-slash fs-4 over"></i></span>
             </div>
             <div class="d-flex align-items-center mb-3">
               <input type="checkbox" id="termsRegister" name="termsRegister" [(ngModel)]="termsAccepted" required class="form-check-input m-0 me-2 fs-4" />
               <label for="termsRegister" class="form-check-label">
                 <span class="opacity-text fs-2">{{ 'login.AGREE_TERMS' | translate }} </span>
-                <a class="text-decoration-none text-white fw-bold" data-bs-toggle="modal" data-bs-target="#termsModal">{{ 'login.TERMS_AND_CONDITIONS' | translate }}</a>.
+                <a class="text-decoration-none text-white fw-bold over" data-bs-toggle="modal" data-bs-target="#termsModal">{{ 'login.TERMS_AND_CONDITIONS' | translate }}</a>.
               </label>
             </div>
             <button class="btn border-0 w-100 text-white  mb-4 mt-2 p-3 rounded-3" type="submit" [disabled]="registerForm.invalid || !termsAccepted">{{ 'login.CREATE_ACCOUNT' | translate }}</button>
             <p class="text-center fs-2">
               <span class="opacity-75">{{ 'login.ALREADY_MEMBER' | translate }} </span>
-              <a class="text-decoration-none text-white fw-bold" (click)="signIn()">&nbsp;{{ 'login.LOGIN' | translate }}</a>
+              <a class="text-decoration-none text-white fw-bold over" (click)="signIn()">&nbsp;{{ 'login.LOGIN' | translate }}</a>
             </p>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale per Termini e Condizioni -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="termsModalLabel">{{ 'login.TERMS_AND_CONDITIONS' | translate }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" [innerHTML]="'login.TERMS_CONTENT' | translate"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'login.CLOSE' | translate }}</button>
       </div>
     </div>
   </div>
