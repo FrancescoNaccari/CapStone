@@ -1,23 +1,25 @@
-<div class="logo-container ">
-  <img src="../../../assets/img/ICON_LOGO-ICON-E-TEXT.png" alt="Logo" class="w-20 w-md-15 w-lg-10 mt-2 ">
-</div>
-<div class="navbar">
-  <div class="menu">
-    <a class="menu-button text-decoration-none m-4 fs-3 " (click)="toggleMenu()">MENU</a>
-    <div class="menu-content" [class.show]="menuOpen">
-      <a class="close-button " (click)="toggleMenu()">X</a>
-      <a class="m-2 text-end pt-4 mt-5" routerLink="/" (click)="toggleMenu()">Home</a>
-      <a class="m-2 text-end "routerLink="/favorites" (click)="toggleMenu()">Preferiti</a>
-      <a class="m-2 text-end "routerLink="/profilo" (click)="toggleMenu()">Profilo</a>
-      <a class="m-2 text-end "routerLink="/newsletter" (click)="toggleMenu()">Newsletter</a>
-      <a class="m-2 text-end "routerLink="/transazioni"  [queryParams]="{ userId: userId }"  (click)="toggleMenu()">Transazioni</a>
-      <div class="d-flex mx-3 my-2 justify-content-end align-items-center">
-        <a (click)="switchLanguage('it')">ITA</a>
-        <span class="text-white">|</span>
-        <a (click)="switchLanguage('en')">EN</a>
+<div class="d-flex justify-content-between align-items-center">
+  <img src="../../../assets/img/ICON_LOGO-ICON-E-TEXT.png"  alt="Logo" class="w-20 w-md-15 w-lg-10 w-xxl-8 m-3 " style="cursor: pointer;z-index: 1000;" routerLink="/">
+  <!-- <div class="logo-container ">
+  </div> -->
+  <div class="navbar fixed-top">
+    <div class="menu">
+      <a class="menu-button text-decoration-none m-4 fs-4 fs-lg-12" (click)="toggleMenu()">MENU</a>
+      <div class="menu-content fs-4" [class.show]="menuOpen">
+        <a class="close-button " (click)="toggleMenu()">X</a>
+        <a class="m-2 text-end pt-4 mt-5" routerLink="/" (click)="toggleMenu()">Home</a>
+        <a *ngIf="user" class="m-2 text-end "routerLink="/favorites" (click)="toggleMenu()">Preferiti</a>
+        <a *ngIf="user" class="m-2 text-end "routerLink="/profilo" (click)="toggleMenu()">Profilo</a>
+        <a *ngIf="user" class="m-2 text-end "routerLink="/newsletter" (click)="toggleMenu()">Newsletter</a>
+        <a *ngIf="user" class="m-2 text-end "routerLink="/transazioni"  [queryParams]="{ userId: userId }"  (click)="toggleMenu()">Transazioni</a>
+        <div class="d-flex mx-3 my-2 justify-content-end align-items-center">
+          <a (click)="switchLanguage('it')">ITA</a>
+          <span class="text-white">|</span>
+          <a (click)="switchLanguage('en')">EN</a>
+        </div>
+        <a *ngIf="!user" class="mx-3 my-2 text-end " routerLink="/login" (click)="toggleMenu()">Login</a>
+        <a *ngIf="user" class="mx-3 my-2 text-end " (click)="logout()">Logout</a>
       </div>
-      <a *ngIf="!user" class="mx-3 my-2 text-end " routerLink="/login" (click)="toggleMenu()">Login</a>
-      <a *ngIf="user" class="mx-3 my-2 text-end " (click)="logout()">Logout</a>
     </div>
   </div>
 </div>
