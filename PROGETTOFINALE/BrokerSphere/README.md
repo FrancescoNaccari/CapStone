@@ -31,7 +31,7 @@ ps.  se non istallato in precedenza installare sulla powersell il seguente comma
 https://rapidapi.com/it/twelve-data1-twelve-data-default/api/twelve-data1/ -->
 
 
-## palette COLORI
+<!-- ## palette COLORI -->
 <!-- Aquamarine Tint (#09eab4)
 Pale Turquoise Tint (#93fcec)
 Dark Slate Grey Tint (#0c3c4c)
