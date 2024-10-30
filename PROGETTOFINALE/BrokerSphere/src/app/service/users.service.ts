@@ -15,7 +15,7 @@ export class UsersService {
   constructor(private http:HttpClient) { }
 
   
-updateUser(id: number, user: User): Observable<User> {
+  updateUser(id: number, user: User): Observable<User> {
     const url = `${this.apiBack}/users/${id}`;
     return this.http.put<User>(url, user);
   }

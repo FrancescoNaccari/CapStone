@@ -16,7 +16,6 @@ public class UserDataDto {
     private TipoUtente tipoUtente;
     private String avatar;
     private BigDecimal balance = BigDecimal.ZERO;
-
     private boolean newsletter;
     private String stripeAccountId;
 }
