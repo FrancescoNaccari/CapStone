@@ -11,35 +11,41 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
-@EnableWebMvc
 @EnableMethodSecurity //Permette di attivare la sicurezza sui metodi del controller con il PreAuthorized
 //public class Config implements WebMvcConfigurer {
 public class Config implements WebMvcConfigurer {
+    private final JwtFilter jwtFilter;
 
+    public Config(JwtFilter jwtFilter) {
+        this.jwtFilter = jwtFilter;
+    }
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.formLogin(AbstractHttpConfigurer::disable);
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.sessionManagement(http -> http.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        httpSecurity.cors(Customizer.withDefaults());
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .csrf(csrf -> csrf.disable()) // Disabilita CSRF poiché utilizziamo un'architettura stateless con JWT
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Nessuna sessione
+                .cors() // Abilita la configurazione CORS tramite il bean corsFilter
+                .and()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**").permitAll() // Rotte pubbliche
+                        .anyRequest().authenticated() // Tutte le altre rotte richiedono autenticazione
+                );
 
-//        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers(HttpMethod.GET,"/api/users").permitAll());
-//      httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").denyAll());
-
-        httpSecurity.authorizeHttpRequests(http->http.requestMatchers("/api/**").permitAll());
-
-        httpSecurity.authorizeHttpRequests(http -> http.requestMatchers("/**").permitAll());
+        // Aggiunge il filtro JWT prima del filtro di autenticazione standard
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
-
     }
 
 //    @Override
@@ -71,9 +77,10 @@ public class Config implements WebMvcConfigurer {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Sostituisci con il dominio del frontend in produzione
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setAllowCredentials(true); // Consenti l'invio di credenziali
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
