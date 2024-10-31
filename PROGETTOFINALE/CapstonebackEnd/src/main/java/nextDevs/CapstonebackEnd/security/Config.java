@@ -22,8 +22,7 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity //Permette di attivare la sicurezza sui metodi del controller con il PreAuthorized
-//public class Config implements WebMvcConfigurer {
+@EnableMethodSecurity
 public class Config implements WebMvcConfigurer {
     private final JwtFilter jwtFilter;
 
@@ -79,7 +78,6 @@ public class Config implements WebMvcConfigurer {
         config.setAllowedOrigins(List.of("http://localhost:4200", "https://tuo-dominio-produzione.com"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setExposedHeaders(List.of("Authorization")); // Expose headers if needed
         config.setAllowCredentials(true); // Consenti l'invio di credenziali, se necessario
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);

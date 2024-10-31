@@ -8,11 +8,12 @@ import nextDevs.CapstonebackEnd.exception.BadRequestException;
 import nextDevs.CapstonebackEnd.service.AuthService;
 import nextDevs.CapstonebackEnd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 //@CrossOrigin(origins = "*")
@@ -46,11 +47,6 @@ public class AuthController {
     }
 
 
-    // Questo gestore gestisce le richieste OPTIONS
-    @RequestMapping(value = "/auth/**", method = RequestMethod.OPTIONS)
-    public ResponseEntity<Void> handleOptions() {
-        return ResponseEntity.ok().build();
-    }
 
 
 
