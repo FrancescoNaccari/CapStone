@@ -23,18 +23,17 @@ import java.util.Optional;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
-
     @Autowired
     private JwtTool jwtTool;
 
     @Autowired
-    private UserService utenteService;
+    private UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
 
-        System.out.println(request);
+//        System.out.println(request);
 
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             throw new UnauthorizedException("Errore in authorization, token mancante!");
@@ -46,7 +45,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         int userId = jwtTool.getIdFromToken(token);
 
-        Optional <User> utenteOptional = utenteService.getUserById(userId);
+        Optional <User> utenteOptional = userService.getUserById(userId);
 
         if(utenteOptional.isPresent()) {
             User user = utenteOptional.get();
@@ -66,5 +65,4 @@ public class JwtFilter extends OncePerRequestFilter {
         return List.of("/webhook/**","/auth/**", "/logos/**").stream().anyMatch(p-> new AntPathMatcher().match(p,request.getServletPath()));
 //        return new AntPathMatcher().match("/auth/**", request.getServletPath());
     }
-
 }

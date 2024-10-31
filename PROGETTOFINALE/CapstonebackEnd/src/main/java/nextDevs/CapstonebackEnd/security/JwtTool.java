@@ -1,6 +1,8 @@
 package nextDevs.CapstonebackEnd.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 import nextDevs.CapstonebackEnd.exception.UnauthorizedException;
@@ -21,25 +23,31 @@ public class JwtTool {
 
 
     public String createToken(User user) {
-        return Jwts.builder().issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + duration))
-                .subject(String.valueOf(user.getIdUtente())).signWith(Keys.hmacShaKeyFor(secret.getBytes()))
+        return Jwts.builder()
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + duration))
+                .setSubject(String.valueOf(user.getIdUtente()))
+                .signWith(Keys.hmacShaKeyFor(secret.getBytes()), SignatureAlgorithm.HS256)
                 .compact();
     }
 
     public void verifyToken(String token) {
         try {
-            Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
-                    .build().parse(token);
+            Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                    .build()
+                    .parseClaimsJws(token);
         } catch (Exception e) {
-            throw new UnauthorizedException("Error in authorization, re-login!");
+            throw new UnauthorizedException("Errore nell'autorizzazione, effettua nuovamente il login!");
         }
-
     }
 
     public int getIdFromToken(String token) {
-        return Integer.parseInt(Jwts.parser().verifyWith(Keys.hmacShaKeyFor(secret.getBytes()))
-                .build().parseSignedClaims(token).getPayload().getSubject());
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secret.getBytes()))
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return Integer.parseInt(claims.getSubject());
     }
-
 }

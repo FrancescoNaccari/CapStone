@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -24,62 +25,50 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class Config implements WebMvcConfigurer {
-    private final JwtFilter jwtFilter;
-
-    public Config(JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // Disabilita CSRF per JWT
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**").permitAll()
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**").permitAll() // consenti alcune rotte senza autenticazione
                         .anyRequest().authenticated()
+                )
+                .headers(headers -> headers
+                                .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'")) // Configura CSP
+                                .httpStrictTransportSecurity(hsts -> hsts
+                                        .includeSubDomains(true)
+                                        .maxAgeInSeconds(31536000))
+                                .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Imposta frame options
+                        // Rimuovi contentTypeOptions() se nosniff() non è disponibile
                 );
-
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
 
-
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("http://localhost:4200")
-//                .allowedMethods("GET", "POST");
-//    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
-
-//    @Bean
-//    public CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.setAllowedOrigins(List.of("*"));
-//        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", corsConfiguration);
-//
-//        return source;
-//    }
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://tuo-dominio-produzione.com"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Sostituisci con il tuo dominio
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true); // Consenti l'invio di credenziali, se necessario
+        config.setExposedHeaders(List.of("Authorization")); // Questo consente di esporre header specifici, se necessario
+        config.setAllowCredentials(true); // Consenti credenziali
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

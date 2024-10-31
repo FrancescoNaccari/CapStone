@@ -64,11 +64,13 @@ public class UserController {
     }
 
     @PatchMapping("/users/{id}")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public UserDataDto patchUser(@PathVariable int id, @RequestBody UserDto userDto) {
         return userService.patchUser(id, userDto);
     }
 
     @PatchMapping(value = "/users/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public UserDataDto patchAvatarUser(@PathVariable int id, @RequestParam("file") MultipartFile avatar) throws IOException {
         return userService.patchAvatarUser(id, avatar);
     }
@@ -98,12 +100,14 @@ public class UserController {
 
 
     @PutMapping("/users/{id}/newsletter")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<User> updateNewsletter(@PathVariable Integer id, @RequestBody Map<String, Boolean> newsletter) {
         User updatedUser = userService.updateNewsletterPreference(id, newsletter.get("newsletter"));
         return ResponseEntity.ok(updatedUser);
     }
 
     @PutMapping("/users/{userId}/balance")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<User> updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
         try {
             User updatedUser = userService.updateBalance(userId, balanceRequest.getAmount());
@@ -119,6 +123,7 @@ public class UserController {
         return ResponseEntity.ok(newBalance);
     }
     @GetMapping("/{userId}/stocks")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public List<Stock> getUserStocks(@PathVariable Integer userId) {
         return userService.getUserStocks(userId);
     }
