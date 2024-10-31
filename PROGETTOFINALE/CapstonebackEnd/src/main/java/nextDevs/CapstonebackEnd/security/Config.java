@@ -33,20 +33,23 @@ public class Config implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(csrf -> csrf.disable()) // Disabilita CSRF poiché utilizziamo un'architettura stateless con JWT
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Nessuna sessione
-                .cors() // Abilita la configurazione CORS tramite il bean corsFilter
-                .and()
+                .csrf(csrf -> csrf.disable()) // Disabilita CSRF per JWT
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless
+                .cors(Customizer.withDefaults()) // Abilita CORS usando il bean corsFilter
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**").permitAll() // Rotte pubbliche
-                        .anyRequest().authenticated() // Tutte le altre rotte richiedono autenticazione
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/webhook/**").permitAll()
+                        .requestMatchers("/logos/**").permitAll()
+                        .anyRequest().authenticated()
                 );
 
-        // Aggiunge il filtro JWT prima del filtro di autenticazione standard
+        // Aggiungi il filtro JWT prima del filtro di autenticazione standard
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
+
+
 
 //    @Override
 //    public void addCorsMappings(CorsRegistry registry) {
