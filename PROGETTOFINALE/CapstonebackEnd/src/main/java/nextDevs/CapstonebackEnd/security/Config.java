@@ -33,22 +33,18 @@ public class Config implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(csrf -> csrf.disable()) // Disabilita CSRF per JWT
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless
-                .cors(Customizer.withDefaults()) // Abilita CORS usando il bean corsFilter
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/webhook/**").permitAll()
-                        .requestMatchers("/logos/**").permitAll()
+                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
-        // Aggiungi il filtro JWT prima del filtro di autenticazione standard
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
-
 
 
 //    @Override
@@ -80,10 +76,10 @@ public class Config implements WebMvcConfigurer {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200")); // Sostituisci con il dominio del frontend in produzione
+        config.setAllowedOrigins(List.of("http://localhost:4200", "https://tuo-dominio-produzione.com"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setAllowCredentials(true); // Consenti l'invio di credenziali
+        config.setAllowCredentials(true); // Consenti l'invio di credenziali, se necessario
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
