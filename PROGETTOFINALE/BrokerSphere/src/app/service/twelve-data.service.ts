@@ -1,6 +1,7 @@
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiKeyService } from './api-key.service';
 
 interface StockResponse {
   data: any[];
@@ -14,11 +15,12 @@ interface TimeSeriesResponse {
 export class TwelveDataService {
 
   
+
   stocks: any[] = [];
   realTimePrice: number | undefined;
   timeSeriesData: any[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private apiKeyService: ApiKeyService) { }
 
   ngOnInit(): void {
     this.getStockList();
@@ -27,12 +29,13 @@ export class TwelveDataService {
   }
 
   getStockList(): void {
+    const apiKey = this.apiKeyService.getNextKey();
     const url = 'https://twelve-data1.p.rapidapi.com/stocks?exchange=NASDAQ&format=json';
     const options = {
-      headers: {
-        'X-RapidAPI-Key': 'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',
+      headers: new HttpHeaders({
+        'X-RapidAPI-Key': apiKey,
         'X-RapidAPI-Host': 'twelve-data1.p.rapidapi.com'
-      }
+      })
     };
 
     this.http.get<StockResponse>(url, options).subscribe(response => {
@@ -42,14 +45,14 @@ export class TwelveDataService {
     });
   }
 
-
   getRealTimePrice(): void {
+    const apiKey = this.apiKeyService.getNextKey();
     const url = 'https://twelve-data1.p.rapidapi.com/price?symbol=AMZN&format=json&outputsize=30';
     const options = {
-      headers: {
-        'X-RapidAPI-Key': 'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',
+      headers: new HttpHeaders({
+        'X-RapidAPI-Key': apiKey,
         'X-RapidAPI-Host': 'twelve-data1.p.rapidapi.com'
-      }
+      })
     };
 
     this.http.get<any>(url, options).subscribe(response => {
@@ -58,15 +61,17 @@ export class TwelveDataService {
       console.error('Error fetching real-time price:', error);
     });
   }
+
   getTimeSeriesData(): void {
+    const apiKey = this.apiKeyService.getNextKey();
     const url = 'https://twelve-data1.p.rapidapi.com/time_series?symbol=AMZN&interval=1day&outputsize=30&format=json';
     const options = {
-      headers: {
-        'X-RapidAPI-Key': 'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',
+      headers: new HttpHeaders({
+        'X-RapidAPI-Key': apiKey,
         'X-RapidAPI-Host': 'twelve-data1.p.rapidapi.com'
-      }
+      })
     };
-  
+
     this.http.get<TimeSeriesResponse>(url, options).subscribe(response => {
       this.timeSeriesData = response.time_series || [];
     }, error => {

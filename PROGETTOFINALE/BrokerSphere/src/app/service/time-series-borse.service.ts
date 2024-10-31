@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { TimeSeries } from '../interface/time-series-data.interface';
 import { ApiKeyService } from './api-key.service';
@@ -11,9 +11,24 @@ import { ApiKeyService } from './api-key.service';
 export class TimeSeriesBorseService {
 
 private apiUrl = `${environment.apiURL}time_series`;
+private baseUrl = 'https://api.twelvedata.com/';
 
 constructor(private http: HttpClient, private apiKeyService: ApiKeyService) {}
 
+ // Funzione per fare una richiesta con una chiave API rotativa
+ fetchData(endpoint: string, params: any) {
+  // Ottieni la prossima chiave API disponibile
+  const apiKey = this.apiKeyService.getNextKey();
+
+  // Aggiungi la chiave API ai parametri della richiesta
+  let httpParams = new HttpParams().set('apikey', apiKey);
+  Object.keys(params).forEach(key => {
+    httpParams = httpParams.set(key, params[key]);
+  });
+
+  // Costruisce l'URL completo dell'endpoint e fa la richiesta
+  return this.http.get(`${this.baseUrl}${endpoint}`, { params: httpParams });
+}
 private fetchTimeSeriesWithKey(symbol: string, interval: string, apiKey: string, fromDate?: string, toDate?: string): Observable<TimeSeries> {
   let url = `${this.apiUrl}?symbol=${symbol}&interval=${interval}&outputsize=5000&format=json`;
   if (fromDate && toDate) {
