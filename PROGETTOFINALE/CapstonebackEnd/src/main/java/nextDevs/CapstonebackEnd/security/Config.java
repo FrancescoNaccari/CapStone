@@ -33,7 +33,7 @@ public class Config implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
@@ -79,6 +79,7 @@ public class Config implements WebMvcConfigurer {
         config.setAllowedOrigins(List.of("http://localhost:4200", "https://tuo-dominio-produzione.com"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setExposedHeaders(List.of("Authorization")); // Expose headers if needed
         config.setAllowCredentials(true); // Consenti l'invio di credenziali, se necessario
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
