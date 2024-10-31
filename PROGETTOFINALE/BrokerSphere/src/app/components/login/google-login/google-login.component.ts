@@ -23,7 +23,7 @@ export class GoogleLoginComponent implements AfterViewInit {
     this.loadGoogleScript().then(() => {
       if (window.google) {
         window.google.accounts.id.initialize({
-          client_id: '800518808424-6uhijj53k3b0qq0butjpjc0m3mcver38.apps.googleusercontent.com',
+          client_id: environment.idGoogle,
           callback: this.handleCredentialResponse.bind(this)
         });
 
