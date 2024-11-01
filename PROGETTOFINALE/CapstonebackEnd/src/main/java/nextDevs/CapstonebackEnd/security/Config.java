@@ -2,6 +2,7 @@ package nextDevs.CapstonebackEnd.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,7 +29,7 @@ public class Config implements WebMvcConfigurer {
     private final JwtFilter jwtFilter;
 
     // Costruttore per iniettare il filtro
-    public Config(JwtFilter jwtFilter) {
+    public Config(@Lazy JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
     }
 

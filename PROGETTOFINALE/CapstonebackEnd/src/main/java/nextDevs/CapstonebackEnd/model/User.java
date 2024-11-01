@@ -15,10 +15,11 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue
-
+    @Column(name = "id_utente")
     private int idUtente;
     private String email;
     private String password;

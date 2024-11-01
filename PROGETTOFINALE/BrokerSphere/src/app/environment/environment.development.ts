@@ -1,7 +1,7 @@
 export const environment = {
     production: false,
     apiURL: 'https://twelve-data1.p.rapidapi.com/',
-    apiBack: 'https://capstone-production-327b.up.railway.app/',
+    apiBack: 'http://localhost:8888/',
 
     stripe: 'pk_test_51PUreKI7SUiJXQFKtvhtNomss2WrPdmjBtY1f97lAAMMqjNtGcD59fZirAllv28b0mrMlgZnRsyC1uTPR7uzFt3a00kGizJcki',
     serverUrl: '/api',
