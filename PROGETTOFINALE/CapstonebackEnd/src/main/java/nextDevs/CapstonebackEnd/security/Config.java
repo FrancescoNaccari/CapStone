@@ -40,7 +40,7 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**").permitAll()
+                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**", "/oauth2/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
@@ -49,21 +49,14 @@ public class Config implements WebMvcConfigurer {
         return httpSecurity.build();
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "https://capstone-production-327b.up.railway.app")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
-    }
+
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
         // Aggiungi l'origine del front-end
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-327b.up.railway.app"));
+        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
 
         // Specifica i metodi consentiti (incluso OPTIONS)
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
