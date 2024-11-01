@@ -24,57 +24,52 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity//Permette di attivare la sicurezza sui metodi del controller con il PreAuthorized
+
 public class Config implements WebMvcConfigurer {
-    private final JwtFilter jwtFilter;
-
-    // Costruttore per iniettare il filtro
-    public Config(@Lazy JwtFilter jwtFilter) {
-        this.jwtFilter = jwtFilter;
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // Disabilita CSRF per JWT
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/webhook/**", "/logos/**", "/oauth2/**").permitAll()
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**").permitAll() // consenti alcune rotte senza autenticazione
                         .anyRequest().authenticated()
+                )
+                .headers(headers -> headers
+                                .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'")) // Configura CSP
+                                .httpStrictTransportSecurity(hsts -> hsts
+                                        .includeSubDomains(true)
+                                        .maxAgeInSeconds(31536000))
+                                .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Imposta frame options
+                        // Rimuovi contentTypeOptions() se nosniff() non è disponibile
                 );
-
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
 
-
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:4200")
+                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-
-        // Aggiungi l'origine del front-end
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
-
-        // Specifica i metodi consentiti (incluso OPTIONS)
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // Specifica gli header consentiti
+        config.setAllowedOrigins(List.of("http://localhost:4200")); // Sostituisci con il tuo dominio
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-
-        // Espone gli header specifici nella risposta, se necessario
-        config.setExposedHeaders(List.of("Authorization"));
-
-        // Permetti l'invio di credenziali, se necessario
-        config.setAllowCredentials(true);
-
+        config.setExposedHeaders(List.of("Authorization")); // Questo consente di esporre header specifici, se necessario
+        config.setAllowCredentials(true); // Consenti credenziali
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-}
+    }}
