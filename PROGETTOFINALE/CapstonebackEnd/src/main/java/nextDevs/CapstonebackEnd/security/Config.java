@@ -34,11 +34,11 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/auth/**", "/public/**", "/users/**", "/options/**").permitAll() // consenti alcune rotte senza autenticazione
+                        .requestMatchers("/auth/**", "/oauth2/**", "/public/**", "/users/**", "/options/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
-                                .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'")) // Configura CSP
+                                .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
                                 .httpStrictTransportSecurity(hsts -> hsts
                                         .includeSubDomains(true)
                                         .maxAgeInSeconds(31536000))
@@ -61,11 +61,13 @@ public class Config implements WebMvcConfigurer {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200")); // Sostituisci con il tuo dominio
+
+        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setExposedHeaders(List.of("Authorization")); // Questo consente di esporre header specifici, se necessario
-        config.setAllowCredentials(true); // Consenti credenziali
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);
+
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
