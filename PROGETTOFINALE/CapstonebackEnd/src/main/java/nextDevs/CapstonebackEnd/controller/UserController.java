@@ -54,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    @PreAuthorize("hasAuthority('ADMIN, 'USER')")
+    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public User updateUser(@PathVariable int id, @RequestBody @Validated UserDto userDto, BindingResult bindingResult) throws NotFoundException {
         if (bindingResult.hasErrors()) {
             throw new BadRequestException(bindingResult.getAllErrors().stream()
