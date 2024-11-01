@@ -76,23 +76,23 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 
             // Creare un account Stripe per l'utente con le capacità necessarie
-            try {
-                AccountCreateParams.Capabilities capabilities = AccountCreateParams.Capabilities.builder()
-                        .setCardPayments(AccountCreateParams.Capabilities.CardPayments.builder().setRequested(true).build())
-                        .setTransfers(AccountCreateParams.Capabilities.Transfers.builder().setRequested(true).build())
-                        .build();
-
-                AccountCreateParams params = AccountCreateParams.builder()
-                        .setType(AccountCreateParams.Type.CUSTOM)
-                        .setCountry("IT")
-                        .setEmail(userDto.getEmail())
-                        .setCapabilities(capabilities)
-                        .build();
-                Account account = Account.create(params);
-                user.setStripeAccountId(account.getId());
-            } catch (StripeException e) {
-                throw new RuntimeException("Failed to create Stripe account: " + e.getMessage());
-            }
+//            try {
+//                AccountCreateParams.Capabilities capabilities = AccountCreateParams.Capabilities.builder()
+//                        .setCardPayments(AccountCreateParams.Capabilities.CardPayments.builder().setRequested(true).build())
+//                        .setTransfers(AccountCreateParams.Capabilities.Transfers.builder().setRequested(true).build())
+//                        .build();
+//
+//                AccountCreateParams params = AccountCreateParams.builder()
+//                        .setType(AccountCreateParams.Type.CUSTOM)
+//                        .setCountry("IT")
+//                        .setEmail(userDto.getEmail())
+//                        .setCapabilities(capabilities)
+//                        .build();
+//                Account account = Account.create(params);
+//                user.setStripeAccountId(account.getId());
+//            } catch (StripeException e) {
+//                throw new RuntimeException("Failed to create Stripe account: " + e.getMessage());
+//            }
 
             userRepository.save(user);
             sendMailRegistrazione(userDto.getEmail());
@@ -476,56 +476,56 @@ private void sendMailRegistrazione(String email) {
             if (currentBalance.compareTo(amount) < 0) {
                 throw new BadRequestException("Insufficient funds");
             }
-            if (user.getStripeAccountId() == null || user.getStripeAccountId().isEmpty()) {
-                throw new RuntimeException("Stripe account ID is missing for user " + user.getIdUtente());
-            }
+//            if (user.getStripeAccountId() == null || user.getStripeAccountId().isEmpty()) {
+//                throw new RuntimeException("Stripe account ID is missing for user " + user.getIdUtente());
+//            }
             BigDecimal newBalance = currentBalance.subtract(amount);
             user.setBalance(newBalance);
             userRepository.save(user);
             logTransaction(userId, null, 0, amount, "PRELIEVO");
             // Implementa la logica per trasferire i fondi all'utente (es. integrazione con un servizio di pagamento)
-            processWithdrawal(user, amount);
+           // processWithdrawal(user, amount);
             return user;
         } else {
             throw new RuntimeException("User not found");
         }
     }
 
-    private void processWithdrawal(User user, BigDecimal amount) {
-        // Implementa l'integrazione con il servizio di pagamento per processare il prelievo
-        try {
-            String stripeAccountId = user.getStripeAccountId();
-            if (stripeAccountId == null || stripeAccountId.isEmpty()) {
-                throw new RuntimeException("Stripe account ID is missing for user " + user.getIdUtente());
-            }
-
-            // Log il valore di stripeAccountId
-            System.out.println("Processing withdrawal for user " + user.getIdUtente() + " with Stripe account ID " + stripeAccountId);
-
-
-            Map<String, Object> transferParams = new HashMap<>();
-            transferParams.put("amount", amount.multiply(BigDecimal.valueOf(100)).intValue()); // Converti l'importo in centesimi
-            transferParams.put("currency", "eur");
-            transferParams.put("destination", stripeAccountId); // ID dell'account Stripe del destinatario
-
-            Transfer transfer = Transfer.create(transferParams);
-
-            // Logga l'operazione di prelievo
-            logWithdrawal(user, amount);
-
+//    private void processWithdrawal(User user, BigDecimal amount) {
+//        // Implementa l'integrazione con il servizio di pagamento per processare il prelievo
+//        try {
+//            String stripeAccountId = user.getStripeAccountId();
+//            if (stripeAccountId == null || stripeAccountId.isEmpty()) {
+//                throw new RuntimeException("Stripe account ID is missing for user " + user.getIdUtente());
+//            }
+//
+//            // Log il valore di stripeAccountId
+//            System.out.println("Processing withdrawal for user " + user.getIdUtente() + " with Stripe account ID " + stripeAccountId);
+//
+//
+//            Map<String, Object> transferParams = new HashMap<>();
+//            transferParams.put("amount", amount.multiply(BigDecimal.valueOf(100)).intValue()); // Converti l'importo in centesimi
+//            transferParams.put("currency", "eur");
+//            transferParams.put("destination", stripeAccountId); // ID dell'account Stripe del destinatario
+//
+//            Transfer transfer = Transfer.create(transferParams);
+//
+//            // Logga l'operazione di prelievo
+//            logWithdrawal(user, amount);
+//
+////            // Notifica all'utente via email
+////            SimpleMailMessage message = new SimpleMailMessage();
+////            message.setTo(user.getEmail());
+////            message.setSubject("Withdrawal Request");
+////            message.setText("Your withdrawal request for amount " + amount + " has been processed. Transaction ID: " + transfer.getId());
+////            javaMailSender.send(message);
+//
 //            // Notifica all'utente via email
-//            SimpleMailMessage message = new SimpleMailMessage();
-//            message.setTo(user.getEmail());
-//            message.setSubject("Withdrawal Request");
-//            message.setText("Your withdrawal request for amount " + amount + " has been processed. Transaction ID: " + transfer.getId());
-//            javaMailSender.send(message);
-
-            // Notifica all'utente via email
-            sendMailPrelievo(user, amount, transfer.getId());
-        } catch (StripeException e) {
-            throw new RuntimeException("Stripe transfer failed: " + e.getMessage());
-        }
-    }
+//            sendMailPrelievo(user, amount, transfer.getId());
+//        } catch (StripeException e) {
+//            throw new RuntimeException("Stripe transfer failed: " + e.getMessage());
+//        }
+//    }
 
     private void sendMailPrelievo(User user, BigDecimal amount, String transactionId) {
         try {
