@@ -34,7 +34,7 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/oauth2/**", "/public/**", "/users/**", "/options/**").permitAll()
+                        .requestMatchers("/auth/**", "/oauth2/**", "/public/**", "/users/**", "/options/**", "/favorites/**", "/logos/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
