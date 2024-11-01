@@ -30,7 +30,7 @@ public class Config implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable) // Disabilita CSRF per JWT
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
@@ -38,25 +38,14 @@ public class Config implements WebMvcConfigurer {
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
-                                .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
-                                .httpStrictTransportSecurity(hsts -> hsts
-                                        .includeSubDomains(true)
-                                        .maxAgeInSeconds(31536000))
-                                .frameOptions(frameOptions -> frameOptions.sameOrigin()) // Imposta frame options
-                        // Rimuovi contentTypeOptions() se nosniff() non è disponibile
+                        .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
+                        .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
+                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 );
 
         return httpSecurity.build();
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:4200", "https://capstone-production-cbda.up.railway.app")
-                .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
-    }
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
