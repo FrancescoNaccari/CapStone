@@ -37,8 +37,8 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
-                jwtTool.verifyToken(token);
-                int userId = jwtTool.getIdFromToken(token);
+                jwtTool.verifyToken(token);  // Verifica il token
+                int userId = jwtTool.getIdFromToken(token);  // Estrai l'ID utente dal token
 
                 Optional<User> userOptional = userService.getUserById(userId);
                 if (userOptional.isPresent()) {
@@ -51,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token non valido o mancante");
                 return;
             }
-        } else if (!shouldNotFilter(request)) {
+        } else if (!shouldNotFilter(request)) {  // Controlla se la rotta dovrebbe essere filtrata
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token non presente o invalido");
             return;
         }
@@ -61,10 +61,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return List.of("/auth/**", "/webhook/**", "/logos/**", "/error")
+        return List.of("/auth/**", "/webhook/**", "/logos/**")  // Lista delle rotte pubbliche
                 .stream()
                 .anyMatch(p -> new AntPathMatcher().match(p, request.getServletPath()));
     }
-
 
 }

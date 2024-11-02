@@ -29,6 +29,7 @@ import java.util.List;
 
 public class Config implements WebMvcConfigurer {
 
+
     @Autowired
     @Lazy
     private JwtFilter jwtFilter;
@@ -49,11 +50,9 @@ public class Config implements WebMvcConfigurer {
                 })
                 .and()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/api/payment", "/public/**", "/logos/**", "/error").permitAll()
-                        .requestMatchers("/users/**/balance", "/favorites/**").authenticated()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/auth/**", "/public/**", "/logos/**").permitAll()  // Rotte pubbliche
+                        .anyRequest().authenticated()  // Rotte protette
                 )
-
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();

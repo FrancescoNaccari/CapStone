@@ -41,13 +41,9 @@ export class AuthService {
   login(data: { email: string, password: string }) {
     return this.http.post<AuthData>(`${environment.apiBack}auth/login`, data).pipe(
       tap(async (user) => {
+        localStorage.setItem('token', user.accessToken); // Salva il token nel localStorage
         this.authSub.next(user);
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', user.accessToken); // Salva il token separatamente
-        this.autoLogout(user);
-        this.loadUserBalance(user.user.idUtente!);
-      }),
-      catchError(this.errors.bind(this))
+      })
     );
   }
   getToken(): string | null {
