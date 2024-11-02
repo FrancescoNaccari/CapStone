@@ -101,41 +101,49 @@ closeModal(): void {
 
   buyStock(): void {
     if (this.quantity <= 0) {
-      this.showAlert(this.translate.instant('stockTransaction.INVALID_QUANTITY'), 'danger');
-      return;
+        this.showAlert(this.translate.instant('stockTransaction.INVALID_QUANTITY'), 'danger');
+        return;
     }
 
     if (!this.isPriceLoaded || this.currentPrice === 0) {
-      this.showAlert(this.translate.instant('stockTransaction.PRICE_NOT_LOADED'), 'danger');
-      return;
+        this.showAlert(this.translate.instant('stockTransaction.PRICE_NOT_LOADED'), 'danger');
+        return;
     }
 
     const totalCost = this.currentPrice * this.quantity;
-    if (this.user && totalCost <= this.balance) {
-      const request: TransactionRequest = {
-        userId: this.user.idUtente!,
-        symbol: this.symbol,
-        quantity: this.quantity,
-        price: this.currentPrice
-      };
-      this.subscription.add(
-        this.transactionService.buyStock(request).subscribe({
-          next: (updatedUser) => {
-            this.authService.updateUser(updatedUser);
-            this.updateUserData(updatedUser);
-            this.authService.loadUserBalance(updatedUser.idUtente!);
 
-            this.updateOwnedQuantity();
-            this.transactionUpdated.emit();
-            this.showAlert(this.translate.instant('stockTransaction.SUCCESS_BUY'), 'success');
-          },
-          error: (error) => console.error('Errore durante l\'acquisto delle azioni:', error)
-        })
-      );
+    // Arrotonda il valore del prezzo a due cifre decimali
+    const roundedPrice = parseFloat(this.currentPrice.toFixed(2));
+
+    if (this.user && totalCost <= this.balance) {
+        const request: TransactionRequest = {
+            userId: this.user.idUtente!,
+            symbol: this.symbol,
+            quantity: this.quantity,
+            price: roundedPrice // Usa il valore arrotondato
+        };
+        
+        this.subscription.add(
+            this.transactionService.buyStock(request).subscribe({
+                next: (updatedUser) => {
+                    this.authService.updateUser(updatedUser);
+                    this.updateUserData(updatedUser);
+                    this.authService.loadUserBalance(updatedUser.idUtente!);
+
+                    this.updateOwnedQuantity();
+                    this.transactionUpdated.emit();
+                    this.showAlert(this.translate.instant('stockTransaction.SUCCESS_BUY'), 'success');
+                },
+                error: (error) => {
+                    console.error('Errore durante l\'acquisto delle azioni:', error);
+                    this.showAlert('Errore durante l\'acquisto delle azioni: ' + error.error, 'danger');
+                }
+            })
+        );
     } else {
-      this.showAlert(this.translate.instant('stockTransaction.INSUFFICIENT_BALANCE'), 'danger');
+        this.showAlert(this.translate.instant('stockTransaction.INSUFFICIENT_BALANCE'), 'danger');
     }
-  }
+}
 
   sellStock(): void {
     if (this.quantity <= 0) {

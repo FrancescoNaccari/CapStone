@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static nextDevs.CapstonebackEnd.service.UserService.logger;
+
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
@@ -42,14 +44,17 @@ public class TransactionController {
 
     @PostMapping("/buyStock")
     public ResponseEntity<?> buyStock(@RequestBody TransactionRequest request) {
+        logger.info("Richiesta ricevuta per buyStock: {}", request);
         try {
             User user = transactionService.buyStock(request.getUserId(), request.getSymbol(), request.getQuantity(), request.getPrice());
             UserDataDto userDto = convertToUserDataDto(user);
             return ResponseEntity.ok(userDto);
         } catch (Exception e) {
+            logger.error("Errore durante l'acquisto delle azioni: {}", e.getMessage());
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
+
 
     @PostMapping("/sellStock")
     public ResponseEntity<?> sellStock(@RequestBody TransactionRequest request) {

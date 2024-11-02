@@ -39,6 +39,10 @@ public class TransactionService {
     private JavaMailSenderImpl javaMailSender;
     private static final Logger logger = LoggerFactory.getLogger(TransactionService.class);
     public User buyStock(Integer userId, String symbol, int quantity, BigDecimal price) throws Exception {
+        if (userId == null || symbol == null || price == null) {
+            throw new IllegalArgumentException("I campi userId, symbol e price sono obbligatori.");
+        }
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new Exception("User not found"));
 
@@ -63,13 +67,12 @@ public class TransactionService {
 
         stockRepository.save(stock);
         userRepository.save(user);
-        // Log the transaction
         logTransaction(userId, symbol, quantity, price, "ACQUISTO");
-        // Invia email di riepilogo acquisto
         inviaEmailAcquisto(user, symbol, quantity, price);
 
         return user;
     }
+
 
     public User sellStock(Integer userId, String symbol, int quantity, BigDecimal price) throws Exception {
         User user = userRepository.findById(userId)
