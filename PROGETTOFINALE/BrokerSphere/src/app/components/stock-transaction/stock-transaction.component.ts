@@ -112,8 +112,8 @@ closeModal(): void {
 
     const totalCost = this.currentPrice * this.quantity;
 
-    // Arrotonda il valore del prezzo a due cifre decimali
-    const roundedPrice = parseFloat(this.currentPrice.toFixed(2));
+    // Assicurati che `currentPrice` sia un numero
+    const roundedPrice = typeof this.currentPrice === 'number' ? parseFloat(this.currentPrice.toFixed(2)) : 0;
 
     if (this.user && totalCost <= this.balance) {
         const request: TransactionRequest = {
@@ -122,7 +122,7 @@ closeModal(): void {
             quantity: this.quantity,
             price: roundedPrice // Usa il valore arrotondato
         };
-        
+
         this.subscription.add(
             this.transactionService.buyStock(request).subscribe({
                 next: (updatedUser) => {
@@ -144,6 +144,7 @@ closeModal(): void {
         this.showAlert(this.translate.instant('stockTransaction.INSUFFICIENT_BALANCE'), 'danger');
     }
 }
+
 
   sellStock(): void {
     if (this.quantity <= 0) {

@@ -38,34 +38,48 @@ export class StockCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getRealTimePrice();
-    this.getLogo();
-    this.favorites.forEach(favorite => {
-      if (favorite.symbol === this.stock.symbol) {
-        this.stock.favorite = true;
-      }
-    });
-  }
+    if (this.stock) {
+        this.getRealTimePrice();
+        this.getLogo();
+        this.favorites.forEach(favorite => {
+            if (favorite.symbol === this.stock.symbol) {
+                this.stock.favorite = true;
+            }
+        });
+    } else {
+        console.error('Stock non definito.');
+    }
+}
+
   isUserAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
   openModal(content: TemplateRef<any>) {
     if (!this.isUserAuthenticated()) {
-      this.showAlert(this.translate.instant('alerts.LOGIN_REQUIRED'), 'danger');
-      return;
+        this.showAlert(this.translate.instant('alerts.LOGIN_REQUIRED'), 'danger');
+        return;
     }
-  
+
+    if (!this.stock || !this.stock.symbol) {  // Check for undefined or missing symbol
+        console.error('Stock or stock symbol is undefined. Ensure stock is loaded properly.');
+        this.showAlert('Error: Stock information is missing', 'danger');
+        return;
+    }
+
     this.getRealTimePrice();
     const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: "static", keyboard: false });
     modalRef.componentInstance.symbol = this.stock.symbol;
     modalRef.componentInstance.currentPrice = this.stock.price;
     modalRef.componentInstance.userId = this.stock.userId;
     modalRef.result.then((result) => {
-      this.currentCartIcon = this.defaultCartIcon;
-    }, () => { this.currentCartIcon = this.defaultCartIcon;
-    })
+        this.currentCartIcon = this.defaultCartIcon;
+    }, () => {
+        this.currentCartIcon = this.defaultCartIcon;
+    });
     this.currentCartIcon = this.hoverCartIcon;
-  }
+}
+
+
   closeModal(modal: any) {
     modal.dismiss();
     this.currentCartIcon = this.defaultCartIcon;  // Ripristina l'icona originale alla chiusura del modal
