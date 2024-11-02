@@ -32,13 +32,22 @@ public class Config implements WebMvcConfigurer {
         httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .cors(Customizer.withDefaults())
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
+                    config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                    config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+                    config.setExposedHeaders(List.of("Authorization"));
+                    config.setAllowCredentials(true);
+                    return config;
+                }))
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().permitAll()  // Permetti tutte le richieste
+                        .requestMatchers("/api/payment", "/public/**").permitAll()
+                        .anyRequest().authenticated()
                 )
-
                 .headers(headers -> headers
-                        .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
+                        .contentSecurityPolicy(policy -> policy.policyDirectives(
+                                "default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
                         .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 );
@@ -46,20 +55,6 @@ public class Config implements WebMvcConfigurer {
         return httpSecurity.build();
     }
 
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setExposedHeaders(List.of("Authorization"));
-        config.setAllowCredentials(true);
-
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
