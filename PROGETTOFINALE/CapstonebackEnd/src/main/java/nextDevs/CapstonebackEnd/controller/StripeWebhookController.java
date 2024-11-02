@@ -22,8 +22,8 @@ import java.util.Optional;
 
 @RestController
 public class StripeWebhookController {
-//    @Value("${stripe.webhook.secret}")
-//    private String stripeSecret;
+    @Value("${stripe.webhook.secret}")
+    private String stripeSecret;
 
     @Autowired
     private UserService userService;
@@ -37,7 +37,7 @@ public class StripeWebhookController {
 
         Event event ;
         try {
-            event = Webhook.constructEvent(payload,signature, "whsec_C7dzDBbVNr3Y4m4tCGYWRUQyKoETELcy");
+            event = Webhook.constructEvent(payload,signature, stripeSecret);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Webhook Error: "+ e.getMessage());
         }

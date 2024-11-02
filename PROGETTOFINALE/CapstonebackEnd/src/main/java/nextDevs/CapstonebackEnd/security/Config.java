@@ -34,9 +34,9 @@ public class Config implements WebMvcConfigurer {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/oauth2/**", "/public/**", "/users/**", "/options/**", "/favorites/**", "/logos/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()  // Permetti tutte le richieste
                 )
+
                 .headers(headers -> headers
                         .contentSecurityPolicy(policy -> policy.policyDirectives("default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
