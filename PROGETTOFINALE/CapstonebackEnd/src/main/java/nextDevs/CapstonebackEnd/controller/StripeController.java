@@ -21,9 +21,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api")
 public class StripeController {
-    // create a Gson object
-    private static Gson gson = new Gson();
-
 
     @Value("${stripe.secret.key}")
     private String stripeSecretKey;
@@ -33,9 +30,9 @@ public class StripeController {
         Stripe.apiKey = stripeSecretKey;
     }
 
-
     @PostMapping("/payment")
     public String paymentWithCheckoutPage(@RequestBody CheckoutPayment payment) throws StripeException {
+        // Assicurati che l'API Stripe sia correttamente inizializzata
         System.out.println("Iniziando il pagamento per: " + payment.getClientReferenceId());
 
         SessionCreateParams params = SessionCreateParams.builder()
@@ -44,27 +41,25 @@ public class StripeController {
                 .setMode(SessionCreateParams.Mode.PAYMENT)
                 .setSuccessUrl(payment.getSuccessUrl())
                 .setCancelUrl(payment.getCancelUrl())
-                .addLineItem(SessionCreateParams.LineItem.builder()
-                        .setQuantity(payment.getQuantity())
-                        .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
-                                .setCurrency(payment.getCurrency())
-                                .setUnitAmount(payment.getAmount())
-                                .setProductData(SessionCreateParams.LineItem.PriceData.ProductData
-                                        .builder().setName(payment.getName()).build())
+                .addLineItem(
+                        SessionCreateParams.LineItem.builder()
+                                .setQuantity(payment.getQuantity())
+                                .setPriceData(
+                                        SessionCreateParams.LineItem.PriceData.builder()
+                                                .setCurrency(payment.getCurrency())
+                                                .setUnitAmount(payment.getAmount())
+                                                .setProductData(
+                                                        SessionCreateParams.LineItem.PriceData.ProductData.builder()
+                                                                .setName(payment.getName())
+                                                                .build())
+                                                .build())
                                 .build())
-                        .build())
                 .build();
 
-        try {
-            Session session = Session.create(params);
-            Map<String, String> responseData = new HashMap<>();
-            responseData.put("id", session.getId());
-            System.out.println("Sessione creata con successo, sessionId: " + session.getId());
-            return gson.toJson(responseData);
-        } catch (StripeException e) {
-            System.out.println("Errore Stripe: " + e.getMessage());
-            throw e;
-        }
+        Session session = Session.create(params);
+        Map<String, String> responseData = new HashMap<>();
+        responseData.put("id", session.getId());
+        return new Gson().toJson(responseData);
     }
 
 
