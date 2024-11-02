@@ -30,15 +30,15 @@ import java.util.List;
 public class Config implements WebMvcConfigurer {
 
     @Autowired
-    @Lazy  // Aggiungi Lazy qui per ritardare l'inizializzazione
+    @Lazy
     private JwtFilter jwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf().disable()
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .cors(cors -> cors.configurationSource(request -> {
+                .cors().configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
                     config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
@@ -46,41 +46,21 @@ public class Config implements WebMvcConfigurer {
                     config.setExposedHeaders(List.of("Authorization"));
                     config.setAllowCredentials(true);
                     return config;
-                }))
+                })
+                .and()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/login/oauth2/code/google", "/api/payment", "/public/**").permitAll()
+                        .requestMatchers("/auth/**", "/public/**", "/api/payment").permitAll()
                         .anyRequest().authenticated()
                 )
-
-                .headers(headers -> headers
-                        .contentSecurityPolicy(policy -> policy.policyDirectives(
-                                "default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
-                        .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
-                        .frameOptions(frameOptions -> frameOptions.sameOrigin())
-                );
-
-        // Aggiungi il filtro JWT prima del filtro UsernamePasswordAuthenticationFilter
-        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-
-        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
-        config.setExposedHeaders(List.of("Authorization"));
-        config.setAllowCredentials(true);
-
-        source.registerCorsConfiguration("/**", config);
-        return new CorsFilter(source);
-    }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }}
+    }
+
+
+}

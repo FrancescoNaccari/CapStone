@@ -21,7 +21,6 @@ public class JwtTool {
     @Value("${jwt.duration}")
     private long duration;
 
-
     public String createToken(User user) {
         return Jwts.builder()
                 .setIssuedAt(new Date())

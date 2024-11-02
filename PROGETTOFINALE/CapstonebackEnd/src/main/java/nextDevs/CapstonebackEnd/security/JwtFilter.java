@@ -37,13 +37,13 @@ public class JwtFilter extends OncePerRequestFilter {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
             try {
-                jwtTool.verifyToken(token);  // Verifica del token
-                int userId = jwtTool.getIdFromToken(token);  // Estrai userId
+                jwtTool.verifyToken(token);
+                int userId = jwtTool.getIdFromToken(token);
 
                 Optional<User> userOptional = userService.getUserById(userId);
                 if (userOptional.isPresent()) {
                     User user = userOptional.get();
-                    Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             user, null, user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
@@ -51,7 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token non valido o mancante");
                 return;
             }
-        } else {
+        } else if (!shouldNotFilter(request)) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token non presente o invalido");
             return;
         }
@@ -59,11 +59,9 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return List.of("/auth/**", "/webhook/**", "/logos/**")
-                .stream()
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return List.of("/auth/**", "/public/**", "/api/payment").stream()
                 .anyMatch(p -> new AntPathMatcher().match(p, request.getServletPath()));
     }
 
