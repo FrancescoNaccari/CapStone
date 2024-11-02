@@ -46,14 +46,26 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
-    public User getUserById(@PathVariable int id) throws NotFoundException {
+    public ResponseEntity<UserDataDto> getUserById(@PathVariable int id) throws NotFoundException {
         Optional<User> userOptional = userService.getUserById(id);
         if (userOptional.isPresent()) {
-            return userOptional.get();
+            User user = userOptional.get();
+            UserDataDto userDataDto = new UserDataDto();
+            userDataDto.setIdUtente(user.getIdUtente());
+            userDataDto.setEmail(user.getEmail());
+            userDataDto.setUsername(user.getUsername());
+            userDataDto.setNome(user.getNome());
+            userDataDto.setCognome(user.getCognome());
+            userDataDto.setTipoUtente(user.getTipoUtente());
+            userDataDto.setAvatar(user.getAvatar());
+            userDataDto.setBalance(user.getBalance());
+            userDataDto.setNewsletter(user.isNewsletter());
+            return ResponseEntity.ok(userDataDto);
         } else {
-            throw new NotFoundException("User con id: " + id + " non trovata");
+            throw new NotFoundException("User con id: " + id + " non trovato");
         }
     }
+
 
     @PutMapping("/users/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")

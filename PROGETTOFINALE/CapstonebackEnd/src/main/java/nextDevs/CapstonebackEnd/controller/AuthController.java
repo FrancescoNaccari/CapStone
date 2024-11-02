@@ -35,14 +35,11 @@ public class AuthController {
         return userService.saveUser(userDto);
     }
 
-    @PostMapping("/auth/login")
-    public AuthDataDto login(@RequestBody @Validated UserLoginDto userLoginDto, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            throw new BadRequestException(bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).
-                    reduce("", (s, s2) -> s+s2));
-        }
 
-        return authService.authenticateUserAndCreateToken(userLoginDto);
+    @PostMapping("/auth/login")
+    public ResponseEntity<AuthDataDto> login(@RequestBody UserLoginDto userLoginDto) {
+        AuthDataDto authDataDto = authService.login(userLoginDto);
+        return ResponseEntity.ok(authDataDto);
     }
 
     @RequestMapping(value = "/auth/register", method = RequestMethod.OPTIONS)

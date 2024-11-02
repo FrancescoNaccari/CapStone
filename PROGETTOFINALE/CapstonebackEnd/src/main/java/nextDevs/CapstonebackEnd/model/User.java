@@ -1,6 +1,7 @@
 package nextDevs.CapstonebackEnd.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -36,12 +37,11 @@ public class User implements UserDetails {
     private String stripeAccountId;
 
     @JsonManagedReference
-
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<FavoriteStock> listaFavoriti;
 
     @JsonManagedReference
-
     @OneToMany(mappedBy = "user")
     private List<Withdrawal> withdrawals;
 
