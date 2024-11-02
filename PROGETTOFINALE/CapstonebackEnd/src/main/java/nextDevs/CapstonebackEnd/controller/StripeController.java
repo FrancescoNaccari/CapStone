@@ -24,6 +24,8 @@ public class StripeController {
     private static Gson gson = new Gson();
 
 
+    @Value("${stripe.secret.key}")
+    private String stripeSecretKey;
 
 
     @PostMapping("/payment")
@@ -36,7 +38,7 @@ public class StripeController {
         // We initilize stripe object with the api key
        // init();
         // We create a  stripe session parameters
-
+        Stripe.apiKey = stripeSecretKey;
         SessionCreateParams params = SessionCreateParams.builder()
                 .setClientReferenceId(payment.getClientReferenceId())
                 // We will use the credit card payment method
@@ -54,13 +56,17 @@ public class StripeController {
                                                 .build())
                                 .build())
                 .build();
-        // create a stripe session
-        Session session = Session.create(params);
-        Map<String, String> responseData = new HashMap<>();
-        // We get the sessionId and we putted inside the response data you can get more info from the session object
-        responseData.put("id", session.getId());
-        // We can return only the sessionId as a String
-        return gson.toJson(responseData);
+        try {
+            // Crea una sessione di Stripe
+            Session session = Session.create(params);
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("id", session.getId());
+
+            return gson.toJson(responseData);
+        } catch (StripeException e) {
+            System.out.println("Errore durante la creazione della sessione Stripe: " + e.getMessage());
+            throw e;
+        }
     }
 
 

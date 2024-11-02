@@ -4,7 +4,7 @@ export const environment = {
     apiBack: 'https://capstone-production-cbda.up.railway.app/',
 
     stripe: 'pk_test_51PUreKI7SUiJXQFKtvhtNomss2WrPdmjBtY1f97lAAMMqjNtGcD59fZirAllv28b0mrMlgZnRsyC1uTPR7uzFt3a00kGizJcki',
-    serverUrl: '/api',
+    serverUrl: 'https://capstone-production-cbda.up.railway.app/api', // Cambia qui
     idGoogle:'800518808424-6uhijj53k3b0qq0butjpjc0m3mcver38.apps.googleusercontent.com',
 
     apikey1:'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',

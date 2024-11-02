@@ -62,16 +62,22 @@ export class CheckoutComponent {
       return;
     }
     
-    this.http.post(`${environment.serverUrl}/payment`, payment).subscribe((data: any) => {
-      stripe.redirectToCheckout({
-        sessionId: data.id,
-      }).then((result) => {
-        if (result.error) {
-          console.error('Errore durante il redirect a Stripe:', result.error.message);
-        } else {
-          this.paymentSuccess.emit();
-        }
-      });
+    this.http.post(`${environment.serverUrl}/payment`, payment).subscribe({
+      next: (data: any) => {
+        stripe.redirectToCheckout({
+          sessionId: data.id,
+        }).then((result) => {
+          if (result.error) {
+            console.error('Errore durante il redirect a Stripe:', result.error.message);
+          } else {
+            this.paymentSuccess.emit();
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Errore durante il pagamento:', error);
+        // Potresti anche mostrare un messaggio di errore all'utente
+      }
     });
   }
 

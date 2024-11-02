@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../environment/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, delay, retryWhen, throwError } from 'rxjs';
 import { QuoteBorse } from '../interface/quote-borse.interface';
 import { ApiKeyService } from './api-key.service';
 
@@ -16,19 +16,24 @@ private apiUrl = `${environment.apiURL}quote`;
   private fetchQuoteWithKey(symbol: string, apiKey: string): Observable<QuoteBorse> {
     const url = `${this.apiUrl}?format=json&outputsize=1&symbol=${symbol}`;
     const httpOptions = {
-      headers: new HttpHeaders({
-        'x-rapidapi-key': apiKey,
-        'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
-      })
+        headers: new HttpHeaders({
+            'x-rapidapi-key': apiKey,
+            'x-rapidapi-host': 'twelve-data1.p.rapidapi.com'
+        })
     };
 
     return this.http.get<QuoteBorse>(url, httpOptions).pipe(
-      catchError(error => {
-        console.error('Errore durante la chiamata API con la chiave:', apiKey, error);
-        return throwError(() => new Error('Chiamata API fallita'));
-      })
+        retryWhen(errors =>
+            errors.pipe(
+                delay(2000) // Aspetta 2 secondi prima di ritentare
+            )
+        ),
+        catchError(error => {
+            console.error('Errore durante la chiamata API con la chiave:', apiKey, error);
+            return throwError(() => new Error('Chiamata API fallita'));
+        })
     );
-  }
+}
 
   getQuote(symbol: string): Observable<QuoteBorse> {
     return new Observable<QuoteBorse>(observer => {
