@@ -49,11 +49,11 @@ public class Config implements WebMvcConfigurer {
                 })
                 .and()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/login/oauth2/code/google", "/api/payment", "/public/**", "/logos/**").permitAll()
-                        .requestMatchers("/users/**/balance").authenticated()
-                        .requestMatchers("/favorites/**").authenticated()
+                        .requestMatchers("/auth/**", "/api/payment", "/public/**", "/logos/**", "/error").permitAll()
+                        .requestMatchers("/users/**/balance", "/favorites/**").authenticated()
                         .anyRequest().authenticated()
                 )
+
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
