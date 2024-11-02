@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../environment/environment.development';
@@ -35,7 +35,10 @@ inviaNewsletter(newsletter: Newsletter): Observable<void> {
 }
 
 updateBalance(userId: number, amount: number): Observable<User> {
-  return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount });
+  const token = localStorage.getItem('token'); // Ottieni il token JWT dal localStorage
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+  return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount }, { headers });
 }
 
 withdrawBalance(userId: number, amount: number): Observable<number> {

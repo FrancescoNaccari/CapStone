@@ -1,5 +1,6 @@
 package nextDevs.CapstonebackEnd.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -27,6 +28,10 @@ import java.util.List;
 @EnableMethodSecurity//Permette di attivare la sicurezza sui metodi del controller con il PreAuthorized
 
 public class Config implements WebMvcConfigurer {
+
+    @Autowired
+    private JwtFilter jwtFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -43,6 +48,7 @@ public class Config implements WebMvcConfigurer {
                 }))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/payment", "/public/**").permitAll()
+                        .requestMatchers("/users/**").authenticated()  // Richiede autenticazione per accedere ai dati utente
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -51,6 +57,8 @@ public class Config implements WebMvcConfigurer {
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
                         .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 );
+        // Aggiungi il filtro JWT prima del filtro UsernamePasswordAuthenticationFilter
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

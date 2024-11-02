@@ -33,14 +33,19 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new UnauthorizedException("Errore in authorization, token mancante!");
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT mancante o non valido");
+            return;
         }
-        String token = authHeader.substring(7);
 
-        jwtTool.verifyToken(token);
+        String token = authHeader.substring(7);
+        try {
+            jwtTool.verifyToken(token);
+        } catch (Exception e) {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token JWT non valido");
+            return;
+        }
 
         int userId = jwtTool.getIdFromToken(token);
-
         Optional<User> userOptional = userService.getUserById(userId);
 
         if (userOptional.isPresent()) {
@@ -48,7 +53,8 @@ public class JwtFilter extends OncePerRequestFilter {
             Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
-            throw new NotFoundException("Utente non trovato con id " + userId);
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Utente non trovato con id " + userId);
+            return;
         }
 
         filterChain.doFilter(request, response);

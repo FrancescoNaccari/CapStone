@@ -3,7 +3,7 @@ export const environment = {
     apiURL: 'https://twelve-data1.p.rapidapi.com/',
     apiBack: 'https://capstone-production-cbda.up.railway.app/',
 
-    stripe: 'pk_test_51PUreKI7SUiJXQFKtvhtNomss2WrPdmjBtY1f97lAAMMqjNtGcD59fZirAllv28b0mrMlgZnRsyC1uTPR7uzFt3a00kGizJcki',
+    stripe: 'pk_test_51PVdX2GINOctzBKQcJ4lhEBSAnmmdAfi3k10Tfq7pL8JOrYOLnq4a4yDAfcZRVvIdecpESvxLJm4xLQlaZSoD1uh006YKOV4we',
     serverUrl: 'https://capstone-production-cbda.up.railway.app/api', // Cambia qui
     idGoogle:'800518808424-6uhijj53k3b0qq0butjpjc0m3mcver38.apps.googleusercontent.com',
 
