@@ -44,12 +44,14 @@ export class CheckoutComponent {
       }
     });
   }
+  errorMessage: string | null = null; // Aggiungi questa riga
 
+  // Metodo pay aggiornato
   async pay(amount: number): Promise<void> {
     const payment = {
       name: 'ricarica',
-      currency: 'eur', // moneta
-      amount: amount * 100, // Importo in centesimi
+      currency: 'eur',
+      amount: amount * 100,
       quantity: '1',
       cancelUrl: 'http://localhost:4200/cancel',
       successUrl: 'http://localhost:4200/success',
@@ -64,9 +66,7 @@ export class CheckoutComponent {
     
     this.http.post(`${environment.serverUrl}/payment`, payment).subscribe({
       next: (data: any) => {
-        stripe.redirectToCheckout({
-          sessionId: data.id,
-        }).then((result) => {
+        stripe.redirectToCheckout({ sessionId: data.id }).then((result) => {
           if (result.error) {
             console.error('Errore durante il redirect a Stripe:', result.error.message);
           } else {
@@ -76,10 +76,12 @@ export class CheckoutComponent {
       },
       error: (error) => {
         console.error('Errore durante il pagamento:', error);
-        // Potresti anche mostrare un messaggio di errore all'utente
+        this.errorMessage = 'Errore durante il pagamento, riprova più tardi.'; // Imposta il messaggio di errore
+        setTimeout(() => this.errorMessage = null, 3000);
       }
     });
   }
+  
 
   recharge() {
     if (this.rechargeAmount > 0) {

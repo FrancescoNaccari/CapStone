@@ -6,6 +6,7 @@ import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
 import com.stripe.exception.StripeException;
 import com.stripe.param.checkout.SessionCreateParams;
+import jakarta.annotation.PostConstruct;
 import nextDevs.CapstonebackEnd.model.CheckoutPayment;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,44 +28,41 @@ public class StripeController {
     @Value("${stripe.secret.key}")
     private String stripeSecretKey;
 
+    @PostConstruct
+    public void init() {
+        Stripe.apiKey = stripeSecretKey;
+    }
+
 
     @PostMapping("/payment")
-    /**
-     * Payment with Stripe checkout page
-     *
-     * @throws StripeException
-     */
     public String paymentWithCheckoutPage(@RequestBody CheckoutPayment payment) throws StripeException {
-        // We initilize stripe object with the api key
-       // init();
-        // We create a  stripe session parameters
-        Stripe.apiKey = stripeSecretKey;
+        System.out.println("Iniziando il pagamento per: " + payment.getClientReferenceId());
+
         SessionCreateParams params = SessionCreateParams.builder()
                 .setClientReferenceId(payment.getClientReferenceId())
-                // We will use the credit card payment method
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-                .setMode(SessionCreateParams.Mode.PAYMENT).setSuccessUrl(payment.getSuccessUrl())
-                .setCancelUrl(
-                        payment.getCancelUrl())
-                .addLineItem(
-                        SessionCreateParams.LineItem.builder().setQuantity(payment.getQuantity())
-                                .setPriceData(
-                                        SessionCreateParams.LineItem.PriceData.builder()
-                                                .setCurrency(payment.getCurrency()).setUnitAmount(payment.getAmount())
-                                                .setProductData(SessionCreateParams.LineItem.PriceData.ProductData
-                                                        .builder().setName(payment.getName()).build())
-                                                .build())
+                .setMode(SessionCreateParams.Mode.PAYMENT)
+                .setSuccessUrl(payment.getSuccessUrl())
+                .setCancelUrl(payment.getCancelUrl())
+                .addLineItem(SessionCreateParams.LineItem.builder()
+                        .setQuantity(payment.getQuantity())
+                        .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
+                                .setCurrency(payment.getCurrency())
+                                .setUnitAmount(payment.getAmount())
+                                .setProductData(SessionCreateParams.LineItem.PriceData.ProductData
+                                        .builder().setName(payment.getName()).build())
                                 .build())
+                        .build())
                 .build();
+
         try {
-            // Crea una sessione di Stripe
             Session session = Session.create(params);
             Map<String, String> responseData = new HashMap<>();
             responseData.put("id", session.getId());
-
+            System.out.println("Sessione creata con successo, sessionId: " + session.getId());
             return gson.toJson(responseData);
         } catch (StripeException e) {
-            System.out.println("Errore durante la creazione della sessione Stripe: " + e.getMessage());
+            System.out.println("Errore Stripe: " + e.getMessage());
             throw e;
         }
     }

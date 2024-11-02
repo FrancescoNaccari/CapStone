@@ -147,6 +147,8 @@ export class ProfiloComponent implements OnInit, OnDestroy {
         },
         (error) => {
           console.error(this.translate.instant('profile.UPDATE_ERROR'), error);
+          this.errorMessage = this.translate.instant('profile.UPDATE_ERROR'); // Visualizza il messaggio di errore
+          setTimeout(() => this.errorMessage = null, 3000);
         }
       );
     }
