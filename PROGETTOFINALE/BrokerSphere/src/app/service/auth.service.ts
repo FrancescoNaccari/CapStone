@@ -50,6 +50,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  
   updateUser(data: User) {
     const datas = this.authSub.getValue();
     if (datas) {
