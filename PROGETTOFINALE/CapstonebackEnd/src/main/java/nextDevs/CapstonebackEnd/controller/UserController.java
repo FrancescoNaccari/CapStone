@@ -111,6 +111,7 @@ public class UserController {
     @PutMapping("/users/{userId}/balance")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
     public ResponseEntity<User> updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
+        logger.info("Updating balance for user ID: {} with amount: {}", userId, balanceRequest.getAmount());
         try {
             User updatedUser = userService.updateBalance(userId, balanceRequest.getAmount());
             return ResponseEntity.ok(updatedUser);
@@ -119,6 +120,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
 
     @PostMapping("/api/users/{id}/withdraw")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
