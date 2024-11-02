@@ -38,18 +38,20 @@ export class AuthService {
       })
     );
   }
-
   login(data: { email: string, password: string }) {
-    console.log(data);
     return this.http.post<AuthData>(`${environment.apiBack}auth/login`, data).pipe(
       tap(async (user) => {
         this.authSub.next(user);
         localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', user.accessToken); // Salva il token separatamente
         this.autoLogout(user);
         this.loadUserBalance(user.user.idUtente!);
       }),
       catchError(this.errors.bind(this))
     );
+  }
+  getToken(): string | null {
+    return localStorage.getItem('token');
   }
 
   updateUser(data: User) {

@@ -35,9 +35,7 @@ inviaNewsletter(newsletter: Newsletter): Observable<void> {
 }
 
 updateBalance(userId: number, amount: number): Observable<User> {
-  const token = localStorage.getItem('token'); // Ottieni il token JWT dal localStorage
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getToken()}`);
   return this.http.put<User>(`${this.apiBack}users/${userId}/balance`, { amount }, { headers });
 }
 
