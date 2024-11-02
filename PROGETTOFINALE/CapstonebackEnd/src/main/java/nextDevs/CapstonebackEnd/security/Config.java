@@ -30,6 +30,7 @@ import java.util.List;
 public class Config implements WebMvcConfigurer {
 
     @Autowired
+    @Lazy  // Aggiungi Lazy qui per ritardare l'inizializzazione
     private JwtFilter jwtFilter;
 
     @Bean
@@ -48,7 +49,7 @@ public class Config implements WebMvcConfigurer {
                 }))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/payment", "/public/**").permitAll()
-                        .requestMatchers("/users/**").authenticated()  // Richiede autenticazione per accedere ai dati utente
+                        .requestMatchers("/users/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers
@@ -57,11 +58,27 @@ public class Config implements WebMvcConfigurer {
                         .httpStrictTransportSecurity(hsts -> hsts.includeSubDomains(true).maxAgeInSeconds(31536000))
                         .frameOptions(frameOptions -> frameOptions.sameOrigin())
                 );
+
         // Aggiungi il filtro JWT prima del filtro UsernamePasswordAuthenticationFilter
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowedOrigins(List.of("http://localhost:4200", "https://capstone-production-cbda.up.railway.app"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        config.setExposedHeaders(List.of("Authorization"));
+        config.setAllowCredentials(true);
+
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
+    }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
