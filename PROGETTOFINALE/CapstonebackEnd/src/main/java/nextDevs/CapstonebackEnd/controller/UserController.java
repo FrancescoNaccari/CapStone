@@ -110,20 +110,13 @@ public class UserController {
 
     @PutMapping("/users/{userId}/balance")
     @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
-    public ResponseEntity<?> updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
-        logger.info("Richiesta per aggiornare il bilancio dell'utente con ID: " + userId);
-        logger.info("Importo richiesto: " + balanceRequest.getAmount());
-
+    public ResponseEntity<User> updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
         try {
             User updatedUser = userService.updateBalance(userId, balanceRequest.getAmount());
-            logger.info("Bilancio aggiornato con successo per l'utente con ID: " + userId);
             return ResponseEntity.ok(updatedUser);
-        } catch (NotFoundException e) {
-            logger.error("Errore: utente non trovato per l'ID: " + userId, e);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (Exception e) {
-            logger.error("Errore interno durante l'aggiornamento del bilancio per l'utente con ID: " + userId, e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'aggiornamento del bilancio: " + e.getMessage());
+            logger.error("Error updating balance for user ID {}: {}", userId, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 

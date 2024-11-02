@@ -397,20 +397,17 @@ private void sendMailRegistrazione(String email) {
     }
 
     public User updateBalance(Integer userId, BigDecimal amount) {
-        logger.info("Richiesta di aggiornamento bilancio per utente con ID: " + userId + ", importo: " + amount);
-
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
             BigDecimal newBalance = currentBalance.add(amount);
             user.setBalance(newBalance);
-            logger.info("Nuovo bilancio per l'utente " + userId + ": " + newBalance);
-
             userRepository.save(user);
-            System.out.println("Updated balance for user " + userId + ": " + newBalance);
+            logger.info("Updated balance for user {}: {}", userId, newBalance);
             return user;
         } else {
+            logger.error("User not found for ID: {}", userId);
             throw new RuntimeException("User not found");
         }
     }
