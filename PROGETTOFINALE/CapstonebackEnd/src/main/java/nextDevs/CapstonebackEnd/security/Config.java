@@ -51,6 +51,7 @@ public class Config implements WebMvcConfigurer {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login", "/auth/login/oauth2/code/google", "/api/payment", "/public/**", "/logos/**").permitAll()
                         .requestMatchers("/users/**/balance").authenticated()
+                        .requestMatchers("/favorites/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
