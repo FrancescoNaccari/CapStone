@@ -48,10 +48,10 @@ public class Config implements WebMvcConfigurer {
                     return config;
                 }))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/payment", "/public/**").permitAll()
-                        .requestMatchers("/users/**").authenticated()
+                        .requestMatchers("/auth/login", "/auth/login/oauth2/code/google", "/api/payment", "/public/**").permitAll()
                         .anyRequest().authenticated()
                 )
+
                 .headers(headers -> headers
                         .contentSecurityPolicy(policy -> policy.policyDirectives(
                                 "default-src 'self'; connect-src 'self' https://accounts.google.com https://capstone-production-cbda.up.railway.app"))
