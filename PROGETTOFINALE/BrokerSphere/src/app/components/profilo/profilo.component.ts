@@ -45,10 +45,8 @@ export class ProfiloComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authSrv.user$.subscribe((data) => {
-      console.log(data);
       if (isAuthData(data)) {
         this.profilo = data.user;
-        console.log(this.profilo.balance);
         this.newUsername = this.profilo?.username || '';
         this.previewUrl = this.profilo?.avatar || "";
         this.balance = this.profilo?.balance || 0;

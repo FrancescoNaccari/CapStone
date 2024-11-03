@@ -65,7 +65,6 @@ export class GoogleLoginComponent implements AfterViewInit {
 
   handleCredentialResponse(response: any) {
     if (response && response.credential) {
-      console.log('Encoded JWT ID token: ' + response.credential);
       this.sendTokenToBackend(response.credential);
     } else {
       console.error('Credenziali non valide', response);

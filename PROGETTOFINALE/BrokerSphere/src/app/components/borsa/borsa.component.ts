@@ -1,60 +1,3 @@
-// //   ngOnInit(): void {
-// //     this.getTimeSeries(this.interval);
-// //     this.getStocks();
-// //     this.initChart();
-// //     this.getLogo();
-// //     this.favorites.forEach(favorite=>{
-// //       if(favorite.symbol === this.stock.symbol){
-// //         this.stock.favorite = true;
-// //       }
-// //     })
-// //     // this.loadAllSymbols();
-
-// //     // Aggiorna il prezzo ogni 10 secondi
-// //     setInterval(() => {
-// //       this.getRealTimePrice();
-// //     }, 60000);//da cambiare
-// //   }
-// //   ngAfterViewInit(): void {
-// //     this.initChart();
-// //   }
-// //   //---------------------METODO PER SALVARE I LOGHI NEL DATABASE-----------------------------//
-// //   // loadAllSymbols(): void {
-// //   //   this.stockListService.getStockList().subscribe({
-// //   //     next: (stocks: StockList[]) => {
-// //   //       this.stocks = stocks;
-// //   //       const symbols = this.stocks.map(stock => stock.symbol);
-// //   //       this.loadAllLogos(symbols);
-// //   //     },
-// //   //     error: err => {
-// //   //       console.error('Errore durante il recupero dei simboli', err);
-// //   //     }
-// //   //   });
-// //   // }
-
-// //   // loadAllLogos(symbols: string[]): void {
-// //   //   this.logoBorsaService.getAllLogos(symbols).subscribe({
-// //   //     next: logos => {
-// //   //       this.sendLogosToBackend(logos);
-// //   //     },
-// //   //     error: err => {
-// //   //       console.error('Errore durante il recupero dei loghi', err);
-// //   //     }
-// //   //   });
-// //   // }
-
-// //   // sendLogosToBackend(logos: LogoDto[]): void {
-// //   //   const url = `${environment.apiBack}logos`; // URL del tuo backend
-// //   //   this.http.post(url, logos).subscribe({
-// //   //     next: response => {
-// //   //       console.log('Loghi inviati al backend con successo', response);
-// //   //     },
-// //   //     error: err => {
-// //   //       console.error('Errore durante l\'invio dei loghi al backend', err);
-// //   //     }
-// //   //   });
-// //   // }
-
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -260,7 +203,6 @@ export class BorsaComponent implements OnInit {
             }
           });
           this.price = response.price;
-          console.log(this.price)
           this.stock.price = response.price;
           this.getPreviousClosePrice(response.price);
         },
@@ -398,7 +340,6 @@ export class BorsaComponent implements OnInit {
       const bestPrice = Math.max(...this.timeSeries.values.map(value => Number(value.high)));
       this.bestPrice = bestPrice;
     } else {
-      console.log('Nessuna serie temporale disponibile.');
     }
   }
 

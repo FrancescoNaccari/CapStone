@@ -99,7 +99,7 @@ public class UserService {
             userRepository.save(user);
             sendMailRegistrazione(userDto.getEmail());
             // Log l'ID dell'account Stripe
-            System.out.println("User created with Stripe account ID: " + user.getStripeAccountId());
+           // System.out.println("User created with Stripe account ID: " + user.getStripeAccountId());
 
             return user.getIdUtente();
         } else {
@@ -404,10 +404,10 @@ private void sendMailRegistrazione(String email) {
             BigDecimal newBalance = currentBalance.add(amount);
             user.setBalance(newBalance);
             userRepository.save(user);
-            logger.info("Updated balance for user {}: {}", userId, newBalance);
+         //logger.info("Updated balance for user {}: {}", userId, newBalance);
             return user;
         } else {
-            logger.error("User not found for ID: {}", userId);
+           // logger.error("User not found for ID: {}", userId);
             throw new RuntimeException("User not found");
         }
     }
@@ -458,7 +458,7 @@ private void sendMailRegistrazione(String email) {
             BigDecimal newBalance = currentBalance.add(amount);
             user.setBalance(newBalance);
             userRepository.save(user);
-            System.out.println("Saldo ricaricato per l'utente " + userId + ": " + newBalance);
+            //System.out.println("Saldo ricaricato per l'utente " + userId + ": " + newBalance);
             logTransaction(userId, null, 0, amount, "DEPOSITO");
             // Invia notifica via email
             inviaEmailRicarica(user, amount);
@@ -573,7 +573,7 @@ private void sendMailRegistrazione(String email) {
 
     private void logWithdrawal(User user, BigDecimal amount) {
         // Logga l'operazione di prelievo per scopi di auditing
-        System.out.println("User " + user.getIdUtente() + " requested withdrawal of amount " + amount);
+        //System.out.println("User " + user.getIdUtente() + " requested withdrawal of amount " + amount);
     }
 
     public List<Stock> getUserStocks(Integer userId) {

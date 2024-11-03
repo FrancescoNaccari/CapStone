@@ -27,7 +27,6 @@ export class PrelevaModalComponent {
     if (this.withdrawAmount > 0 && this.userId !== undefined) {
       this.profiloSrv.withdrawBalance(this.userId, this.withdrawAmount).subscribe(
         (updatedUser) => {
-          console.log(updatedUser);
           this.authSrv.updateUser2(updatedUser); // Aggiorna il profilo dell'utente
           this.successMessage = 'Prelievo effettuato con successo.';
           setTimeout(() => {

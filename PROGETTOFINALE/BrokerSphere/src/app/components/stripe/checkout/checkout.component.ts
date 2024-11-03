@@ -101,7 +101,6 @@ export class CheckoutComponent {
           if (this.user?.idUtente) {
             this.profiloSrv.withdrawBalance(this.user.idUtente, this.withdrawAmount).subscribe(
               (updatedUser) => {
-                console.log(updatedUser);
                 this.authSrv.updateUser2(updatedUser); // Aggiorna il profilo dell'utente
                 this.paymentSuccess.emit();
                 this.translate.get('CHECKOUT.WITHDRAW_SUCCESS', { amount: this.withdrawAmount }).subscribe((res: string) => {

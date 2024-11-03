@@ -106,7 +106,6 @@ export class AuthService {
 
   private errors(err: any) {
     let errorKey = '';
-    console.log(err);
     switch (err.error.message) {
       case 'Email already exists':
         errorKey = 'auth.EMAIL_EXISTS';

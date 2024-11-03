@@ -13,7 +13,6 @@ export class CurrencyFormatPipe implements PipeTransform {
       if(typeof value != 'number'){
         value=parseFloat(value);
       }
-    console.log(value)
 
     let result = '\\d(?=(\\d{' + chunkLength + '})+' + (decimalLength > 0 ? '\\D' : '$') + ')';
     let num = value.toFixed(Math.max(0, ~~decimalLength));
