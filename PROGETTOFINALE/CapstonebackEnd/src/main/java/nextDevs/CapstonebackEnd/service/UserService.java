@@ -337,7 +337,7 @@ private void sendMailRegistrazione(String email) {
                         <p>Grazie per esserti registrato!</p>
                         <p>Distinti saluti,</p>
                         <p>Il Team di Supporto</p>
-                        <a href="http://localhost:4200/login" class="button">Accedi</a>
+                        <a href="https://broker-spher.web.app/login" class="button">Accedi</a>
                     </div>
                     <div class="social-icons">
                         <a href="https://facebook.com"><img src="cid:facebookIcon" alt="Facebook"></a>
@@ -346,7 +346,7 @@ private void sendMailRegistrazione(String email) {
                     </div>
                     <div class="footer">
                         Copyright © 2024 BrokerSphere. Tutti i diritti riservati.<br>
-                        <a href="http://localhost:4200/profilo">Disiscriviti</a> | <a href="http://localhost:4200/privacy-policy">Privacy</a>
+                        <a href="https://broker-spher.web.app/profilo">Disiscriviti</a> | <a href="https://broker-spher.web.app/privacy-policy">Privacy</a>
                     </div>
                 </div>
             </body>
