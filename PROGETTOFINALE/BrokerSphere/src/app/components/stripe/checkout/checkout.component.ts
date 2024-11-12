@@ -53,8 +53,8 @@ export class CheckoutComponent {
       currency: 'eur',
       amount: amount * 100,
       quantity: '1',
-      cancelUrl: 'http://localhost:4200/cancel',
-      successUrl: 'http://localhost:4200/success',
+      cancelUrl: 'https://broker-spher.web.app/cancel',
+      successUrl: 'https://broker-spher.web.app/success',
       clientReferenceId: this.user?.idUtente
     };
 
