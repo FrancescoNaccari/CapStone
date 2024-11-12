@@ -34,8 +34,8 @@ export class DepositaModalComponent {
         currency: 'eur', // moneta
         amount: this.rechargeAmount * 100, // Importo in centesimi
         quantity: '1',
-        cancelUrl: 'http://localhost:4200/cancel',
-        successUrl: 'http://localhost:4200/success',
+        cancelUrl: 'https://broker-spher.web.app/cancel',
+        successUrl: 'https://broker-spher.web.app/success',
         clientReferenceId: this.userId
       };
 
