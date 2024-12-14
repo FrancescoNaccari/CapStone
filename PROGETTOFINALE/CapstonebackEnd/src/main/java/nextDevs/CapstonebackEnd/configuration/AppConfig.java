@@ -17,7 +17,7 @@ import java.util.Properties;
 @PropertySource("application.properties")
 public class AppConfig {
 
-    @Value("${STRIPE.KEY}")
+    @Value("${stripe.secret.key}")
     private String stripeKey;
 
 @PostConstruct
