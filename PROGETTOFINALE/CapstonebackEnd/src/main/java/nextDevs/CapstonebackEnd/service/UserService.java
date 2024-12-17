@@ -577,10 +577,9 @@ private void sendMailRegistrazione(String email) {
     }
 
     public List<Stock> getUserStocks(Integer userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> userOptional = userRepository.findByIdWithStocks(userId);
         if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            return user.getStocks();
+            return userOptional.get().getStocks();
         } else {
             throw new NotFoundException("User with id " + userId + " not found");
         }

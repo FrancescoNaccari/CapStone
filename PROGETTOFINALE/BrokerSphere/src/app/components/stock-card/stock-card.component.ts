@@ -68,9 +68,9 @@ export class StockCardComponent implements OnInit {
 
     this.getRealTimePrice();
     const modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title', backdrop: "static", keyboard: false });
-    modalRef.componentInstance.symbol = this.stock.symbol;
-    modalRef.componentInstance.currentPrice = this.stock.price;
-    modalRef.componentInstance.userId = this.stock.userId;
+    // modalRef.componentInstance.symbol = this.stock.symbol;
+    // modalRef.componentInstance.currentPrice = this.stock.price;
+    // modalRef.componentInstance.userId = this.stock.userId;
     modalRef.result.then((result) => {
         this.currentCartIcon = this.defaultCartIcon;
     }, () => {

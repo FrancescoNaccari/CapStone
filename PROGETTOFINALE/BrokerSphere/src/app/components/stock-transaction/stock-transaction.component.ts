@@ -30,6 +30,7 @@ export class StockTransactionComponent implements OnInit, OnChanges {
   user: User | null = null;
   private subscription: Subscription = new Subscription();
   isPriceLoaded: boolean = false;
+  stocks: Stock[] = [];
 
   constructor(
     private authService: AuthService,
@@ -45,7 +46,18 @@ export class StockTransactionComponent implements OnInit, OnChanges {
       this.authService.user$.subscribe((data) => {
         this.user = data?.user || null;
         this.balance = this.user?.balance || 0;
-        this.updateOwnedQuantity();
+        if (this.user?.idUtente) {
+          this.transactionService.getUserStocks(this.user.idUtente).subscribe(
+            (stocks) => {
+              this.stocks = stocks;
+              console.log('Loaded stocks:', this.stocks);
+              this.updateOwnedQuantity();
+            },
+            (error) => {
+              console.error('Error loading user stocks:', error);
+            }
+          );
+        }
       })
     );
     this.getRealTimePrice();
@@ -94,7 +106,7 @@ closeModal(): void {
 
   updateOwnedQuantity(): void {
     if (this.user) {
-      const ownedStock = this.user.stocks?.find(stock => stock.symbol === this.symbol);
+      const ownedStock = this.stocks?.find(stock => stock.symbol === this.symbol);
       this.ownedQuantity = ownedStock ? ownedStock.quantity : 0;
     }
   }
