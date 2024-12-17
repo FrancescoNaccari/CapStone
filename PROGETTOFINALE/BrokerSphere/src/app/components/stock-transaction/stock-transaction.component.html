@@ -15,7 +15,7 @@
     </div>
     
     <div class="col-12 text-start d-flex mt-4 my-1 p-0 justify-content-center">
-      <button type="button" class="btn border-0 text-white text-center mx-4 p-0 ps-sm-3 px-2 " (click)="buyStock()" [disabled]="!isPriceLoaded">
+      <button type="button" class="btn border-0 text-white text-center mx-4 p-0 ps-sm-3 px-2 " (click)="buyStock()" [disabled]="!isPriceLoaded || currentPrice <= 0">
         {{ 'stockTransaction.BUY' | translate }} <img src="../../../assets/img/ICON_BUY-ACQUISTARE-WH.png" alt="Buy Icon" class="mb-2" style="width: 30px; height: 30px;">
       </button>
       <button type="button" class="btn border-0 text-white mx-4 text-center p-0 ps-sm-4 px-3 " (click)="sellStock()" [disabled]="!isPriceLoaded || ownedQuantity === 0">

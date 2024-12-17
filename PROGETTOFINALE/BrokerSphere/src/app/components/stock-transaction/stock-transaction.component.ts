@@ -96,10 +96,12 @@ closeModal(): void {
     this.subscription.add(
       this.realTimePriceService.getRealTimePrice(this.symbol).subscribe({
         next: (response) => {
-          this.currentPrice = response.price;
+          this.currentPrice =  Number(response.price); 
           this.isPriceLoaded = true;
         },
-        error: (error) => console.error(this.translate.instant('stockTransaction.PRICE_NOT_LOADED'), error)
+        error: (error) =>{ console.error(this.translate.instant('stockTransaction.PRICE_NOT_LOADED'), error);
+        this.isPriceLoaded = false;
+        this.currentPrice = 0;}
       })
     );
   }
@@ -112,21 +114,24 @@ closeModal(): void {
   }
 
   buyStock(): void {
+    console.log('Tentativo di acquisto:', {
+      currentPrice: this.currentPrice,
+      isPriceLoaded: this.isPriceLoaded,
+      quantity: this.quantity
+    });
     if (this.quantity <= 0) {
         this.showAlert(this.translate.instant('stockTransaction.INVALID_QUANTITY'), 'danger');
         return;
     }
 
-    if (!this.isPriceLoaded || this.currentPrice === 0) {
+    if (!this.isPriceLoaded || this.currentPrice <= 0) {
         this.showAlert(this.translate.instant('stockTransaction.PRICE_NOT_LOADED'), 'danger');
         return;
     }
 
-    const totalCost = this.currentPrice * this.quantity;
-
-    // Assicurati che `currentPrice` sia un numero
-    const roundedPrice = typeof this.currentPrice === 'number' ? parseFloat(this.currentPrice.toFixed(2)) : 0;
-
+    const roundedPrice = parseFloat(this.currentPrice.toFixed(2));
+    const totalCost = roundedPrice * this.quantity;
+    
     if (this.user && totalCost <= this.balance) {
         const request: TransactionRequest = {
             userId: this.user.idUtente!,
