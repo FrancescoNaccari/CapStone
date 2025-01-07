@@ -1,6 +1,7 @@
 package nextDevs.CapstonebackEnd.controller;
 
 
+import jakarta.transaction.Transactional;
 import nextDevs.CapstonebackEnd.dto.UpdatePasswordDto;
 import nextDevs.CapstonebackEnd.dto.UserDataDto;
 import nextDevs.CapstonebackEnd.dto.UserDto;
@@ -122,14 +123,12 @@ public class UserController {
     }
 
     @PutMapping("/users/{userId}/balance")
-    @PreAuthorize("hasAnyAuthority('ADMIN','USER')")
+    @Transactional
     public ResponseEntity<?> updateBalance(@PathVariable Integer userId, @RequestBody BalanceRequest balanceRequest) {
         logger.info("Updating balance for user ID: {} with amount: {}", userId, balanceRequest.getAmount());
         try {
             User updatedUser = userService.updateBalance(userId, balanceRequest.getAmount());
             return ResponseEntity.ok(updatedUser);
-        } catch (UnauthorizedException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Non autorizzato a modificare il saldo");
         } catch (Exception e) {
             logger.error("Errore durante l'aggiornamento del saldo per l'utente ID {}: {}", userId, e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore interno del server");

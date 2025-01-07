@@ -47,11 +47,15 @@ public class JwtFilter extends OncePerRequestFilter {
                             user, null, user.getAuthorities());
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
+
             } catch (Exception e) {
+                System.out.println("token non valido");
                 response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token non valido o mancante");
                 return;
             }
-        } else if (!shouldNotFilter(request)) {  // Controlla se la rotta dovrebbe essere filtrata
+        } else if (!shouldNotFilter(request)) {// Controlla se la rotta dovrebbe essere filtrata
+            System.out.println("token non presente");
+
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Token non presente o invalido");
             return;
         }

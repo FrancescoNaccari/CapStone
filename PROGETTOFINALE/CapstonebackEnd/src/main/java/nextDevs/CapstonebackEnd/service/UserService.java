@@ -403,9 +403,8 @@ private void sendMailRegistrazione(String email) {
             BigDecimal currentBalance = user.getBalance() != null ? user.getBalance() : BigDecimal.ZERO;
             BigDecimal newBalance = currentBalance.add(amount);
             user.setBalance(newBalance);
-            userRepository.save(user);
          //logger.info("Updated balance for user {}: {}", userId, newBalance);
-            return user;
+            return userRepository.save(user);
         } else {
            // logger.error("User not found for ID: {}", userId);
             throw new RuntimeException("User not found");

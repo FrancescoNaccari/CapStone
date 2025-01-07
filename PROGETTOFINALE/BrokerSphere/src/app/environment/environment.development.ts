@@ -1,10 +1,10 @@
 export const environment = {
     production: false,
     apiURL: 'https://twelve-data1.p.rapidapi.com/',
-    apiBack: 'https://brokersphere.ns0.it/',
+    apiBack: 'https://brokersphere.freeddns.it/',
 
     stripe: 'pk_test_51PVdX2GINOctzBKQcJ4lhEBSAnmmdAfi3k10Tfq7pL8JOrYOLnq4a4yDAfcZRVvIdecpESvxLJm4xLQlaZSoD1uh006YKOV4we',
-    serverUrl: 'https://brokersphere.ns0.it/api', // Cambia qui
+    serverUrl: 'https://brokersphere.freeddns.it/api', // Cambia qui
     idGoogle:'800518808424-6uhijj53k3b0qq0butjpjc0m3mcver38.apps.googleusercontent.com',
 
     apikey1:'bc8942ba1amshb7e93717f1c3565p163688jsnee2f17033f11',
